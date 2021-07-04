@@ -4,8 +4,8 @@ import ContainerInside from "@components/containerInside";
 
 export default function Home(): JSX.Element {
 	return (
-		<Container>
-			<ContainerInside bg="bg.secondary" h={100}>
+		<Container bg="bg.secondary">
+			<ContainerInside h={100}>
 				<Button>Open Dashboard</Button>
 			</ContainerInside>
 		</Container>

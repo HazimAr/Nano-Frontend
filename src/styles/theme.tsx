@@ -4,13 +4,15 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
 	colors: {
 		bg: {
-			primary: "#2d2734",
-			secondary: "#211f24",
+			primary:
+				"hsl(267.15328467153284, 14.285714285714283%, 17.84313725490196%)",
+			secondary:
+				"hsl(267.15328467153284, 7.462686567164178%, 13.137254901960786%)",
 		},
 		brand: {
 			error: "#cf6679",
 			secondary: "#f6a",
-			primary: "#a6f",
+			primary: "#7549ac",
 			primary2: "#fcd270",
 		},
 		text: {
