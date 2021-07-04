@@ -28,9 +28,20 @@ const theme = extendTheme({
 				height: "100%",
 			},
 			body: {
-				fontFamily: "body",
+				fontFamily:
+					"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 				color: "white",
 				lineHeight: "base",
+				padding: 0,
+				margin: 0,
+				backgroundColor: "#171a23",
+			},
+			a: {
+				color: "inherit",
+				textDecoration: "none",
+			},
+			ul: {
+				listStyle: "none",
 			},
 		}),
 	},
