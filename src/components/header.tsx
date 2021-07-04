@@ -1,46 +1,44 @@
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import styled from "styled-components";
-
-const Header = styled.header`
-	background-color: #1a202c;
-	padding: 5px 50px;
-	display: flex;
-	box-sizing: border-box;
-	border-top: 5px #5cfff1 solid;
-	justify-content: space-between;
-	align-items: center;
-`;
-const StyledLink = styled.a`
-	margin: 0 20px;
-`;
-
-export const headerOptions = [
-	["Home", "/#"],
-	["Services", "/#services"],
-	["Portfolio", "/#portfolio"],
-	["Pricing", "/#pricing"],
-	["Contact", "/contact"],
-];
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
+import Container from "@components/container";
+import ContainerInside from "@components/containerInside";
 
 // eslint-disable-next-line import/no-default-export
-export default function Main(): JSX.Element {
+export default function Header(): JSX.Element {
 	return (
-		<Header>
-			<h2>NextJS Boilerplate</h2>
-			<div>
-				<StyledLink
-					href="https://github.com/HazimAr/"
-					aria-label="Github"
-				>
-					<FaGithub size="30px" />
-				</StyledLink>
-				<StyledLink
-					href="https://www.linkedin.com/in/hazim-arafa-a439aa205/"
-					aria-label="LinkedIn"
-				>
-					<FaLinkedin size="30px" />
-				</StyledLink>
-			</div>
-		</Header>
+		<>
+			<Container
+				bg="brand.purple.light"
+				as="header"
+				py="10px"
+				w="100%"
+				position="fixed"
+			>
+				<ContainerInside>
+					<Flex
+						justify="space-between"
+						align="center"
+						flexWrap="wrap"
+					>
+						<Link href="/" _hover={{}}>
+							<Flex justify="center" align="center">
+								<Image src="/logo.png" w={30} />
+								<Text ml={2.5}>School Simplified</Text>
+							</Flex>
+						</Link>
+						{/* <Flex>
+					<Link href="/about" mr="7px">
+						About Us
+					</Link>
+					<Link href="/contact" mr="7px">
+						Contact
+					</Link>
+					<Link href="/donate">Donate</Link>
+				</Flex> */}
+						I will add this later, have a good idea
+					</Flex>
+				</ContainerInside>
+			</Container>
+			<Box w="100vw" h="50px" />;
+		</>
 	);
 }
