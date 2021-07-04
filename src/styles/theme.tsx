@@ -3,10 +3,15 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
 	colors: {
+		bg: {
+			primary: "#2d2734",
+			secondary: "#211f24",
+		},
 		brand: {
-			purple: "#f6a",
-			pink: "#aa69ff",
-			gold: "#fcd270",
+			error: "#cf6679",
+			secondary: "#f6a",
+			primary: "#a6f",
+			primary2: "#fcd270",
 		},
 		text: {
 			50: "#FAFAFA",
@@ -34,7 +39,7 @@ const theme = extendTheme({
 				lineHeight: "base",
 				padding: 0,
 				margin: 0,
-				backgroundColor: "#171a23",
+				backgroundColor: "bg.primary",
 			},
 			a: {
 				color: "inherit",
