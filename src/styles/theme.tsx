@@ -4,13 +4,8 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
 	colors: {
 		brand: {
-			transparent: "rgba(255,255,255,0.3)",
-			transparent2: "rgba(255,255,255,0.6)",
-			purple: {
-				light: "rgb(90, 96, 174)",
-				dark: "rgb(69, 74, 138)",
-			},
-
+			purple: "#f6a",
+			pink: "#aa69ff",
 			gold: "#fcd270",
 		},
 		text: {

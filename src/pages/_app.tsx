@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import Footer from "@components/footer";
+import Footer from "@components/home/footer";
 import Header from "@components/header";
 import { pageview } from "@lib/gtag";
 import "@styles/global.css";
