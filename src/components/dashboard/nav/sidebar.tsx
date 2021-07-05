@@ -20,7 +20,7 @@ import { UserProfile } from "./userprofile";
 export function Sidebar(props: any): JSX.Element {
 	return (
 		<Flex
-			bg="linear-gradient(#7f4cadc3, #1e5370)"
+			bg="linear-gradient(#7549ac 60%, #cf6679)"
 			direction="column"
 			borderRightWidth="1px"
 			width="300px"

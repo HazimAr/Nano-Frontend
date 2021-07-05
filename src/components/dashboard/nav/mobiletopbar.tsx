@@ -27,7 +27,7 @@ export function MobileTopBar({
 			justify="space-between"
 			py="2"
 			px="4"
-			bg="linear-gradient(to right,#7f4cadc3, #1e5370)"
+			bg="linear-gradient(to right,#7549ac 60%, #cf6679)"
 			display={{ base: "flex", md: "none" }}
 			borderBottomWidth="1px"
 			w="100vw"
@@ -50,7 +50,7 @@ export function MobileTopBar({
 			>
 				<DrawerOverlay />
 				<DrawerContent
-					bg="linear-gradient(#7f4cadc3, #1e5370)"
+					bg="linear-gradient(#7549ac 60%, #cf6679)"
 					shadow="none"
 					position="relative"
 					maxW="64"
@@ -63,9 +63,9 @@ export function MobileTopBar({
 						session={session}
 					/>
 					<DrawerCloseButton
-						bg="blue.500"
-						_hover={{ bg: "blue.600" }}
-						_active={{ bg: "blue.700" }}
+						bg="brand.secondary"
+						_hover={{ bg: "brand.primary2" }}
+						_active={{ bg: "brand.primary2" }}
 						rounded="0"
 						position="absolute"
 						color="white"

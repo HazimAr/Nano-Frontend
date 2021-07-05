@@ -2,8 +2,8 @@
 import { Box, Center, Flex } from "@chakra-ui/react";
 import React from "react";
 import { DiscordUser } from "types";
-import { MobileTopBar } from "./dash/mobiletopbar";
-import { Sidebar } from "./dash/sidebar";
+import { MobileTopBar } from "./nav/mobiletopbar";
+import { Sidebar } from "./nav/sidebar";
 
 // eslint-disable-next-line import/no-default-export
 export default function Layout({
