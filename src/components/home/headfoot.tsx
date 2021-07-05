@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { DiscordUser } from "types";
 import Foot from "./footer";
@@ -13,6 +14,7 @@ export default function HeadFoot({
 }): JSX.Element {
 	return (
 		<>
+			{/* @ts-ignore */}
 			<Head session={session} />
 			{children}
 			<Foot />

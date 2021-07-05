@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
+import { DiscordUser } from "types";
 
 export default function Custom({ session }: DiscordUser): JSX.Element {
 	return <Layout session={session}>Custom</Layout>;

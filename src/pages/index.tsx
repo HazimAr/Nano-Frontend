@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -10,6 +11,7 @@ import { DiscordUser } from "types";
 
 export default function Home({ session }: DiscordUser): JSX.Element {
 	return (
+		// @ts-ignore
 		<HeadFoot session={session}>
 			<Container bg="bg.secondary">
 				<ContainerInside>

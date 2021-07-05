@@ -5,15 +5,16 @@ import {
 	DrawerContent,
 	DrawerOverlay,
 	Flex,
-	IconButton
+	IconButton,
 } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineMenu } from "react-icons/hi";
+import { DiscordUser } from "types";
 import { Logo } from "./logo";
 import { Sidebar } from "./sidebar";
 import { useMobileMenuState } from "./usemobilemenustate";
 
-export function MobileTopBar({session}:any): JSX.Element {
+export function MobileTopBar({ session }: DiscordUser): JSX.Element {
 	// @ts-ignore
 	const { isOpen, onClose, onOpen } = useMobileMenuState();
 	return (
