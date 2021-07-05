@@ -38,7 +38,7 @@ export default function Header({
 					<Link href="/contact" mr="7px">
 						Contact
 					</Link> */}
-						<Link href="/donate">Donate</Link>
+						<Link href="/donate" mr={5}>Donate</Link>
 						{session ? (
 							<Link href="/dashboard">
 								<HStack spacing="4" px="2" flexShrink={0} p="4">
