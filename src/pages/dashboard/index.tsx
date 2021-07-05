@@ -9,7 +9,6 @@ export default function Four({ session }: any): JSX.Element {
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
-	console.log(session);
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "login",
