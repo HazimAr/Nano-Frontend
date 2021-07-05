@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
 	Drawer,
 	DrawerCloseButton,
@@ -6,13 +7,14 @@ import {
 	Flex,
 	IconButton,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React from "react";
 import { HiOutlineMenu } from "react-icons/hi";
 import { Logo } from "./logo";
 import { Sidebar } from "./sidebar";
 import { useMobileMenuState } from "./usemobilemenustate";
 
-export const MobileTopBar = () => {
+export function MobileTopBar(): JSX.Element {
+	// @ts-ignore
 	const { isOpen, onClose, onOpen } = useMobileMenuState();
 	return (
 		<Flex
@@ -68,4 +70,4 @@ export const MobileTopBar = () => {
 			</Drawer>
 		</Flex>
 	);
-};
+}

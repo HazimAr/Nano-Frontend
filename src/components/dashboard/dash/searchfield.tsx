@@ -7,10 +7,10 @@ import {
 	Square,
 	useColorModeValue as mode,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React from "react";
 import { BsSearch } from "react-icons/bs";
 
-export const SearchField = (props: InputGroupProps) => {
+export function SearchField(props: InputGroupProps): JSX.Element {
 	return (
 		<InputGroup size="sm" {...props}>
 			<InputLeftElement pointerEvents="none">
@@ -40,4 +40,4 @@ export const SearchField = (props: InputGroupProps) => {
 			/>
 		</InputGroup>
 	);
-};
+}

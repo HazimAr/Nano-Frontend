@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
 	Box,
 	Divider,
 	Flex,
-	FlexProps,
 	Spacer,
 	Stack,
 	useColorModeValue as mode,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React from "react";
 import {
 	FaClipboardList,
 	FaDumbbell,
@@ -16,12 +17,13 @@ import {
 	FaRegBell,
 	FaRegQuestionCircle,
 } from "react-icons/fa";
+
 import { Logo } from "./logo";
 import { NavLink } from "./navlink";
 import { SearchField } from "./searchfield";
 import { UserProfile } from "./userprofile";
 
-export const Sidebar = (props: FlexProps) => {
+export function Sidebar(props: any): JSX.Element {
 	return (
 		<Flex
 			bg="linear-gradient(#7f4cadc3, #1e5370)"
@@ -87,4 +89,4 @@ export const Sidebar = (props: FlexProps) => {
 			<UserProfile session={props.session} />
 		</Flex>
 	);
-};
+}

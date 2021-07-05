@@ -7,15 +7,15 @@ import {
 	useColorModeValue as mode,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import * as React from "react";
+import React from "react";
 
-interface NavLinkProps extends LinkProps {
+type NavLinkProps = {
 	isActive?: boolean;
 	label: string;
 	icon: React.ElementType;
-}
+} & LinkProps
 
-export const NavLink = (props: NavLinkProps) => {
+export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, ...rest } = props;
 	const router = useRouter();
 
@@ -48,4 +48,4 @@ export const NavLink = (props: NavLinkProps) => {
 			</HStack>
 		</Link>
 	);
-};
+}
