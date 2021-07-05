@@ -13,7 +13,7 @@ const theme = extendTheme({
 			error: "#cf6679",
 			secondary: "#f6a",
 			primary: "#7549ac",
-			primary2: "#fcd270",
+			primary2: "hsl(41.99999999999999, 95.89041095890413%, 50.37254901960785%)",
 		},
 		text: {
 			50: "#FAFAFA",

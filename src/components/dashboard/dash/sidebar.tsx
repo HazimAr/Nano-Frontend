@@ -1,26 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {
-	Box,
-	Divider,
-	Flex,
-	Spacer,
-	Stack,
-	useColorModeValue as mode,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
 import React from "react";
 import {
-	FaClipboardList,
-	FaDumbbell,
-	FaHeart,
+	FaArchive,
+	FaClock,
+	FaCode,
+	FaCog,
+	FaCrown,
+	FaMedal,
 	FaPlus,
-	FaRegBell,
 	FaRegQuestionCircle,
+	FaSurprise,
 } from "react-icons/fa";
-
 import { Logo } from "./logo";
 import { NavLink } from "./navlink";
-import { SearchField } from "./searchfield";
 import { UserProfile } from "./userprofile";
 
 export function Sidebar(props: any): JSX.Element {
@@ -41,45 +35,66 @@ export function Sidebar(props: any): JSX.Element {
 				px="4"
 			>
 				<Box mb="6">
-					<Logo color={mode("blue.600", "blue.400")} h="6" />
+					<Logo />
 				</Box>
 
-				<Box mb="6">
+				{/* <Box mb="6">
 					<SearchField />
-				</Box>
+				</Box> */}
 
 				<Stack spacing="6" as="nav" aria-label="Sidebar Navigation">
 					<Stack spacing="1">
 						<NavLink
-							label="Create Program"
+							label="Guilds"
 							icon={FaPlus}
-							href="dashboard/create"
-						/>
-						<NavLink
-							label="My Programs"
-							icon={FaDumbbell}
 							href="/dashboard"
 						/>
 						<NavLink
-							label="Favorites"
-							icon={FaHeart}
-							href="/favorites"
+							label="Premium"
+							icon={FaCrown}
+							href="/dashboard/premium"
 						/>
 						<NavLink
-							label="Public Programs"
-							icon={FaClipboardList}
-							href="/publicprograms"
+							label="Leaderboards"
+							icon={FaMedal}
+							href="/dashboard/leaderboards"
 						/>
 					</Stack>
 
 					<Divider />
 
 					<Stack spacing="1">
-						<NavLink label="Notifications" icon={FaRegBell} />
 						<NavLink
-							label="Help Center"
+							label="Custom Commands"
+							icon={FaCode}
+							href="/dashboard/custom"
+						/>
+						<NavLink
+							label="Reaction Roles"
+							icon={FaSurprise}
+							href="/dashboard/reaction"
+						/>
+						<NavLink
+							label="Embeds"
+							icon={FaArchive}
+							href="/dashboard/embeds"
+						/>
+						<NavLink label="Timers" icon={FaClock} href="timers" />
+					</Stack>
+
+					<Divider />
+
+					<Stack spacing="1">
+						<NavLink
+							label="Help"
 							icon={FaRegQuestionCircle}
-							href="/faq"
+							href="/dashboard/help"
+						/>
+
+						<NavLink
+							label="Settings"
+							icon={FaCog}
+							href="/dashboard/settings"
 						/>
 					</Stack>
 				</Stack>

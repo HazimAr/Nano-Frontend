@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-
 import { MobileTopBar } from "./dash/mobiletopbar";
 import { Sidebar } from "./dash/sidebar";
 
@@ -14,9 +13,9 @@ export default function Layout({
 	session: any;
 }): JSX.Element {
 	return (
-		<main id="main">
+		<Box>
 			<Flex h="100vh" flexDirection="column" position="fixed" w="100%">
-				<MobileTopBar session={session}/>
+				<MobileTopBar session={session} />
 				<Flex flex="1">
 					<Sidebar
 						display={{ base: "none", md: "flex" }}
@@ -25,6 +24,6 @@ export default function Layout({
 					{children}
 				</Flex>
 			</Flex>
-		</main>
+		</Box>
 	);
 }

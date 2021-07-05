@@ -13,7 +13,7 @@ type NavLinkProps = {
 	isActive?: boolean;
 	label: string;
 	icon: React.ElementType;
-} & LinkProps
+} & LinkProps;
 
 export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, ...rest } = props;
@@ -21,7 +21,7 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 
 	return (
 		<Link
-			bg={router.asPath === props.href ? "blue.700" : ""}
+			bg={router.asPath === props.href ? "brand.primary2" : ""}
 			display="block"
 			py="2"
 			px="3"
@@ -32,10 +32,15 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 			userSelect="none"
 			aria-current={isActive ? "page" : undefined}
 			color={mode("white.700", "white.400")}
-			_hover={{
-				bg: mode("blue.200", "blue.700"),
-				color: mode("white.900", "white"),
-			}}
+			// _hover={{
+			// 	bg: mode("blue.200", "blue.700"),
+			// 	color: mode("white.900", "white"),
+			// }}
+			_hover={
+				router.asPath === props.href
+					? { color: "brand.primary" }
+					: { color: "brand.secondary" }
+			}
 			// _activeLink={{
 			// 	bg: router.asPath === props.href ? "blue.200" : "",
 			// 	color: "inherit",
