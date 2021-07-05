@@ -20,7 +20,7 @@ export function UserProfile({ session }: any): JSX.Element {
 				<Avatar
 					size="sm"
 					name={session ? session.user.name : placeholder.username}
-					src={session?.image}
+					src={session ? session.user.image : null}
 				/>
 				<Flex direction="column" fontWeight="medium">
 					<Text fontSize="sm">

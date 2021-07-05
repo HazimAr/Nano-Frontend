@@ -4,7 +4,7 @@
 
 import { Box, Center } from "@chakra-ui/react";
 import Button from "@components/button";
-import { getSession, signIn } from "next-auth/client";
+import { getSession, GetSessionOptions, signIn } from "next-auth/client";
 
 export default function login(): JSX.Element {
 	return (
@@ -22,9 +22,8 @@ export default function login(): JSX.Element {
 	);
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetSessionOptions | any) {
 	const session = await getSession(context);
-	console.log(session);
 	if (session) {
 		context.res.writeHead(307, {
 			Location: "dashboard",
