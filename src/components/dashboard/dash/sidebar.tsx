@@ -23,7 +23,7 @@ export function Sidebar(props: any): JSX.Element {
 			bg="linear-gradient(#7f4cadc3, #1e5370)"
 			direction="column"
 			borderRightWidth="1px"
-			width="64"
+			width="300px"
 			{...props}
 		>
 			<Flex

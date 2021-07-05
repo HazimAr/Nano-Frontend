@@ -12,7 +12,6 @@ export default function Index({
 	guilds: any;
 	session: DiscordUser;
 }): JSX.Element {
-	console.log(guilds);
 	return <Layout session={session}>{guilds}</Layout>;
 }
 
