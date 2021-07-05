@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export default function Logout(): JSX.Element {
 	useEffect(() => {
 		void signOut();
+		window.location.href = "/";
 	}, []);
-	return <>Signing Out{(window.location.href = "/")}</>;
+	return <>Signing Out{}</>;
 }
