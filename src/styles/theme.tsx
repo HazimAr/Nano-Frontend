@@ -28,7 +28,7 @@ const theme = extendTheme({
 			900: "#212121",
 			1000: "#161616",
 		},
-		rounded: "10px"
+		rounded: "10px",
 	},
 	styles: {
 		global: () => ({

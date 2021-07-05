@@ -16,6 +16,6 @@ const META: MetaType = {
 	url: "",
 };
 
-const DB_URL = "https://example.com"
+const DB_URL = "https://example.com";
 
-export { GA_TRACKING_ID, IS_PRODUCTION, META };
+export { GA_TRACKING_ID, IS_PRODUCTION, META, DB_URL };

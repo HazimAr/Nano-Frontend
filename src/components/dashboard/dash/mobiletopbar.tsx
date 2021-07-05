@@ -5,9 +5,8 @@ import {
 	DrawerContent,
 	DrawerOverlay,
 	Flex,
-	IconButton,
+	IconButton
 } from "@chakra-ui/react";
-import { session } from "next-auth/client";
 import React from "react";
 import { HiOutlineMenu } from "react-icons/hi";
 import { Logo } from "./logo";
