@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -38,5 +39,6 @@ const options = {
 };
 
 export default async function getAuth(req: any, res: any) {
+	// @ts-ignore
 	return NextAuth(req, res, options);
 }

@@ -5,7 +5,7 @@ import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
-export default function Four({
+export default function Index({
 	session,
 	guilds,
 }: {
