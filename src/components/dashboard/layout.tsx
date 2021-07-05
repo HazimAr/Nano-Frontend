@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import React from "react";
 import { MobileTopBar } from "./dash/mobiletopbar";
 import { Sidebar } from "./dash/sidebar";
@@ -22,7 +22,9 @@ export default function Layout({
 						display={{ base: "none", md: "flex" }}
 						session={session}
 					/>
-					<Box w="100%">{children}</Box>
+					<Center h="100%" w="100%">
+						{children}
+					</Center>
 				</Flex>
 			</Flex>
 		</Box>
