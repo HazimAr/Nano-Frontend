@@ -11,7 +11,7 @@ export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 	if (!session) {
 		context.res.writeHead(307, {
-			Location: "login",
+			Location: "/login",
 		});
 		context.res.end();
 	}

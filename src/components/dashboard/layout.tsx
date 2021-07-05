@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
@@ -21,7 +22,7 @@ export default function Layout({
 						display={{ base: "none", md: "flex" }}
 						session={session}
 					/>
-					{children}
+					<Box w="100%">{children}</Box>
 				</Flex>
 			</Flex>
 		</Box>
