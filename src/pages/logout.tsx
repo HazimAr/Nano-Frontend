@@ -6,5 +6,5 @@ export default function Logout(): JSX.Element {
 	useEffect(() => {
 		void signOut();
 	}, []);
-	return <>Signing Out</>;
+	return <>Signed Out</>;
 }
