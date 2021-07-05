@@ -1,4 +1,12 @@
-import { Avatar, Flex, HStack, Image, Link, Text } from "@chakra-ui/react";
+import {
+	Avatar,
+	Flex,
+	Heading,
+	HStack,
+	Image,
+	Link,
+	Text,
+} from "@chakra-ui/react";
 import Button from "@components/button";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
@@ -11,9 +19,11 @@ export default function Header({ session }): JSX.Element {
 			<ContainerInside>
 				<Flex justify="space-between" align="center" flexWrap="wrap">
 					<Link href="/" _hover={{}}>
-						<Flex justify="center" align="center">
-							<Image src="/logo.png" w={10} />
-							<Text ml={2.5}>Nano</Text>
+						<Flex align="center">
+							<Image src="/logo.png" w={30} rounded="50%" />
+							<Heading size="md" ml={2.5}>
+								Nano
+							</Heading>
 						</Flex>
 					</Link>
 					<Flex justify="center" align="center">
