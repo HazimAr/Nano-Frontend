@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Center, Flex } from "@chakra-ui/react";
 import React from "react";
+import { DiscordUser } from "types";
 import { MobileTopBar } from "./dash/mobiletopbar";
 import { Sidebar } from "./dash/sidebar";
 
@@ -11,7 +11,7 @@ export default function Layout({
 	session,
 }: {
 	children: React.ReactNode;
-	session: any;
+	session: DiscordUser;
 }): JSX.Element {
 	return (
 		<Box>

@@ -19,16 +19,19 @@ const options = {
 		}),
 	],
 	callbacks: {
-		jwt(token: { accessToken: any }, account: { accessToken: any }) {
+		async jwt(token: { accessToken: any }, _: any, account: { accessToken: any }) {
 			// Add access_token to the token right after signing in
+			// console.log(account)
 			if (account?.accessToken) {
 				token.accessToken = account.accessToken;
 			}
+
 			return token;
 		},
-		session(session: any, token: any) {
+		async session(session: any, token: any) {
 			// Add property to session, like an access_token from a provider.
 			session.accessToken = token.accessToken;
+			// console.log(session);
 			return session;
 		},
 	},

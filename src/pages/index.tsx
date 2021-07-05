@@ -9,7 +9,11 @@ import HeadFoot from "@components/home/headfoot";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
-export default function Home({ session }: DiscordUser): JSX.Element {
+export default function Home({
+	session,
+}: {
+	session: DiscordUser;
+}): JSX.Element {
 	return (
 		// @ts-ignore
 		<HeadFoot session={session}>
@@ -27,7 +31,7 @@ export default function Home({ session }: DiscordUser): JSX.Element {
 							</Text>
 						</Box>
 						<Box w="100%">
-							<Image src="/undraw/game.svg" w={400} />
+							<Image src="/undraw/game.svg" w={600} />
 						</Box>
 					</Flex>
 				</ContainerInside>

@@ -17,5 +17,6 @@ const META: MetaType = {
 };
 
 const DB_URL = "https://example.com";
+const DISCORD_BASE_URL = "https://discord.com/api/v9";
 
-export { GA_TRACKING_ID, IS_PRODUCTION, META, DB_URL };
+export { GA_TRACKING_ID, IS_PRODUCTION, META, DB_URL, DISCORD_BASE_URL };

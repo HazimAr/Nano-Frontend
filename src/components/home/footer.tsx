@@ -24,7 +24,7 @@ export default function Footer(): JSX.Element {
 						color="text.200"
 					>
 						<Text>
-							School Simplified © 2021 All Rights Reserved
+							Nano © 2021 All Rights Reserved
 						</Text>
 						<Text>
 							<Link href="/terms">Terms of Service</Link> |{" "}

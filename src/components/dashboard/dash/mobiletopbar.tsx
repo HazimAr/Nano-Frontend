@@ -14,7 +14,11 @@ import { Logo } from "./logo";
 import { Sidebar } from "./sidebar";
 import { useMobileMenuState } from "./usemobilemenustate";
 
-export function MobileTopBar({ session }: DiscordUser): JSX.Element {
+export function MobileTopBar({
+	session,
+}: {
+	session: DiscordUser;
+}): JSX.Element {
 	// @ts-ignore
 	const { isOpen, onClose, onOpen } = useMobileMenuState();
 	return (

@@ -1,10 +1,11 @@
 // Put Types and interfaces here
 export type DiscordUser = {
-	session: {
-		user: {
-			name: string;
-			id: number;
-			image: string;
-		};
+	user: {
+		name: string;
+		id: number;
+		image: string;
 	};
+
+	expires: string;
+	accessToken: string;
 };
