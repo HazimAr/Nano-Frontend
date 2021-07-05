@@ -1,3 +1,4 @@
+
 import { DiscordUser } from "types";
 import Foot from "./footer";
 import Head from "./header";
