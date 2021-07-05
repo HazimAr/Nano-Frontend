@@ -16,7 +16,7 @@ export default function Layout({
 	return (
 		<main id="main">
 			<Flex h="100vh" flexDirection="column" position="fixed" w="100%">
-				<MobileTopBar />
+				<MobileTopBar session={session}/>
 				<Flex flex="1">
 					<Sidebar
 						display={{ base: "none", md: "flex" }}

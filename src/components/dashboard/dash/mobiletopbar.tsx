@@ -7,13 +7,14 @@ import {
 	Flex,
 	IconButton,
 } from "@chakra-ui/react";
+import { session } from "next-auth/client";
 import React from "react";
 import { HiOutlineMenu } from "react-icons/hi";
 import { Logo } from "./logo";
 import { Sidebar } from "./sidebar";
 import { useMobileMenuState } from "./usemobilemenustate";
 
-export function MobileTopBar(): JSX.Element {
+export function MobileTopBar({session}:any): JSX.Element {
 	// @ts-ignore
 	const { isOpen, onClose, onOpen } = useMobileMenuState();
 	return (
@@ -55,6 +56,7 @@ export function MobileTopBar(): JSX.Element {
 						height="full"
 						bg="inherit"
 						border="0"
+						session={session}
 					/>
 					<DrawerCloseButton
 						bg="blue.500"
