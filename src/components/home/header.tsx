@@ -11,9 +11,10 @@ import Button from "@components/button";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import { signIn } from "next-auth/client";
+import { DiscordUser } from "types";
 
 // eslint-disable-next-line import/no-default-export
-export default function Header({ session }): JSX.Element {
+export default function Header({ session }: DiscordUser): JSX.Element {
 	return (
 		<Container as="header" py={3}>
 			<ContainerInside>
