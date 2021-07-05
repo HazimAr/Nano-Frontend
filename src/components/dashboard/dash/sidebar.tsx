@@ -79,7 +79,11 @@ export function Sidebar(props: any): JSX.Element {
 							icon={FaArchive}
 							href="/dashboard/embeds"
 						/>
-						<NavLink label="Timers" icon={FaClock} href="timers" />
+						<NavLink
+							label="Timers"
+							icon={FaClock}
+							href="/dashboard/timers"
+						/>
 					</Stack>
 
 					<Divider />
