@@ -28,7 +28,7 @@ export function MobileTopBar({session}:any): JSX.Element {
 			borderBottomWidth="1px"
 			w="100vw"
 		>
-			<Logo h="6" iconColor="blue.600" />
+			<Logo />
 			<IconButton
 				onClick={onOpen}
 				variant="unstyled"
