@@ -12,9 +12,9 @@ export default function Four({ session }: any): JSX.Element {
 			<Button
 				onClick={async () => {
 					await signOut();
-					await router.push(
-						`https://osu.ppy.sh/oauth/authorize?client_id=${OSU_V2ID}&redirect_uri=https://nano-osu.teamdragonsden.com/signin-osu&response_type=code&scope=public&state=${state}`
-					);
+					// await router.push(
+					// 	`https://osu.ppy.sh/oauth/authorize?client_id=${OSU_V2ID}&redirect_uri=https://nano-osu.teamdragonsden.com/signin-osu&response_type=code&scope=public&state=${state}`
+					// );
 				}}
 			>
 				Sign in with Osu
