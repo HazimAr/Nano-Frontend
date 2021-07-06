@@ -5,17 +5,17 @@ import { SERVER_URL } from "config";
 
 async function getLeaderboards(token: string, id: string) {
 	const config = {
+		timeout: 1000 * 5,
 		headers: {
 			// @ts-ignore
 			Authorization: `Bearer ${token}`,
 		},
 	};
 	const { data } = await axios.get(
-		`${SERVER_URL}/leaderboards?lb=votes&guild_id=${id}`,
+		`${SERVER_URL}/leaderboards?guild_id=${id}&lb=votes`,
 
 		config
 	);
-
 	return data;
 }
 

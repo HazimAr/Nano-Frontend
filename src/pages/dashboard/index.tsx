@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { getGuilds } from "@api/discord";
+import { getGuilds } from "@api/discord";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -77,7 +77,7 @@ export default function Index({
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
-	
+
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "/",
@@ -85,11 +85,11 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 	}
 	// @ts-ignore
-	// const guilds = await getGuilds(session.accessToken);
+	const guilds = await getGuilds(session.accessToken);
 	return {
 		props: {
 			session,
-			// guilds,
+			guilds,
 		},
 	};
 }
