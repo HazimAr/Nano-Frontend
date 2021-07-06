@@ -7,7 +7,7 @@ import { Box } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { Rank, Votes } from "@components/dashboard/leaderboards/types";
 import { getSession } from "next-auth/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Select from "react-select";
 import { DiscordUser } from "types";
 
@@ -44,7 +44,7 @@ export default function Custom({
 	session: DiscordUser;
 	guild_id: any;
 	leader: any;
-}): JSX.Element {;
+}): JSX.Element {
 	guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [leaderboards] = useState(
@@ -65,7 +65,6 @@ export default function Custom({
 			};
 		})
 	);
-
 
 	return (
 		<Layout session={session}>
@@ -98,13 +97,13 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 	}
 
-	if (!context.req.cookies.guild) {
-		context.res.writeHead(307, {
-			Location: "/dashboard",
-		});
-		context.res.end();
-		return { props: { session } };
-	}
+	// if (!context.req.cookies.guild) {
+	// 	context.res.writeHead(307, {
+	// 		Location: "/dashboard",
+	// 	});
+	// 	context.res.end();
+	// 	return { props: { session } };
+	// }
 
 	const leader = await getLeaderboards(
 		// @ts-ignore

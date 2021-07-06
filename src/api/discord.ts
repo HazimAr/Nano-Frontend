@@ -12,31 +12,32 @@ async function getGuilds(token: string) {
 			Authorization: `Bearer ${token}`,
 		},
 	};
+
 	const og = await axios.get(
 		`${DISCORD_BASE_URL}/users/@me/guilds`,
 
 		config
 	);
 
-	const guilds = og.data.map((guild: any) => guild.id);
-	console.log(guilds);
-	const { data } = await axios.post(
-		`${SERVER_URL}/guilds`,
-		{ guilds, myOtherKey: "my value" },
-		config
-	);
-	console.log(data);
+	// const guilds = og.data.map((guild: any) => guild.id);
 
-	guilds.forEach((guild: any) => {
-		if (data.includes(guild.id)) {
-			guilds.nano = true;
-			return;
-		}
-		guilds.nano = false;
-	});
-	// console.log(guilds);
+	// const { data } = await axios.post(
+	// 	`${SERVER_URL}/guilds`,
+	// 	{ guilds },
+	// 	config
+	// );
 
-	return guilds;
+	// console.log(data);
+
+	// guilds?.forEach((guild: any, index: number) => {
+	// 	if (data.includes(guild.id)) {
+	// 		og.data[index].nano = true;
+	// 		return
+	// 	}
+	// 	og.data[index].nano = false;
+	// });
+
+	return og.data;
 }
 
 export { getGuilds };
