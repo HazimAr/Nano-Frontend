@@ -9,7 +9,7 @@ export default function StyledButton(props: any): JSX.Element {
 			{...props}
 			as="button"
 			// lineHeight="1.2"
-			transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+			transition="all 0.2s ease"
 			px="16px"
 			py="4px"
 			borderRadius="10px"

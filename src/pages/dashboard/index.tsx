@@ -76,8 +76,8 @@ export default function Index({
 }
 
 export async function getServerSideProps(context: any) {
-	// @ts-ignore
-	const session: DiscordUser | null = await getSession(context);
+	const session = await getSession(context);
+	
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "/",
