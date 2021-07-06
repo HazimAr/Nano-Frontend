@@ -20,9 +20,9 @@ export default function Index({
 }): JSX.Element {
 	return (
 		<Layout session={session}>
-			<Box maxW="600px" w="100%">
-				{guilds ? (
-					guilds.map((guild: any) => {
+			{guilds ? (
+				<Box maxW="600px" w="100%">
+					{guilds.map((guild: any) => {
 						if (guild.permissions & (1 << 3)) {
 							return (
 								<Flex
@@ -66,13 +66,11 @@ export default function Index({
 								</Flex>
 							);
 						}
-					})
-				) : (
-					<Heading>
-						Looks like you been rate limited. Stop refreshing
-					</Heading>
-				)}
-			</Box>
+					})}
+				</Box>
+			) : (
+				<Heading>You are being rate limited</Heading>
+			)}
 		</Layout>
 	);
 }
