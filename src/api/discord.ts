@@ -2,7 +2,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
-import { DISCORD_BASE_URL, SERVER_URL } from "config";
+import {
+	DISCORD_BASE_URL,
+	// SERVER_URL
+} from "config";
 
 async function getGuilds(token: string) {
 	const config = {
