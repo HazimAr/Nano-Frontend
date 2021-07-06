@@ -107,7 +107,7 @@ export async function getServerSideProps(context: any) {
 
 	const leader = await getLeaderboards(
 		// @ts-ignore
-		session.accessToken,
+		session?.accessToken,
 		context.req.cookies.guild
 	);
 
