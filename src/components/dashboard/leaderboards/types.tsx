@@ -160,7 +160,7 @@ export function Rank({ leaderboards }: any) {
 								<CircularProgress
 									// value={50}
 									value={user.nextLvlPercent * 100}
-									color="green.400"
+									color="brand.primary"
 								>
 									
 									<CircularProgressLabel>
