@@ -69,7 +69,7 @@ export default function Custom({
 
 	return (
 		<Layout session={session}>
-			<Box maxW="600px" w="100%">
+			<Box maxW="700px" w="100%">
 				<Select
 					defaultValue={sort}
 					onChange={setSort}
@@ -101,7 +101,7 @@ export default function Custom({
 												: "brand.secondary"
 											: "brand.primary"
 									}
-									boxSize="50px"
+									boxSize="30px"
 									justify="center"
 									align="center"
 									rounded="50%"
@@ -109,10 +109,10 @@ export default function Custom({
 									<Text>{index + 1}</Text>
 								</Flex>
 
-								<Flex w="100px" justify="center">
+								<Flex justify="center" mx={3}>
 									<Image
 										src="/logo.png"
-										boxSize="60px"
+										boxSize="50px"
 										rounded="50%"
 									/>
 								</Flex>
@@ -127,22 +127,25 @@ export default function Custom({
 							>
 								<Box w={{ base: "100%", md: "50px" }}>
 									<Text fontSize="xs" color="text.400">
-										Votes (A)
+										Votes(A)
 									</Text>
-									<Text>{user.votes.all}</Text>
+									{user.votes.all}
 								</Box>
-								<Text w={{ base: "100%", md: "50px" }}>
+								<Box
+									w={{ base: "100%", md: "50px" }}
+									mx={{ base: 0, md: 3 }}
+								>
 									<Text fontSize="xs" color="text.400">
-										Votes (M)
+										Votes(M)
 									</Text>
 									{user.votes.monthly}
-								</Text>
-								<Text w={{ base: "100%", md: "50px" }}>
+								</Box>
+								<Box w={{ base: "100%", md: "50px" }}>
 									<Text fontSize="xs" color="text.400">
 										Tokens
 									</Text>
 									{user.tokens}
-								</Text>
+								</Box>
 							</Flex>
 							<Divider display={{ base: "block", md: "none" }} />
 						</Flex>

@@ -14,7 +14,13 @@ export default function Layout({
 	session: DiscordUser;
 }): JSX.Element {
 	return (
-		<Flex h="100vh" flexDirection="column" w="100%" overflowY="scroll">
+		<Flex
+			h="100vh"
+			flexDirection="column"
+			w="100%"
+			overflowY="scroll"
+			overflowX="hidden"
+		>
 			<MobileTopBar session={session} />
 			<Flex flex="1">
 				<Sidebar
