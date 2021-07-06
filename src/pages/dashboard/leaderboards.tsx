@@ -20,13 +20,13 @@ const options = [
 /* secondary: "#f6a", primary: "#7549ac", primary2: "#fab107", */
 
 const customStyles = {
-	option: (provided, state) => ({
+	option: (provided: any, state: { isSelected: any; }) => ({
 		...provided,
 		borderBottom: "1px solid white",
 		backgroundColor: state.isSelected ? "#fab107" : "#7549ac",
 	}),
 
-	singleValue: (provided, state) => {
+	singleValue: (provided: any, state: { isDisabled: any; }) => {
 		const opacity = state.isDisabled ? 0.5 : 1;
 		const transition = "opacity 300ms";
 
@@ -43,9 +43,9 @@ export default function Custom({
 }): JSX.Element {
 	console.log(leader);
 	const [sort, setSort] = useState(options[0]);
-	const [leaderboards, setLeaderboards] = useState(
+	const [leaderboards] = useState(
 		leader.lbAll
-			.map((user) => {
+			.map((user: { id: any; tag: any; votes: { all: any; month: any; }; tokens: any; }) => {
 				return {
 					img: user.id,
 					tag: user.tag,
@@ -58,7 +58,7 @@ export default function Custom({
 					// xp: user.guild.xp
 				};
 			})
-			.sort((a, b) => {
+			.sort((a: { votes: { all: number; }; }, b: { votes: { all: number; }; }) => {
 				return b.votes.all - a.votes.all;
 			})
 	);
@@ -71,8 +71,9 @@ export default function Custom({
 		<Layout session={session}>
 			<Box maxW="700px" w="100%">
 				<Select
-					defaultValue={sort}
+					// @ts-ignore
 					onChange={setSort}
+					defaultValue={sort}
 					options={options}
 					styles={customStyles}
 					isSearchable={false}
