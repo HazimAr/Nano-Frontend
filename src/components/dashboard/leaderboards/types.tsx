@@ -133,9 +133,10 @@ export function Rank({ leaderboards }: any) {
 
 							<Flex justify="center" mx={3}>
 								<Image
-									src={user.img ? user.img : "/logo.png"}
+									src={user.img}
 									boxSize="50px"
 									rounded="50%"
+									fallbackSrc="https://cdn.discordapp.com/attachments/825475148307103754/861920190563876874/oss.png"
 								/>
 							</Flex>
 
@@ -162,7 +163,6 @@ export function Rank({ leaderboards }: any) {
 									value={user.nextLvlPercent * 100}
 									color="brand.primary"
 								>
-									
 									<CircularProgressLabel>
 										{user.lvl}
 									</CircularProgressLabel>
