@@ -95,6 +95,7 @@ export async function getServerSideProps(context: any) {
 			Location: "/",
 		});
 		context.res.end();
+		return { props: {} };
 	}
 
 	// if (!context.req.cookies.guild) {
@@ -107,7 +108,7 @@ export async function getServerSideProps(context: any) {
 
 	const leader = await getLeaderboards(
 		// @ts-ignore
-		session?.accessToken,
+		session.accessToken,
 		context.req.cookies.guild
 	);
 
