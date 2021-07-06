@@ -25,10 +25,11 @@ export default function Index({
 	console.log(guilds);
 	const router = useRouter();
 	return (
-		<Layout session={session} >
+		<Layout session={session}>
 			<Box maxW="600px" w="100%">
 				{guilds.map((guild: any) => {
 					if (guild.permissions & (1 << 3)) {
+						console.log(guild);
 						return (
 							<Flex
 								justify="space-between"
@@ -65,19 +66,24 @@ export default function Index({
 									</Heading>
 								</Flex>
 
-								{guild.id === guild_id ? (
+								{guild.nano ? guild.id === guild_id ? (
 									<Heading size="lg">Editing</Heading>
 								) : (
 									<Button
 										onClick={() => {
-											setCookie("guild", guild.id, 30);
-
+											setCookie("guild", guild.id, 1);
 											void router.push("");
 										}}
 									>
 										Edit Guild
 									</Button>
-								)}
+								): <Button
+										onClick={() => {
+											void router.push("");
+										}}
+									>
+										Edit Guild
+									</Button>}
 							</Flex>
 						);
 					}
