@@ -62,7 +62,7 @@ export default function Index({
 												rounded="50%"
 												mr={{ base: 0, sm: 5 }}
 											/>
-											<Heading size="md" my={5}>
+											<Heading size="md" my={5} textAlign="center">
 												{guild.name}
 											</Heading>
 										</Flex>
