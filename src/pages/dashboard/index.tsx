@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { getGuilds } from "@api/discord";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
@@ -21,7 +21,7 @@ export default function Index({
 	return (
 		<Layout session={session}>
 			<Box maxW="600px" w="100%">
-				{guilds &&
+				{guilds ? (
 					guilds.map((guild: any) => {
 						if (guild.permissions & (1 << 3)) {
 							return (
@@ -66,7 +66,12 @@ export default function Index({
 								</Flex>
 							);
 						}
-					})}
+					})
+				) : (
+					<Heading>
+						Looks like you been rate limited. Stop refreshing
+					</Heading>
+				)}
 			</Box>
 		</Layout>
 	);
