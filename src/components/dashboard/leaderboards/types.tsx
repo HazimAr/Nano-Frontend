@@ -162,6 +162,7 @@ export function Rank({ leaderboards }: any) {
 									// value={50}
 									value={user.nextLvlPercent * 100}
 									color="brand.primary"
+									trackColor="transparent"
 								>
 									<CircularProgressLabel>
 										{user.lvl}
