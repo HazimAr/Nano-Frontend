@@ -22,7 +22,7 @@ export default function Layout({
 						display={{ base: "none", md: "flex" }}
 						session={session}
 					/>
-					<Center h="100%" w="100%">
+					<Center h="100%" w="100%" mx={50}>
 						{children}
 					</Center>
 				</Flex>

@@ -20,7 +20,11 @@ const options = {
 		}),
 	],
 	callbacks: {
-		async jwt(token: { accessToken: any }, _: any, account: { accessToken: any }) {
+		async jwt(
+			token: { accessToken: any },
+			_: any,
+			account: { accessToken: any }
+		) {
 			// Add access_token to the token right after signing in
 			// console.log(account)
 			if (account?.accessToken) {

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { DiscordUser } from "types";
 import Foot from "./footer";
 import Head from "./header";
