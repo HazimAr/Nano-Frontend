@@ -158,9 +158,11 @@ export function Rank({ leaderboards }: any) {
 								mx={{ base: 0, md: 3 }}
 							>
 								<CircularProgress
-									value={user.nextLvlPercent}
+									// value={50}
+									value={user.nextLvlPercent * 100}
 									color="green.400"
 								>
+									
 									<CircularProgressLabel>
 										{user.lvl}
 									</CircularProgressLabel>

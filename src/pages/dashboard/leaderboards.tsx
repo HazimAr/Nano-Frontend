@@ -61,7 +61,7 @@ export default function Custom({
 				lvl: user?.guilds[guild_id]?.lvl,
 				xp: user?.guilds[guild_id]?.xp,
 				donated: user?.guilds[guild_id]?.donatedTokens,
-				nextLvl: user?.guilds[guild_id]?.nextLvlPercent,
+				nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
 				messages: user?.guilds[guild_id]?.messages?.all,
 			};
 		})
