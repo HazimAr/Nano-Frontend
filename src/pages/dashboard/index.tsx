@@ -82,7 +82,7 @@ export default function Index({
 											void router.push("");
 										}}
 									>
-										Edit Guild
+										Invite Nano
 									</Button>}
 							</Flex>
 						);

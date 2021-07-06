@@ -44,8 +44,7 @@ export default function Custom({
 	session: DiscordUser;
 	guild_id: any;
 	leader: any;
-}): JSX.Element {
-	console.log(leader);
+}): JSX.Element {;
 	guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [leaderboards] = useState(
@@ -67,9 +66,6 @@ export default function Custom({
 		})
 	);
 
-	useEffect(() => {
-		console.log(leaderboards);
-	}, [leaderboards]);
 
 	return (
 		<Layout session={session}>

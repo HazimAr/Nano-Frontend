@@ -18,7 +18,7 @@ export default function Layout({
 			h="100vh"
 			flexDirection="column"
 			w="100%"
-			overflowY="scroll"
+			overflowY="auto"
 			overflowX="hidden"
 		>
 			<MobileTopBar session={session} />
