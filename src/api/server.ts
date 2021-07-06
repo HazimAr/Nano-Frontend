@@ -12,8 +12,7 @@ async function getLeaderboards(token: string, id: string) {
 		},
 	};
 	const { data } = await axios.get(
-		`${SERVER_URL}/leaderboards?guild_id=${id}&lb=votes`,
-
+		`${SERVER_URL}/leaderboards?guild_id=${id}`,
 		config
 	);
 	return data;
