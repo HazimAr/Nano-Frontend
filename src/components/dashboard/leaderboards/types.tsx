@@ -52,8 +52,9 @@ export function Votes({ leaderboards }: any) {
 
 							<Flex justify="center" mx={3}>
 								<Image
-									src={user.img ? user.img : "/logo.png"}
+									src={user.img}
 									boxSize="50px"
+									fallbackSrc="/oss.png"
 									rounded="50%"
 								/>
 							</Flex>
@@ -136,7 +137,7 @@ export function Rank({ leaderboards }: any) {
 									src={user.img}
 									boxSize="50px"
 									rounded="50%"
-									fallbackSrc="https://cdn.discordapp.com/attachments/825475148307103754/861920190563876874/oss.png"
+									fallbackSrc="/oss.png"
 								/>
 							</Flex>
 
