@@ -1,5 +1,5 @@
 /* eslint-disable import/order */
-import { Center, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import React from "react";
 import { DiscordUser } from "types";
 import { MobileTopBar } from "./nav/mobiletopbar";
@@ -22,8 +22,8 @@ export default function Layout({
 					display={{ base: "none", md: "flex" }}
 					session={session}
 				/>
-				<Center h="100%" w="100%" mx={50}>
-					{children}
+				<Center h="100%" w="100%" ml={50}>
+					<Box>{children}</Box>
 				</Center>
 			</Flex>
 		</Flex>
