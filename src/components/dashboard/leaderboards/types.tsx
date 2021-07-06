@@ -15,7 +15,7 @@ export function Votes({ leaderboards }: any) {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.votes.all - a.votes.all);
+		.sort((a: any, b: any) => b.votes.monthly - a.votes.monthly);
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
@@ -67,12 +67,6 @@ export function Votes({ leaderboards }: any) {
 							justify="center"
 							w={{ base: "100%", md: "inherit" }}
 						>
-							<Box w={{ base: "100%", md: "65px" }}>
-								<Text fontSize="xs" color="text.400">
-									Votes (All)
-								</Text>
-								{user.votes.all}
-							</Box>
 							<Box
 								w={{ base: "100%", md: "85px" }}
 								mx={{ base: 0, md: 3 }}
@@ -81,6 +75,12 @@ export function Votes({ leaderboards }: any) {
 									Votes (Monthly)
 								</Text>
 								{user.votes.monthly}
+							</Box>
+							<Box w={{ base: "100%", md: "65px" }}>
+								<Text fontSize="xs" color="text.400">
+									Votes (All)
+								</Text>
+								{user.votes.all}
 							</Box>
 						</Flex>
 
