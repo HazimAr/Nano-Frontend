@@ -5,7 +5,7 @@
 import { getLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
-import { Rank, Votes } from "@components/dashboard/leaderboards/types";
+import { Rank, Votes, Tokens } from "@components/dashboard/leaderboards/types";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
 import Select from "react-select";
@@ -79,8 +79,10 @@ export default function Custom({
 				/>
 				{sort.value === "rank" ? (
 					<Rank leaderboards={leaderboards} />
-				) : (
+				) : sort.value === "votes" ? (
 					<Votes leaderboards={leaderboards} />
+				) : (
+					<Tokens leaderboards={leaderboards} />
 				)}
 			</Box>
 		</Layout>
