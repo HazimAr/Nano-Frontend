@@ -22,6 +22,7 @@ export default function Index({
 	guilds: any;
 	session: DiscordUser;
 }): JSX.Element {
+	console.log(guilds);
 	const router = useRouter();
 	return (
 		<Layout session={session}>
@@ -51,7 +52,7 @@ export default function Index({
 										src={`https://cdn.discordapp.com/icons/${
 											guild.id
 										}/${guild.icon}.${
-											guild.icon.startsWith("a_")
+											guild.icon?.startsWith("a_")
 												? "gif"
 												: "png"
 										}`}
@@ -70,7 +71,7 @@ export default function Index({
 									<Button
 										onClick={() => {
 											setCookie("guild", guild.id, 30);
-											
+
 											void router.push("");
 										}}
 									>

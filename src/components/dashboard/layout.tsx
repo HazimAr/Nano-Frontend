@@ -13,16 +13,16 @@ export default function Layout({
 	children: React.ReactNode;
 	session: DiscordUser;
 }): JSX.Element {
-	console.log(session.accessToken);
 	return (
-		<Flex h="100vh" flexDirection="column" position="fixed" w="100%">
+		<Flex h="100vh" flexDirection="column" w="100%" overflowY="scroll">
 			<MobileTopBar session={session} />
 			<Flex flex="1">
 				<Sidebar
 					display={{ base: "none", md: "flex" }}
 					session={session}
+					h="100vh"
 				/>
-				<Center h="100%" w="100%" mx={50}>
+				<Center h="100%" w="100%" mx={25}>
 					{children}
 				</Center>
 			</Flex>
