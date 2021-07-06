@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuilds } from "@api/discord";
-import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Image } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
@@ -30,41 +30,43 @@ export default function Index({
 					guilds.map((guild: any) => {
 						if (guild.permissions & (1 << 3)) {
 							return (
-								<Flex
-									justify="space-between"
-									align="center"
-									my={5}
-									flexDir={{
-										base: "column",
-										md: "row",
-									}}
-									key={guild.id}
-								>
+								<>
 									<Flex
+										justify="space-between"
 										align="center"
+										my={5}
 										flexDir={{
 											base: "column",
 											sm: "row",
 										}}
-										justify="center"
+										key={guild.id}
 									>
-										<Image
-											src={`https://cdn.discordapp.com/icons/${
-												guild.id
-											}/${guild.icon}.${
-												guild.icon?.startsWith("a_")
-													? "gif"
-													: "png"
-											}`}
-											w={20}
-											rounded="50%"
-											mr={{ base: 0, sm: 5 }}
-										/>
-										<Heading size="md" my={5}>
-											{guild.name}
-										</Heading>
-									</Flex>
-									{/* {guild.nano ? (
+										<Flex
+											align="center"
+											flexDir={{
+												base: "column",
+												sm: "row",
+											}}
+											justify="center"
+										>
+											<Image
+												src={`https://cdn.discordapp.com/icons/${
+													guild.id
+												}/${guild.icon}.${
+													guild.icon?.startsWith("a_")
+														? "gif"
+														: "png"
+												}`}
+												fallbackSrc="/oss.png"
+												w={20}
+												rounded="50%"
+												mr={{ base: 0, sm: 5 }}
+											/>
+											<Heading size="md" my={5}>
+												{guild.name}
+											</Heading>
+										</Flex>
+										{/* {guild.nano ? (
 									
 								) : (
 									<Button
@@ -76,19 +78,27 @@ export default function Index({
 									</Button>
 						);
 					} */}
-									{guild.id === guildCookie ? (
-										<Heading size="lg">Editing</Heading>
-									) : (
-										<Button
-											onClick={() => {
-												setCookie("guild", guild.id, 1);
-												setGuildCookie(guild.id);
-											}}
-										>
-											Edit Guild
-										</Button>
-									)}
-								</Flex>
+										{guild.id === guildCookie ? (
+											<Heading size="lg">Editing</Heading>
+										) : (
+											<Button
+												onClick={() => {
+													setCookie(
+														"guild",
+														guild.id,
+														1
+													);
+													setGuildCookie(guild.id);
+												}}
+											>
+												Edit Guild
+											</Button>
+										)}
+									</Flex>
+									<Divider
+										display={{ base: "block", sm: "none" }}
+									/>
+								</>
 							);
 						}
 					})
