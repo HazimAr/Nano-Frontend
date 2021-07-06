@@ -185,7 +185,7 @@ export function Tokens({ leaderboards }: any) {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.votes.monthly - a.votes.monthly);
+		.sort((a: any, b: any) => b.tokens - a.tokens);
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
