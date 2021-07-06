@@ -36,7 +36,17 @@ export async function getServerSideProps(context: any) {
 		});
 		context.res.end();
 	}
-	// @ts-ignore
-	const leader = await getLeaderboards(session.accessToken);
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+	const leader = await getLeaderboards(
+		// @ts-ignore
+		session.accessToken,
+		context.req.cookies.guild
+	);
 	return { props: { session, leader } };
 }
