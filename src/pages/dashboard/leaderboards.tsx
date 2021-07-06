@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -5,7 +7,7 @@ import { getLeaderboards } from "@api/server";
 import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
 import { DiscordUser } from "types";
 
@@ -20,13 +22,13 @@ const options = [
 /* secondary: "#f6a", primary: "#7549ac", primary2: "#fab107", */
 
 const customStyles = {
-	option: (provided: any, state: { isSelected: any; }) => ({
+	option: (provided: any, state: { isSelected: any }) => ({
 		...provided,
 		borderBottom: "1px solid white",
 		backgroundColor: state.isSelected ? "#fab107" : "#7549ac",
 	}),
 
-	singleValue: (provided: any, state: { isDisabled: any; }) => {
+	singleValue: (provided: any, state: { isDisabled: any }) => {
 		const opacity = state.isDisabled ? 0.5 : 1;
 		const transition = "opacity 300ms";
 
@@ -37,35 +39,44 @@ const customStyles = {
 export default function Custom({
 	session,
 	leader,
+	guild_id,
 }: {
 	session: DiscordUser;
+	guild_id: any;
 	leader: any;
 }): JSX.Element {
-	console.log(leader);
+	// console.log(leader);
+	guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [leaderboards] = useState(
 		leader.lbAll
-			.map((user: { id: any; tag: any; votes: { all: any; month: any; }; tokens: any; }) => {
+			.map((user: any) => {
 				return {
-					img: user.id,
+					img: user.img,
 					tag: user.tag,
 					votes: {
 						all: user.votes.all,
 						monthly: user.votes.month,
 					},
 					tokens: user.tokens,
-					// lvl: user.guild.lvl
-					// xp: user.guild.xp
+					lvl: user?.guilds[guild_id]?.lvl,
+					xp: user?.guilds[guild_id]?.xp,
+					donated: user?.guilds[guild_id]?.donatedTokens,
 				};
 			})
-			.sort((a: { votes: { all: number; }; }, b: { votes: { all: number; }; }) => {
-				return b.votes.all - a.votes.all;
-			})
+			.sort(
+				(
+					a: { votes: { all: number } },
+					b: { votes: { all: number } }
+				) => {
+					return b.votes.all - a.votes.all;
+				}
+			)
 	);
 
-	// useEffect(() => {
-	// 	console.log(leader.lbAll);
-	// });
+	useEffect(() => {
+		console.log(leaderboards);
+	}, [leaderboards]);
 
 	return (
 		<Layout session={session}>
@@ -126,27 +137,27 @@ export default function Custom({
 								justify="center"
 								w={{ base: "100%", md: "inherit" }}
 							>
-								<Box w={{ base: "100%", md: "50px" }}>
+								<Box w={{ base: "100%", md: "65px" }}>
 									<Text fontSize="xs" color="text.400">
-										Votes(A)
+										Votes (All)
 									</Text>
 									{user.votes.all}
 								</Box>
 								<Box
-									w={{ base: "100%", md: "50px" }}
+									w={{ base: "100%", md: "85px" }}
 									mx={{ base: 0, md: 3 }}
 								>
 									<Text fontSize="xs" color="text.400">
-										Votes(M)
+										Votes (Monthly)
 									</Text>
 									{user.votes.monthly}
 								</Box>
-								<Box w={{ base: "100%", md: "50px" }}>
+								{/* <Box w={{ base: "100%", md: "50px" }}>
 									<Text fontSize="xs" color="text.400">
 										Tokens
 									</Text>
 									{user.tokens}
-								</Box>
+								</Box> */}
 							</Flex>
 							<Divider display={{ base: "block", md: "none" }} />
 						</Flex>
@@ -181,5 +192,8 @@ export async function getServerSideProps(context: any) {
 		context.req.cookies.guild
 	);
 
-	return { props: { session, leader } };
+	const guild_id = "199325828843044865";
+	// const guild_id = context.req.cookies.guild;
+
+	return { props: { session, leader, guild_id } };
 }
