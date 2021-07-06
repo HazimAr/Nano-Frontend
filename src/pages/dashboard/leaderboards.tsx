@@ -43,8 +43,7 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	console.log(context.req.cookies.guild);
-	console.log("before");
+
 	const leader = await getLeaderboards(
 		// @ts-ignore
 		session.accessToken,
