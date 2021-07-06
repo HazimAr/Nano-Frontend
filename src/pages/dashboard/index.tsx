@@ -22,14 +22,12 @@ export default function Index({
 	guilds: any;
 	session: DiscordUser;
 }): JSX.Element {
-	console.log(guilds);
 	const router = useRouter();
 	return (
 		<Layout session={session}>
 			<Box maxW="600px" w="100%">
 				{guilds.map((guild: any) => {
 					if (guild.permissions & (1 << 3)) {
-						console.log(guild);
 						return (
 							<Flex
 								justify="space-between"
@@ -66,24 +64,28 @@ export default function Index({
 									</Heading>
 								</Flex>
 
-								{guild.nano ? guild.id === guild_id ? (
-									<Heading size="lg">Editing</Heading>
+								{guild.nano ? (
+									guild.id === guild_id ? (
+										<Heading size="lg">Editing</Heading>
+									) : (
+										<Button
+											onClick={() => {
+												setCookie("guild", guild.id, 1);
+												void router.push("");
+											}}
+										>
+											Edit Guild
+										</Button>
+									)
 								) : (
 									<Button
-										onClick={() => {
-											setCookie("guild", guild.id, 1);
-											void router.push("");
-										}}
-									>
-										Edit Guild
-									</Button>
-								): <Button
 										onClick={() => {
 											void router.push("");
 										}}
 									>
 										Invite Nano
-									</Button>}
+									</Button>
+								)}
 							</Flex>
 						);
 					}
@@ -96,7 +98,7 @@ export default function Index({
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 
-	if (!session) {
+	if (!session?.accessToken) {
 		context.res.writeHead(307, {
 			Location: "/",
 		});
@@ -104,7 +106,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	// @ts-ignore
-	const guilds = await getGuilds(session.accessToken);
+	const guilds = await getGuilds(session?.accessToken);
 	return {
 		props: {
 			session,
