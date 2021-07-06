@@ -11,6 +11,7 @@ import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { DiscordUser } from "types";
 
 export default function Index({
@@ -23,6 +24,7 @@ export default function Index({
 	session: DiscordUser;
 }): JSX.Element {
 	const router = useRouter();
+	const [guildCookie, setGuildCookie] = useState(guild_id);
 	return (
 		<Layout session={session}>
 			<Box maxW="600px" w="100%">
@@ -63,20 +65,8 @@ export default function Index({
 										{guild.name}
 									</Heading>
 								</Flex>
-
-								{guild.nano ? (
-									guild.id === guild_id ? (
-										<Heading size="lg">Editing</Heading>
-									) : (
-										<Button
-											onClick={() => {
-												setCookie("guild", guild.id, 1);
-												void router.push("");
-											}}
-										>
-											Edit Guild
-										</Button>
-									)
+								{/* {guild.nano ? (
+									
 								) : (
 									<Button
 										onClick={() => {
@@ -84,6 +74,19 @@ export default function Index({
 										}}
 									>
 										Invite Nano
+									</Button>
+						);
+					} */}
+								{guild.id === guildCookie ? (
+									<Heading size="lg">Editing</Heading>
+								) : (
+									<Button
+										onClick={() => {
+											setCookie("guild", guild.id, 1);
+											setGuildCookie(guild.id);
+										}}
+									>
+										Edit Guild
 									</Button>
 								)}
 							</Flex>
@@ -103,6 +106,7 @@ export async function getServerSideProps(context: any) {
 			Location: "/",
 		});
 		context.res.end();
+		return { props: { session } };
 	}
 
 	// @ts-ignore
@@ -111,7 +115,7 @@ export async function getServerSideProps(context: any) {
 		props: {
 			session,
 			guilds,
-			guild_id: context.req.cookies.guild,
+			guild_id: context.req.cookies.guild || null,
 		},
 	};
 }

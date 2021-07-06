@@ -98,18 +98,18 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	// if (!context.req.cookies.guild) {
-	// 	context.res.writeHead(307, {
-	// 		Location: "/dashboard",
-	// 	});
-	// 	context.res.end();
-	// 	return { props: { session } };
-	// }
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
 
 	const leader = await getLeaderboards(
 		// @ts-ignore
 		session?.accessToken,
-		context.req.cookies?.guild
+		context.req.cookies.guild
 	);
 
 	const guild_id = "199325828843044865";
