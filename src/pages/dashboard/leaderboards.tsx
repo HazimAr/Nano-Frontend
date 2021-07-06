@@ -68,10 +68,10 @@ export default function Custom({
 			})
 			.sort(
 				(
-					a: { votes: { all: number } },
-					b: { votes: { all: number } }
+					a: any,
+					b: any
 				) => {
-					return b.votes.all - a.votes.all;
+					return b.xp - a.xp;
 				}
 			)
 	);
