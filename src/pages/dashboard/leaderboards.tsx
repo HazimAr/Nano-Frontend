@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLeaderboards } from "@api/server";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import Select from "react-select";
 import { DiscordUser } from "types";
 
 const options = [
+	{ value: "rank", label: "Rank" },
 	{ value: "votes", label: "Votes" },
 	{ value: "messages", label: "Messages" },
 	{ value: "tokens", label: "Tokens" },
@@ -68,7 +69,7 @@ export default function Custom({
 
 	return (
 		<Layout session={session}>
-			<Box maxW="800px" w="100%">
+			<Box maxW="600px" w="100%">
 				<Select
 					defaultValue={sort}
 					onChange={setSort}
@@ -80,12 +81,16 @@ export default function Custom({
 					return (
 						<Flex
 							key={user.tag}
-							justify="space-between"
-							align="center"
+							justify={{
+								base: "center",
+								md: "space-between",
+							}}
+							flexDir={{ base: "column", md: "row" }}
+							align={{ base: "flex-start", md: "center" }}
 							my={5}
 							textAlign="center"
 						>
-							<Flex>
+							<Flex justify="center" align="center">
 								<Flex
 									bg={
 										index < 3
@@ -107,20 +112,39 @@ export default function Custom({
 								<Flex w="100px" justify="center">
 									<Image
 										src="/logo.png"
-										w="60px"
+										boxSize="60px"
 										rounded="50%"
 									/>
 								</Flex>
 
-								<Text w="200px" textAlign="left">
+								<Text maxW="300px" textAlign="left">
 									{user.tag}
 								</Text>
 							</Flex>
-							<Flex>
-								<Text w="50px">{user.votes.all}</Text>
-								<Text w="50px">{user.votes.monthly}</Text>
-								<Text w="50px">{user.tokens}</Text>
+							<Flex
+								justify="center"
+								w={{ base: "100%", md: "inherit" }}
+							>
+								<Box w={{ base: "100%", md: "50px" }}>
+									<Text fontSize="xs" color="text.400">
+										Votes (A)
+									</Text>
+									<Text>{user.votes.all}</Text>
+								</Box>
+								<Text w={{ base: "100%", md: "50px" }}>
+									<Text fontSize="xs" color="text.400">
+										Votes (M)
+									</Text>
+									{user.votes.monthly}
+								</Text>
+								<Text w={{ base: "100%", md: "50px" }}>
+									<Text fontSize="xs" color="text.400">
+										Tokens
+									</Text>
+									{user.tokens}
+								</Text>
 							</Flex>
+							<Divider display={{ base: "block", md: "none" }} />
 						</Flex>
 					);
 				})}
