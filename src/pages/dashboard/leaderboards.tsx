@@ -90,7 +90,7 @@ export default function Custom({
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 
-	if (!session) {
+	if (!session?.accessToken) {
 		context.res.writeHead(307, {
 			Location: "/",
 		});
