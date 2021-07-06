@@ -68,7 +68,7 @@ export default function Custom({
 
 	return (
 		<Layout session={session}>
-			<Box w="100%">
+			<Box maxW="800px" w="100%">
 				<Select
 					defaultValue={sort}
 					onChange={setSort}
@@ -85,34 +85,42 @@ export default function Custom({
 							my={5}
 							textAlign="center"
 						>
-							<Flex
-								bg={
-									index < 3
-										? index === 2
-											? "silver"
-											: index === 1
+							<Flex>
+								<Flex
+									bg={
+										index < 3
+											? index === 2
+												? "silver"
+												: index === 1
 												? "brand.primary2"
 												: "brand.secondary"
-										: "brand.primary"
-								}
-								boxSize="50px"
-								justify="center"
-								align="center"
-								rounded="50%"
-							>
-								<Text>{index + 1}</Text>
-							</Flex>
+											: "brand.primary"
+									}
+									boxSize="50px"
+									justify="center"
+									align="center"
+									rounded="50%"
+								>
+									<Text>{index + 1}</Text>
+								</Flex>
 
-							<Flex w="100px" justify="center">
-								<Image src="/logo.png" w="60px" rounded="50%" />
-							</Flex>
+								<Flex w="100px" justify="center">
+									<Image
+										src="/logo.png"
+										w="60px"
+										rounded="50%"
+									/>
+								</Flex>
 
-							<Text w="200px" textAlign="left">
-								{user.tag}
-							</Text>
-							<Text w="100px">{user.votes.all}</Text>
-							<Text w="100px">{user.votes.monthly}</Text>
-							<Text w="100px">{user.tokens}</Text>
+								<Text w="200px" textAlign="left">
+									{user.tag}
+								</Text>
+							</Flex>
+							<Flex>
+								<Text w="50px">{user.votes.all}</Text>
+								<Text w="50px">{user.votes.monthly}</Text>
+								<Text w="50px">{user.tokens}</Text>
+							</Flex>
 						</Flex>
 					);
 				})}

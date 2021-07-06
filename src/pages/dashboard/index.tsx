@@ -26,7 +26,7 @@ export default function Index({
 	const router = useRouter();
 	return (
 		<Layout session={session}>
-			<Box maxW="600px" w="100%">
+			<Box maxW="600px"w="100%">
 				{guilds.map((guild: any) => {
 					if (guild.permissions & (1 << 3)) {
 						return (

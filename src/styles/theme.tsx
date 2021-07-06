@@ -51,6 +51,19 @@ const theme = extendTheme({
 			ul: {
 				listStyle: "none",
 			},
+			"&::-webkit-scrollbar": {
+				background: "#000000",
+				width: "0.6em",
+			},
+			"&::-webkit-scrollbar-track": {
+				// boxShadow: "inset 0 0 2px #1A1A1D",
+				borderRadius: "0px",
+				background: "brand.primary",
+			},
+			"&::-webkit-scrollbar-thumb": {
+				background: "brand.secondary",
+				borderRadius: "50px",
+			},
 		}),
 	},
 });

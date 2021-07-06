@@ -30,7 +30,7 @@ export function MobileTopBar({
 			bg="linear-gradient(to right,#7549ac 60%, #f6a)"
 			display={{ base: "flex", md: "none" }}
 			borderBottomWidth="1px"
-			w="100vw"
+			w="100%"
 		>
 			<Logo />
 			<IconButton
