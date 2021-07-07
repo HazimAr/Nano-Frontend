@@ -65,7 +65,9 @@ const options: Highcharts.Options = {
 	},
 	title: { text: "" },
 	subtitle: { text: "" },
+	// @ts-expect-error style can be used
 	yAxis: {
+		allowDecimals: false,
 		lineWidth: 1,
 		lineColor: theme.axisLineColors,
 		gridLineColor: theme.YaxisPlotLineColor,
@@ -86,6 +88,7 @@ const options: Highcharts.Options = {
 			},
 		},
 	},
+	// @ts-expect-error style can be used
 	xAxis: {
 		lineWidth: 1,
 		lineColor: theme.axisLineColors,
@@ -109,13 +112,16 @@ const options: Highcharts.Options = {
 	plotOptions: {
 		series: {
 			marker: { enabled: false },
+			// @ts-expect-error lineColor on series object
 			lineColor: theme.lineColor,
 			lineWidth: 3.5,
 			name: false,
 		},
 	},
+	// @ts-expect-error credits can be used
 	credits: false,
-	series: [{ showInLegend: false, data: data }],
+	// @ts-expect-error data can be used
+	series: [{ showInLegend: false, data }],
 };
 
 export default function Four({ session }: any): JSX.Element {
@@ -127,7 +133,7 @@ export default function Four({ session }: any): JSX.Element {
 		<Layout session={session}>
 			<Flex flexDir="column" justify="center" maxW="1000px" w="100%">
 				<Box bgImage={theme.bgImage} rounded="10px">
-					<AspectRatio ratio={{ base: 1, md: 2 / 1 }}>
+					<AspectRatio ratio={{ base: 1, md: 16 / 9 }}>
 						<HighchartsReact
 							highcharts={Highcharts}
 							options={options}
@@ -150,7 +156,7 @@ export default function Four({ session }: any): JSX.Element {
 					<Button
 						onClick={async () => {
 							await signOut();
-							// await router.push("/");
+							await router.push("/");
 						}}
 					>
 						Log Out
