@@ -7,6 +7,7 @@ import { getOsuRank, loginOsu } from "@api/server";
 import {
 	AspectRatio,
 	Box,
+	CircularProgress,
 	FormControl,
 	Heading,
 	Input,
@@ -17,15 +18,11 @@ import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import highchartsExporting from "highcharts/modules/exporting";
 import { getSession, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DiscordUser } from "types";
 
-if (typeof Highcharts === "object") {
-	highchartsExporting(Highcharts);
-}
 function graph(theme: any, data: any[][]) {
 	return {
 		chart: {
@@ -105,6 +102,7 @@ export default function Profile({
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
 	const [game] = useState("osu");
+	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -131,11 +129,15 @@ export default function Profile({
 				justify="center"
 				maxW="1000px"
 				w="100%"
+				align="center"
 			>
 				<form
+					style={{ width: "100%" }}
 					onSubmit={async (e) => {
 						e.preventDefault();
+						setLoading(true);
 						const newOsu = await getOsuRank(search);
+						setLoading(false);
 						setOsuState(newOsu);
 					}}
 				>
@@ -149,7 +151,13 @@ export default function Profile({
 						/>
 					</FormControl>
 				</form>
-
+				<CircularProgress
+					isIndeterminate
+					color="brand.primary"
+					trackColor="transparent"
+					size={100}
+					display={loading ? "block" : "none"}
+				/>
 				{osuGame?.rank_history ? (
 					<Box
 						bgImage={osuState.theme?.websiteImage}
@@ -224,7 +232,7 @@ export async function getServerSideProps(context: any) {
 	}
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy
-	const id = await getId(session.accessToken);
+	const id = await getId(session?.accessToken);
 	const osu = await getOsuRank(id);
 
 	return { props: { session, osu } };
