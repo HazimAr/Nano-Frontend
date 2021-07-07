@@ -263,7 +263,7 @@ export function Tokens({ leaderboards }: any) {
 }
 
 export function Osu({ leaderboards }: any) {
-	const newLeaderboards = [];
+	const newLeaderboards: any[] = [];
 	leaderboards
 		.sort((a: any, b: any) => a.osu?.osuRank - b.osu?.osuRank)
 		.forEach((user: any) => {
