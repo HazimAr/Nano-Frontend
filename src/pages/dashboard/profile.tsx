@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { loginOsu } from "@api/server";
-import { AspectRatio, Box, Flex, Text } from "@chakra-ui/react";
+import { AspectRatio, Box, Flex, Input, Text, Stack } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import { setCookie } from "@lib/cookie";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 // import highchartsExporting from "highcharts/modules/exporting";
 import { getSession, signOut } from "next-auth/client";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { DiscordUser } from "types";
 
 const data = [
 	493_369, 494_080, 494_790, 495_479, 496_140, 496_878, 497_599, 498_282,
@@ -104,14 +106,24 @@ const options: Highcharts.Options = {
 	series: [{ showInLegend: false, data: data.reverse() }],
 };
 
-export default function Four({ session }: any): JSX.Element {
-	// if (typeof Highcharts === "object") {
-	// 	highchartsExporting(Highcharts);
-	// }
-	// const router = useRouter();
+export default function Four({
+	session,
+	osu,
+}: {
+	session: DiscordUser;
+	osu: string;
+}): JSX.Element {
+	const router = useRouter();
 	return (
 		<Layout session={session}>
-			<Flex flexDir="column" justify="center" maxW="1000px" w="100%">
+			<Stack
+				spacing={3}
+				flexDir="column"
+				justify="center"
+				maxW="1000px"
+				w="100%"
+			>
+				<Input placeholder="Search for anyone's stats" />
 				<Box bgImage={theme.bgImage} rounded="10px">
 					<AspectRatio ratio={6 / 4}>
 						<HighchartsReact
@@ -134,15 +146,21 @@ export default function Four({ session }: any): JSX.Element {
 					</Text>
 				</Box>
 
-				<Flex justify="center" align="center">
-					<Button
-						onClick={async () => {
-							console.log(await loginOsu(session.accessToken));
-							// await router.push(await loginOsu(session.id));
-						}}
-					>
-						Sign in with Osu
-					</Button>
+				<Stack justify="center" align="center">
+					{osu ? null : (
+						<Button
+							onClick={async () => {
+								// console.log(await loginOsu(session.accessToken));
+								const link = await loginOsu(
+									session.accessToken
+								);
+								setCookie("osu", "true", 365);
+								await router.push(link);
+							}}
+						>
+							Sign in with Osu
+						</Button>
+					)}
 					<Button
 						onClick={async () => {
 							await signOut();
@@ -150,8 +168,9 @@ export default function Four({ session }: any): JSX.Element {
 					>
 						Log Out
 					</Button>
-				</Flex>
-			</Flex>
+					
+				</Stack>
+			</Stack>
 		</Layout>
 	);
 }
@@ -164,6 +183,7 @@ export async function getServerSideProps(context: any) {
 		});
 		context.res.end();
 	}
+	const osu = context.req.cookies.osu ?? null;
 
-	return { props: { session } };
+	return { props: { session, osu } };
 }
