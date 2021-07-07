@@ -89,8 +89,8 @@ export default function Custom({
 				) : sort.value === "votes" ? (
 					<Votes leaderboards={leaderboards} />
 				) : sort.value === "osu" ? (
-					<Osu leaderboards={leaderboards} game={game}/>
-				) : (
+					<Osu leaderboards={leaderboards} game={game} />
+				) : sort.value === "messages" ? null : (
 					<Tokens leaderboards={leaderboards} />
 				)}
 			</Box>
