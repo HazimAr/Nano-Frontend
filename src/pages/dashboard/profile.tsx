@@ -119,7 +119,7 @@ export default function Four({
 				w="100%"
 			>
 				<Input placeholder="Search for anyone's stats" />
-				{osu.osu ? (
+				{osu.osu.rank_history ? (
 					<Box
 						bgImage={osu.theme?.websiteImage}
 						bg={osu.theme?.bg}
