@@ -137,7 +137,6 @@ export default function Four({
 						e.preventDefault();
 						const newOsu = await getOsuRank(search);
 						setOsuState(newOsu);
-						setOsuGame(newOsu.osu);
 					}}
 				>
 					<FormControl isRequired>
