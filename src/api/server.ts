@@ -17,13 +17,7 @@ async function getLeaderboards(token: string, id: string) {
 }
 
 async function getOsuRank(id: string) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/osu/user`,
-		{
-			id: "82998275019378688",
-		},
-		config
-	);
+	const { data } = await axios.post(`${SERVER_URL}/osu/user`, { id }, config);
 
 	return data;
 }

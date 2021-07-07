@@ -94,7 +94,7 @@ function graph(theme: any, data: any[][]) {
 	};
 }
 
-export default function Four({
+export default function Profile({
 	session,
 	osu,
 }: {
