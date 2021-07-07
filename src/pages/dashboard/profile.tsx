@@ -10,31 +10,11 @@ import { getSession, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 
 const data = [
-	[23, 493369],
-	[22, 494080],
-	[21, 494790],
-	[20, 495479],
-	[19, 496140],
-	[18, 496878],
-	[17, 497599],
-	[16, 498282],
-	[15, 498973],
-	[14, 499706],
-	[13, 500392],
-	[12, 501068],
-	[11, 501768],
-	[10, 502497],
-	[9, 503130],
-	[8, 503797],
-	[7, 504446],
-	[6, 505049],
-	[5, 505703],
-	[4, 506225],
-	[3, 506852],
-	[2, 507472],
-	[1, 508100],
-	[0, 508742],
+	493_369, 494_080, 494_790, 495_479, 496_140, 496_878, 497_599, 498_282,
+	498_973, 499_706, 500_392, 501_068, 501_768, 502_497, 503_130, 503_797,
+	504_446, 505_049, 505_703, 506_225, 506_852, 507_472, 508_100, 508_742,
 ];
+
 const theme = {
 	// Galaxy
 	bg: null,
@@ -133,7 +113,7 @@ export default function Four({ session }: any): JSX.Element {
 		<Layout session={session}>
 			<Flex flexDir="column" justify="center" maxW="1000px" w="100%">
 				<Box bgImage={theme.bgImage} rounded="10px">
-					<AspectRatio ratio={{ base: 1, md: 16 / 9 }}>
+					<AspectRatio ratio={6 / 4}>
 						<HighchartsReact
 							highcharts={Highcharts}
 							options={options}
