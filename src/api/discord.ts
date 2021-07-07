@@ -40,4 +40,21 @@ async function getGuilds(token: string) {
 	return og.data;
 }
 
-export { getGuilds };
+async function getId(accessToken: string) {
+	const config = {
+		timeout: 1000 * 5,
+		headers: {
+			// @ts-ignore
+			Authorization: `Bearer ${accessToken}`,
+		},
+	};
+
+	const { data } = await axios.get(
+		`${DISCORD_BASE_URL}/users/@me`,
+
+		config
+	);
+	return data.id;
+}
+
+export { getGuilds, getId };

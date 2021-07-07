@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 import { SERVER_URL } from "config";
+import { getId } from "./discord";
 
 const config = {
 	timeout: 1000 * 5,
@@ -21,10 +21,12 @@ async function getOsuRank(id: number) {
 	return data;
 }
 
-async function loginOsu(id: number) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/osu/login`,
-		{ id },
+async function loginOsu(token: string) {
+	const id = await getId(token);
+	console.log(id);
+	const { data } = await axios.put(
+		`${SERVER_URL}/osu/newUser`,
+		{ id: await getId(token) },
 		config
 	);
 	return data;
