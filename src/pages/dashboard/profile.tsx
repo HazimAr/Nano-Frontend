@@ -193,7 +193,7 @@ export default function Profile({
 							Days Ago
 						</Text>
 					</Box>
-				) : osu.osu ? (
+				) : osu.osu && !loading ? (
 					<Heading textAlign="center">Found No Stats</Heading>
 				) : null}
 				<Stack justify="center" align="center">
