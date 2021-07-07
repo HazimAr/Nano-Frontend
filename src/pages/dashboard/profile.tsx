@@ -1,10 +1,10 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { loginOsu } from "@api/server";
-import { AspectRatio, Box, Flex, Input, Text, Stack } from "@chakra-ui/react";
+import { getOsuRank, loginOsu } from "@api/server";
+import { AspectRatio, Box, Input, Stack, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
-import { setCookie } from "@lib/cookie";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 // import highchartsExporting from "highcharts/modules/exporting";
@@ -12,107 +12,102 @@ import { getSession, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 import { DiscordUser } from "types";
 
-const data = [
-	493_369, 494_080, 494_790, 495_479, 496_140, 496_878, 497_599, 498_282,
-	498_973, 499_706, 500_392, 501_068, 501_768, 502_497, 503_130, 503_797,
-	504_446, 505_049, 505_703, 506_225, 506_852, 507_472, 508_100, 508_742,
-];
+function graph(theme: any, data: any[]) {
+	// 	const theme = {
+	// 	// Galaxy
+	// 	bg: null,
+	// 	lineColor: {
+	// 		linearGradient: { x1: 0, x2: 1, y1: 0, y2: 0 },
+	// 		stops: [
+	// 			[0, "#261e47"],
+	// 			[0.5, "#8e22a9"],
+	// 			[1, "#da46d8"],
+	// 		],
+	// 	},
+	// 	axisLabelColors: "#8e22a9",
+	// 	axisLineColors: "WHITE",
+	// 	daysAgoColor: "#da46d8",
+	// 	YaxisPlotLineColor: "WHITE",
+	// 	YaxisPlotLineWidth: 0.2,
+	// 	bgImage: "/theme/galaxy.png",
+	// };
 
-const theme = {
-	// Galaxy
-	bg: null,
-	lineColor: {
-		linearGradient: { x1: 0, x2: 1, y1: 0, y2: 0 },
-		stops: [
-			[0, "#261e47"],
-			[0.5, "#8e22a9"],
-			[1, "#da46d8"],
-		],
-	},
-	axisLabelColors: "#8e22a9",
-	axisLineColors: "WHITE",
-	daysAgoColor: "#da46d8",
-	YaxisPlotLineColor: "WHITE",
-	YaxisPlotLineWidth: 0.2,
-	bgImage: "/theme/galaxy.png",
-};
+	return {
+		chart: {
+			type: "spline",
+			backgroundColor: theme.bg,
 
-const options: Highcharts.Options = {
-	chart: {
-		type: "spline",
-		// @ts-expect-error null can be retard
-		backgroundColor: theme.bg,
-
-		margin: [70, 25, 30, 70],
-		spacing: [60, 15, 60, 90],
-	},
-	title: { text: "" },
-	subtitle: { text: "" },
-	// @ts-expect-error style can be used
-	yAxis: {
-		allowDecimals: false,
-		lineWidth: 1,
-		lineColor: theme.axisLineColors,
-		gridLineColor: theme.YaxisPlotLineColor,
-		gridLineWidth: theme.YaxisPlotLineWidth,
-		reversed: true,
-		tickWidth: 0,
+			margin: [70, 25, 30, 70],
+			spacing: [60, 15, 60, 90],
+		},
 		title: { text: "" },
-		labels: {
-			// The Tick Values
-			enabled: true,
-			allowOverlap: true,
-			overflow: "allow",
-			style: {
-				color: theme.axisLabelColors,
-				fontFamily: "Gagalin",
-				fontSize: 18,
+		subtitle: { text: "" },
+		yAxis: {
+			allowDecimals: false,
+			lineWidth: 1,
+			lineColor: theme.axisLineColors,
+			gridLineColor: theme.YaxisPlotLineColor,
+			gridLineWidth: theme.YaxisPlotLineWidth,
+			reversed: true,
+			tickWidth: 0,
+			title: { text: "" },
+			labels: {
+				// The Tick Values
+				enabled: true,
+				allowOverlap: true,
+				overflow: "allow",
+				style: {
+					color: theme.axisLabelColors,
+					fontFamily: "Gagalin",
+					fontSize: 18,
+				},
 			},
 		},
-	},
-	// @ts-expect-error style can be used
-	xAxis: {
-		lineWidth: 1,
-		lineColor: theme.axisLineColors,
-		gridLineWidth: 0,
-		reversed: true,
-		tickWidth: 0,
-		title: { text: "" },
-		labels: {
-			// The Tick Values
-			enabled: true,
-			allowOverlap: true,
-			overflow: "allow",
-			style: {
-				color: theme.axisLabelColors,
-				fontFamily: "Gagalin",
-				fontSize: 18,
+		xAxis: {
+			lineWidth: 1,
+			lineColor: theme.axisLineColors,
+			gridLineWidth: 0,
+			reversed: true,
+			tickWidth: 0,
+			title: { text: "" },
+			labels: {
+				// The Tick Values
+				enabled: true,
+				allowOverlap: true,
+				overflow: "allow",
+				style: {
+					color: theme.axisLabelColors,
+					fontFamily: "Gagalin",
+					fontSize: 18,
+				},
 			},
 		},
-	},
-	legend: { itemStyle: { color: "#CFD8DC" } },
-	plotOptions: {
-		series: {
-			marker: { enabled: false },
-			// @ts-expect-error lineColor on series object
-			lineColor: theme.lineColor,
-			lineWidth: 3.5,
-			name: false,
+		legend: { itemStyle: { color: "#CFD8DC" } },
+		plotOptions: {
+			series: {
+				marker: { enabled: false },
+
+				lineColor: theme.lineColor,
+				lineWidth: 3.5,
+				name: false,
+			},
 		},
-	},
-	// @ts-expect-error credits can be used
-	credits: false,
-	// @ts-expect-error data can be used
-	series: [{ showInLegend: false, data: data.reverse() }],
-};
+
+		credits: false,
+
+		series: [{ showInLegend: false, data: data.reverse() }],
+	};
+}
 
 export default function Four({
 	session,
 	osu,
 }: {
 	session: DiscordUser;
-	osu: string;
+	osu: any;
 }): JSX.Element {
+	console.log(osu);
+
 	const router = useRouter();
 	return (
 		<Layout session={session}>
@@ -124,28 +119,36 @@ export default function Four({
 				w="100%"
 			>
 				<Input placeholder="Search for anyone's stats" />
-				<Box bgImage={theme.bgImage} rounded="10px">
-					<AspectRatio ratio={6 / 4}>
-						<HighchartsReact
-							highcharts={Highcharts}
-							options={options}
-							styles={{ fontFamily: "Gagalin" }}
-						/>
-					</AspectRatio>
-					<Text
-						color={theme.daysAgoColor}
-						textAlign="center"
-						my={3}
-						style={{
-							color: theme.axisLabelColors,
-							fontFamily: "Gagalin",
-							fontSize: 18,
-						}}
+				{osu.osu ? (
+					<Box
+						bgImage={osu.theme?.websiteImage}
+						bg={osu.theme?.bg}
+						rounded="10px"
 					>
-						Days Ago
-					</Text>
-				</Box>
-
+						<AspectRatio ratio={6 / 4}>
+							<HighchartsReact
+								highcharts={Highcharts}
+								options={graph(
+									osu.theme,
+									osu.osu.rank_history.data
+								)}
+								styles={{ fontFamily: "Gagalin" }}
+							/>
+						</AspectRatio>
+						<Text
+							color={osu.theme.daysAgoColor}
+							textAlign="center"
+							my={3}
+							style={{
+								color: osu.theme.axisLabelColors,
+								fontFamily: "Gagalin",
+								fontSize: 18,
+							}}
+						>
+							Days Ago
+						</Text>
+					</Box>
+				) : null}
 				<Stack justify="center" align="center">
 					{osu ? null : (
 						<Button
@@ -154,7 +157,6 @@ export default function Four({
 								const link = await loginOsu(
 									session.accessToken
 								);
-								setCookie("osu", "true", 365);
 								await router.push(link);
 							}}
 						>
@@ -168,7 +170,6 @@ export default function Four({
 					>
 						Log Out
 					</Button>
-					
 				</Stack>
 			</Stack>
 		</Layout>
@@ -183,7 +184,10 @@ export async function getServerSideProps(context: any) {
 		});
 		context.res.end();
 	}
-	const osu = context.req.cookies.osu ?? null;
+	// const osu = context.req.cookies.osu ?? null;
+	// @ts-expect-error ik dummy
+	const osu = await getOsuRank(session.accessToken);
+	osu.osu.rank_history.data.length = 26;
 
 	return { props: { session, osu } };
 }
