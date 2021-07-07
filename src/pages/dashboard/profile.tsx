@@ -30,7 +30,7 @@ function graph(theme: any, data: any[][]) {
 			type: "spline",
 			backgroundColor: theme.bg,
 
-			margin: [20, 25, 30, 70],
+			margin: [10, 25, 25, 70],
 			spacing: [60, 15, 60, 90],
 		},
 		title: { text: "" },
