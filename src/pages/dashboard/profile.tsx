@@ -13,6 +13,7 @@ import {
 	Input,
 	Stack,
 	Text,
+	Center,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -129,7 +130,7 @@ export default function Profile({
 				justify="center"
 				maxW="1000px"
 				w="100%"
-				align="center"
+				// align="center"
 			>
 				<form
 					style={{ width: "100%" }}
@@ -151,14 +152,16 @@ export default function Profile({
 						/>
 					</FormControl>
 				</form>
-				<CircularProgress
-					isIndeterminate
-					color="brand.primary"
-					trackColor="transparent"
-					size={100}
-					display={loading ? "block" : "none"}
-				/>
-				{osuGame?.rank_history ? (
+				<Center>
+					<CircularProgress
+						isIndeterminate
+						color="brand.primary"
+						trackColor="transparent"
+						size={100}
+						display={loading ? "block" : "none"}
+					/>
+				</Center>
+				{osuGame?.rank_history && !loading ? (
 					<Box
 						bgImage={osuState.theme?.websiteImage}
 						bg={osuState.theme?.bg}
