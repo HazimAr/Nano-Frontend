@@ -124,6 +124,10 @@ export default function Four({
 						bgImage={osu.theme?.websiteImage}
 						bg={osu.theme?.bg}
 						rounded="10px"
+						style={{
+							backgroundRepeat: "no-repeat",
+							backgroundSize: "cover",
+						}}
 					>
 						<AspectRatio ratio={6 / 4}>
 							<HighchartsReact
