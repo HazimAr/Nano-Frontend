@@ -119,7 +119,7 @@ export default function Four({
 				w="100%"
 			>
 				<Input placeholder="Search for anyone's stats" />
-				{osu.osu.rank_history ? (
+				{osu?.osu?.rank_history ? (
 					<Box
 						bgImage={osu.theme?.websiteImage}
 						bg={osu.theme?.bg}
@@ -187,7 +187,9 @@ export async function getServerSideProps(context: any) {
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy
 	const osu = await getOsuRank(session.accessToken);
-	osu.osu.rank_history.data.length = 26;
+	if (osu.osu) {
+		osu.osu.rank_history.data.length = 26;
+	}
 
 	return { props: { session, osu } };
 }
