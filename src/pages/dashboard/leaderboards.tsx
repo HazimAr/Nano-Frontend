@@ -52,6 +52,7 @@ export default function Custom({
 }): JSX.Element {
 	guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
+	const [game] = useState("osu");
 	const [leaderboards] = useState(
 		leader.lbAll.map((user: any) => {
 			return {
@@ -67,7 +68,7 @@ export default function Custom({
 				donated: user?.guilds[guild_id]?.donatedTokens,
 				nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
 				messages: user?.guilds[guild_id]?.messages?.all,
-				osu: user?.osu
+				osu: user?.osu,
 			};
 		})
 	);
@@ -88,7 +89,7 @@ export default function Custom({
 				) : sort.value === "votes" ? (
 					<Votes leaderboards={leaderboards} />
 				) : sort.value === "osu" ? (
-					<Osu leaderboards={leaderboards} />
+					<Osu leaderboards={leaderboards} game={game}/>
 				) : (
 					<Tokens leaderboards={leaderboards} />
 				)}
