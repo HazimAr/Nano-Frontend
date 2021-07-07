@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
+// import { useState } from "react";
 import { DiscordUser } from "types";
 
 export default function Custom({
@@ -9,7 +11,33 @@ export default function Custom({
 }: {
 	session: DiscordUser;
 }): JSX.Element {
-	return <Layout session={session}>Custom</Layout>;
+	// const [plan, setPlan] = useState("month");
+	function Plan({ plan, price, per, save }: any) {
+		return (
+			<Box textAlign="center">
+				<Text fontSize="xs">{plan}</Text>
+				<Box py={5}>
+					<Heading>${price}</Heading>
+					<Text fontSize="xs">{per}</Text>
+				</Box>
+				<Box
+					fontSize="sm"
+					bg="brand.primary2"
+					opacity="50%"
+					rounded="50px"
+				>
+					<Text>{save}</Text>
+				</Box>
+			</Box>
+		);
+	}
+	return (
+		<Layout session={session}>
+			<Flex justify="center">
+				<Plan plan="Monthly" price={5} per="per month" save="0%" />
+			</Flex>
+		</Layout>
+	);
 }
 
 export async function getServerSideProps(context: any) {
