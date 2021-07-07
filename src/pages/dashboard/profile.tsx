@@ -156,7 +156,7 @@ export default function Profile({
 						isIndeterminate
 						color="brand.primary"
 						trackColor="transparent"
-						size={100}
+						size={550}
 						display={loading ? "block" : "none"}
 					/>
 				</Center>
