@@ -130,7 +130,6 @@ export default function Profile({
 				justify="center"
 				maxW="1000px"
 				w="100%"
-				// align="center"
 			>
 				<form
 					style={{ width: "100%" }}
