@@ -104,7 +104,7 @@ export default function Four({
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
-	const [game, setGame] = useState("osu");
+	const [game] = useState("osu");
 	const router = useRouter();
 
 	useEffect(() => {
