@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { loginOsu } from "@api/server";
-import { AspectRatio, Box, Flex } from "@chakra-ui/react";
+import { AspectRatio, Box, Flex, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 // import highchartsExporting from "highcharts/modules/exporting";
 import { getSession, signOut } from "next-auth/client";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 const data = [
 	493_369, 494_080, 494_790, 495_479, 496_140, 496_878, 497_599, 498_282,
@@ -41,7 +41,7 @@ const options: Highcharts.Options = {
 		// @ts-expect-error null can be retard
 		backgroundColor: theme.bg,
 
-		margin: [70, 25, 70, 70],
+		margin: [70, 25, 30, 70],
 		spacing: [60, 15, 60, 90],
 	},
 	title: { text: "" },
@@ -102,14 +102,14 @@ const options: Highcharts.Options = {
 	// @ts-expect-error credits can be used
 	credits: false,
 	// @ts-expect-error data can be used
-	series: [{ showInLegend: false, data }],
+	series: [{ showInLegend: false, data: data.reverse() }],
 };
 
 export default function Four({ session }: any): JSX.Element {
 	// if (typeof Highcharts === "object") {
 	// 	highchartsExporting(Highcharts);
 	// }
-	const router = useRouter();
+	// const router = useRouter();
 	return (
 		<Layout session={session}>
 			<Flex flexDir="column" justify="center" maxW="1000px" w="100%">
@@ -121,6 +121,18 @@ export default function Four({ session }: any): JSX.Element {
 							styles={{ fontFamily: "Gagalin" }}
 						/>
 					</AspectRatio>
+					<Text
+						color={theme.daysAgoColor}
+						textAlign="center"
+						my={3}
+						style={{
+							color: theme.axisLabelColors,
+							fontFamily: "Gagalin",
+							fontSize: 18,
+						}}
+					>
+						Days Ago
+					</Text>
 				</Box>
 
 				<Flex justify="center" align="center">
