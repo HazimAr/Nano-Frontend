@@ -9,8 +9,8 @@ export function Logo(): JSX.Element {
 			_focus={{}}
 		>
 			<Flex align="center">
-				<Image src="/logo.png" w={30} rounded="50%" />
-				<Heading size="md" ml={2.5}>
+				<Image src="/logo.png" w={50} rounded="50%" />
+				<Heading size="lg" ml={2.5}>
 					Nano
 				</Heading>
 			</Flex>

@@ -18,4 +18,15 @@ async function getLeaderboards(token: string, id: string) {
 	return data;
 }
 
-export { getLeaderboards };
+async function getOsu(id: number) {
+	const config = {
+		timeout: 1000 * 5,
+	};
+	const { data } = await axios.get(
+		`${SERVER_URL}/osu?id=${id}`,
+		config
+	);
+	return data;
+}
+
+export { getLeaderboards, getOsu };

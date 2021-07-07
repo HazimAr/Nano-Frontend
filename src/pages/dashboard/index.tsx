@@ -30,7 +30,7 @@ export default function Index({
 					guilds.map((guild: any) => {
 						if (guild.permissions & (1 << 3)) {
 							return (
-								<>
+								<Box key={guild.id}>
 									<Flex
 										justify="space-between"
 										align="center"
@@ -39,7 +39,7 @@ export default function Index({
 											base: "column",
 											sm: "row",
 										}}
-										key={guild.id}
+										// key={guild.id}
 									>
 										<Flex
 											align="center"
@@ -62,7 +62,11 @@ export default function Index({
 												rounded="50%"
 												mr={{ base: 0, sm: 5 }}
 											/>
-											<Heading size="md" my={5} textAlign="center">
+											<Heading
+												size="md"
+												my={5}
+												textAlign="center"
+											>
 												{guild.name}
 											</Heading>
 										</Flex>
@@ -98,7 +102,7 @@ export default function Index({
 									<Divider
 										display={{ base: "block", sm: "none" }}
 									/>
-								</>
+								</Box>
 							);
 						}
 					})

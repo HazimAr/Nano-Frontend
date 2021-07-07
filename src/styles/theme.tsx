@@ -64,8 +64,14 @@ const theme = extendTheme({
 				background: "brand.secondary",
 				borderRadius: "50px",
 			},
+
+			"@font-face": {
+				fontFamily: "Gagalin",
+				src: "url('/fonts/Gagalin.ttf')",
+			},
 		}),
 	},
+
 });
 
 export default theme;
