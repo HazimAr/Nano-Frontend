@@ -102,7 +102,7 @@ export default function Profile({
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
-	const [user, setUser] = useState("");
+	const [user, setUser] = useState(osu.osu.username);
 	const [game] = useState("osu");
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
