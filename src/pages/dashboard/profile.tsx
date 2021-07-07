@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box } from "@chakra-ui/react";
+import { AspectRatio, Box, Flex } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+// import highchartsExporting from "highcharts/modules/exporting";
 import { getSession, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-const oldData = [
+const data = [
 	[23, 493369],
 	[22, 494080],
 	[21, 494790],
@@ -33,79 +35,128 @@ const oldData = [
 	[1, 508100],
 	[0, 508742],
 ];
+const theme = {
+	// Galaxy
+	bg: null,
+	lineColor: {
+		linearGradient: { x1: 0, x2: 1, y1: 0, y2: 0 },
+		stops: [
+			[0, "#261e47"],
+			[0.5, "#8e22a9"],
+			[1, "#da46d8"],
+		],
+	},
+	axisLabelColors: "#8e22a9",
+	axisLineColors: "WHITE",
+	daysAgoColor: "#da46d8",
+	YaxisPlotLineColor: "WHITE",
+	YaxisPlotLineWidth: 0.2,
+	bgImage: "/theme/galaxy.png",
+};
 
-const newData: any[] | undefined = [];
-oldData.forEach((day) => newData.push({ day: day[0], rank: day[1] }));
+const options: Highcharts.Options = {
+	chart: {
+		type: "spline",
+		// @ts-expect-error null can be retard
+		backgroundColor: theme.bg,
 
-// const data = [
-// 	{ name: 23, value: 493369 },
-// 	{ name: 22, value: 494080 },
-// 	{ name: 21, value: 494790 },
-// 	{ name: 20, value: 495479 },
-// 	{ name: 19, value: 496140 },
-// 	{ name: 18, value: 496878 },
-// 	{ name: 17, value: 497599 },
-// 	{ name: 16, value: 498282 },
-// 	{ name: 15, value: 498973 },
-// 	{ name: 14, value: 499706 },
-// 	{ name: 13, value: 500392 },
-// 	{ name: 12, value: 501068 },
-// 	{ name: 11, value: 501768 },
-// 	{ name: 10, value: 502497 },
-// 	{ name: 9, value: 503130 },
-// 	{ name: 8, value: 503797 },
-// 	{ name: 7, value: 504446 },
-// 	{ name: 6, value: 505049 },
-// 	{ name: 5, value: 505703 },
-// 	{ name: 4, value: 506225 },
-// 	{ name: 3, value: 506852 },
-// 	{ name: 2, value: 507472 },
-// 	{ name: 1, value: 508100 },
-// 	{ name: 0, value: 508742 },
-// ];
+		margin: [70, 25, 70, 70],
+		spacing: [60, 15, 60, 90],
+	},
+	title: { text: "" },
+	subtitle: { text: "" },
+	yAxis: {
+		lineWidth: 1,
+		lineColor: theme.axisLineColors,
+		gridLineColor: theme.YaxisPlotLineColor,
+		gridLineWidth: theme.YaxisPlotLineWidth,
+		reversed: true,
+		tickWidth: 0,
+		title: { text: "" },
+		labels: {
+			// The Tick Values
+			enabled: true,
+			allowOverlap: true,
+			overflow: "allow",
+			zIndex: 100,
+			style: {
+				color: theme.axisLabelColors,
+				fontFamily: "Gagalin",
+				fontSize: 18,
+			},
+		},
+	},
+	xAxis: {
+		lineWidth: 1,
+		lineColor: theme.axisLineColors,
+		gridLineWidth: 0,
+		reversed: true,
+		tickWidth: 0,
+		title: { text: "" },
+		labels: {
+			// The Tick Values
+			enabled: true,
+			allowOverlap: true,
+			overflow: "allow",
+			style: {
+				color: theme.axisLabelColors,
+				fontFamily: "Gagalin",
+				fontSize: 18,
+			},
+		},
+	},
+	legend: { itemStyle: { color: "#CFD8DC" } },
+	plotOptions: {
+		series: {
+			marker: { enabled: false },
+			lineColor: theme.lineColor,
+			lineWidth: 3.5,
+			name: false,
+		},
+	},
+	credits: false,
+	series: [{ showInLegend: false, data: data }],
+};
 
 export default function Four({ session }: any): JSX.Element {
+	// if (typeof Highcharts === "object") {
+	// 	highchartsExporting(Highcharts);
+	// }
 	const router = useRouter();
 	return (
 		<Layout session={session}>
-			<Box>
-				<LineChart width={500} height={300} data={newData}>
-					<XAxis
-						dataKey="day"
-						style={{
-							fontFamily: "Gagalin",
+			<Flex flexDir="column" justify="center" maxW="1000px" w="100%">
+				<Box bgImage={theme.bgImage} rounded="10px">
+					<AspectRatio ratio={{ base: 1, md: 2 / 1 }}>
+						<HighchartsReact
+							highcharts={Highcharts}
+							options={options}
+							styles={{ fontFamily: "Gagalin" }}
+						/>
+					</AspectRatio>
+				</Box>
+
+				<Flex justify="center" align="center">
+					<Button
+						onClick={async () => {
+							await signOut();
+							// await router.push(
+							// 	`https://osu.ppy.sh/oauth/authorize?client_id=${OSU_V2ID}&redirect_uri=https://nano-osu.teamdragonsden.com/signin-osu&response_type=code&scope=public&state=${state}`
+							// );
 						}}
-					/>
-					<YAxis
-						minTickGap={0}
-						reversed
-					
-						style={{
-							fontFamily: "Gagalin",
+					>
+						Sign in with Osu
+					</Button>
+					<Button
+						onClick={async () => {
+							await signOut();
+							// await router.push("/");
 						}}
-					/>
-					<CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-					<Line type="monotone" dataKey="rank" stroke="#8884d8" />
-				</LineChart>
-				<Button
-					onClick={async () => {
-						await signOut();
-						// await router.push(
-						// 	`https://osu.ppy.sh/oauth/authorize?client_id=${OSU_V2ID}&redirect_uri=https://nano-osu.teamdragonsden.com/signin-osu&response_type=code&scope=public&state=${state}`
-						// );
-					}}
-				>
-					Sign in with Osu
-				</Button>
-				<Button
-					onClick={async () => {
-						await signOut();
-						await router.push("/");
-					}}
-				>
-					Log Out
-				</Button>
-			</Box>
+					>
+						Log Out
+					</Button>
+				</Flex>
+			</Flex>
 		</Layout>
 	);
 }
