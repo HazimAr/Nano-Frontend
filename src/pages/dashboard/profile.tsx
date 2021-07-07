@@ -143,7 +143,7 @@ export default function Profile({
 				>
 					<FormControl isRequired>
 						<Input
-							placeholder="Search a discord user"
+							placeholder="Search a osu user or discord id"
 							w="100%"
 							onChange={(event: any) => {
 								setSearch(event.target.value);
