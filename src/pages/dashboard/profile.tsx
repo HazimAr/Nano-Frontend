@@ -7,13 +7,13 @@ import { getOsuRank, loginOsu } from "@api/server";
 import {
 	AspectRatio,
 	Box,
+	Center,
 	CircularProgress,
 	FormControl,
 	Heading,
 	Input,
 	Stack,
 	Text,
-	Center,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -30,7 +30,7 @@ function graph(theme: any, data: any[][]) {
 			type: "spline",
 			backgroundColor: theme.bg,
 
-			margin: [70, 25, 30, 70],
+			margin: [20, 25, 30, 70],
 			spacing: [60, 15, 60, 90],
 		},
 		title: { text: "" },
@@ -102,6 +102,7 @@ export default function Profile({
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
+	const [user, setUser] = useState("");
 	const [game] = useState("osu");
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
@@ -139,6 +140,7 @@ export default function Profile({
 						const newOsu = await getOsuRank(search);
 						setLoading(false);
 						setOsuState(newOsu);
+						setUser(search);
 					}}
 				>
 					<FormControl isRequired>
@@ -170,6 +172,7 @@ export default function Profile({
 							backgroundSize: "cover",
 						}}
 					>
+						<Heading textAlign="center">{user}'s stats</Heading>
 						<AspectRatio ratio={6 / 4}>
 							<HighchartsReact
 								highcharts={Highcharts}
