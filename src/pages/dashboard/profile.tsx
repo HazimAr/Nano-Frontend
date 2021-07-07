@@ -61,7 +61,6 @@ const options: Highcharts.Options = {
 			enabled: true,
 			allowOverlap: true,
 			overflow: "allow",
-			zIndex: 100,
 			style: {
 				color: theme.axisLabelColors,
 				fontFamily: "Gagalin",
