@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { loginOsu } from "@api/server";
 import { AspectRatio, Box, Flex } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -135,8 +136,7 @@ export default function Four({ session }: any): JSX.Element {
 					</Button>
 					<Button
 						onClick={async () => {
-							await signOut();
-							await router.push("/");
+							await router.push(await loginOsu(session.id));
 						}}
 					>
 						Log Out
