@@ -16,8 +16,8 @@ const META: MetaType = {
 	url: "",
 };
 
-// const SERVER_URL = "https://unlucky-turkey-62.loca.lt";
-const SERVER_URL = "https://nano-osu.teamdragonsden.com";
+const SERVER_URL = "https://terrible-rat-12.loca.lt";
+// const SERVER_URL = "https://nano-osu.teamdragonsden.com";
 const DISCORD_BASE_URL = "https://discord.com/api/v9";
 
 export { GA_TRACKING_ID, IS_PRODUCTION, META, SERVER_URL, DISCORD_BASE_URL };

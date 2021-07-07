@@ -1,37 +1,32 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { getId } from "@api/discord";
 import { getOsuRank, loginOsu } from "@api/server";
-import { AspectRatio, Box, Input, Stack, Text } from "@chakra-ui/react";
+import {
+	AspectRatio,
+	Box,
+	FormControl,
+	Heading,
+	Input,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-// import highchartsExporting from "highcharts/modules/exporting";
+import highchartsExporting from "highcharts/modules/exporting";
 import { getSession, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { DiscordUser } from "types";
 
-function graph(theme: any, data: any[]) {
-	// 	const theme = {
-	// 	// Galaxy
-	// 	bg: null,
-	// 	lineColor: {
-	// 		linearGradient: { x1: 0, x2: 1, y1: 0, y2: 0 },
-	// 		stops: [
-	// 			[0, "#261e47"],
-	// 			[0.5, "#8e22a9"],
-	// 			[1, "#da46d8"],
-	// 		],
-	// 	},
-	// 	axisLabelColors: "#8e22a9",
-	// 	axisLineColors: "WHITE",
-	// 	daysAgoColor: "#da46d8",
-	// 	YaxisPlotLineColor: "WHITE",
-	// 	YaxisPlotLineWidth: 0.2,
-	// 	bgImage: "/theme/galaxy.png",
-	// };
-
+if (typeof Highcharts === "object") {
+	highchartsExporting(Highcharts);
+}
+function graph(theme: any, data: any[][]) {
 	return {
 		chart: {
 			type: "spline",
@@ -95,7 +90,7 @@ function graph(theme: any, data: any[]) {
 
 		credits: false,
 
-		series: [{ showInLegend: false, data: data.reverse() }],
+		series: [{ showInLegend: false, data }],
 	};
 }
 
@@ -106,9 +101,28 @@ export default function Four({
 	session: DiscordUser;
 	osu: any;
 }): JSX.Element {
-	console.log(osu);
-
+	const [osuState, setOsuState] = useState(osu);
+	const [osuGame, setOsuGame] = useState(osu.osu);
+	const [search, setSearch] = useState("");
+	const [game, setGame] = useState("osu");
 	const router = useRouter();
+
+	useEffect(() => {
+		game === "osu"
+			? setOsuGame(osuState.osu)
+			: game === "taiko"
+			? setOsuGame(osuState.taiko)
+			: game === "fruits"
+			? setOsuGame(osuState.fruits)
+			: game === "mania"
+			? setOsuGame(osuState.mania)
+			: null;
+	}, [osuState]);
+
+	useEffect(() => {
+		console.log(osuState);
+	}, [osuState]);
+
 	return (
 		<Layout session={session}>
 			<Stack
@@ -118,11 +132,29 @@ export default function Four({
 				maxW="1000px"
 				w="100%"
 			>
-				<Input placeholder="Search for anyone's stats" />
-				{osu?.osu?.rank_history ? (
+				<form
+					onSubmit={async (e) => {
+						e.preventDefault();
+						const newOsu = await getOsuRank(search);
+						setOsuState(newOsu);
+						setOsuGame(newOsu.osu);
+					}}
+				>
+					<FormControl isRequired>
+						<Input
+							placeholder="Search a discord user"
+							w="100%"
+							onChange={(event: any) => {
+								setSearch(event.target.value);
+							}}
+						/>
+					</FormControl>
+				</form>
+
+				{osuGame?.rank_history ? (
 					<Box
-						bgImage={osu.theme?.websiteImage}
-						bg={osu.theme?.bg}
+						bgImage={osuState.theme?.websiteImage}
+						bg={osuState.theme?.bg}
 						rounded="10px"
 						style={{
 							backgroundRepeat: "no-repeat",
@@ -133,18 +165,18 @@ export default function Four({
 							<HighchartsReact
 								highcharts={Highcharts}
 								options={graph(
-									osu.theme,
-									osu.osu.rank_history.data
+									osuState.theme,
+									osuGame.rank_history
 								)}
 								styles={{ fontFamily: "Gagalin" }}
 							/>
 						</AspectRatio>
 						<Text
-							color={osu.theme.daysAgoColor}
+							color={osuState.theme.daysAgoColor}
 							textAlign="center"
 							my={3}
 							style={{
-								color: osu.theme.axisLabelColors,
+								color: osuState.theme.axisLabelColors,
 								fontFamily: "Gagalin",
 								fontSize: 18,
 							}}
@@ -152,12 +184,15 @@ export default function Four({
 							Days Ago
 						</Text>
 					</Box>
+				) : osu.osu ? (
+					<Heading textAlign="center">Found No Stats</Heading>
 				) : null}
 				<Stack justify="center" align="center">
-					{osu ? null : (
+					{osu.osu ? null : (
 						<Button
 							onClick={async () => {
 								// console.log(await loginOsu(session.accessToken));
+
 								const link = await loginOsu(
 									session.accessToken
 								);
@@ -190,10 +225,8 @@ export async function getServerSideProps(context: any) {
 	}
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy
-	const osu = await getOsuRank(session.accessToken);
-	if (osu.osu) {
-		osu.osu.rank_history.data.length = 26;
-	}
+	const id = await getId(session.accessToken);
+	const osu = await getOsuRank(id);
 
 	return { props: { session, osu } };
 }

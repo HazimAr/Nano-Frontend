@@ -16,22 +16,17 @@ async function getLeaderboards(token: string, id: string) {
 	return data;
 }
 
-async function getOsuRank(token: string) {
-	// const id = await getId(token);
-	const { data } = await axios.post(
-		`${SERVER_URL}/osu/user`,
-		{ id: "82998275019378688" },
-		config
-	);
+async function getOsuRank(id: string) {
+	const { data } = await axios.post(`${SERVER_URL}/osu/user`, { id }, config);
+
 	return data;
 }
 
 async function loginOsu(token: string) {
 	const id = await getId(token);
-	console.log(id);
 	const { data } = await axios.put(
 		`${SERVER_URL}/osu/newUser`,
-		{ id: await getId(token) },
+		{ id },
 		config
 	);
 	return data;

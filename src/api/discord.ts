@@ -40,7 +40,7 @@ async function getGuilds(token: string) {
 	return og.data;
 }
 
-async function getId(accessToken: string) {
+async function getId(accessToken: string): Promise<string> {
 	const config = {
 		timeout: 1000 * 5,
 		headers: {
