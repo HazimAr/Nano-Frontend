@@ -36,7 +36,7 @@ export default function Index({
 	const router = useRouter();
 	return (
 		<Layout session={session}>
-			<Stack maxW="800px" w="100%">
+			<Stack maxW="800px" w="100%" spacing={3}>
 				{guilds.length > 0 ? (
 					guilds
 						.sort((a: any, b: any) => {
