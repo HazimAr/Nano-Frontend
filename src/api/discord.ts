@@ -27,10 +27,8 @@ async function getGuilds(token: string) {
 		config
 	);
 
-	// console.log(data);
-
-	ids?.forEach((guild: any, index: number) => {
-		if (data.includes(guild.id)) {
+	ids?.forEach((id: any, index: number) => {
+		if (data.includes(id)) {
 			og.data[index].nano = true;
 			return;
 		}
