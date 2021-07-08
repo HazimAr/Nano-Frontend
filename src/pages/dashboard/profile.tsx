@@ -232,8 +232,8 @@ export default function Profile({
 							<HStack>
 								<Avatar
 									size="2xl"
-									name={osuState.osu.username}
-									src={osuState.osu.avatar_url}
+									name={osuState.osu?.username}
+									src={osuState.osu?.avatar_url}
 									fallbackSrc="/oss.png"
 								/>
 								<Box>
@@ -243,21 +243,21 @@ export default function Profile({
 											<Text>
 												Rank:{" "}
 												{
-													osuState.osu.statistics
+													osuState.osu?.statistics
 														.global_rank
 												}
 											</Text>
 											<Text>
-												{osuState.osu.country.name}:{" "}
+												{osuState.osu?.country.name}:{" "}
 												{
-													osuState.osu.statistics
+													osuState.osu?.statistics
 														.country_rank
 												}
 											</Text>
 											<Text>
 												Accuracy:{" "}
 												{
-													osuState.osu.statistics
+													osuState.osu?.statistics
 														.hit_accuracy
 												}
 											</Text>
@@ -305,7 +305,7 @@ export default function Profile({
 						</Heading>
 					) : osuState.osu && !loading && fromUser ? (
 						<Heading textAlign="center">
-							Found No Stats for {user}
+							Found No Stats for {search}
 						</Heading>
 					) : null}
 				</Flex>
