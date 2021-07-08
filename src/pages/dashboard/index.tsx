@@ -29,85 +29,91 @@ export default function Index({
 		<Layout session={session}>
 			<Box maxW="800px" w="100%">
 				{guilds.length > 0 ? (
-					guilds.map((guild: any) => {
-						return (
-							<Box key={guild.id}>
-								<Flex
-									justify="space-between"
-									align="center"
-									my={5}
-									flexDir={{
-										base: "column",
-										sm: "row",
-									}}
-									// key={guild.id}
-								>
+					guilds
+						.sort((a: any, b: any) => {
+							return b.nano - a.nano;
+						})
+						.map((guild: any) => {
+							return (
+								<Box key={guild.id}>
 									<Flex
+										justify="space-between"
 										align="center"
+										my={5}
 										flexDir={{
 											base: "column",
 											sm: "row",
 										}}
-										justify="center"
+										// key={guild.id}
 									>
-										<Image
-											src={`https://cdn.discordapp.com/icons/${
-												guild.id
-											}/${guild.icon}.${
-												guild.icon?.startsWith("a_")
-													? "gif"
-													: "png"
-											}`}
-											fallbackSrc="/oss.png"
-											w={20}
-											rounded="50%"
-											mr={{ base: 0, sm: 5 }}
-										/>
-										<Heading
-											size="md"
-											my={5}
-											textAlign="center"
+										<Flex
+											align="center"
+											flexDir={{
+												base: "column",
+												sm: "row",
+											}}
+											justify="center"
 										>
-											{guild.name}
-										</Heading>
-									</Flex>
-									{guild.nano ? (
-										guild.id === guildCookie ? (
-											<Heading size="lg">
-												Selected
+											<Image
+												src={`https://cdn.discordapp.com/icons/${
+													guild.id
+												}/${guild.icon}.${
+													guild.icon?.startsWith("a_")
+														? "gif"
+														: "png"
+												}`}
+												fallbackSrc="/oss.png"
+												w={20}
+												rounded="50%"
+												mr={{ base: 0, sm: 5 }}
+											/>
+											<Heading
+												size="md"
+												my={5}
+												textAlign="center"
+											>
+												{guild.name}
 											</Heading>
+										</Flex>
+										{guild.nano ? (
+											guild.id === guildCookie ? (
+												<Heading size="lg">
+													Selected
+												</Heading>
+											) : (
+												<Button
+													onClick={() => {
+														setCookie(
+															"guild",
+															guild.id,
+															7
+														);
+														setGuildCookie(
+															guild.id
+														);
+													}}
+												>
+													Select Guild
+												</Button>
+											)
 										) : (
 											<Button
 												onClick={() => {
-													setCookie(
-														"guild",
-														guild.id,
-														7
+													void router.push(
+														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
 													);
-													setGuildCookie(guild.id);
 												}}
 											>
-												Select Guild
+												Invite
 											</Button>
-										)
-									) : (
-										<Button
-											onClick={() => {
-												void router.push(
-													`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
-												);
-											}}
-										>
-											Invite
-										</Button>
-									)}
-								</Flex>
-								<Divider
-									display={{ base: "block", sm: "none" }}
-								/>
-							</Box>
-						);
-					})
+										)}
+									</Flex>
+									<Divider
+										display={{ base: "block", sm: "none" }}
+									/>
+								</Box>
+							);
+						})
 				) : (
 					<Heading>Looks like you are not in any guilds</Heading>
 				)}
