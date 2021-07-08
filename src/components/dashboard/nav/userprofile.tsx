@@ -21,6 +21,7 @@ export function UserProfile({ session }: any): JSX.Element {
 					size="sm"
 					name={session ? session.user.name : placeholder.username}
 					src={session ? session.user.image : null}
+					fallbackSrc="/oss.png"
 				/>
 				<Flex direction="column" fontWeight="medium">
 					<Text fontSize="sm">

@@ -1,22 +1,29 @@
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable no-void */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getId } from "@api/discord";
-import { getOsuRank, loginOsu } from "@api/server";
+import { getOsuRank, getUser, loginOsu } from "@api/server";
 import {
 	AspectRatio,
+	Avatar,
 	Box,
 	Center,
 	CircularProgress,
+	Divider,
+	Flex,
 	FormControl,
 	Heading,
+	HStack,
 	Input,
 	Stack,
 	Text,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import Level from "@components/dashboard/profile/level";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { getSession, signOut } from "next-auth/client";
@@ -95,16 +102,23 @@ function graph(theme: any, data: any[][]) {
 export default function Profile({
 	session,
 	osu,
+	guildId,
+	serverUser,
 }: {
 	session: DiscordUser;
 	osu: any;
+	guildId: string;
+	serverUser: any;
 }): JSX.Element {
+	// console.log(serverUser);
+	// console.log(osu);
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
-	const [user, setUser] = useState(osu.osu.username);
+	const [user, setUser] = useState(serverUser.osu.username);
 	const [game] = useState("osu");
 	const [loading, setLoading] = useState(false);
+	const [fromUser, setFromUser] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -141,11 +155,14 @@ export default function Profile({
 						setLoading(false);
 						setOsuState(newOsu);
 						setUser(search);
+						if (!fromUser) {
+							setFromUser(true);
+						}
 					}}
 				>
 					<FormControl isRequired>
 						<Input
-							placeholder="Search a osu user or discord id"
+							placeholder="Search an osu user or discord id"
 							w="100%"
 							onChange={(event: any) => {
 								setSearch(event.target.value);
@@ -162,43 +179,140 @@ export default function Profile({
 						display={loading ? "block" : "none"}
 					/>
 				</Center>
-				{osuGame?.rank_history && !loading ? (
-					<Box
-						bgImage={osuState.theme?.websiteImage}
-						bg={osuState.theme?.bg}
-						rounded="10px"
-						style={{
-							backgroundRepeat: "no-repeat",
-							backgroundSize: "cover",
-						}}
-					>
-						<Heading textAlign="center">{user}'s stats</Heading>
-						<AspectRatio ratio={6 / 4}>
-							<HighchartsReact
-								highcharts={Highcharts}
-								options={graph(
-									osuState.theme,
-									osuGame.rank_history
-								)}
-								styles={{ fontFamily: "Gagalin" }}
-							/>
-						</AspectRatio>
-						<Text
-							color={osuState.theme.daysAgoColor}
-							textAlign="center"
-							my={3}
-							style={{
-								color: osuState.theme.axisLabelColors,
-								fontFamily: "Gagalin",
-								fontSize: 18,
-							}}
-						>
-							Days Ago
+				<HStack spacing={5} align="center">
+					<Avatar
+						size="2xl"
+						name={session.user.name}
+						src={session.user.image}
+						fallbackSrc="/oss.png"
+					/>
+					<Heading>{session.user.name}</Heading>
+					<Box>
+						{guildId ? (
+							<Level user={serverUser} size={75} />
+						) : (
+							<>
+								<Text fontSize="lg">To see your level</Text>
+								<Button
+									onClick={() => router.push("/dashboard")}
+								>
+									Choose A Guild
+								</Button>
+							</>
+						)}
+					</Box>
+					<Box>
+						<Text>
+							Prefix:{" "}
+							{serverUser.prefix ? (
+								serverUser.prefix
+							) : (
+								<Button ml={3}>Join Premium</Button>
+							)}
+						</Text>
+						<Text>Tokens: {serverUser.tokens}</Text>
+						<Text>Messages: {serverUser.messages.all}</Text>
+						<Text>
+							Votes: {serverUser.votes.all}
+							<Button
+								ml={3}
+								fontSize="6px"
+								onClick={() => {
+									void router.push("/vote");
+								}}
+							>
+								Vote
+							</Button>
 						</Text>
 					</Box>
-				) : osu.osu && !loading ? (
-					<Heading textAlign="center">Found No Stats</Heading>
-				) : null}
+				</HStack>
+				<Divider />
+				<Flex justify="center">
+					{osuGame?.rank_history && !loading ? (
+						<Box maxW="75%">
+							<HStack>
+								<Avatar
+									size="2xl"
+									name={session.user.name}
+									src={session.user.image}
+									fallbackSrc="/oss.png"
+								/>
+								<Box>
+									<Heading>{session.user.name}</Heading>
+									<Flex justify="center">
+										<Box>
+											<Text>
+												Rank:{" "}
+												{
+													osuState.osu.statistics
+														.global_rank
+												}
+											</Text>
+											<Text>
+												{osuState.osu.country.name}:{" "}
+												{
+													osuState.osu.statistics
+														.country_rank
+												}
+											</Text>
+											<Text>
+												Accuracy:
+												{
+													osuState.osu.statistics
+														.hit_accuracy
+												}
+											</Text>
+										</Box>
+									</Flex>
+								</Box>
+							</HStack>
+
+							<Box
+								bgImage={osuState.theme?.websiteImage}
+								bg={osuState.theme?.bg}
+								rounded="10px"
+								style={{
+									backgroundRepeat: "no-repeat",
+									backgroundSize: "cover",
+								}}
+							>
+								<Heading textAlign="center">
+									{user}'s stats
+								</Heading>
+								<AspectRatio ratio={6 / 4}>
+									<HighchartsReact
+										highcharts={Highcharts}
+										options={graph(
+											osuState.theme,
+											osuGame.rank_history
+										)}
+										styles={{ fontFamily: "Gagalin" }}
+									/>
+								</AspectRatio>
+								<Text
+									color={osuState.theme.daysAgoColor}
+									textAlign="center"
+									my={3}
+									style={{
+										color: osuState.theme.axisLabelColors,
+										fontFamily: "Gagalin",
+										fontSize: 18,
+									}}
+								>
+									Days Ago
+								</Text>
+							</Box>
+						</Box>
+					) : osuState.osu && !loading && !fromUser ? (
+						<Heading textAlign="center">
+							Found No Osu Rank For Your Profile
+						</Heading>
+					) : osuState.osu && !loading && fromUser ? (
+						<Heading textAlign="center">
+							Found No Stats for {user}
+						</Heading>
+					) : null}
+				</Flex>
 				<Stack justify="center" align="center">
 					{osu.osu ? null : (
 						<Button
@@ -238,7 +352,12 @@ export async function getServerSideProps(context: any) {
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy
 	const id = await getId(session?.accessToken);
+	const serverUser = await getUser(id);
 	const osu = await getOsuRank(id);
+	// console.log(serverUser);
 
-	return { props: { session, osu } };
+	const guildId = "199325828843044865";
+	// const guildId = context.req.cookies.guild;
+
+	return { props: { session, osu, guildId, serverUser } };
 }

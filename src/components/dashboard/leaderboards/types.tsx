@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {
-	Box,
-	CircularProgress,
-	CircularProgressLabel,
-	Divider,
-	Flex,
-	Image,
-	Text,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import Level from "@components/dashboard/profile/level";
 
 export function Votes({ leaderboards }: any) {
 	const newLeaderboards = leaderboards
@@ -159,16 +152,7 @@ export function Rank({ leaderboards }: any) {
 								w={{ base: "100%", md: "85px" }}
 								mx={{ base: 0, md: 3 }}
 							>
-								<CircularProgress
-									// value={50}
-									value={user.nextLvlPercent * 100}
-									color="brand.primary"
-									trackColor="transparent"
-								>
-									<CircularProgressLabel>
-										{user.lvl}
-									</CircularProgressLabel>
-								</CircularProgress>
+								<Level user={user} />
 							</Box>
 						</Flex>
 

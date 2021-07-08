@@ -22,6 +22,16 @@ async function getOsuRank(id: string) {
 	return data;
 }
 
+async function getUser(id: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/users/getMongoProfile`,
+		{ id },
+		config
+	);
+
+	return data;
+}
+
 async function loginOsu(token: string) {
 	const id = await getId(token);
 	const { data } = await axios.put(
@@ -32,4 +42,4 @@ async function loginOsu(token: string) {
 	return data;
 }
 
-export { getLeaderboards, getOsuRank, loginOsu };
+export { getLeaderboards, getOsuRank, loginOsu, getUser };
