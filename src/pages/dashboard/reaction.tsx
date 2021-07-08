@@ -19,6 +19,7 @@ export async function getServerSideProps(context: any) {
 			Location: "/",
 		});
 		context.res.end();
+		return { props: { session } };
 	}
 
 	return { props: { session } };

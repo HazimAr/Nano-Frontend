@@ -304,6 +304,7 @@ export async function getServerSideProps(context: any) {
 			Location: "/",
 		});
 		context.res.end();
+		return { props: { session } };
 	}
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy

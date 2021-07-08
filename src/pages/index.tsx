@@ -42,6 +42,13 @@ export default function Home({
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
+	if (session) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
 
 	return { props: { session } };
 }
