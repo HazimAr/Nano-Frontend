@@ -77,6 +77,7 @@ export default function Profile({
 					align="center"
 					flexDir={{ base: "column", sm: "row" }}
 					mt={5}
+					
 				>
 					<Flex align="center">
 						<Avatar
@@ -86,7 +87,7 @@ export default function Profile({
 							src={session.user.image}
 							fallbackSrc="/oss.png"
 						/>
-						<Heading ml={1}>{session.user.name}</Heading>
+						<Heading ml={5}>{session.user.name}</Heading>
 						<Box>
 							<Level
 								user={serverUser}
@@ -168,7 +169,7 @@ export default function Profile({
 						<Box w="100%">
 							<HStack flexDir={{ base: "column", sm: "row" }}>
 								<Avatar
-									boxSize={{ base: "125px", md: "1575px" }}
+									boxSize={{ base: "125px", md: "175px" }}
 									name={osuState.osu?.username}
 									src={osuState.osu?.avatar_url}
 									// fallbackSrc="/oss.png"
