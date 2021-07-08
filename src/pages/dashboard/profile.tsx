@@ -171,7 +171,7 @@ export default function Profile({
 									size="2xl"
 									name={osuState.osu?.username}
 									src={osuState.osu?.avatar_url}
-									fallbackSrc="/oss.png"
+									// fallbackSrc="/oss.png"
 								/>
 								<Box w="100%">
 									<Heading>{osuState.osu.username}</Heading>

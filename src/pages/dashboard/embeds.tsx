@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import CreateEmbed from "@components/dashboard/embeds/createEmbed";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
@@ -9,7 +10,11 @@ export default function Custom({
 }: {
 	session: DiscordUser;
 }): JSX.Element {
-	return <Layout session={session}>Custom</Layout>;
+	return (
+		<Layout session={session}>
+			<CreateEmbed />
+		</Layout>
+	);
 }
 
 export async function getServerSideProps(context: any) {

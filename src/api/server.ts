@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from "axios";
 import { SERVER_URL } from "config";
 import { getId } from "./discord";
 
 const config = {
-	timeout: 1000 * 5,
+	timeout: 1000 * 10,
 };
 
-async function getLeaderboards(token: string, id: string) {
+async function getLeaderboards(token: string, guild_id: string) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/leaderboards`,
-		{ authorization: `Bearer ${token}`, guildId: id },
+		{ authorization: `Bearer ${token}`, guild_id },
 		config
 	);
 	return data;
@@ -42,4 +43,18 @@ async function loginOsu(token: string) {
 	return data;
 }
 
-export { getLeaderboards, getOsuRank, loginOsu, getUser };
+async function createCustomCommand(
+	guild_id: string,
+	command: string,
+	response: any,
+	token: string
+) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/setCustomCommand`,
+		{ guild_id, command, response, authorization: `Bearer ${token}` },
+		config
+	);
+	return data;
+}
+
+export { getLeaderboards, getOsuRank, loginOsu, getUser, createCustomCommand };

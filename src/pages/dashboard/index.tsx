@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getGuilds } from "@api/discord";
-import { Box, Divider, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, HStack, Image } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
@@ -43,8 +43,8 @@ export default function Index({
 						.map((guild: any) => {
 							return (
 								<Box key={guild.id}>
-									<Flex
-										justify="space-between"
+									<HStack
+										justify="flex-start"
 										align="center"
 										my={5}
 										flexDir={{
@@ -53,6 +53,38 @@ export default function Index({
 										}}
 										// key={guild.id}
 									>
+										{guild.nano ? (
+											guild.id === guildCookie ? (
+												<Heading size="lg">
+													Selected
+												</Heading>
+											) : (
+												<Button
+													onClick={() => {
+														setCookie(
+															"guild",
+															guild.id,
+															7
+														);
+														setGuildCookie(
+															guild.id
+														);
+													}}
+												>
+													Select
+												</Button>
+											)
+										) : (
+											<Button
+												onClick={() => {
+													void router.push(
+														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
+													);
+												}}
+											>
+												Invite
+											</Button>
+										)}
 										<Flex
 											align="center"
 											flexDir={{
@@ -82,39 +114,7 @@ export default function Index({
 												{guild.name}
 											</Heading>
 										</Flex>
-										{guild.nano ? (
-											guild.id === guildCookie ? (
-												<Heading size="lg">
-													Selected
-												</Heading>
-											) : (
-												<Button
-													onClick={() => {
-														setCookie(
-															"guild",
-															guild.id,
-															7
-														);
-														setGuildCookie(
-															guild.id
-														);
-													}}
-												>
-													Select Guild
-												</Button>
-											)
-										) : (
-											<Button
-												onClick={() => {
-													void router.push(
-														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
-													);
-												}}
-											>
-												Invite
-											</Button>
-										)}
-									</Flex>
+									</HStack>
 									<Divider
 										display={{ base: "block", sm: "none" }}
 									/>
