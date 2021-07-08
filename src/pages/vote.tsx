@@ -5,7 +5,7 @@
 
 import { getId } from "@api/discord";
 import { getUser } from "@api/server";
-import { Flex, Stack, Text } from "@chakra-ui/react";
+import { Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
@@ -25,6 +25,9 @@ export default function Vote({
 		<HeadFoot session={session}>
 			<Container bg="bg.secondary">
 				<ContainerInside>
+					<Heading textAlign="center">
+						Help Nano grow by voting
+					</Heading>
 					<Stack>
 						<Voting
 							name="Nano"
@@ -73,7 +76,7 @@ function Voting({ name, link, time, session }: any): JSX.Element {
 	const now = Date.now();
 	console.log(time);
 	return (
-		<Flex justify="center">
+		<Flex justify="space-between">
 			<Text>{name}</Text>
 			{session ? (
 				now >= time ? (

@@ -261,7 +261,7 @@ export default function Profile({
 						</Box>
 					) : osuState.osu && !loading && !fromUser ? (
 						<Heading textAlign="center">
-							Found No Osu Rank For Your Profile
+							No Osu Rank For Your Profile
 						</Heading>
 					) : osuState.osu && !loading && fromUser ? (
 						<Heading textAlign="center">
