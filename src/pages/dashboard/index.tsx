@@ -45,9 +45,12 @@ export default function Index({
 							return (
 								<Box key={guild.id}>
 									<HStack
-										justify="flex-start"
+										justify={{
+											base: "center",
+											sm: "flex-start",
+										}}
 										align="center"
-										my={5}
+										spacing={0}
 										flexDir={{
 											base: "column",
 											sm: "row",
@@ -82,6 +85,8 @@ export default function Index({
 														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
 													);
 												}}
+												mt={2}
+												mb={2}
 											>
 												Invite
 											</Button>
@@ -105,7 +110,7 @@ export default function Index({
 												fallbackSrc="/oss.png"
 												w={20}
 												rounded="50%"
-												mr={{ base: 0, sm: 5 }}
+												mx={{ base: 0, sm: 5 }}
 											/>
 											<Heading
 												size="md"
