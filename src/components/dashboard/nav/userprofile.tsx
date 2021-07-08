@@ -5,9 +5,6 @@ import { Avatar, Flex, HStack, Link, Text } from "@chakra-ui/react";
 import React from "react";
 
 export function UserProfile({ session }: any): JSX.Element {
-	const placeholder = {
-		username: "Loading...",
-	};
 	return (
 		<Link href="/dashboard/profile">
 			<HStack

@@ -85,7 +85,7 @@ export function Votes({ leaderboards }: any) {
 	);
 }
 
-export function Rank({ leaderboards }: any) {
+export function Rank({ leaderboards, guild }: any) {
 	const newLeaderboards = leaderboards
 		.map((user: any) => {
 			return user;
@@ -152,7 +152,7 @@ export function Rank({ leaderboards }: any) {
 								w={{ base: "100%", md: "85px" }}
 								mx={{ base: 0, md: 3 }}
 							>
-								<Level user={user} />
+								<Level user={user} guild={guild} />
 							</Box>
 						</Flex>
 

@@ -50,7 +50,7 @@ export default function Custom({
 	guild_id: any;
 	leader: any;
 }): JSX.Element {
-	guild_id = BigInt(guild_id);
+	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [game] = useState("osu");
 	const [leaderboards] = useState(
@@ -85,7 +85,7 @@ export default function Custom({
 					isSearchable={false}
 				/>
 				{sort.value === "rank" ? (
-					<Rank leaderboards={leaderboards} />
+					<Rank leaderboards={leaderboards} guild={guild_id} />
 				) : sort.value === "votes" ? (
 					<Votes leaderboards={leaderboards} />
 				) : sort.value === "osu" ? (
@@ -117,14 +117,14 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
+	const guild_id = "199325828843044865";
+	// const guild_id = context.req.cookies.guild;
+
 	const leader = await getLeaderboards(
 		// @ts-ignore
 		session?.accessToken,
-		context.req.cookies.guild
+		guild_id
 	);
-
-	const guild_id = "199325828843044865";
-	// const guild_id = context.req.cookies.guild;
 
 	return { props: { session, leader, guild_id } };
 }

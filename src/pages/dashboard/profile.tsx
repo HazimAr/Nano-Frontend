@@ -30,74 +30,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DiscordUser } from "types";
 
-function graph(theme: any, data: any[][]) {
-	return {
-		chart: {
-			type: "spline",
-			backgroundColor: theme.bg,
-
-			margin: [20, 25, 25, 70],
-			spacing: [60, 15, 60, 90],
-		},
-		title: { text: "" },
-		subtitle: { text: "" },
-		yAxis: {
-			allowDecimals: false,
-			lineWidth: 1,
-			lineColor: theme.axisLineColors,
-			gridLineColor: theme.YaxisPlotLineColor,
-			gridLineWidth: theme.YaxisPlotLineWidth,
-			reversed: true,
-			tickWidth: 0,
-			title: { text: "" },
-			labels: {
-				// The Tick Values
-				enabled: true,
-				allowOverlap: true,
-				overflow: "allow",
-				style: {
-					color: theme.axisLabelColors,
-					fontFamily: "Gagalin",
-					fontSize: 18,
-				},
-			},
-		},
-		xAxis: {
-			lineWidth: 1,
-			lineColor: theme.axisLineColors,
-			gridLineWidth: 0,
-			reversed: true,
-			tickWidth: 0,
-			title: { text: "" },
-			labels: {
-				// The Tick Values
-				enabled: true,
-				allowOverlap: true,
-				overflow: "allow",
-				style: {
-					color: theme.axisLabelColors,
-					fontFamily: "Gagalin",
-					fontSize: 18,
-				},
-			},
-		},
-		legend: { itemStyle: { color: "#CFD8DC" } },
-		plotOptions: {
-			series: {
-				marker: { enabled: false },
-
-				lineColor: theme.lineColor,
-				lineWidth: 3.5,
-				name: false,
-			},
-		},
-
-		credits: false,
-
-		series: [{ showInLegend: false, data }],
-	};
-}
-
 export default function Profile({
 	session,
 	osu,
@@ -375,4 +307,72 @@ export async function getServerSideProps(context: any) {
 	// const guildId = context.req.cookies.guild;
 
 	return { props: { session, osu, guildId, serverUser } };
+}
+
+function graph(theme: any, data: any[][]) {
+	return {
+		chart: {
+			type: "spline",
+			backgroundColor: theme.bg,
+
+			margin: [20, 25, 25, 70],
+			spacing: [60, 15, 60, 90],
+		},
+		title: { text: "" },
+		subtitle: { text: "" },
+		yAxis: {
+			allowDecimals: false,
+			lineWidth: 1,
+			lineColor: theme.axisLineColors,
+			gridLineColor: theme.YaxisPlotLineColor,
+			gridLineWidth: theme.YaxisPlotLineWidth,
+			reversed: true,
+			tickWidth: 0,
+			title: { text: "" },
+			labels: {
+				// The Tick Values
+				enabled: true,
+				allowOverlap: true,
+				overflow: "allow",
+				style: {
+					color: theme.axisLabelColors,
+					fontFamily: "Gagalin",
+					fontSize: 18,
+				},
+			},
+		},
+		xAxis: {
+			lineWidth: 1,
+			lineColor: theme.axisLineColors,
+			gridLineWidth: 0,
+			reversed: true,
+			tickWidth: 0,
+			title: { text: "" },
+			labels: {
+				// The Tick Values
+				enabled: true,
+				allowOverlap: true,
+				overflow: "allow",
+				style: {
+					color: theme.axisLabelColors,
+					fontFamily: "Gagalin",
+					fontSize: 18,
+				},
+			},
+		},
+		legend: { itemStyle: { color: "#CFD8DC" } },
+		plotOptions: {
+			series: {
+				marker: { enabled: false },
+
+				lineColor: theme.lineColor,
+				lineWidth: 3.5,
+				name: false,
+			},
+		},
+
+		credits: false,
+
+		series: [{ showInLegend: false, data }],
+	};
 }
