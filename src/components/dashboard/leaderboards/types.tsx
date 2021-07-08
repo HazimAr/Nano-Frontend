@@ -1,9 +1,10 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import Level from "@components/dashboard/profile/level";
 
-export function Votes({ leaderboards }: any) {
+export function Votes({ leaderboards }: any): JSX.Element {
 	const newLeaderboards = leaderboards
 		.map((user: any) => {
 			return user;
@@ -90,7 +91,7 @@ export function Votes({ leaderboards }: any) {
 	);
 }
 
-export function Rank({ leaderboards, guild }: any) {
+export function Rank({ leaderboards, guild }: any): JSX.Element {
 	const newLeaderboards = leaderboards
 		.map((user: any) => {
 			return user;
@@ -175,7 +176,7 @@ export function Rank({ leaderboards, guild }: any) {
 	);
 }
 
-export function Tokens({ leaderboards }: any) {
+export function Tokens({ leaderboards }: any): JSX.Element {
 	const newLeaderboards = leaderboards
 		.map((user: any) => {
 			return user;
@@ -263,7 +264,7 @@ export function Tokens({ leaderboards }: any) {
 	);
 }
 
-export function Osu({ leaderboards, game }: any) {
+export function Osu({ leaderboards, game }: any): JSX.Element{
 	console.log(game);
 	const newLeaderboards: any[] = [];
 	leaderboards
