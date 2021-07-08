@@ -6,7 +6,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getGuilds } from "@api/discord";
-import { Box, Divider, Flex, Heading, HStack, Image } from "@chakra-ui/react";
+import {
+	Box,
+	Divider,
+	Flex,
+	Heading,
+	HStack,
+	Image,
+	Stack,
+} from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
@@ -28,7 +36,7 @@ export default function Index({
 	const router = useRouter();
 	return (
 		<Layout session={session}>
-			<Box maxW="800px" w="100%">
+			<Stack maxW="800px" w="100%">
 				{guilds.length > 0 ? (
 					guilds
 						.sort((a: any, b: any) => {
@@ -130,7 +138,7 @@ export default function Index({
 				) : (
 					<Heading>Looks like you are not in any guilds</Heading>
 				)}
-			</Box>
+			</Stack>
 		</Layout>
 	);
 }
