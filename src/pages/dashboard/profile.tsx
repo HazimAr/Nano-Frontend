@@ -97,7 +97,7 @@ export default function Profile({
 					</Flex>
 					<Flex
 						flexDir={{ base: "row", sm: "column" }}
-						align="center"
+						align={{ base: "center", sm: "flex-start" }}
 						justify={{ base: "center", sm: "flex-start" }}
 					>
 						<Text>
@@ -185,7 +185,7 @@ export default function Profile({
 										</Heading>
 									</Flex>
 									<HStack
-										spacing={5}
+										spacing={10}
 										justify={{
 											base: "center",
 											sm: "flex-start",
