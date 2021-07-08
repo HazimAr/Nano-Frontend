@@ -114,7 +114,7 @@ export default function Index({
 											/>
 											<Heading
 												size="md"
-												my={5}
+												my={{ base: 2, sm: 5 }}
 												textAlign="center"
 											>
 												{guild.name}
