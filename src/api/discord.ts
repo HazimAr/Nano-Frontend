@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
-import { DISCORD_BASE_URL } from "config";
+import { DISCORD_BASE_URL, SERVER_URL } from "config";
 
 async function getGuilds(token: string) {
 	const config = {
@@ -19,23 +19,23 @@ async function getGuilds(token: string) {
 		config
 	);
 
-	// const guilds = og.data.map((guild: any) => guild.id);
+	const ids = og.data.map((guild: any) => guild.id);
 
-	// const { data } = await axios.post(
-	// 	`${SERVER_URL}/guilds`,
-	// 	{ guilds },
-	// 	config
-	// );
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/nanoInGuilds`,
+		{ ids, authorization: `Bearer ${token}` },
+		config
+	);
 
 	// console.log(data);
 
-	// guilds?.forEach((guild: any, index: number) => {
-	// 	if (data.includes(guild.id)) {
-	// 		og.data[index].nano = true;
-	// 		return
-	// 	}
-	// 	og.data[index].nano = false;
-	// });
+	ids?.forEach((guild: any, index: number) => {
+		if (data.includes(guild.id)) {
+			og.data[index].nano = true;
+			return;
+		}
+		og.data[index].nano = false;
+	});
 
 	return og.data;
 }

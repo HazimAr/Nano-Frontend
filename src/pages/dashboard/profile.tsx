@@ -11,7 +11,8 @@ import {
 	AspectRatio,
 	Avatar,
 	Box,
-	Divider,
+	Center,
+	CircularProgress,
 	Flex,
 	FormControl,
 	Heading,
@@ -70,31 +71,6 @@ export default function Profile({
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1000px" w="100%">
-				<form
-					style={{ width: "100%" }}
-					onSubmit={async (e) => {
-						e.preventDefault();
-						setLoading(true);
-						const newOsu = await getOsuRank(search);
-						setLoading(false);
-						setOsuState(newOsu);
-
-						if (!fromUser) {
-							setFromUser(true);
-						}
-					}}
-				>
-					<FormControl isRequired>
-						<Input
-							placeholder="Search an osu user or discord id"
-							w="100%"
-							onChange={(event: any) => {
-								setSearch(event.target.value);
-							}}
-						/>
-					</FormControl>
-				</form>
-
 				<HStack spacing={5} align="center">
 					<Avatar
 						size="2xl"
@@ -153,8 +129,41 @@ export default function Profile({
 						</Text>
 					</Box>
 				</HStack>
-				<Divider />
+				{/* <Divider /> */}
+				<form
+					style={{ width: "100%" }}
+					onSubmit={async (e) => {
+						e.preventDefault();
+						setLoading(true);
+						const newOsu = await getOsuRank(search);
+						setLoading(false);
+						setOsuState(newOsu);
+
+						if (!fromUser) {
+							setFromUser(true);
+						}
+					}}
+				>
+					<FormControl isRequired>
+						<Input
+							placeholder="Search an osu user or discord id"
+							w="100%"
+							onChange={(event: any) => {
+								setSearch(event.target.value);
+							}}
+						/>
+					</FormControl>
+				</form>
 				<Flex justify="center">
+					<Center>
+						<CircularProgress
+							isIndeterminate
+							color="brand.primary"
+							trackColor="transparent"
+							size={550}
+							display={loading ? "block" : "none"}
+						/>
+					</Center>
 					{osuGame?.rank_history && !loading ? (
 						<Box maxW="75%" w="100%">
 							<HStack>
