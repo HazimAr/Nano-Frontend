@@ -85,8 +85,8 @@ export default function Index({
 														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
 													);
 												}}
-												mt={2}
-												mb={2}
+												mt={3}
+												mb={3}
 											>
 												Invite
 											</Button>
@@ -114,7 +114,7 @@ export default function Index({
 											/>
 											<Heading
 												size="md"
-												my={{ base: 2, sm: 5 }}
+												my={{ base: 3, sm: 5 }}
 												textAlign="center"
 											>
 												{guild.name}
