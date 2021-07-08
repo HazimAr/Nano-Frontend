@@ -30,16 +30,19 @@ export default function Vote({
 							name="Nano"
 							time={timers.nextNano}
 							link="https://top.gg/bot/783539062149087262/vote"
+							session={session}
 						/>
 						<Voting
 							name="Nano Server"
 							time={timers.nextBaka}
 							link="https://top.gg/servers/199325828843044865/vote"
+							session={session}
 						/>
 						<Voting
 							name="Nano Emojis"
 							time={timers.nextEmoji}
 							link="https://top.gg/servers/768552664677220372/vote"
+							session={session}
 						/>
 					</Stack>
 				</ContainerInside>
@@ -56,14 +59,28 @@ export async function getServerSideProps(context: any) {
 	return { props: { session, timers } };
 }
 
-function Voting({ name, link, time }: any): JSX.Element {
+
+
+function Voting({ name, link, time, session }: any): JSX.Element {
 	const router = useRouter();
 	const now = Date.now();
-
+	console.log(time);
 	return (
 		<Flex justify="center">
 			<Text>{name}</Text>
-			{now >= time ? (
+			{session ? (
+				now >= time ? (
+					<Button
+						onClick={() => {
+							void router.push(link);
+						}}
+					>
+						Vote
+					</Button>
+				) : (
+					<Text>You can vote in {time - now}ms</Text>
+				)
+			) : (
 				<Button
 					onClick={() => {
 						void router.push(link);
@@ -71,8 +88,6 @@ function Voting({ name, link, time }: any): JSX.Element {
 				>
 					Vote
 				</Button>
-			) : (
-				<Text>You can vote in {time - now}ms</Text>
 			)}
 		</Flex>
 	);
