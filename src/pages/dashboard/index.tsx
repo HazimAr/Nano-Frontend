@@ -93,7 +93,9 @@ export default function Index({
 									) : (
 										<Button
 											onClick={() => {
-												void router.push("");
+												void router.push(
+													`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
+												);
 											}}
 										>
 											Invite
