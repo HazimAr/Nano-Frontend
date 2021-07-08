@@ -229,16 +229,16 @@ export default function Profile({
 				<Divider />
 				<Flex justify="center">
 					{osuGame?.rank_history && !loading ? (
-						<Box maxW="75%">
+						<Box maxW="75%" w="100%">
 							<HStack>
 								<Avatar
 									size="2xl"
-									name={session.user.name}
-									src={session.user.image}
+									name={osuState.osu.username}
+									src={osuState.osu.avatar_url}
 									fallbackSrc="/oss.png"
 								/>
 								<Box>
-									<Heading>{session.user.name}</Heading>
+									<Heading>{osuState.osu.username}</Heading>
 									<Flex justify="center">
 										<Box>
 											<Text>
@@ -256,7 +256,7 @@ export default function Profile({
 												}
 											</Text>
 											<Text>
-												Accuracy:
+												Accuracy:{" "}
 												{
 													osuState.osu.statistics
 														.hit_accuracy
