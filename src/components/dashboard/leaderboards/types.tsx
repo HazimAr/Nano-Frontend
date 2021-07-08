@@ -8,7 +8,12 @@ export function Votes({ leaderboards }: any) {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.votes.monthly - a.votes.monthly);
+		.sort((a: any, b: any) => {
+			if (a.votes.monthly === b.votes.monthly) {
+				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+			}
+			return b.votes.monthly - a.votes.monthly;
+		});
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
@@ -90,7 +95,13 @@ export function Rank({ leaderboards, guild }: any) {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.xp - a.xp);
+		.sort((a: any, b: any) => {
+			if (a.xp === b.xp) {
+				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+			}
+			return b.xp - a.xp;
+		});
+
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
@@ -169,7 +180,13 @@ export function Tokens({ leaderboards }: any) {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.tokens - a.tokens);
+
+		.sort((a: any, b: any) => {
+			if (a.tokens === b.tokens) {
+				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+			}
+			return b.tokens - a.tokens;
+		});
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
@@ -338,7 +355,12 @@ export function Messages({ leaderboards }: any): JSX.Element {
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.messages - a.messages);
+		.sort((a: any, b: any) => {
+			if (a.messages === b.messages) {
+				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+			}
+			return b.messages - a.messages;
+		});
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
