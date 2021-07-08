@@ -6,6 +6,7 @@ import { getLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import {
+	Messages,
 	Osu,
 	Rank,
 	Tokens,
@@ -53,6 +54,7 @@ export default function Custom({
 	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [game] = useState("osu");
+	console.log(leader);
 	const [leaderboards] = useState(
 		leader.lbAll.map((user: any) => {
 			return {
@@ -92,7 +94,9 @@ export default function Custom({
 						<Votes leaderboards={leaderboards} />
 					) : sort.value === "osu" ? (
 						<Osu leaderboards={leaderboards} game={game} />
-					) : sort.value === "messages" ? null : (
+					) : sort.value === "messages" ? (
+						<Messages leaderboards={leaderboards} />
+					) : (
 						<Tokens leaderboards={leaderboards} />
 					)}
 				</Box>

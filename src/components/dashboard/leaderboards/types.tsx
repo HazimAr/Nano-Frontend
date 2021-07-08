@@ -333,12 +333,12 @@ export function Osu({ leaderboards, game }: any) {
 	);
 }
 
-export function Messages({ leaderboards }) {
+export function Messages({ leaderboards }: any): JSX.Element {
 	const newLeaderboards = leaderboards
 		.map((user: any) => {
 			return user;
 		})
-		.sort((a: any, b: any) => b.tokens - a.tokens);
+		.sort((a: any, b: any) => b.messages - a.messages);
 	return (
 		<>
 			{newLeaderboards.map((user: any, index: number) => {
@@ -395,9 +395,9 @@ export function Messages({ leaderboards }) {
 								mx={{ base: 0, md: 3 }}
 							>
 								<Text fontSize="xs" color="text.400">
-									Tokens (All)
+									Messages (All)
 								</Text>
-								{user.tokens}
+								{user.messages}
 							</Box>
 							{/* <Box w={{ base: "100%", md: "65px" }}>
 								<Text fontSize="xs" color="text.400">

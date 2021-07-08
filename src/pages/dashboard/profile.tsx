@@ -43,7 +43,7 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	// console.log(serverUser);
+	console.log(serverUser);
 	// console.log(osu);
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
