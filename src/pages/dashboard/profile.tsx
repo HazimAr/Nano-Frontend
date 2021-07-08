@@ -37,7 +37,7 @@ function graph(theme: any, data: any[][]) {
 			type: "spline",
 			backgroundColor: theme.bg,
 
-			margin: [10, 25, 25, 70],
+			margin: [20, 25, 25, 70],
 			spacing: [60, 15, 60, 90],
 		},
 		title: { text: "" },
@@ -115,7 +115,6 @@ export default function Profile({
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
-	const [user, setUser] = useState(serverUser.osu.username);
 	const [game] = useState("osu");
 	const [loading, setLoading] = useState(false);
 	const [fromUser, setFromUser] = useState(false);
@@ -154,7 +153,7 @@ export default function Profile({
 						const newOsu = await getOsuRank(search);
 						setLoading(false);
 						setOsuState(newOsu);
-						setUser(search);
+						
 						if (!fromUser) {
 							setFromUser(true);
 						}
@@ -276,9 +275,6 @@ export default function Profile({
 									backgroundSize: "cover",
 								}}
 							>
-								<Heading textAlign="center">
-									{user}'s stats
-								</Heading>
 								<AspectRatio ratio={6 / 4}>
 									<HighchartsReact
 										highcharts={Highcharts}
