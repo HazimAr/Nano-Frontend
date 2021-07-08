@@ -153,7 +153,7 @@ export default function Profile({
 						const newOsu = await getOsuRank(search);
 						setLoading(false);
 						setOsuState(newOsu);
-						
+
 						if (!fromUser) {
 							setFromUser(true);
 						}
@@ -236,9 +236,9 @@ export default function Profile({
 									src={osuState.osu?.avatar_url}
 									fallbackSrc="/oss.png"
 								/>
-								<Box>
+								<Box w="100%">
 									<Heading>{osuState.osu.username}</Heading>
-									<Flex justify="center">
+									<HStack spacing={5}>
 										<Box>
 											<Text>
 												Rank:{" "}
@@ -262,7 +262,30 @@ export default function Profile({
 												}
 											</Text>
 										</Box>
-									</Flex>
+										<Box>
+											<Text>
+												Rank:{" "}
+												{
+													osuState.osu?.statistics
+														.global_rank
+												}
+											</Text>
+											<Text>
+												{osuState.osu?.country.name}:{" "}
+												{
+													osuState.osu?.statistics
+														.country_rank
+												}
+											</Text>
+											<Text>
+												Accuracy:{" "}
+												{
+													osuState.osu?.statistics
+														.hit_accuracy
+												}
+											</Text>
+										</Box>
+									</HStack>
 								</Box>
 							</HStack>
 
