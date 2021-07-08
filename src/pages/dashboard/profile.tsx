@@ -160,7 +160,7 @@ export default function Profile({
 							isIndeterminate
 							color="brand.primary"
 							trackColor="transparent"
-							size={300}
+							size={200}
 							display={loading ? "block" : "none"}
 						/>
 					</Center>
