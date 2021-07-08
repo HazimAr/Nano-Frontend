@@ -28,7 +28,7 @@ export default function Layout({
 					session={session}
 					h="100vh"
 				/>
-				<Center h="100%" w="100%" mx={25}>
+				<Center h="100%" w="100%" mx={25} mt={15}>
 					{children}
 				</Center>
 			</Flex>
