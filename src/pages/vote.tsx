@@ -54,12 +54,10 @@ export default function Vote({
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 	// @ts-expect-error nope
-	const id = await getId(session.accessToken);
+	const id = await getId(session?.accessToken);
 	const { timers } = await getUser(id);
 	return { props: { session, timers } };
 }
-
-
 
 function Voting({ name, link, time, session }: any): JSX.Element {
 	const router = useRouter();
