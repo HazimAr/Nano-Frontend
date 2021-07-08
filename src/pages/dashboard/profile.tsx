@@ -1,3 +1,4 @@
+/* eslint-disable no-negated-condition */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable no-void */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -10,8 +11,6 @@ import {
 	AspectRatio,
 	Avatar,
 	Box,
-	Center,
-	CircularProgress,
 	Divider,
 	Flex,
 	FormControl,
@@ -110,7 +109,7 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	// console.log(serverUser);
+	console.log(serverUser);
 	// console.log(osu);
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
@@ -133,18 +132,12 @@ export default function Profile({
 	}, [osuState]);
 
 	useEffect(() => {
-		console.log(osuState);
+		// console.log(osuState);
 	}, [osuState]);
 
 	return (
 		<Layout session={session}>
-			<Stack
-				spacing={3}
-				flexDir="column"
-				justify="center"
-				maxW="1000px"
-				w="100%"
-			>
+			<Stack spacing={3} flexDir="column" maxW="1000px" w="100%">
 				<form
 					style={{ width: "100%" }}
 					onSubmit={async (e) => {
@@ -169,15 +162,7 @@ export default function Profile({
 						/>
 					</FormControl>
 				</form>
-				<Center>
-					<CircularProgress
-						isIndeterminate
-						color="brand.primary"
-						trackColor="transparent"
-						size={550}
-						display={loading ? "block" : "none"}
-					/>
-				</Center>
+
 				<HStack spacing={5} align="center">
 					<Avatar
 						size="2xl"
@@ -188,7 +173,11 @@ export default function Profile({
 					<Heading>{session.user.name}</Heading>
 					<Box>
 						{guildId ? (
-							<Level user={serverUser} size={75} />
+							<Level
+								user={serverUser}
+								guild={guildId}
+								size={75}
+							/>
 						) : (
 							<>
 								<Text fontSize="lg">To see your level</Text>
@@ -203,10 +192,17 @@ export default function Profile({
 					<Box>
 						<Text>
 							Prefix:{" "}
-							{serverUser.prefix ? (
+							{serverUser.premium !== "none" ? (
 								serverUser.prefix
 							) : (
-								<Button ml={3}>Join Premium</Button>
+								<Button
+									ml={3}
+									onClick={() => {
+										void router.push("/dashboard/premium");
+									}}
+								>
+									Join Premium
+								</Button>
 							)}
 						</Text>
 						<Text>Tokens: {serverUser.tokens}</Text>

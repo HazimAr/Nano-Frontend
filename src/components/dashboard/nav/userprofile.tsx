@@ -19,14 +19,12 @@ export function UserProfile({ session }: any): JSX.Element {
 			>
 				<Avatar
 					size="sm"
-					name={session ? session.user.name : placeholder.username}
-					src={session ? session.user.image : null}
+					name={session.user.name}
+					src={session.user.image}
 					fallbackSrc="/oss.png"
 				/>
 				<Flex direction="column" fontWeight="medium">
-					<Text fontSize="sm">
-						{session ? session.user.name : placeholder.username}
-					</Text>
+					<Text fontSize="sm">{session.user.name}</Text>
 				</Flex>
 			</HStack>
 		</Link>
