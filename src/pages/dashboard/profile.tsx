@@ -43,7 +43,7 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	console.log(serverUser);
+	// console.log(serverUser);
 	// console.log(osu);
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
@@ -66,7 +66,7 @@ export default function Profile({
 	}, [osuState]);
 
 	useEffect(() => {
-		// console.log(osuState);
+		console.log(osuState);
 	}, [osuState]);
 
 	return (
@@ -206,27 +206,25 @@ export default function Profile({
 														.country_rank
 												}
 											</Text>
+
 											<Text>
-												Accuracy:{" "}
-												{
-													osuState.osu?.statistics
-														.hit_accuracy
-												}
+												PP:{" "}
+												{osuState.osu?.statistics.pp}
 											</Text>
 										</Box>
 										<Box>
 											<Text>
-												Rank:{" "}
+												Level:{" "}
 												{
 													osuState.osu?.statistics
-														.global_rank
+														.level.current
 												}
 											</Text>
 											<Text>
-												{osuState.osu?.country.name}:{" "}
+												Play Count:{" "}
 												{
 													osuState.osu?.statistics
-														.country_rank
+														.play_count
 												}
 											</Text>
 											<Text>
