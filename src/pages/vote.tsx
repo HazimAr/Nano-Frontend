@@ -28,19 +28,19 @@ export default function Vote({
 					<Stack>
 						<Voting
 							name="Nano"
-							time={timers.nextNano}
+							time={timers?.nextNano}
 							link="https://top.gg/bot/783539062149087262/vote"
 							session={session}
 						/>
 						<Voting
 							name="Nano Server"
-							time={timers.nextBaka}
+							time={timers?.nextBaka}
 							link="https://top.gg/servers/199325828843044865/vote"
 							session={session}
 						/>
 						<Voting
 							name="Nano Emojis"
-							time={timers.nextEmoji}
+							time={timers?.nextEmoji}
 							link="https://top.gg/servers/768552664677220372/vote"
 							session={session}
 						/>
@@ -53,9 +53,18 @@ export default function Vote({
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
-	// @ts-expect-error nope
-	const id = await getId(session?.accessToken);
-	const { timers } = await getUser(id);
+	let id = null;
+
+	if (session?.accessToken) {
+		// @ts-expect-error nope
+		id = await getId(session?.accessToken);
+	}
+
+	let timers = null;
+	if (id) {
+		({ timers } = await getUser(id));
+	}
+
 	return { props: { session, timers } };
 }
 
