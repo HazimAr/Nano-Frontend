@@ -32,11 +32,11 @@ export default function Index({
 					guilds
 						.sort((a: any, b: any) => {
 							if (a.nano === b.nano) {
-								return a.nano === b.nano
-									? a.name < b.name
-										? -1
-										: 1
-									: 0;
+								return a.name === b.name
+									? 0
+									: a.name > b.name
+									? 1
+									: -1;
 							}
 							return b.nano - a.nano;
 						})
