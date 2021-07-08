@@ -11,7 +11,6 @@ import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import HeadFoot from "@components/home/headfoot";
 import { getSession } from "next-auth/client";
-import { useRouter } from "next/router";
 import { DiscordUser } from "types";
 
 export default function Vote({
@@ -72,32 +71,22 @@ export async function getServerSideProps(context: any) {
 }
 
 function Voting({ name, link, time, session }: any): JSX.Element {
-	const router = useRouter();
 	const now = Date.now();
-	console.log(time);
 	return (
 		<Flex justify="space-between">
 			<Text>{name}</Text>
 			{session ? (
 				now >= time ? (
-					<Button
-						onClick={() => {
-							void router.push(link);
-						}}
-					>
-						Vote
-					</Button>
+					<a href={link} target="_blank" rel="noreferrer">
+						<Button>Vote</Button>
+					</a>
 				) : (
-					<Text>You can vote in {time - now}ms</Text>
+					<Text>You can vote in {Math.round((time - now) / 60000)} min</Text>
 				)
 			) : (
-				<Button
-					onClick={() => {
-						void router.push(link);
-					}}
-				>
-					Vote
-				</Button>
+				<a href={link} target="_blank" rel="noreferrer">
+					<Button>Vote</Button>
+				</a>
 			)}
 		</Flex>
 	);

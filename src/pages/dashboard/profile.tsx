@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable no-negated-condition */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable no-void */
@@ -70,55 +71,54 @@ export default function Profile({
 
 	return (
 		<Layout session={session}>
-			<Stack spacing={3} flexDir="column" maxW="1000px" w="100%">
-				<HStack spacing={5} align="center">
-					<Avatar
-						size="2xl"
-						name={session.user.name}
-						src={session.user.image}
-						fallbackSrc="/oss.png"
-					/>
-					<Heading>{session.user.name}</Heading>
-					<Box>
-						{guildId ? (
+			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
+				<HStack
+					spacing={5}
+					align="center"
+					flexDir={{ base: "column", sm: "row" }}
+					mt={5}
+				>
+					<Flex align="center">
+						<Avatar
+							// size="lg"
+							boxSize={{ base: "100px", md: "150px" }}
+							name={session.user.name}
+							src={session.user.image}
+							fallbackSrc="/oss.png"
+						/>
+						<Heading ml={1}>{session.user.name}</Heading>
+						<Box>
 							<Level
 								user={serverUser}
 								guild={guildId}
 								size={75}
 							/>
-						) : (
-							<>
-								<Text fontSize="lg">To see your level</Text>
-								<Button
-									onClick={() => router.push("/dashboard")}
-								>
-									Choose A Guild
-								</Button>
-							</>
-						)}
-					</Box>
-					<Box>
+						</Box>
+					</Flex>
+					<Flex
+						flexDir={{ base: "row", sm: "column" }}
+						align="center"
+						justify={{ base: "center", sm: "flex-start" }}
+					>
 						<Text>
 							Prefix:{" "}
 							{serverUser.premium !== "none" ? (
 								serverUser.prefix
 							) : (
 								<Button
-									ml={3}
 									onClick={() => {
 										void router.push("/dashboard/premium");
 									}}
 								>
-									Join Premium
+									Premium
 								</Button>
 							)}
 						</Text>
 						<Text>Tokens: {serverUser.tokens}</Text>
 						<Text>Messages: {serverUser.messages.all}</Text>
 						<Text>
-							Votes: {serverUser.votes.all}
+							Votes: {serverUser.votes.all}{" "}
 							<Button
-								ml={3}
 								fontSize="6px"
 								onClick={() => {
 									void router.push("/vote");
@@ -127,7 +127,7 @@ export default function Profile({
 								Vote
 							</Button>
 						</Text>
-					</Box>
+					</Flex>
 				</HStack>
 				{/* <Divider /> */}
 				<form
@@ -160,22 +160,37 @@ export default function Profile({
 							isIndeterminate
 							color="brand.primary"
 							trackColor="transparent"
-							size={550}
+							size={300}
 							display={loading ? "block" : "none"}
 						/>
 					</Center>
 					{osuGame?.rank_history && !loading ? (
-						<Box maxW="75%" w="100%">
-							<HStack>
+						<Box w="100%">
+							<HStack flexDir={{ base: "column", sm: "row" }}>
 								<Avatar
-									size="2xl"
+									boxSize={{ base: "125px", md: "1575px" }}
 									name={osuState.osu?.username}
 									src={osuState.osu?.avatar_url}
 									// fallbackSrc="/oss.png"
 								/>
 								<Box w="100%">
-									<Heading>{osuState.osu.username}</Heading>
-									<HStack spacing={5}>
+									<Flex
+										justify={{
+											base: "center",
+											sm: "flex-start",
+										}}
+									>
+										<Heading>
+											{osuState.osu.username}
+										</Heading>
+									</Flex>
+									<HStack
+										spacing={5}
+										justify={{
+											base: "center",
+											sm: "flex-start",
+										}}
+									>
 										<Box>
 											<Text>
 												Rank:{" "}
@@ -302,6 +317,14 @@ export async function getServerSideProps(context: any) {
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "/",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
 		});
 		context.res.end();
 		return { props: { session } };

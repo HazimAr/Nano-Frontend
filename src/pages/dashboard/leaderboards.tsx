@@ -83,16 +83,19 @@ export default function Custom({
 					options={options}
 					styles={customStyles}
 					isSearchable={false}
+					style={{ minWidth: "0" }}
 				/>
-				{sort.value === "rank" ? (
-					<Rank leaderboards={leaderboards} guild={guild_id} />
-				) : sort.value === "votes" ? (
-					<Votes leaderboards={leaderboards} />
-				) : sort.value === "osu" ? (
-					<Osu leaderboards={leaderboards} game={game} />
-				) : sort.value === "messages" ? null : (
-					<Tokens leaderboards={leaderboards} />
-				)}
+				<Box>
+					{sort.value === "rank" ? (
+						<Rank leaderboards={leaderboards} guild={guild_id} />
+					) : sort.value === "votes" ? (
+						<Votes leaderboards={leaderboards} />
+					) : sort.value === "osu" ? (
+						<Osu leaderboards={leaderboards} game={game} />
+					) : sort.value === "messages" ? null : (
+						<Tokens leaderboards={leaderboards} />
+					)}
+				</Box>
 			</Box>
 		</Layout>
 	);
@@ -117,8 +120,8 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const guild_id = "199325828843044865";
-	// const guild_id = context.req.cookies.guild;
+	// const guild_id = "199325828843044865";
+	const guild_id = context.req.cookies.guild;
 
 	const leader = await getLeaderboards(
 		// @ts-ignore
