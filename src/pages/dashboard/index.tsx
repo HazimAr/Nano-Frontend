@@ -31,6 +31,13 @@ export default function Index({
 				{guilds.length > 0 ? (
 					guilds
 						.sort((a: any, b: any) => {
+							if (a.nano === b.nano) {
+								return a.nano === b.nano
+									? a.name < b.name
+										? -1
+										: 1
+									: 0;
+							}
 							return b.nano - a.nano;
 						})
 						.map((guild: any) => {
