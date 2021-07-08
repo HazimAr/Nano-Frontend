@@ -98,7 +98,11 @@ export function Rank({ leaderboards, guild }: any): JSX.Element {
 		})
 		.sort((a: any, b: any) => {
 			if (a.xp === b.xp) {
-				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+				return a.tag === b.tag
+					? 0
+					: a.tag > b.tag
+					? 1
+					: -1;
 			}
 			return b.xp - a.xp;
 		});
@@ -264,7 +268,7 @@ export function Tokens({ leaderboards }: any): JSX.Element {
 	);
 }
 
-export function Osu({ leaderboards, game }: any): JSX.Element{
+export function Osu({ leaderboards, game }: any): JSX.Element {
 	console.log(game);
 	const newLeaderboards: any[] = [];
 	leaderboards
