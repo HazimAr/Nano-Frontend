@@ -72,64 +72,75 @@ export default function Profile({
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<HStack
-					spacing={5}
-					align="center"
-					flexDir={{ base: "column", sm: "row" }}
-					mt={5}
-					
-				>
-					<Flex align="center">
-						<Avatar
-							// size="lg"
-							boxSize={{ base: "100px", md: "150px" }}
-							name={session.user.name}
-							src={session.user.image}
-							fallbackSrc="/oss.png"
-						/>
-						<Heading ml={5}>{session.user.name}</Heading>
-						<Box>
-							<Level
-								user={serverUser}
-								guild={guildId}
-								size={75}
-							/>
-						</Box>
-					</Flex>
-					<Flex
-						flexDir={{ base: "row", sm: "column" }}
-						align={{ base: "center", sm: "flex-start" }}
-						justify={{ base: "center", sm: "flex-start" }}
+				{guildId ? (
+					<HStack
+						spacing={5}
+						align="center"
+						flexDir={{ base: "column", sm: "row" }}
+						mt={5}
 					>
-						<Text>
-							Prefix:{" "}
-							{serverUser.premium !== "none" ? (
-								serverUser.prefix
-							) : (
-								<Button
-									onClick={() => {
-										void router.push("/dashboard/premium");
-									}}
-								>
-									Premium
-								</Button>
-							)}
-						</Text>
-						<Text>Tokens: {serverUser.tokens}</Text>
-						<Text>Messages: {serverUser.messages.all}</Text>
-						<Text>
-							Votes: {serverUser.votes.all}{" "}
-							<Button
-								fontSize="6px"
-								onClick={() => {
-									void router.push("/vote");
-								}}
+						<>
+							{" "}
+							<Flex align="center">
+								<Avatar
+									// size="lg"
+									boxSize={{ base: "100px", md: "150px" }}
+									name={session.user.name}
+									src={session.user.image}
+									fallbackSrc="/oss.png"
+								/>
+								<Heading ml={5}>{session.user.name}</Heading>
+								<Box>
+									<Level
+										user={serverUser}
+										guild={guildId}
+										size={75}
+									/>
+								</Box>
+							</Flex>
+							<Flex
+								flexDir={{ base: "row", sm: "column" }}
+								align={{ base: "center", sm: "flex-start" }}
+								justify={{ base: "center", sm: "flex-start" }}
 							>
-								Vote
-							</Button>
-						</Text>
-					</Flex>
-				</HStack>
+								<Text>
+									Prefix:{" "}
+									{serverUser.premium !== "none" ? (
+										serverUser.prefix
+									) : (
+										<Button
+											onClick={() => {
+												void router.push(
+													"/dashboard/premium"
+												);
+											}}
+										>
+											Premium
+										</Button>
+									)}
+								</Text>
+								<Text>Tokens: {serverUser.tokens}</Text>
+								<Text>Messages: {serverUser.messages.all}</Text>
+								<Text>
+									Votes: {serverUser.votes.all}{" "}
+									<Button
+										fontSize="6px"
+										onClick={() => {
+											void router.push("/vote");
+										}}
+									>
+										Vote
+									</Button>
+								</Text>
+							</Flex>
+						</>
+					</HStack>
+				) : (
+					<Heading textAlign="center">
+						{" "}
+						Select a guild to see your stats
+					</Heading>
+				)}
 				{/* <Divider /> */}
 				<form
 					style={{ width: "100%" }}
@@ -320,14 +331,6 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-
-	if (!context.req.cookies.guild) {
-		context.res.writeHead(307, {
-			Location: "/dashboard",
-		});
-		context.res.end();
-		return { props: { session } };
-	}
 	// const osu = context.req.cookies.osu ?? null;
 	// @ts-expect-error ik dummy
 	const id = await getId(session?.accessToken);
@@ -335,8 +338,8 @@ export async function getServerSideProps(context: any) {
 	const osu = await getOsuRank(id);
 	// console.log(serverUser);
 
-	const guildId = "199325828843044865";
-	// const guildId = context.req.cookies.guild;
+	// const guildId = "199325828843044865";
+	const guildId = context.req.cookies.guild ?? "";
 
 	return { props: { session, osu, guildId, serverUser } };
 }
