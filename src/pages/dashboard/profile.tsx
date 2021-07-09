@@ -297,11 +297,11 @@ export default function Profile({
 								</Text>
 							</Box>
 						</Box>
-					) : osuState.osu && !loading && !fromUser ? (
+					) : osuGame && !loading && !fromUser ? (
 						<Heading textAlign="center">
 							No Osu Rank For Your Profile
 						</Heading>
-					) : osuState.osu && !loading && fromUser ? (
+					) : osuGame && !loading && fromUser ? (
 						<Heading textAlign="center">
 							Found No Stats for {search}
 						</Heading>
