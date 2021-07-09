@@ -55,21 +55,6 @@ async function getId(accessToken: string): Promise<string> {
 	return data.id;
 }
 
-async function getGuildChannels(guildId: string, token: string) {
-	const config = {
-		timeout: 1000 * 5,
-		headers: {
-			// @ts-ignore
-			authorization: `Bearer ${token}`,
-		},
-	};
 
-	const { data } = await axios.get(
-		`${DISCORD_BASE_URL}/guilds/${guildId}/channels`,
 
-		config
-	);
-	return data;
-}
-
-export { getGuilds, getId, getGuildChannels };
+export { getGuilds, getId };

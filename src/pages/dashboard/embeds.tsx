@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildChannels } from "@api/discord";
+import { getGuildChannels } from "@api/server";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import CreateEmbed from "@components/dashboard/embeds/createEmbed";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
@@ -9,18 +10,26 @@ import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
-	guild_id,
 	channels,
 }: {
-	guild_id: string;
 	channels: any[];
 	session: DiscordUser;
 }): JSX.Element {
-	console.log(guild_id);
-	console.log(channels);
 	return (
 		<Layout session={session}>
-			<CreateEmbed />
+			<Box>
+				<CreateEmbed />
+
+				{channels.map((channel) => {
+					return (
+						<Flex key={channel.id}>
+							<Text>#</Text>
+							<Text mx={5}>{channel.name}</Text>
+							<Text>{channel.category}</Text>
+						</Flex>
+					);
+				})}
+			</Box>
 		</Layout>
 	);
 }
@@ -48,5 +57,5 @@ export async function getServerSideProps(context: any) {
 	// @ts-expect-error i checked already exists
 	const channels = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, channels, guild_id } };
+	return { props: { session, channels } };
 }

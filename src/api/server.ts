@@ -66,6 +66,26 @@ async function sendEmbed(channel_id: string, embed: never, token: string) {
 	return data;
 }
 
+async function getGuildChannels(guild_id: string, token: string) {
+	const config = {
+		timeout: 1000 * 5,
+		headers: {
+			authorization: `Bearer ${token}`,
+		},
+	};
+
+	// const { data } = await axios.post(
+	// 	`${SERVER_URL}/guilds/channels`,
+	// 	{ guild_id },
+	// 	config
+	// );
+
+	return [
+		{ name: "channel name 1", id: "2125376427936", category: "category 1" },
+		{ name: "channel name 2", id: "2125376427936", category: "category 2" },
+	];
+}
+
 export {
 	getLeaderboards,
 	getOsuRank,
@@ -73,4 +93,5 @@ export {
 	getUser,
 	sendEmbed,
 	createCustomCommand,
+	getGuildChannels,
 };
