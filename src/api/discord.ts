@@ -9,7 +9,7 @@ async function getGuilds(token: string) {
 		timeout: 1000 * 5,
 		headers: {
 			// @ts-ignore
-			Authorization: `Bearer ${token}`,
+			authorization: `Bearer ${token}`,
 		},
 	};
 
@@ -43,7 +43,7 @@ async function getId(accessToken: string): Promise<string> {
 		timeout: 1000 * 5,
 		headers: {
 			// @ts-ignore
-			Authorization: `Bearer ${accessToken}`,
+			authorization: `Bearer ${accessToken}`,
 		},
 	};
 
@@ -55,4 +55,21 @@ async function getId(accessToken: string): Promise<string> {
 	return data.id;
 }
 
-export { getGuilds, getId };
+async function getGuildChannels(guildId: string, token: string) {
+	const config = {
+		timeout: 1000 * 5,
+		headers: {
+			// @ts-ignore
+			authorization: `Bearer ${token}`,
+		},
+	};
+
+	const { data } = await axios.get(
+		`${DISCORD_BASE_URL}/guilds/${guildId}/channels`,
+
+		config
+	);
+	return data;
+}
+
+export { getGuilds, getId, getGuildChannels };

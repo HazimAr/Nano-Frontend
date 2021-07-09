@@ -57,4 +57,20 @@ async function createCustomCommand(
 	return data;
 }
 
-export { getLeaderboards, getOsuRank, loginOsu, getUser, createCustomCommand };
+async function sendEmbed(channel_id: string, embed: never, token: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/setCustomCommand`,
+		{ channel_id, embed, authorization: `Bearer ${token}` },
+		config
+	);
+	return data;
+}
+
+export {
+	getLeaderboards,
+	getOsuRank,
+	loginOsu,
+	getUser,
+	sendEmbed,
+	createCustomCommand,
+};

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -16,7 +14,7 @@ const options = {
 			clientSecret: DISCORD_CLIENT_SECRET,
 			type: "oauth",
 			version: "2.0",
-			scope: "email connections guilds guilds.join identify",
+			scope: "email connections guilds identify",
 		}),
 	],
 	callbacks: {
