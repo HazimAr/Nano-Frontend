@@ -74,23 +74,28 @@ export default function Profile({
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				{guildId ? (
 					<HStack
-						spacing={5}
+						// spacing={5}
 						align="center"
 						flexDir={{ base: "column", sm: "row" }}
 						mt={5}
+						spacing={0}
 					>
 						<>
 							{" "}
 							<Flex align="center">
 								<Avatar
 									// size="lg"
-									boxSize={{ base: "100px", md: "150px" }}
+									boxSize={{
+										base: "75px",
+										sm: "125px",
+										md: "175px",
+									}}
 									name={session.user.name}
 									src={session.user.image}
 									fallbackSrc="/oss.png"
 								/>
 								<Heading ml={5}>{session.user.name}</Heading>
-								<Box>
+								<Box mx={3}>
 									<Level
 										user={serverUser}
 										guild={guildId}
@@ -102,8 +107,9 @@ export default function Profile({
 								flexDir={{ base: "row", sm: "column" }}
 								align={{ base: "center", sm: "flex-start" }}
 								justify={{ base: "center", sm: "flex-start" }}
+								textAlign={{ base: "center", sm: "left" }}
 							>
-								<Text>
+								<Text w="100%">
 									Prefix:{" "}
 									{serverUser.premium !== "none" ? (
 										serverUser.prefix
@@ -119,9 +125,13 @@ export default function Profile({
 										</Button>
 									)}
 								</Text>
-								<Text>Tokens: {serverUser.tokens}</Text>
-								<Text>Messages: {serverUser.messages.all}</Text>
-								<Text>
+								<Text w="100%">
+									Tokens: {serverUser.tokens}
+								</Text>
+								<Text w="100%">
+									Messages: {serverUser.messages.all}
+								</Text>
+								<Text w="100%">
 									Votes: {serverUser.votes.all}{" "}
 									<Button
 										fontSize="6px"
@@ -180,7 +190,11 @@ export default function Profile({
 						<Box w="100%">
 							<HStack flexDir={{ base: "column", sm: "row" }}>
 								<Avatar
-									boxSize={{ base: "125px", md: "175px" }}
+									boxSize={{
+										base: "100px",
+										sm: "150px",
+										md: "200px",
+									}}
 									name={osuState.osu?.username}
 									src={osuState.osu?.avatar_url}
 									// fallbackSrc="/oss.png"
