@@ -43,7 +43,6 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	console.log(serverUser);
 	// console.log(osu);
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
@@ -66,6 +65,7 @@ export default function Profile({
 	}, [osuState]);
 
 	useEffect(() => {
+		console.log(serverUser);
 		console.log(osuState);
 	}, [osuState]);
 
@@ -264,7 +264,6 @@ export default function Profile({
 									</HStack>
 								</Box>
 							</HStack>
-
 							<Box
 								bgImage={osuState.theme?.websiteImage}
 								bg={osuState.theme?.bg}
