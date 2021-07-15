@@ -74,16 +74,13 @@ async function getGuildChannels(guild_id: string, token: string) {
 		},
 	};
 
-	// const { data } = await axios.post(
-	// 	`${SERVER_URL}/guilds/channels`,
-	// 	{ guild_id },
-	// 	config
-	// );
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/channels`,
+		{ guild_id, authorization: `Bearer ${token}` },
+		config
+	);
 
-	return [
-		{ name: "channel name 1", id: "2125376427936", category: "category 1" },
-		{ name: "channel name 2", id: "2125376427936", category: "category 2" },
-	];
+	return data;
 }
 
 export {
@@ -95,5 +92,3 @@ export {
 	createCustomCommand,
 	getGuildChannels,
 };
-
-

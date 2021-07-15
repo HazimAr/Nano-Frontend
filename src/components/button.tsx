@@ -9,7 +9,7 @@ export default function Button(props: any): JSX.Element {
 			{...props}
 			as="button"
 			// lineHeight="1.2"
-			transition="all 0.1s ease"
+			transition="all 0.2s ease"
 			px="16px"
 			py="4px"
 			borderRadius="md"
