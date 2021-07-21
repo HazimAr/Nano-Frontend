@@ -43,7 +43,7 @@
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.14.5",
 		"@types/babel__core": "^7.1.15",
-		"@types/node": "^16.0.1",
+		"@types/node": "^16.4.0",
 		"@types/react": "^17.0.14",
 		"@types/react-select": "^4.0.17",
 		"eslint": "^7.30.0",
