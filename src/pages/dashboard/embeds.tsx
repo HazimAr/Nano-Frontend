@@ -54,7 +54,6 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
-	// @ts-expect-error i checked already exists
 	const channels = await getGuildChannels(guild_id, session.accessToken);
 
 	return { props: { session, channels } };

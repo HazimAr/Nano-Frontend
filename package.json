@@ -17,7 +17,7 @@
 		"build": "next build",
 		"start": "next start",
 		"clean": "npx prettier --write .",
-		"test": "jest"
+		"kill": "taskkill /f /im node.exe"
 	},
 	"dependencies": {
 		"@babel/core": "^7.14.6",
@@ -43,10 +43,8 @@
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.14.5",
 		"@types/babel__core": "^7.1.15",
-		"@types/next": "^9.0.0",
 		"@types/node": "^16.0.1",
 		"@types/react": "^17.0.14",
-		"@types/react-icons": "^3.0.0",
 		"@types/react-select": "^4.0.17",
 		"eslint": "^7.30.0",
 		"eslint-config-galex": "^2.16.6",

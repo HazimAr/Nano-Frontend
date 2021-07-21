@@ -66,7 +66,7 @@ async function sendEmbed(channel_id: string, embed: never, token: string) {
 	return data;
 }
 
-async function getGuildChannels(guild_id: string, token: string) {
+async function getGuildChannels(guild_id: string, token: unknown) {
 	const config = {
 		timeout: 1000 * 5,
 		headers: {
