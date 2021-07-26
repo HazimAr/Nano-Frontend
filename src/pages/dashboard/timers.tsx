@@ -156,6 +156,7 @@ export default function Custom({
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
+
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "/",
@@ -163,6 +164,7 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
+
 	const guild_id = context.req.cookies.guild ?? "";
 
 	if (!guild_id) {
