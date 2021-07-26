@@ -34,30 +34,6 @@ export default function Custom({
 	session: DiscordUser;
 	categories: any;
 }): JSX.Element {
-	// channels = channels.none.channels;
-	// console.log(channels);
-	// const categories: any = [
-	// 	{
-	// 		name: channels[0].category_name,
-	// 		id: channels[0].category_id,
-	// 		channels: [channels[0]],
-	// 	},
-	// ];
-	// channels.forEach((channel: any) => {
-	// 	categories.forEach((category: any) => {
-	// 		if (category.name === channel.category_name) {
-	// 			category.channels.push(channel);
-	// 			return;
-	// 		}
-	// 		if (categories[categories.length - 1].name === category.name) {
-	// 			categories.push({
-	// 				name: channel.category_name,
-	// 				id: channel.category_id,
-	// 				channels: [channel],
-	// 			});
-	// 		}
-	// 	});
-	// });
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [selected, setSelected] = useState("");
 	return (
