@@ -9,6 +9,7 @@ import {
 	AccordionPanel,
 	Center,
 	Heading,
+	HStack,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -22,41 +23,43 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import Channel from "@components/dashboard/timers/channel";
 import { getSession } from "next-auth/client";
+import { useState } from "react";
 import { DiscordUser } from "types";
 export default function Custom({
 	session,
-	channels,
+	categories,
 }: {
 	session: DiscordUser;
-	channels: any;
+	categories: any;
 }): JSX.Element {
+	// channels = channels.none.channels;
+	// console.log(channels);
+	// const categories: any = [
+	// 	{
+	// 		name: channels[0].category_name,
+	// 		id: channels[0].category_id,
+	// 		channels: [channels[0]],
+	// 	},
+	// ];
+	// channels.forEach((channel: any) => {
+	// 	categories.forEach((category: any) => {
+	// 		if (category.name === channel.category_name) {
+	// 			category.channels.push(channel);
+	// 			return;
+	// 		}
+	// 		if (categories[categories.length - 1].name === category.name) {
+	// 			categories.push({
+	// 				name: channel.category_name,
+	// 				id: channel.category_id,
+	// 				channels: [channel],
+	// 			});
+	// 		}
+	// 	});
+	// });
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const categories: any = [];
-	channels.forEach((channel: any) => {
-		let done = false;
-		if (categories.length === 0) {
-			categories.push({
-				category: channel.category,
-				channels: [channel.name],
-			});
-			return;
-		}
-		categories.forEach((category: any) => {
-			if (done) return;
-			if (channel.category === category.category) {
-				category.channels.push(channel.name);
-				done = true;
-				return;
-			}
-
-			categories.push({
-				category: channel.category,
-				channels: [channel.name],
-			});
-		});
-	});
-	console.log(categories);
+	const [selected, setSelected] = useState("");
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -77,17 +80,49 @@ export default function Custom({
 									<Accordion
 										allowToggle
 										borderColor="transparent"
-										key={category.category}
+										key={category.id}
 									>
 										<AccordionItem>
-											<Heading>
+											<Heading
+												bg="rgba(0,0,0,0.2)"
+												rounded="md"
+											>
 												<AccordionButton>
-													{category.category}
-
-													<AccordionIcon />
+													<HStack
+														justify="space-between"
+														w="100%"
+													>
+														<Text>
+															{category.name
+																? category.name
+																: "No Category"}
+														</Text>
+														<AccordionIcon />
+													</HStack>
 												</AccordionButton>
 											</Heading>
-											<AccordionPanel></AccordionPanel>
+											<AccordionPanel>
+												{category.channels.map(
+													(channel: any) => {
+														return (
+															<Channel
+																key={
+																	channel.channel_id
+																}
+																channel={
+																	channel
+																}
+																selected={
+																	selected
+																}
+																setSelected={
+																	setSelected
+																}
+															/>
+														);
+													}
+												)}
+											</AccordionPanel>
 										</AccordionItem>
 									</Accordion>
 								);
@@ -162,7 +197,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
-	const channels = await getGuildChannels(guild_id, session.accessToken);
+	const categories = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, channels } };
+	return { props: { session, categories } };
 }

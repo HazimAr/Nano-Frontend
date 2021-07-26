@@ -3,7 +3,6 @@
 import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
 import React from "react";
 import {
-	FaArchive,
 	FaClock,
 	FaCode,
 	FaCog,
@@ -76,11 +75,7 @@ export function Sidebar(props: any): JSX.Element {
 								icon={FaSurprise}
 								href="/dashboard/reaction"
 							/>
-							<NavLink
-								label="Embeds"
-								icon={FaArchive}
-								href="/dashboard/embeds"
-							/>
+
 							<NavLink
 								label="Timers"
 								icon={FaClock}
@@ -109,11 +104,7 @@ export function Sidebar(props: any): JSX.Element {
 
 				<UserProfile session={props.session} />
 			</Flex>
-			<Box
-				h="100vh"
-				w="225px"
-				display={{ base: "none", md: "block" }}
-			/>
+			<Box h="100vh" w="225px" display={{ base: "none", md: "block" }} />
 		</Box>
 	);
 }
