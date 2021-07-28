@@ -25,7 +25,11 @@ export default function Header({
 				<Flex justify="space-between" align="center" flexWrap="wrap">
 					<Link href="/" _hover={{}} _focus={{}}>
 						<Flex align="center">
-							<Image src="/logo.png" w={30} rounded="50%" />
+							<Image
+								src="/logo_zoomed.png"
+								w={38}
+								rounded="50%"
+							/>
 							<Heading size="md" ml={2.5}>
 								Nano
 							</Heading>
@@ -38,7 +42,9 @@ export default function Header({
 					<Link href="/contact" mr="7px">
 						Contact
 					</Link> */}
-						<Link href="/donate" mr={5}>Donate</Link>
+						<Link href="/donate" mr={5}>
+							Donate
+						</Link>
 						{session ? (
 							<Link href="/dashboard">
 								<HStack spacing="4" px="2" flexShrink={0} p="4">
