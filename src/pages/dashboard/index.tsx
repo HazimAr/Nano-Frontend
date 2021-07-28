@@ -15,7 +15,7 @@ import {
 	Image,
 	Stack,
 } from "@chakra-ui/react";
-import Button from "@components/button";
+import { Button, Button2 } from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
@@ -87,7 +87,7 @@ export default function Index({
 												</Button>
 											)
 										) : (
-											<Button
+											<Button2
 												onClick={() => {
 													void router.push(
 														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
@@ -95,9 +95,10 @@ export default function Index({
 												}}
 												mt={3}
 												mb={3}
+												bg="#fff"
 											>
 												Invite
-											</Button>
+											</Button2>
 										)}
 										<Flex
 											align="center"
