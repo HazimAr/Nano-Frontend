@@ -14,9 +14,11 @@ import {
 	HStack,
 	Image,
 	Stack,
+	VStack,
 } from "@chakra-ui/react";
-import { Button, Button2 } from "@components/button";
+import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import NextChakraLink from "@components/nextChakra";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -65,41 +67,56 @@ export default function Index({
 										}}
 										// key={guild.id}
 									>
-										{guild.nano ? (
-											guild.id === guildCookie ? (
-												<Heading size="lg">
-													Selected
-												</Heading>
+										<VStack
+											spacing={0}
+											justify="flex-start"
+										>
+											{guild.nano ? (
+												guild.id === guildCookie ? (
+													<Heading size="md">
+														Selected
+													</Heading>
+												) : (
+													<Button
+														onClick={() => {
+															setCookie(
+																"guild",
+																guild.id,
+																7
+															);
+															setGuildCookie(
+																guild.id
+															);
+														}}
+													>
+														Select
+													</Button>
+												)
 											) : (
 												<Button
 													onClick={() => {
-														setCookie(
-															"guild",
-															guild.id,
-															7
-														);
-														setGuildCookie(
-															guild.id
+														void router.push(
+															`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
 														);
 													}}
+													mt={3}
+													mb={3}
+													bg="#fff"
 												>
-													Select
+													Invite
 												</Button>
-											)
-										) : (
-											<Button2
-												onClick={() => {
-													void router.push(
-														`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
-													);
-												}}
-												mt={3}
-												mb={3}
-												bg="#fff"
+											)}
+											<NextChakraLink
+												href="/dashboard/guild"
+												display={
+													guild.permissions & (1 << 8)
+														? "block"
+														: "none"
+												}
 											>
-												Invite
-											</Button2>
-										)}
+												<Button>Edit</Button>
+											</NextChakraLink>
+										</VStack>
 										<Flex
 											align="center"
 											flexDir={{
@@ -131,7 +148,8 @@ export default function Index({
 										</Flex>
 									</HStack>
 									<Divider
-										display={{ base: "block", sm: "none" }}
+										mt={2}
+										// display={{ base: "block", sm: "none" }}
 									/>
 								</Box>
 							);
