@@ -6,15 +6,18 @@ import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
+	guild_id,
 }: {
 	session: DiscordUser;
+	guild_id: string;
 }): JSX.Element {
 	return <Layout session={session}>Custom</Layout>;
 }
 
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
-	if (!session) {
+
+	if (!session?.accessToken) {
 		context.res.writeHead(307, {
 			Location: "/",
 		});
@@ -22,5 +25,10 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	return { props: { session } };
+	return {
+		props: {
+			session,
+			guild_id: context.req.cookies.guild || null,
+		},
+	};
 }
