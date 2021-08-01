@@ -23,7 +23,7 @@ import {
 	Stack,
 	Text,
 	Textarea,
-	useDisclosure,
+	useDisclosure
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Channel from "@components/dashboard/timers/channel";
@@ -127,7 +127,12 @@ export default function CreateTimerForm({
 									type="number"
 									value={timer}
 									onChange={(e: any) =>
-										setTimer(parseFloat(e.target.value))
+										setTimer(
+											// minutes to milliseconds
+											e.target.value *
+												1000 *
+												60
+										)
 									}
 								/>
 								<InputRightAddon bg="rgba(0,0,0,0.2)">

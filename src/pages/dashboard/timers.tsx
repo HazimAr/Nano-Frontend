@@ -66,14 +66,5 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const categories = await getGuildChannels(guild_id, session.accessToken);
-	// console.log(
-	// 	await createTimer(
-	// 		guild_id,
-	// 		"790712730897612801",
-	// 		10,
-	// 		"test",
-	// 		session.accessToken
-	// 	)
-	// );
 	return { props: { session, categories, guild_id } };
 }
