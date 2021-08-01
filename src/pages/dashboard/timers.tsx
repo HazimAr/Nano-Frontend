@@ -31,7 +31,7 @@ export default function Custom({
 					categories={categories}
 					session={session}
 					guild_id={guild_id}
-					guildTimers={guildTimers}
+					// guildTimers={guildTimers}
 				/>
 				{Object.entries(guildTimers.timers).length ? null : (
 					<Center
