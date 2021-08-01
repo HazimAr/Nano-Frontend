@@ -35,8 +35,8 @@ export default function Custom({
 		<Layout session={session}>
 			<Flex justify="center">
 				<Plan plan="Monthly" price={5} per="per month" save="0%" />
-				<Plan plan="Yearly" price={3} per="per month" save="0%" />
-				<Plan plan="Quarterly" price={4} per="per month" save="0%" />
+				<Plan plan="Yearly" price={3} per="per month" save="20%" />
+				<Plan plan="Quarterly" price={4} per="per month" save="10%" />
 			</Flex>
 		</Layout>
 	);
