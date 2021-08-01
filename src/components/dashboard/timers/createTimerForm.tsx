@@ -129,7 +129,7 @@ export default function CreateTimerForm({
 									onChange={(e: any) =>
 										setTimer(
 											// minutes to milliseconds
-											e.target.value * 1000 * 60
+											e.target.value * 1_000 * 60
 										)
 									}
 								/>

@@ -8,7 +8,7 @@ const config = {
 	timeout: 1000 * 10,
 };
 
-async function getLeaderboards(token: string, guild_id: string) {
+export async function getLeaderboards(token: string, guild_id: string) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/leaderboards`,
 		{ authorization: `Bearer ${token}`, guild_id },
@@ -17,13 +17,13 @@ async function getLeaderboards(token: string, guild_id: string) {
 	return data;
 }
 
-async function getOsuRank(id: string) {
+export async function getOsuRank(id: string) {
 	const { data } = await axios.post(`${SERVER_URL}/osu/user`, { id }, config);
 
 	return data;
 }
 
-async function getUser(id: string) {
+export async function getUser(id: string) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/users/getMongoProfile`,
 		{ id },
@@ -33,7 +33,7 @@ async function getUser(id: string) {
 	return data;
 }
 
-async function loginOsu(token: string) {
+export async function loginOsu(token: string) {
 	const id = await getId(token);
 	const { data } = await axios.put(
 		`${SERVER_URL}/osu/newUser`,
@@ -43,7 +43,7 @@ async function loginOsu(token: string) {
 	return data;
 }
 
-async function createCustomCommand(
+export async function createCustomCommand(
 	guild_id: string,
 	command: string,
 	response: any,
@@ -57,7 +57,11 @@ async function createCustomCommand(
 	return data;
 }
 
-async function sendEmbed(channel_id: string, embed: never, token: string) {
+export async function sendEmbed(
+	channel_id: string,
+	embed: never,
+	token: unknown
+) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/setCustomCommand`,
 		{ channel_id, embed, authorization: `Bearer ${token}` },
@@ -89,7 +93,7 @@ export async function createTimer(
 	interval: number,
 	timer_id: number,
 	message: string,
-	token: string
+	token: unknown
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/guilds/timers`,
@@ -107,7 +111,17 @@ export async function createTimer(
 	return data;
 }
 
-export async function getGuildPremiumStatus(guild_id: string, token: string) {
+export async function getGuildTimers(guild_id: string, token: unknown) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/timers`,
+		{ guild_id, authorization: `Bearer ${token}` },
+		config
+	);
+
+	return data;
+}
+
+export async function getGuildPremium(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/premium`,
 		{
@@ -118,12 +132,3 @@ export async function getGuildPremiumStatus(guild_id: string, token: string) {
 	);
 	return data;
 }
-
-export {
-	getLeaderboards,
-	getOsuRank,
-	loginOsu,
-	getUser,
-	sendEmbed,
-	createCustomCommand,
-};

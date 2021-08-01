@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildChannels } from "@api/server";
+import { getGuildChannels, getGuildTimers } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateTimerForm from "@components/dashboard/timers/createTimerForm";
@@ -11,10 +11,12 @@ export default function Custom({
 	session,
 	categories,
 	guild_id,
+	guildTimers,
 }: {
 	session: DiscordUser;
 	categories: any;
 	guild_id: string;
+	guildTimers: string;
 }): JSX.Element {
 	return (
 		<Layout session={session}>
@@ -28,17 +30,20 @@ export default function Custom({
 					categories={categories}
 					session={session}
 					guild_id={guild_id}
+					guildTimers={guildTimers}
 				/>
-				<Center
-					style={{ outlineStyle: "dashed", outlineWidth: 2 }}
-					color="grey"
-					py={5}
-				>
-					<Text color="white">
-						You don't have any timers right now. Click on the "Add
-						Timer" button to add one.
-					</Text>
-				</Center>
+				{guildTimers ? null : (
+					<Center
+						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
+						color="grey"
+						py={5}
+					>
+						<Text color="white">
+							You don't have any timers right now. Click on the
+							"Add Timer" button to add one.
+						</Text>
+					</Center>
+				)}
 			</Stack>
 		</Layout>
 	);
@@ -65,6 +70,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
+	const guildTimers = await getGuildTimers(guild_id, session.accessToken);
 	const categories = await getGuildChannels(guild_id, session.accessToken);
-	return { props: { session, categories, guild_id } };
+	return { props: { session, categories, guild_id, guildTimers } };
 }
