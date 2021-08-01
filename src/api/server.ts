@@ -66,7 +66,7 @@ async function sendEmbed(channel_id: string, embed: never, token: string) {
 	return data;
 }
 
-async function getGuildChannels(guild_id: string, token: unknown) {
+export async function getGuildChannels(guild_id: string, token: unknown) {
 	const config = {
 		timeout: 1000 * 5,
 		headers: {
@@ -83,6 +83,20 @@ async function getGuildChannels(guild_id: string, token: unknown) {
 	return data;
 }
 
+export async function createTimer(
+	channel_id: string,
+	interval: number,
+	message: string,
+	token: string
+) {
+	const { data } = await axios.put(
+		`${SERVER_URL}/guilds/timers`,
+		{ channel_id, interval, message, authorization: `Bearer ${token}` },
+		config
+	);
+	return data;
+}
+
 export {
 	getLeaderboards,
 	getOsuRank,
@@ -90,5 +104,4 @@ export {
 	getUser,
 	sendEmbed,
 	createCustomCommand,
-	getGuildChannels,
 };
