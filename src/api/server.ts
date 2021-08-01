@@ -98,6 +98,7 @@ export async function createTimer(
 			interval,
 			message,
 			authorization: `Bearer ${token}`,
+			embed: null,
 		},
 		config
 	);
