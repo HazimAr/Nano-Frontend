@@ -16,8 +16,9 @@ export default function Custom({
 	session: DiscordUser;
 	categories: any;
 	guild_id: string;
-	guildTimers: string;
+	guildTimers: any;
 }): JSX.Element {
+	console.log(guildTimers);
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -32,7 +33,7 @@ export default function Custom({
 					guild_id={guild_id}
 					guildTimers={guildTimers}
 				/>
-				{guildTimers ? null : (
+				{Object.entries(guildTimers.timers).length ? null : (
 					<Center
 						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
 						color="grey"

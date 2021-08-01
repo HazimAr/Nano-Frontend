@@ -125,7 +125,6 @@ export default function CreateTimerForm({
 								<Input
 									placeholder="10"
 									type="number"
-									value={timer}
 									onChange={(e: any) =>
 										setTimer(
 											// minutes to milliseconds
