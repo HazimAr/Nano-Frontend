@@ -21,12 +21,11 @@ export default function Custom({
 }): JSX.Element {
 	console.log(guildTimers);
 	const timers = guildTimers.timers
-		? () =>
-				Object.keys(guildTimers.timers).map((timerId) => {
-					const timer = guildTimers.timers[timerId];
-					timer.timer_id = timerId;
-					return timer;
-				})
+		? Object.keys(guildTimers.timers).map((timerId) => {
+				const timer = guildTimers.timers[timerId];
+				timer.timer_id = timerId;
+				return timer;
+		  })
 		: [];
 	return (
 		<Layout session={session}>
