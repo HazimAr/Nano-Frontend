@@ -4,6 +4,7 @@ import { getGuildChannels, getGuildTimers } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateTimerForm from "@components/dashboard/timers/createTimerForm";
+import Timers from "@components/dashboard/timers/timers";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
@@ -19,6 +20,14 @@ export default function Custom({
 	guildTimers: any;
 }): JSX.Element {
 	console.log(guildTimers);
+	const timers = guildTimers.timers
+		? () =>
+				Object.keys(guildTimers.timers).map((timerId) => {
+					const timer = guildTimers.timers[timerId];
+					timer.timer_id = timerId;
+					return timer;
+				})
+		: [];
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -33,7 +42,13 @@ export default function Custom({
 					guild_id={guild_id}
 					// guildTimers={guildTimers}
 				/>
-				{Object.entries(guildTimers.timers).length ? null : (
+				{timers ? (
+					<Timers
+						timers={timers}
+						guild_id={guild_id}
+						token={session.accessToken}
+					/>
+				) : (
 					<Center
 						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
 						color="grey"

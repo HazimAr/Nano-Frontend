@@ -132,3 +132,19 @@ export async function getGuildPremium(guild_id: string, token: unknown) {
 	);
 	return data;
 }
+export async function deleteGuildTimer(
+	guild_id: string,
+	timer_id: string,
+	token: unknown
+) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/timers/delete`,
+
+		{
+			guild_id,
+			timer_id,
+			authorization: `Bearer ${token}`,
+		}
+	);
+	return data;
+}

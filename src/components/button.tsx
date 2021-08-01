@@ -28,12 +28,19 @@ import { Box } from "@chakra-ui/react";
 
 export default function Button2(props: any): JSX.Element {
 	let bg;
+	let hover;
 	switch (props.type) {
 		default:
 			bg = "brand.primary";
+			hover = "brand.secondary";
 			break;
 		case "secondary":
 			bg = "brand.secondary";
+			hover = "brand.primary";
+			break;
+		case "delete":
+			bg = "rgb(237,66,69)";
+			hover = "brand.secondary";
 			break;
 	}
 	return (
@@ -48,11 +55,7 @@ export default function Button2(props: any): JSX.Element {
 			fontSize="16px"
 			fontWeight="semibold"
 			bg={bg}
-			_hover={
-				bg === "brand.primary"
-					? { bg: "brand.secondary" }
-					: { bg: "brand.primary" }
-			}
+			_hover={{ background: hover }}
 			_active={{
 				transform: "scale(0.90)",
 			}}
