@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createTimer } from "@api/server";
 import {
 	Accordion,
 	AccordionButton,
@@ -28,14 +27,17 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Channel from "@components/dashboard/timers/channel";
+import axios from "axios";
 import { useState } from "react";
 
 export default function CreateTimerForm({
 	categories,
 	session,
+	guild_id,
 }: {
 	categories: any;
 	session: any;
+	guild_id: string;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
@@ -153,14 +155,18 @@ export default function CreateTimerForm({
 						</Button>
 						<Button
 							onClick={async () => {
-								console.log(channel);
-								const response = await createTimer(
-									channel.channel_id,
-									timer,
-									message,
-									session.accessToken
+								console.log(guild_id);
+								const { data } = await axios.put(
+									"/api/guilds/timers",
+									{
+										guild_id,
+										channel_id: channel.channel_id,
+										timer,
+										message,
+										token: session.accessToken,
+									}
 								);
-								console.log(response);
+								console.log(data);
 							}}
 						>
 							Create

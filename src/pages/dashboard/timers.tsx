@@ -10,9 +10,11 @@ import { DiscordUser } from "types";
 export default function Custom({
 	session,
 	categories,
+	guild_id,
 }: {
 	session: DiscordUser;
 	categories: any;
+	guild_id: string;
 }): JSX.Element {
 	return (
 		<Layout session={session}>
@@ -22,7 +24,11 @@ export default function Custom({
 					Timers are messages sent every x time in a specific channel.
 					They're useful when you want to give reminders for example.
 				</Text>
-				<CreateTimerForm categories={categories} session={session} />
+				<CreateTimerForm
+					categories={categories}
+					session={session}
+					guild_id={guild_id}
+				/>
 				<Center
 					style={{ outlineStyle: "dashed", outlineWidth: 2 }}
 					color="grey"
@@ -60,6 +66,14 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const categories = await getGuildChannels(guild_id, session.accessToken);
-
-	return { props: { session, categories } };
+	// console.log(
+	// 	await createTimer(
+	// 		guild_id,
+	// 		"790712730897612801",
+	// 		10,
+	// 		"test",
+	// 		session.accessToken
+	// 	)
+	// );
+	return { props: { session, categories, guild_id } };
 }

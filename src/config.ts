@@ -16,7 +16,7 @@ const META: MetaType = {
 	url: "",
 };
 
-const SERVER_URL = "https://serious-panther-76.loca.lt";
+const SERVER_URL = "https://orange-kangaroo-72.loca.lt";
 // const SERVER_URL = "https://nano-osu.teamdragonsden.com";
 const DISCORD_BASE_URL = "https://discord.com/api/v9";
 

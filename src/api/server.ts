@@ -84,6 +84,7 @@ export async function getGuildChannels(guild_id: string, token: unknown) {
 }
 
 export async function createTimer(
+	guild_id: string,
 	channel_id: string,
 	interval: number,
 	message: string,
@@ -91,7 +92,13 @@ export async function createTimer(
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/guilds/timers`,
-		{ channel_id, interval, message, authorization: `Bearer ${token}` },
+		{
+			guild_id,
+			channel_id,
+			interval,
+			message,
+			authorization: `Bearer ${token}`,
+		},
 		config
 	);
 	return data;
