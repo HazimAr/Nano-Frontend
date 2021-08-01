@@ -23,7 +23,7 @@ import {
 	Stack,
 	Text,
 	Textarea,
-	useDisclosure
+	useDisclosure,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Channel from "@components/dashboard/timers/channel";
@@ -43,7 +43,7 @@ export default function CreateTimerForm({
 	const [channel, setChannel] = useState() as any;
 	const [timer, setTimer] = useState(10);
 	const [message, setMessage] = useState("Hey, I'm a timer!");
-
+	const timer_id = 1;
 	return (
 		<>
 			<Button onClick={onOpen}>Add Timer</Button>
@@ -129,9 +129,7 @@ export default function CreateTimerForm({
 									onChange={(e: any) =>
 										setTimer(
 											// minutes to milliseconds
-											e.target.value *
-												1000 *
-												60
+											e.target.value * 1000 * 60
 										)
 									}
 								/>
@@ -167,6 +165,7 @@ export default function CreateTimerForm({
 										guild_id,
 										channel_id: channel.channel_id,
 										timer,
+										timer_id,
 										message,
 										token: session.accessToken,
 									}

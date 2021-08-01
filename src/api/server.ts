@@ -87,6 +87,7 @@ export async function createTimer(
 	guild_id: string,
 	channel_id: string,
 	interval: number,
+	timer_id: number,
 	message: string,
 	token: string
 ) {

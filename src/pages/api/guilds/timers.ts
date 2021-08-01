@@ -13,6 +13,7 @@ export default async function Timer(
 			body.guild_id,
 			body.channel_id,
 			body.timer,
+			body.timer_id,
 			body.message,
 			body.token
 		);
