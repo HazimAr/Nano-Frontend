@@ -97,9 +97,22 @@ export async function createTimer(
 			guild_id,
 			channel_id,
 			interval,
+			timer_id,
 			message,
 			authorization: `Bearer ${token}`,
 			embed: null,
+		},
+		config
+	);
+	return data;
+}
+
+export async function getGuildPremiumStatus(guild_id: string, token: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/premium`,
+		{
+			guild_id,
+			authorization: `Bearer ${token}`,
 		},
 		config
 	);
