@@ -4,28 +4,25 @@ import { Box, Divider, Heading, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function YourCommands({
+	commands,
 	guild,
-	token,
-	guild_id,
 }: {
+	commands: any[];
 	guild: any;
-	token: string;
-	guild_id: string;
 }): JSX.Element {
-	const [commands, setCommands] = useState([]);
-
+	const [commandsState, setCommandsState] = useState(commands);
 	return (
 		<Box w="100%">
 			<HStack justify="space-between">
 				<Heading size="md">Your Commands</Heading>
 				<Heading size="md">
-					{commands.length}/{guild?.premium !== 0 ? 1 : 5}
+					{commandsState.length}/{guild?.premium !== 0 ? 1 : 5}
 				</Heading>
 			</HStack>
 			<Divider my={5} />
-			{commands.length > 0
-				? commands.map((command) => {
-						return;
+			{commandsState.length > 0
+				? commandsState.map((command) => {
+						return JSON.stringify(command);
 				  })
 				: "You have no custom commands yet."}
 		</Box>

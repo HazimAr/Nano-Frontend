@@ -6,31 +6,30 @@ import CreateCustom from "@components/dashboard/custom/createCustom";
 import YourCommands from "@components/dashboard/custom/yourCommands";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
-import { DiscordUser } from "types";
 
-export default function Custom({
-	session,
-	guild,
-	guild_id,
-}: {
-	session: DiscordUser;
-	guild: any;
-	guild_id: string;
-}): JSX.Element {
+export default function Custom({ session, guild, guild_id }): JSX.Element {
+	// console.log(guild);
+	// console.log(session);
+	const commands = guild.customCommands
+		? Object.keys(guild.customCommands).map((command_id) => {
+				const command = guild.customCommands[command_id];
+				command.command_id = command_id;
+				return command;
+		  })
+		: [];
 	return (
 		<Layout session={session}>
 			<VStack w="100%">
 				<CreateCustom
 					guild_id={guild_id}
 					token={session.accessToken}
-					guild={guild}
+					guild={guild.mongoGuild}
+					command_id={
+						Object.keys(guild.mongoGuild.customCommands).length + 1
+					}
 				/>
 
-				<YourCommands
-					guild={guild}
-					guild_id={guild_id}
-					token={session.accessToken}
-				/>
+				<YourCommands guild={guild.mongoGuild} commands={commands} />
 			</VStack>
 		</Layout>
 	);

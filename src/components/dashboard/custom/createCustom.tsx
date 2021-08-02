@@ -14,7 +14,7 @@ import {
 	Stack,
 	Textarea,
 	useDisclosure,
-	useToast,
+	useToast
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import axios from "axios";
@@ -24,10 +24,12 @@ export default function CreateCustom({
 	guild,
 	token,
 	guild_id,
+	command_id
 }: {
 	guild: any;
 	token: string;
 	guild_id: string;
+	command_id: number;	
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [command, setCommand] = useState("");
@@ -93,6 +95,7 @@ export default function CreateCustom({
 										guild_id,
 										command,
 										response,
+										command_id,
 										token,
 									}
 								);

@@ -55,30 +55,38 @@ export async function loginOsu(token: string) {
 
 export async function createCustomCommand(
 	guild_id: string,
-	command: string,
+	trigger: string,
+	command_id: string,
 	response: any,
 	token: string
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/p/guilds/customCommand`,
-		{ guild_id, command, response, authorization: `Bearer ${token}` },
+		{
+			guild_id,
+			trigger,
+			response,
+			command_id,
+			authorization: `Bearer ${token}`,
+		},
 		config
 	);
+
 	return data;
 }
 
-export async function sendEmbed(
-	channel_id: string,
-	embed: never,
-	token: unknown
-) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/p/guilds/setCustomCommand`,
-		{ channel_id, embed, authorization: `Bearer ${token}` },
-		config
-	);
-	return data;
-}
+// export async function sendEmbed(
+// 	channel_id: string,
+// 	embed: never,
+// 	token: unknown
+// ) {
+// 	const { data } = await axios.post(
+// 		`${SERVER_URL}/p/guilds/setCustomCommand`,
+// 		{ channel_id, embed, authorization: `Bearer ${token}` },
+// 		config
+// 	);
+// 	return data;
+// }
 
 export async function getGuildChannels(guild_id: string, token: unknown) {
 	const config = {
