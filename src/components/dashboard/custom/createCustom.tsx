@@ -1,128 +1,109 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-default-export */
-import { createCustomCommand } from "@api/server";
 import {
 	Box,
-	FormControl,
-	HStack,
+	Heading,
 	Input,
-	InputGroup,
-	InputLeftAddon,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
 	Stack,
+	Textarea,
+	useDisclosure,
 	useToast,
 } from "@chakra-ui/react";
 import Button from "@components/button";
+import axios from "axios";
 import { useState } from "react";
-import { DiscordUser } from "types";
 
 export default function CreateCustom({
-	user,
-	session,
+	guild,
+	token,
 	guild_id,
 }: {
-	user: any;
-	session: DiscordUser;
+	guild: any;
+	token: string;
 	guild_id: string;
 }): JSX.Element {
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [command, setCommand] = useState("");
 	const [response, setResponse] = useState("");
 	const toast = useToast();
 	return (
-		<Box>
-			<form
-				style={{ width: "100%" }}
-				onSubmit={async (e) => {
-					e.preventDefault();
-					toast({
-						title: "Success",
-						description: `${user.prefix}${command} is being created`,
-						status: "info",
-						duration: 3000,
-						isClosable: true,
-					});
-					setCommand("");
-					setResponse("");
-					console.log(guild_id);
-					console.log(command);
-					console.log(response);
-					console.log(session.accessToken);
-					const newCommand = await createCustomCommand(
-						guild_id,
-						command,
-						{
-							embed: {
-								title: "you are gay",
-								description: "no you",
-								fields: [
-									{
-										name: "no more being gay",
-										value: "gay pride month is over",
-										inline: true,
-									},
-									{
-										name: "no moe being gay",
-										value: "stupido",
-										inline: true,
-									},
-									{
-										name: "no more da gay",
-										value: "gay pride gryhrehjrstyjjdrtyjdtyj is over",
-										inline: true,
-									},
-									{
-										name: "no more being gay",
-										value: "gay  fuck ytou bitcvhsdhfioh  month is over",
-									},
-								],
-							},
-						},
-						session.accessToken
-					);
-					if (newCommand) {
-						toast({
-							title: "Success",
-							description: `${user.prefix}${command} was created successfully`,
-							status: "success",
-							duration: 3000,
-							isClosable: true,
-						});
-					}
-				}}
-			>
-				<Stack>
-					<HStack align="center">
-						<FormControl isRequired>
-							<InputGroup>
-								<InputLeftAddon color="brand.primary" fontSize="3xl">
-									{user.prefix}
-								</InputLeftAddon>
-								<Input
-									placeholder="Command to execute"
-									value={command}
-									w="100%"
-									onChange={(event: any) => {
-										setCommand(event.target.value);
-									}}
-								/>
-							</InputGroup>
-						</FormControl>
-					</HStack>
+		<Box w="100%">
+			<Button w="100%" onClick={onOpen}>
+				Create Custom Command
+			</Button>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<ModalOverlay />
+				<ModalContent bg="bg.primary">
+					<ModalHeader>Create Custom Command</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<Stack>
+							<Heading size="sm">Command</Heading>
+							<Input
+								placeholder="Hello, World!"
+								value={`${guild?.prefix ?? "-"}${command}`}
+								onChange={(e: any) => {
+									const command = e.target.value
+										.substring(1)
+										.trim();
+									if (command.length > 2000) {
+										setCommand(command.substring(0, 2000));
+										return;
+									}
+									setCommand(command);
+								}}
+							/>
+							<Heading size="sm">Bot responds with</Heading>
+							<Textarea
+								placeholder="Hello, World!"
+								h="100px"
+								resize="none"
+								value={response}
+								onChange={(e: any) => {
+									const response = e.target.value;
+									if (response.length > 2000) {
+										setResponse(
+											response.substring(0, 2000)
+										);
+										return;
+									}
+									setResponse(response);
+								}}
+							/>
+						</Stack>
+					</ModalBody>
 
-					<FormControl isRequired>
-						<Input
-							placeholder="The bot responds with"
-							value={response}
-							w="100%"
-							onChange={(event: any) => {
-								setResponse(event.target.value);
+					<ModalFooter>
+						<Button mr={3} onClick={onClose}>
+							Cancel
+						</Button>
+						<Button
+							onClick={async () => {
+								console.log(guild_id);
+								const { data } = await axios.put(
+									"/api/guilds/customCommand",
+									{
+										guild_id,
+										command,
+										response,
+										token,
+									}
+								);
+								console.log(data);
 							}}
-						/>
-					</FormControl>
-					<Button type="submit">Create Command</Button>
-				</Stack>
-			</form>
+						>
+							Create
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</Box>
 	);
 }
-
-// createCustom;

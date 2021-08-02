@@ -33,6 +33,16 @@ export async function getUser(id: string) {
 	return data;
 }
 
+export async function getGuild(id: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/getMongoGuild`,
+		{ id },
+		config
+	);
+
+	return data;
+}
+
 export async function loginOsu(token: string) {
 	const id = await getId(token);
 	const { data } = await axios.put(
@@ -49,8 +59,8 @@ export async function createCustomCommand(
 	response: any,
 	token: string
 ) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/setCustomCommand`,
+	const { data } = await axios.put(
+		`${SERVER_URL}/p/guilds/customCommand`,
 		{ guild_id, command, response, authorization: `Bearer ${token}` },
 		config
 	);
@@ -63,7 +73,7 @@ export async function sendEmbed(
 	token: unknown
 ) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/setCustomCommand`,
+		`${SERVER_URL}/p/guilds/setCustomCommand`,
 		{ channel_id, embed, authorization: `Bearer ${token}` },
 		config
 	);
@@ -80,7 +90,7 @@ export async function getGuildChannels(guild_id: string, token: unknown) {
 
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/channels`,
-		{ guild_id, authorization: `Bearer ${token}` },
+		{ guild_id },
 		config
 	);
 
@@ -96,7 +106,7 @@ export async function createTimer(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/guilds/timers`,
+		`${SERVER_URL}/p/guilds/timers`,
 		{
 			guild_id,
 			channel_id,
@@ -111,10 +121,10 @@ export async function createTimer(
 	return data;
 }
 
-export async function getGuildTimers(guild_id: string, token: unknown) {
+export async function getGuildTimers(guild_id: string) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/timers`,
-		{ guild_id, authorization: `Bearer ${token}` },
+		{ guild_id },
 		config
 	);
 
@@ -123,7 +133,7 @@ export async function getGuildTimers(guild_id: string, token: unknown) {
 
 export async function getGuildPremium(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/premium`,
+		`${SERVER_URL}/p/guilds/premium`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -138,7 +148,7 @@ export async function deleteGuildTimer(
 	token: unknown
 ) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/timers/delete`,
+		`${SERVER_URL}/p/guilds/timers/delete`,
 
 		{
 			guild_id,

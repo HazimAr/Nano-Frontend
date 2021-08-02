@@ -26,7 +26,7 @@ import { Box } from "@chakra-ui/react";
 // 	);
 // }
 
-export default function Button2(props: any): JSX.Element {
+export default function Button(props: any): JSX.Element {
 	let bg;
 	let hover;
 	switch (props.type) {

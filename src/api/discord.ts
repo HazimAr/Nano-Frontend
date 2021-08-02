@@ -23,7 +23,7 @@ async function getGuilds(token: string) {
 
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/nanoInGuilds`,
-		{ ids, authorization: `Bearer ${token}` },
+		{ ids },
 		config
 	);
 
@@ -38,7 +38,7 @@ async function getGuilds(token: string) {
 	return og.data;
 }
 
-async function getId(accessToken: string): Promise<string> {
+async function getId(accessToken: unknown) {
 	const config = {
 		timeout: 1000 * 5,
 		headers: {
@@ -54,7 +54,5 @@ async function getId(accessToken: string): Promise<string> {
 	);
 	return data.id;
 }
-
-
 
 export { getGuilds, getId };
