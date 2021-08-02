@@ -51,6 +51,7 @@ export function Votes({ leaderboards }: any): JSX.Element {
 
 							<Flex justify="center" mx={3}>
 								<Image
+									alt={user.tag}
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"
@@ -98,11 +99,7 @@ export function Rank({ leaderboards, guild }: any): JSX.Element {
 		})
 		.sort((a: any, b: any) => {
 			if (a.xp === b.xp) {
-				return a.tag === b.tag
-					? 0
-					: a.tag > b.tag
-					? 1
-					: -1;
+				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
 			}
 			return b.xp - a.xp;
 		});
@@ -147,6 +144,7 @@ export function Rank({ leaderboards, guild }: any): JSX.Element {
 									boxSize="50px"
 									rounded="50%"
 									fallbackSrc="/oss.png"
+									alt={user.tag}
 								/>
 							</Flex>
 
@@ -231,6 +229,7 @@ export function Tokens({ leaderboards }: any): JSX.Element {
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"
+									alt={user.tag}
 									rounded="50%"
 								/>
 							</Flex>
@@ -318,6 +317,7 @@ export function Osu({ leaderboards, game }: any): JSX.Element {
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"
+									alt={user.tag}
 									rounded="50%"
 								/>
 							</Flex>
@@ -402,6 +402,7 @@ export function Messages({ leaderboards }: any): JSX.Element {
 
 							<Flex justify="center" mx={3}>
 								<Image
+									alt={user.tag}
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"

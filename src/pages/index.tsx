@@ -31,7 +31,11 @@ export default function Home({
 							</Text>
 						</Box>
 						<Box w="100%">
-							<Image src="/undraw/game.svg" w={600} />
+							<Image
+								src="/undraw/game.svg"
+								w={600}
+								alt="game controller"
+							/>
 						</Box>
 					</Flex>
 				</ContainerInside>

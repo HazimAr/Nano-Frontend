@@ -10,7 +10,7 @@ import {
 	Osu,
 	Rank,
 	Tokens,
-	Votes,
+	Votes
 } from "@components/dashboard/leaderboards/types";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
