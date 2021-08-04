@@ -15,10 +15,11 @@ export default function Custom({
 	custom: any[];
 }): JSX.Element {
 	const [emoji, setEmoji] = useState();
+
 	return (
 		<Layout session={session}>
 			<EmojiPicker setParentState={setEmoji} custom={custom} />
-			{JSON.stringify(emoji)}
+
 		</Layout>
 	);
 }
@@ -40,7 +41,7 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	
+
 	const guild_id = context.req.cookies.guild;
 	const custom = await getGuildEmojis(guild_id, session.accessToken);
 

@@ -194,3 +194,31 @@ export async function getGuildEmojis(guild_id: string, token: unknown) {
 	);
 	return data;
 }
+
+export async function createReactionRoleMessage(
+	guild_id: string,
+	channel_id: string,
+	legend: object,
+	token: unknown
+) {
+	const { data } = await axios.put(
+		`${SERVER_URL}/p/guilds/reactionRoles`,
+		{
+			guild_id,
+			channel_id,
+			legend,
+			authorization: `Bearer ${token}`,
+		},
+		config
+	);
+	return data;
+}
+
+
+// legend: {
+// 	"1": {
+// 		emoji: "😊",
+// 		message: string,
+// 		role_id: string,
+// 	}
+// }
