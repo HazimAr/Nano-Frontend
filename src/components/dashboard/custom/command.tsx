@@ -37,6 +37,7 @@ export default function Command({
 					{command.trigger}
 				</Heading>
 				<Text>{command.message}</Text>
+				<Text>{command.command_id}</Text>
 			</Stack>
 
 			<VStack justify="center">
