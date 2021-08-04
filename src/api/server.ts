@@ -58,7 +58,8 @@ export async function createCustomCommand(
 	trigger: string,
 	command_id: string,
 	response: any,
-	token: string
+	token: string,
+	update: boolean = false
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/p/guilds/customCommand`,
@@ -66,6 +67,7 @@ export async function createCustomCommand(
 			guild_id,
 			trigger,
 			response,
+			update,
 			command_id,
 			authorization: `Bearer ${token}`,
 		},
@@ -177,6 +179,18 @@ export async function deleteGuildTimer(
 			timer_id,
 			authorization: `Bearer ${token}`,
 		}
+	);
+	return data;
+}
+
+export async function getGuildEmojis(guild_id: string, token: unknown) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/p/guilds/reactionRoles`,
+		{
+			guild_id,
+			authorization: `Bearer ${token}`,
+		},
+		config
 	);
 	return data;
 }

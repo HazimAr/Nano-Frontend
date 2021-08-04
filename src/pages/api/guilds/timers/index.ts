@@ -15,7 +15,7 @@ export default async function Timer(
 			body.timer,
 			body.timer_id,
 			body.message,
-			body.token
+			body.token,
 		);
 
 		void res.status(200).json(response);

@@ -14,7 +14,8 @@ export default async function CustomCommand(
 			body.trigger,
 			body.command_id,
 			body.response,
-			body.token
+			body.token,
+			body.update
 		);
 
 		void res.status(200).json(response);

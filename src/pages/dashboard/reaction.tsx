@@ -1,15 +1,26 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { getGuildEmojis } from "@api/server";
 import Layout from "@components/dashboard/layout";
+import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
+import { useState } from "react";
 import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
+	custom,
 }: {
 	session: DiscordUser;
+	custom: any[];
 }): JSX.Element {
-	return <Layout session={session}>Custom</Layout>;
+	const [emoji, setEmoji] = useState();
+	return (
+		<Layout session={session}>
+			<EmojiPicker setParentState={setEmoji} custom={custom} />
+			{JSON.stringify(emoji)}
+		</Layout>
+	);
 }
 
 export async function getServerSideProps(context: any) {
@@ -22,5 +33,16 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	return { props: { session } };
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+	
+	const guild_id = context.req.cookies.guild;
+	const custom = await getGuildEmojis(guild_id, session.accessToken);
+
+	return { props: { session, custom } };
 }

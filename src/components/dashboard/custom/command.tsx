@@ -7,6 +7,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
+import EditCustom from "@components/dashboard/custom/editCustom";
 import axios from "axios";
 import router from "next/router";
 
@@ -37,11 +38,15 @@ export default function Command({
 					{command.trigger}
 				</Heading>
 				<Text>{command.message}</Text>
-				<Text>{command.command_id}</Text>
 			</Stack>
 
 			<VStack justify="center">
-				<Button>Edit</Button>
+				<EditCustom
+					command={command}
+					prefix={prefix}
+					guild_id={guild_id}
+					token={token}
+				/>
 				<Button
 					type="delete"
 					onClick={async () => {
