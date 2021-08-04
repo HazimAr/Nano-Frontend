@@ -14,27 +14,31 @@ import {
 	Stack,
 	Textarea,
 	useDisclosure,
-	useToast
+	useToast,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function CreateCustom({
 	guild,
 	token,
 	guild_id,
-	command_id
+	command_id,
+	commands,
 }: {
 	guild: any;
 	token: string;
 	guild_id: string;
-	command_id: number;	
+	command_id: any;
+	commands: string[];
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [command, setCommand] = useState("");
+	const [trigger, setTrigger] = useState("");
 	const [response, setResponse] = useState("");
 	const toast = useToast();
+	const router = useRouter();
 	return (
 		<Box w="100%">
 			<Button w="100%" onClick={onOpen}>
@@ -50,16 +54,16 @@ export default function CreateCustom({
 							<Heading size="sm">Command</Heading>
 							<Input
 								placeholder="Hello, World!"
-								value={`${guild?.prefix ?? "-"}${command}`}
+								value={`${guild?.prefix ?? "!"}${trigger}`}
 								onChange={(e: any) => {
 									const command = e.target.value
 										.substring(1)
 										.trim();
 									if (command.length > 2000) {
-										setCommand(command.substring(0, 2000));
+										setTrigger(command.substring(0, 2000));
 										return;
 									}
-									setCommand(command);
+									setTrigger(command);
 								}}
 							/>
 							<Heading size="sm">Bot responds with</Heading>
@@ -88,18 +92,71 @@ export default function CreateCustom({
 						</Button>
 						<Button
 							onClick={async () => {
-								console.log(guild_id);
+								if (!trigger || !response) {
+									toast({
+										title: "Error",
+										description:
+											"Please fill out all fields.",
+
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								if (commands.includes(trigger)) {
+									toast({
+										title: "Error",
+										description:
+											"A command with that name already exists.",
+
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								onClose();
+								toast({
+									title: "Sent",
+									description:
+										"Your custom command is being created",
+
+									duration: 3000,
+									isClosable: true,
+								});
+								console.log(command_id);
 								const { data } = await axios.put(
 									"/api/guilds/customCommand",
 									{
 										guild_id,
-										command,
+										trigger,
 										response,
 										command_id,
 										token,
 									}
 								);
-								console.log(data);
+
+								if (!data) {
+									toast({
+										title: "Error",
+										description:
+											"There was an error with creating your command. If this persists to happen, please contact one of the developers",
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+
+								toast({
+									title: "Success",
+									description: data,
+									status: "success",
+									duration: 3000,
+									isClosable: true,
+								});
+								router.push("/dashboard/custom");
 							}}
 						>
 							Create

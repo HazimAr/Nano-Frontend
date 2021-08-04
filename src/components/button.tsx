@@ -51,7 +51,7 @@ export default function Button(props: any): JSX.Element {
 			transition="all 0.2s ease"
 			px="16px"
 			py="4px"
-			borderRadius="md"
+			rounded={5}
 			fontSize="16px"
 			fontWeight="semibold"
 			bg={bg}

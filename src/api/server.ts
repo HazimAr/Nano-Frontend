@@ -74,7 +74,21 @@ export async function createCustomCommand(
 
 	return data;
 }
-
+export async function deleteGuildCommand(
+	guild_id: string,
+	command_id: string,
+	token: unknown
+) {
+	const { data } = await axios.put(
+		`${SERVER_URL}/p/guilds/customCommand/delete`,
+		{
+			guild_id,
+			command_id,
+			authorization: `Bearer ${token}`,
+		}
+	);
+	return data;
+}
 // export async function sendEmbed(
 // 	channel_id: string,
 // 	embed: never,
@@ -155,7 +169,7 @@ export async function deleteGuildTimer(
 	timer_id: string,
 	token: unknown
 ) {
-	const { data } = await axios.post(
+	const { data } = await axios.put(
 		`${SERVER_URL}/p/guilds/timers/delete`,
 
 		{

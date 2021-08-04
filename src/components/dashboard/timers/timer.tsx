@@ -17,7 +17,7 @@ export default function Timer({
 	timers: any;
 }): JSX.Element {
 	return (
-		<HStack justify="space-between" bg="rgba(0,0,0,0.2)" py={2} px={5}>
+		<HStack justify="space-between" bg="rgba(0,0,0,0.2)" py={2} px={5} rounded={5}>
 			<VStack>
 				<Heading>{timer.channel_name}</Heading>
 				<Text>{timer.message}</Text>

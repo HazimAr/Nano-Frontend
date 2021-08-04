@@ -8,8 +8,6 @@ import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 
 export default function Custom({ session, guild, guild_id }): JSX.Element {
-	// console.log(guild);
-	// console.log(session);
 	const commands = guild.customCommands
 		? Object.keys(guild.customCommands).map((command_id) => {
 				const command = guild.customCommands[command_id];
@@ -17,19 +15,42 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 				return command;
 		  })
 		: [];
+	const allCommands = commands.map((command) => {
+		return command.trigger;
+	});
+	let id;
+	try {
+		Object.keys(guild.customCommands).forEach((commandId) => {
+			if (!guild.customCommands[commandId]) {
+				return (id = parseInt(commandId));
+			}
+			if (
+				Object.keys(guild.customCommands).indexOf(commandId) ===
+				Object.keys(guild.customCommands).length - 1
+			) {
+				return (id = parseInt(commandId) + 1);
+			}
+		});
+
+		id = Object.keys(guild.customCommands).length + 1;
+	} catch {
+		id = 1;
+	}
 	return (
 		<Layout session={session}>
 			<VStack w="100%">
 				<CreateCustom
 					guild_id={guild_id}
 					token={session.accessToken}
-					guild={guild.mongoGuild}
-					command_id={
-						Object.keys(guild.mongoGuild.customCommands).length + 1
-					}
+					guild={guild}
+					command_id={id}
+					commands={allCommands}
 				/>
-
-				<YourCommands guild={guild.mongoGuild} commands={commands} />
+				<YourCommands
+					guild={guild}
+					commands={commands}
+					token={session.accessToken}
+				/>
 			</VStack>
 		</Layout>
 	);
