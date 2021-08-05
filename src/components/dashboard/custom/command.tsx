@@ -7,7 +7,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
-import EditCustom from "@components/dashboard/custom/editCustom";
+import EditCustom from "@components/dashboard/timers/editTimer";
 import axios from "axios";
 import router from "next/router";
 
@@ -42,10 +42,10 @@ export default function Command({
 
 			<VStack justify="center">
 				<EditCustom
+					token={token}
 					command={command}
 					prefix={prefix}
 					guild_id={guild_id}
-					token={token}
 				/>
 				<Button
 					type="delete"
@@ -53,7 +53,6 @@ export default function Command({
 						toast({
 							title: "Sent",
 							description: "Your custom command is being deleted",
-
 							duration: 3000,
 							isClosable: true,
 						});

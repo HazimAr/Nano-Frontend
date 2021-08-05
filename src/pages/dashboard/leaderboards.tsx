@@ -54,7 +54,7 @@ export default function Custom({
 	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 	const [game] = useState("osu");
-	console.log(leader);
+
 	const [leaderboards] = useState(
 		leader.lbAll.map((user: any) => {
 			return {

@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-default-export */
 import {
+	Box,
 	Divider,
 	Heading,
 	Input,
@@ -25,28 +26,30 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function CreateTimerForm({
+export default function EditTimer({
+	token,
 	categories,
-	session,
+	timer,
 	guild_id,
-	timer_id,
 }: {
+	token: unknown;
 	categories: any;
-	session: any;
+	timer: any;
 	guild_id: string;
-	timer_id: string;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [channel, setChannel] = useState() as any;
-	const [timer, setTimer] = useState(10);
-	const [message, setMessage] = useState("Hey, I'm a timer!");
-
+	const [channel, setChannel] = useState(timer.channel);
+	const [timerInterval, setTimerInterval] = useState(timer.interval);
+	const [message, setMessage] = useState(timer.message);
 	const toast = useToast();
 	const router = useRouter();
-	return (
-		<>
-			<Button onClick={onOpen}>Add Timer</Button>
+	const timer_id = timer.timer_id;
 
+	return (
+		<Box w="100%">
+			<Button w="100%" onClick={onOpen}>
+				Edit
+			</Button>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="bg.primary">
@@ -68,10 +71,10 @@ export default function CreateTimerForm({
 									Every
 								</InputLeftAddon>
 								<Input
-									placeholder="10"
 									type="number"
+									placeholder={timer.interval}
 									onChange={(e: any) =>
-										setTimer(
+										setTimerInterval(
 											// minutes to milliseconds
 											e.target.value * 1_000 * 60
 										)
@@ -120,14 +123,13 @@ export default function CreateTimerForm({
 									"/api/guilds/timers",
 									{
 										guild_id,
-										channel_id: channel.channel_id,
-										timer,
 										timer_id,
+										timer: timerInterval,
+										channel_id: channel.id,
 										message,
-										token: session.accessToken,
+										token,
 									}
 								);
-							
 								toast({
 									title: "Success",
 									description: data,
@@ -136,7 +138,7 @@ export default function CreateTimerForm({
 									isClosable: true,
 								});
 								router.push("/dashboard/timers");
-								
+							
 							}}
 						>
 							Create
@@ -144,6 +146,6 @@ export default function CreateTimerForm({
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
-		</>
+		</Box>
 	);
 }

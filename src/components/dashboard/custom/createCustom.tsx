@@ -125,7 +125,7 @@ export default function CreateCustom({
 									duration: 3000,
 									isClosable: true,
 								});
-								console.log(command_id);
+							
 								const { data } = await axios.put(
 									"/api/guilds/customCommand",
 									{

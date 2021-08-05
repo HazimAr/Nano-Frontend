@@ -19,14 +19,20 @@ export default function Custom({
 	guild_id: string;
 	guildTimers: any;
 }): JSX.Element {
-	console.log(guildTimers);
+	let tempId;
 	const timers = guildTimers.timers
-		? Object.keys(guildTimers.timers).map((timerId) => {
-				const timer = guildTimers.timers[timerId];
-				timer.timer_id = timerId;
-				return timer;
-		  })
+		? Object.keys(guildTimers.timers)
+				.map((timerId) => {
+					console.log(guildTimers.timers[timerId]);
+					if (timerId === "bump") return;
+					const timer = guildTimers.timers[timerId];
+					timer.timer_id = timerId;
+					tempId = timer;
+					return timer;
+				})
+				.filter((timer) => timer != undefined)
 		: [];
+
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -39,13 +45,14 @@ export default function Custom({
 					categories={categories}
 					session={session}
 					guild_id={guild_id}
-					// guildTimers={guildTimers}
+					timer_id={tempId}
 				/>
-				{timers ? (
+				{timers.length ? (
 					<Timers
 						timers={timers}
 						guild_id={guild_id}
 						token={session.accessToken}
+						categories={categories}
 					/>
 				) : (
 					<Center
@@ -53,7 +60,7 @@ export default function Custom({
 						color="grey"
 						py={5}
 					>
-						<Text color="white">
+						<Text color="white" mx={5}>
 							You don't have any timers right now. Click on the
 							"Add Timer" button to add one.
 						</Text>

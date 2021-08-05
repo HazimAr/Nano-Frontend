@@ -43,7 +43,7 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	// console.log(osu);
+
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
@@ -64,10 +64,6 @@ export default function Profile({
 			: null;
 	}, [osuState]);
 
-	useEffect(() => {
-		console.log(serverUser);
-		console.log(osuState);
-	}, [osuState]);
 
 	return (
 		<Layout session={session}>
@@ -311,7 +307,7 @@ export default function Profile({
 					{osu.osu ? null : (
 						<Button
 							onClick={async () => {
-								// console.log(await loginOsu(session.accessToken));
+								
 
 								const link = await loginOsu(
 									session.accessToken
@@ -345,11 +341,10 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 	// const osu = context.req.cookies.osu ?? null;
-	// @ts-expect-error ik dummy
-	const id = await getId(session?.accessToken);
+
+	const id = await getId(session.accessToken);
 	const serverUser = await getUser(id);
 	const osu = await getOsuRank(id);
-	// console.log(serverUser);
 
 	// const guildId = "199325828843044865";
 	const guildId = context.req.cookies.guild ?? "";

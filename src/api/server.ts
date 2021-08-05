@@ -151,7 +151,6 @@ export async function getGuildTimers(guild_id: string) {
 		{ guild_id },
 		config
 	);
-
 	return data;
 }
 

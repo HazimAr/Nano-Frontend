@@ -16,7 +16,7 @@ const META: MetaType = {
 	url: "",
 };
 
-// const SERVER_URL = "https://fuzzy-termite-60.loca.lt";
+// const SERVER_URL = "https://192d7cd2fbb9.ngrok.io";
 const SERVER_URL = "https://nano-osu.teamdragonsden.com";
 const DISCORD_BASE_URL = "https://discord.com/api/v9";
 

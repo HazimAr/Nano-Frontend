@@ -268,7 +268,7 @@ export function Tokens({ leaderboards }: any): JSX.Element {
 }
 
 export function Osu({ leaderboards, game }: any): JSX.Element {
-	console.log(game);
+	
 	const newLeaderboards: any[] = [];
 	leaderboards
 		.sort((a: any, b: any) => a.osu?.osuRank - b.osu?.osuRank)

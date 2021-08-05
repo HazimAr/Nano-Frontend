@@ -22,14 +22,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function EditCustom({
-	guild,
 	token,
 	guild_id,
 	prefix,
 	command,
 }: {
-	guild: any;
-	token: string;
+	token: unknown;
 	guild_id: string;
 	command: any;
 	prefix: string;
@@ -117,7 +115,7 @@ export default function EditCustom({
 									duration: 3000,
 									isClosable: true,
 								});
-								console.log(command.command_id);
+							
 								const { data } = await axios.put(
 									"/api/guilds/customCommand",
 									{

@@ -8,14 +8,13 @@ export default async function Timer(
 ): Promise<NextApiResponse> {
 	if (req.method === "PUT") {
 		const body = req.body;
-
 		const response = await createTimer(
 			body.guild_id,
 			body.channel_id,
 			body.timer,
 			body.timer_id,
 			body.message,
-			body.token,
+			body.token
 		);
 
 		void res.status(200).json(response);
