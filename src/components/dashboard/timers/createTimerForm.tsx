@@ -115,7 +115,6 @@ export default function CreateTimerForm({
 									return;
 								}
 								onClose();
-							
 								const { data } = await axios.put(
 									"/api/guilds/timers",
 									{
@@ -127,7 +126,7 @@ export default function CreateTimerForm({
 										token: session.accessToken,
 									}
 								);
-							
+
 								toast({
 									title: "Success",
 									description: data,
@@ -136,7 +135,6 @@ export default function CreateTimerForm({
 									isClosable: true,
 								});
 								router.push("/dashboard/timers");
-								
 							}}
 						>
 							Create
