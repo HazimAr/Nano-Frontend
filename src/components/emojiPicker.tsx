@@ -1,7 +1,7 @@
 import { Box, Image, useDisclosure } from "@chakra-ui/react";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function EmojiPicker({
 	setParentState,
@@ -10,10 +10,6 @@ export default function EmojiPicker({
 	setParentState: Function;
 	custom: any[];
 }): JSX.Element {
-	const [emoji, setEmoji] = useState() as any;
-	useEffect(() => {
-		setParentState(emoji);
-	}, [emoji]);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [mouseX, setMouseX] = useState(0);
 	const [mouseY, setMouseY] = useState(0);
@@ -45,7 +41,7 @@ export default function EmojiPicker({
 				<Picker
 					onSelect={(emoji: any) => {
 						if (emoji.native) {
-							setEmoji(emoji);
+							setParentState(emoji);
 							return;
 						}
 						for (const item of custom) {
