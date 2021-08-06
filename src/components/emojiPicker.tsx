@@ -1,8 +1,7 @@
-import { Box, useDisclosure } from "@chakra-ui/react";
+import { Box, Image, useDisclosure } from "@chakra-ui/react";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import { useEffect, useState } from "react";
-import Button from "./button";
 
 export default function EmojiPicker({
 	setParentState,
@@ -11,7 +10,7 @@ export default function EmojiPicker({
 	setParentState: Function;
 	custom: any[];
 }): JSX.Element {
-	const [emoji, setEmoji] = useState();
+	const [emoji, setEmoji] = useState() as any;
 	useEffect(() => {
 		setParentState(emoji);
 	}, [emoji]);
@@ -28,12 +27,23 @@ export default function EmojiPicker({
 				}
 			}}
 		>
-			<Button onClick={isOpen ? onClose : onOpen}>
-				{isOpen ? "Close" : "Open"}
-			</Button>
+			<Image
+				filter="grayscale(100%)"
+				transitionTimingFunction="ease"
+				transitionDuration="0.2s"
+				_hover={{
+					filter: "grayscale(0%)",
+					cursor: "pointer",
+					transform: "scale(1.1)",
+				}}
+				w={7}
+				src="/emoji.png"
+				onClick={isOpen ? onClose : onOpen}
+			/>
+
 			{isOpen ? (
 				<Picker
-					onSelect={(emoji) => {
+					onSelect={(emoji: any) => {
 						if (emoji.native) {
 							setEmoji(emoji);
 							return;

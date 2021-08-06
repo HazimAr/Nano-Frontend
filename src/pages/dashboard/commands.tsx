@@ -4,7 +4,7 @@ import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
-export default function Help({
+export default function NanoCommands({
 	session,
 }: {
 	session: DiscordUser;

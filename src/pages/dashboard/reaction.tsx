@@ -14,12 +14,12 @@ export default function Custom({
 	session: DiscordUser;
 	custom: any[];
 }): JSX.Element {
-	const [emoji, setEmoji] = useState();
+	const [emoji, setEmoji] = useState() as any;
 
 	return (
 		<Layout session={session}>
 			<EmojiPicker setParentState={setEmoji} custom={custom} />
-			{JSON.stringify(emoji)}
+			{emoji?.native}
 		</Layout>
 	);
 }
