@@ -34,6 +34,10 @@ export default function EmojiPicker({
 			{isOpen ? (
 				<Picker
 					onSelect={(emoji) => {
+						if (emoji.native) {
+							setEmoji(emoji);
+							return;
+						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
 								setEmoji(item);
