@@ -46,7 +46,7 @@ export default function EmojiPicker({
 						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
-								setEmoji(item);
+								setParentState(item);
 								break;
 							}
 						}
