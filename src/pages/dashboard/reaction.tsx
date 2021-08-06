@@ -18,7 +18,7 @@ export default function Custom({
 
 	return (
 		<Layout session={session}>
-			<EmojiPicker setParentState={setEmoji} custom={custom} />
+			<EmojiPicker setEmoji={setEmoji} custom={custom} />
 			{emoji?.native}
 		</Layout>
 	);
