@@ -19,19 +19,18 @@ export default function Custom({
 	guild_id: string;
 	guildTimers: any;
 }): JSX.Element {
-	let tempId = "1";
 	const timers = guildTimers.timers
 		? Object.keys(guildTimers.timers)
 				.map((timerId) => {
-					console.log(guildTimers.timers[timerId]);
 					if (timerId === "bump") return;
 					const timer = guildTimers.timers[timerId];
-					timer.timer_id = timerId;
 					tempId = (parseInt(timerId) + 1).toString();
 					return timer;
 				})
 				.filter((timer) => timer != undefined)
 		: [];
+	let tempId = (timers.length + 1).toString();
+
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>

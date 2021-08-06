@@ -17,6 +17,7 @@ export default function Timers({
 			{timers.map((timer) => {
 				return (
 					<Timer
+						key={timer.message}
 						timer={timer}
 						guild_id={guild_id}
 						token={token}

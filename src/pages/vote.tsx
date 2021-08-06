@@ -58,7 +58,6 @@ export async function getServerSideProps(context: any) {
 	let id = null;
 
 	if (session?.accessToken) {
-		
 		id = await getId(session?.accessToken);
 	}
 
@@ -81,7 +80,9 @@ function Voting({ name, link, time, session }: any): JSX.Element {
 						<Button>Vote</Button>
 					</a>
 				) : (
-					<Text>You can vote in {Math.round((time - now) / 60000)} min</Text>
+					<Text>
+						You can vote in {Math.round((time - now) / 60000)} min
+					</Text>
 				)
 			) : (
 				<a href={link} target="_blank" rel="noreferrer">
