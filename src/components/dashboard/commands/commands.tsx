@@ -87,7 +87,13 @@ export default function Commands({ commands }): JSX.Element {
 						const checked = groupState[commandId];
 						if (commandId == "groupDescription") return;
 						return (
-							<HStack justify="space-between">
+							<HStack
+								justify="space-between"
+								bg="rgba(0,0,0,0.2)"
+								rounded={5}
+								key={commandId}
+								p={5}
+							>
 								<Text>
 									{checked.name} {checked.arguments}
 								</Text>
