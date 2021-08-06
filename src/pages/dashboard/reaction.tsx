@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildEmojis } from "@api/server";
+import { getGuildChannels, getGuildEmojis } from "@api/server";
 import Layout from "@components/dashboard/layout";
 import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
@@ -10,9 +10,11 @@ import { DiscordUser } from "types";
 export default function Custom({
 	session,
 	custom,
+	categories,
 }: {
 	session: DiscordUser;
 	custom: any[];
+	categories: any;
 }): JSX.Element {
 	const [emoji, setEmoji] = useState() as any;
 
@@ -44,6 +46,7 @@ export async function getServerSideProps(context: any) {
 
 	const guild_id = context.req.cookies.guild;
 	const custom = await getGuildEmojis(guild_id, session.accessToken);
+	const categories = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, custom } };
+	return { props: { session, custom, categories } };
 }
