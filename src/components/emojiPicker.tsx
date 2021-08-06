@@ -21,6 +21,7 @@ export default function EmojiPicker({
 	return (
 		<Box
 			onMouseMove={(e) => {
+				console.log(e);
 				if (!isOpen) {
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);
@@ -45,9 +46,7 @@ export default function EmojiPicker({
 					emoji="point_up"
 					theme="dark"
 					custom={custom}
-					position="absolute"
-					top={mouseY}
-					left={mouseX}
+					style={{ position: "absolute", top: mouseY, left: mouseX }}
 				/>
 			) : null}
 		</Box>

@@ -33,7 +33,7 @@ export default function Command({
 			rounded={5}
 		>
 			<Stack>
-				<Heading>
+				<Heading size="lg">
 					{prefix}
 					{command.trigger}
 				</Heading>

@@ -39,10 +39,13 @@ export default function EditTimer({
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState(timer.channel);
-	const [timerInterval, setTimerInterval] = useState(timer.interval);
+	const [timerInterval, setTimerInterval] = useState(
+		timer.interval.toString()
+	);
 	const [message, setMessage] = useState(timer.message);
 	const toast = useToast();
 	const router = useRouter();
+
 	const timer_id = timer.timer_id;
 
 	return (
@@ -72,7 +75,7 @@ export default function EditTimer({
 								</InputLeftAddon>
 								<Input
 									type="number"
-									placeholder={timer.interval}
+									initialValue={timerInterval}
 									onChange={(e: any) =>
 										setTimerInterval(
 											// minutes to milliseconds
@@ -118,7 +121,7 @@ export default function EditTimer({
 									return;
 								}
 								onClose();
-							
+
 								const { data } = await axios.put(
 									"/api/guilds/timers",
 									{
@@ -138,10 +141,9 @@ export default function EditTimer({
 									isClosable: true,
 								});
 								router.push("/dashboard/timers");
-							
 							}}
 						>
-							Create
+							Save
 						</Button>
 					</ModalFooter>
 				</ModalContent>

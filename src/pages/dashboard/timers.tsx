@@ -20,12 +20,13 @@ export default function Timers({
 	guildTimers: any;
 }): JSX.Element {
 	console.log(guildTimers);
-	const timers = guildTimers.timers
+
+	const timers = guildTimers.timers[1]
 		? Object.keys(guildTimers.timers)
 				.map((timerId) => {
 					if (timerId === "bump") return;
 					const timer = guildTimers.timers[timerId];
-
+					timer.timer_id = timerId;
 					return timer;
 				})
 				.filter((timer) => timer != undefined)

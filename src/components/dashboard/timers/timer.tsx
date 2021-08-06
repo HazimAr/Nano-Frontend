@@ -1,4 +1,4 @@
-import { Heading, HStack, Text, useToast, VStack } from "@chakra-ui/react";
+import { Heading, HStack, Stack, useToast, VStack } from "@chakra-ui/react";
 import Button from "@components/button";
 import EditTimer from "@components/dashboard/timers/editTimer";
 import axios from "axios";
@@ -18,6 +18,7 @@ export default function Timer({
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
+	const interval = timer.interval / 1000 / 60;
 	return (
 		<HStack
 			justify="space-between"
@@ -26,10 +27,13 @@ export default function Timer({
 			px={5}
 			rounded={5}
 		>
-			<VStack>
-				<Heading>{timer.channel?.name}</Heading>
-				<Text>{timer.message}</Text>
-			</VStack>
+			<Stack textAlign="left">
+				<Heading size="md">Sends: {timer.message}</Heading>
+				<Heading size="md">In: #{timer.channel?.name}</Heading>
+				<Heading size="md">
+					Every: {interval} {interval > 1 ? "minutes" : "minute"}
+				</Heading>
+			</Stack>
 
 			<VStack justify="center">
 				<EditTimer
