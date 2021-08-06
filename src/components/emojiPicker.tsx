@@ -4,10 +4,10 @@ import "emoji-mart/css/emoji-mart.css";
 import { useState } from "react";
 
 export default function EmojiPicker({
-	setParentState,
+	setEmoji,
 	custom,
 }: {
-	setParentState: Function;
+	setEmoji: Function;
 	custom: any[];
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,12 +41,12 @@ export default function EmojiPicker({
 				<Picker
 					onSelect={(emoji: any) => {
 						if (emoji.native) {
-							setParentState(emoji);
+							setEmoji(emoji);
 							return;
 						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
-								setParentState(item);
+								setEmoji(item);
 								break;
 							}
 						}
