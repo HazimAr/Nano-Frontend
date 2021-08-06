@@ -8,7 +8,7 @@ import Timers from "@components/dashboard/timers/timers";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
-export default function Custom({
+export default function Timers({
 	session,
 	categories,
 	guild_id,
