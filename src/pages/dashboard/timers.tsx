@@ -91,7 +91,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
-	const guildTimers = await getGuildTimers(guild_id, session.accessToken);
+	const guildTimers = await getGuildTimers(guild_id);
 	const categories = await getGuildChannels(guild_id, session.accessToken);
 	return { props: { session, categories, guild_id, guildTimers } };
 }

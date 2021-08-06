@@ -58,7 +58,7 @@ export async function getServerSideProps(context: any) {
 	let id = null;
 
 	if (session?.accessToken) {
-		// @ts-expect-error nope
+		
 		id = await getId(session?.accessToken);
 	}
 
