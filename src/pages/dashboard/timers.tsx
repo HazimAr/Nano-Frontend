@@ -25,7 +25,7 @@ export default function Timers({
 				.map((timerId) => {
 					if (timerId === "bump") return;
 					const timer = guildTimers.timers[timerId];
-					tempId = (parseInt(timerId) + 1).toString();
+
 					return timer;
 				})
 				.filter((timer) => timer != undefined)
