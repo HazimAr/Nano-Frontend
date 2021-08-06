@@ -16,8 +16,10 @@ const META: MetaType = {
 	url: "",
 };
 
-const SERVER_URL = "https://32423f6e6c54.ngrok.io";
-// const SERVER_URL = "https://nano-osu.teamdragonsden.com";
+const SERVER_URL = IS_PRODUCTION
+	? "https://nano-osu.teamdragonsden.com"
+	: "https://32423f6e6c54.ngrok.io";
+
 const DISCORD_BASE_URL = "https://discord.com/api/v9";
 
 export { GA_TRACKING_ID, IS_PRODUCTION, META, SERVER_URL, DISCORD_BASE_URL };
