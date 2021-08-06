@@ -4,7 +4,7 @@ import { getGuildChannels, getGuildTimers } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateTimerForm from "@components/dashboard/timers/createTimerForm";
-import Timers from "@components/dashboard/timers/timers";
+import TimersList from "@components/dashboard/timers/timers";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
@@ -47,7 +47,7 @@ export default function Timers({
 					timer_id={tempId}
 				/>
 				{timers.length ? (
-					<Timers
+					<TimersList
 						timers={timers}
 						guild_id={guild_id}
 						token={session.accessToken}
