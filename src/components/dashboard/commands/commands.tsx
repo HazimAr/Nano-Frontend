@@ -58,9 +58,15 @@ export default function Commands({ commands }): JSX.Element {
 											size="lg"
 											defaultChecked
 											color="brand.primary"
+											_hover={{
+												cursor: "pointer",
+												color: "white",
+											}}
 										/>
 									</HStack>
-									<Text>{group.groupDescription}</Text>
+									<Text color="grey">
+										{group.groupDescription}
+									</Text>
 									{/* {Object.keys(command).map((commandId) => {
 								const checked = command[commandId];
 
