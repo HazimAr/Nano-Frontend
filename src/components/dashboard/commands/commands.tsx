@@ -7,43 +7,16 @@ import {
 	Grid,
 	Heading,
 	HStack,
+	Switch,
 	Text,
 } from "@chakra-ui/react";
 
 export default function Commands({ commands }): JSX.Element {
-	commands = [
-		{
-			id: "1312312",
-			name: "osu",
-			description: "all osu commands",
-			command: "test",
-			icon: "test",
-		},
-		{
-			id: "1312312",
-			name: "osu",
-			description: "all osu commands",
-			command: "test",
-			icon: "test",
-		},
-		{
-			id: "1312312",
-			name: "osu",
-			description: "all osu commands",
-			command: "test",
-			icon: "test",
-		},
-		{
-			id: "1312312",
-			name: "osu",
-			description: "all osu commands",
-			command: "test",
-			icon: "test",
-		},
-	];
+	console.log(commands);
 	return (
-		<Grid templateColumns="repeat(3, 1fr)" gap={6}>
-			{commands.map((command) => {
+		<Grid templateColumns="repeat(3, 1fr)" gap={6} w="100%">
+			{Object.keys(commands).map((commandId) => {
+				const command = commands[commandId];
 				return (
 					<Accordion
 						allowToggle
@@ -52,18 +25,29 @@ export default function Commands({ commands }): JSX.Element {
 					>
 						<AccordionItem>
 							<Heading bg="rgba(0,0,0,0.2)" rounded="md">
-								<AccordionButton>
+								<AccordionButton w="100%">
 									<HStack justify="space-between" w="100%">
-										<Text>
-											{command.name
-												? command.name
-												: "No Category"}
-										</Text>
+										<Text>{commandId}</Text>
 										<AccordionIcon />
 									</HStack>
 								</AccordionButton>
 							</Heading>
-							<AccordionPanel></AccordionPanel>
+							<AccordionPanel>
+								{Object.keys(commands).map((commandId) => {
+									const checked = commands[commandId];
+									return (
+										<HStack justify="space-between">
+											<Text>{commandId}</Text>
+											<Switch
+												size="md"
+												defaultIsChecked={
+													checked ? true : false
+												}
+											/>
+										</HStack>
+									);
+								})}
+							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>
 				);

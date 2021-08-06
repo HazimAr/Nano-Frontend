@@ -233,4 +233,19 @@ export async function getNanoCommands(guild_id: string) {
 	return data;
 }
 
-// export async function
+export async function updateNanoCommands(
+	guild_id: string,
+	commandsToChange: object,
+	token: string
+) {
+	const { data } = await axios.put(
+		`${SERVER_URL}/p/guilds/nanoCommands`,
+		{
+			guild_id,
+			commandsToChange,
+			authorization: `Bearer ${token}`,
+		},
+		config
+	);
+	return data;
+}

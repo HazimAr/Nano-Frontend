@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Center } from "@chakra-ui/react";
+import { getNanoCommands } from "@api/server";
 import Commands from "@components/dashboard/commands/commands";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
@@ -15,9 +15,7 @@ export default function NanoCommands({
 }): JSX.Element {
 	return (
 		<Layout session={session}>
-			<Center>
-				<Commands commands={commands} />
-			</Center>
+			<Commands commands={commands} />
 		</Layout>
 	);
 }
@@ -31,7 +29,16 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	const commands = [];
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+
+	const guild_id = context.req.cookies.guild;
+	const commands = await getNanoCommands(guild_id);
 
 	return { props: { session, commands } };
 }
