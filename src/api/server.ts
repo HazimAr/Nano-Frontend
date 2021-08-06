@@ -213,11 +213,24 @@ export async function createReactionRoleMessage(
 	return data;
 }
 
+export async function getGuildReactionRoles(guild_id: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/reactionRoles`,
+		{ guild_id },
+		config
+	);
+	return data;
+}
 
-// legend: {
-// 	"1": {
-// 		emoji: "😊",
-// 		message: string,
-// 		role_id: string,
-// 	}
-// }
+export async function getNanoCommands(guild_id: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/nanoCommands`,
+		{
+			guild_id,
+		},
+		config
+	);
+	return data;
+}
+
+// export async function

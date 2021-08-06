@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuildChannels, getGuildEmojis } from "@api/server";
+import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
+import CreateReaction from "@components/dashboard/reaction/createReaction";
 import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
@@ -11,17 +13,48 @@ export default function Custom({
 	session,
 	custom,
 	categories,
+	reactionRoles,
+	guild_id,
 }: {
 	session: DiscordUser;
 	custom: any[];
-	categories: any;
+	categories: any[];
+	reactionRoles: any[];
+	guild_id: string;
 }): JSX.Element {
 	const [emoji, setEmoji] = useState() as any;
 
 	return (
 		<Layout session={session}>
 			<EmojiPicker setEmoji={setEmoji} custom={custom} />
-			{emoji?.native}
+
+			<Stack spacing={5}>
+				<Heading>Timers</Heading>
+				<Text>
+					Timers are messages sent every x time in a specific channel.
+					They're useful when you want to give reminders for example.
+				</Text>
+				<CreateReaction categories={categories} />
+				{reactionRoles.length ? (
+					<TimersList
+						reactionRoles={reactionRoles}
+						guild_id={guild_id}
+						token={session.accessToken}
+						categories={categories}
+					/>
+				) : (
+					<Center
+						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
+						color="grey"
+						py={5}
+					>
+						<Text color="white" mx={5}>
+							You don't have any timers right now. Click on the
+							"Add Timer" button to add one.
+						</Text>
+					</Center>
+				)}
+			</Stack>
 		</Layout>
 	);
 }
@@ -48,5 +81,5 @@ export async function getServerSideProps(context: any) {
 	const custom = await getGuildEmojis(guild_id, session.accessToken);
 	const categories = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, custom, categories } };
+	return { props: { session, custom, categories, guild_id } };
 }
