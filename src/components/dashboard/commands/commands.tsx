@@ -33,16 +33,15 @@ export default function Commands({ commands }): JSX.Element {
 								</AccordionButton>
 							</Heading>
 							<AccordionPanel>
-								{Object.keys(commands).map((commandId) => {
+								{Object.keys(command).map((commandId) => {
 									const checked = commands[commandId];
 									return (
 										<HStack justify="space-between">
 											<Text>{commandId}</Text>
 											<Switch
 												size="md"
-												defaultIsChecked={
-													checked ? true : false
-												}
+												defaultChecked={checked}
+												color="brand.primary"
 											/>
 										</HStack>
 									);
