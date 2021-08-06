@@ -19,7 +19,7 @@ export default function Timers({
 	guild_id: string;
 	guildTimers: any;
 }): JSX.Element {
-	console.log(guildTimers.timers);
+	console.log(guildTimers);
 	const timers = guildTimers.timers
 		? Object.keys(guildTimers.timers)
 				.map((timerId) => {
