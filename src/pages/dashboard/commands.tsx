@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getNanoCommands } from "@api/server";
+import { Heading, Stack } from "@chakra-ui/react";
 import Commands from "@components/dashboard/commands/commands";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
@@ -15,7 +16,10 @@ export default function NanoCommands({
 }): JSX.Element {
 	return (
 		<Layout session={session}>
-			<Commands commands={commands} />
+			<Stack w="100%">
+				<Heading>Enable and Disable Commands</Heading>
+				<Commands commands={commands} />
+			</Stack>
 		</Layout>
 	);
 }
