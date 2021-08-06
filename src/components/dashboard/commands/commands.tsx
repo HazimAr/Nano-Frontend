@@ -89,7 +89,7 @@ export default function Commands({ commands }): JSX.Element {
 				</Grid>
 			) : (
 				<Stack>
-					{Object.keys(groupState).map((commandId) => {
+					{Object.keys(groupState).map((commandId, index) => {
 						const checked = groupState[commandId];
 						if (commandId == "groupDescription") return;
 						return (
@@ -107,6 +107,9 @@ export default function Commands({ commands }): JSX.Element {
 									size="md"
 									defaultChecked={checked.enabled}
 									color="brand.primary"
+									onChange={(e) => {
+										console.log(e.target.value);
+									}}
 								/>
 							</HStack>
 						);
