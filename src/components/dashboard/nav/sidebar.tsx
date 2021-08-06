@@ -66,6 +66,11 @@ export function Sidebar(props: any): JSX.Element {
 
 						<Stack spacing="1">
 							<NavLink
+								label="Nano Commands"
+								icon={FaCode}
+								href="/dashboard/commands"
+							/>
+							<NavLink
 								label="Custom Commands"
 								icon={FaCode}
 								href="/dashboard/custom"
