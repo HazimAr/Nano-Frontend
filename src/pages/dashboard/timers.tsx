@@ -19,6 +19,7 @@ export default function Custom({
 	guild_id: string;
 	guildTimers: any;
 }): JSX.Element {
+	console.log(guildTimers.timers);
 	const timers = guildTimers.timers
 		? Object.keys(guildTimers.timers)
 				.map((timerId) => {
