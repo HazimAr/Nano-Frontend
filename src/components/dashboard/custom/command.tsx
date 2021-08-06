@@ -7,7 +7,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
-import EditCustom from "@components/dashboard/timers/editTimer";
+import EditCustom from "@components/dashboard/custom/editCustom";
 import axios from "axios";
 import router from "next/router";
 

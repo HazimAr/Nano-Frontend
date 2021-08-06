@@ -115,7 +115,7 @@ export default function EditCustom({
 									duration: 3000,
 									isClosable: true,
 								});
-							
+
 								const { data } = await axios.put(
 									"/api/guilds/customCommand",
 									{
