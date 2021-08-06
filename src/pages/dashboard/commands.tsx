@@ -16,8 +16,10 @@ export default function NanoCommands({
 }): JSX.Element {
 	return (
 		<Layout session={session}>
-			<Stack w="100%">
-				<Heading>Enable and Disable Commands</Heading>
+			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
+				<Heading textAlign="center">
+					Enable and Disable Commands
+				</Heading>
 				<Commands commands={commands} />
 			</Stack>
 		</Layout>
