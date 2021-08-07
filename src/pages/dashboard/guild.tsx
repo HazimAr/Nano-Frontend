@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuilds } from "@api/discord";
+import { getDiscordGuild, getMongoGuild } from "@api/server";
+import { Image } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
@@ -8,25 +9,28 @@ import { DiscordUser } from "types";
 export default function Custom({
 	session,
 	guild_id,
-	guilds,
+	discordGuild,
+	mongoGuild,
 }: {
 	session: DiscordUser;
 	guild_id: string;
-	guilds: any[];
+	discordGuild: any;
+	mongoGuild: any;
 }): JSX.Element {
-	let guild: any = {};
-	guilds.forEach((g) => {
-		if (g.id === guild_id && g.permissions & (1 << 8)) {
-			guild = g;
-			return;
-		}
-		if (guilds.indexOf(g) === guilds.length - 1) {
-			// Reach the end of the array, but the guild was not found
-		}
-	});
+	console.log(discordGuild);
+	console.log(mongoGuild);
 	return (
 		<Layout session={session}>
-			{guild.name ? guild.name : "no guild found"}
+			<Image
+				src={`https://cdn.discordapp.com/icons/${discordGuild.id}/${
+					discordGuild.icon
+				}.${discordGuild.icon?.startsWith("a_") ? "gif" : "png"}`}
+				fallbackSrc="/oss.png"
+				w={20}
+				rounded="50%"
+				mx={{ base: 0, sm: 5 }}
+			/>
+			{discordGuild.name ? discordGuild.name : "no guild found"}
 		</Layout>
 	);
 }
@@ -42,13 +46,24 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
+	if (!context.req.cookies.guild) {
+		context.res.writeHead(307, {
+			Location: "/dashboard",
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+
+	const guild_id = context.req.cookies.guild;
 	// @ts-ignore
-	const guilds = await getGuilds(session?.accessToken);
+	const discordGuild = await getDiscordGuild(guild_id);
+	const mongoGuild = await getMongoGuild(guild_id);
 	return {
 		props: {
 			session,
-			guilds,
-			guild_id: context.req.cookies.guild || null,
+			discordGuild,
+			mongoGuild,
+			guild_id,
 		},
 	};
 }

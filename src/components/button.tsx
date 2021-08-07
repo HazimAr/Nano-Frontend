@@ -35,8 +35,8 @@ export default function Button(props: any): JSX.Element {
 			hover = "brand.secondary";
 			break;
 		case "secondary":
-			bg = "brand.secondary";
-			hover = "brand.primary";
+			hover = "brand.secondary";
+			bg = "brand.primary2";
 			break;
 		case "delete":
 			bg = "rgb(237,66,69)";

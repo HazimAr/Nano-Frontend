@@ -74,36 +74,28 @@ export default function Index({
 											justify="flex-start"
 										>
 											{guildObject.status !== "invite" ? (
-												guild.id === guildCookie ? (
-													<Button
-														onClick={() => {
-															void router.push(
-																"/dashboard/guild"
-															);
-														}}
-														mt={3}
-														mb={3}
-														bg="#fff"
-														w="75px"
-													>
-														Edit
-													</Button>
-												) : (
-													<Button
-														onClick={() => {
-															setCookie(
-																"guild",
-																guild.id,
-																7
-															);
-															setGuildCookie(
-																guild.id
-															);
-														}}
-													>
-														Select
-													</Button>
-												)
+												<Button
+													onClick={() => {
+														setCookie(
+															"guild",
+															guild.id,
+															7
+														);
+														setGuildCookie(
+															guild.id
+														);
+														void router.push(
+															"/dashboard/guild"
+														);
+													}}
+													type="secondary"
+													mt={3}
+													mb={3}
+													bg="#fff"
+													w="75px"
+												>
+													Edit
+												</Button>
 											) : (
 												<Button
 													onClick={() => {

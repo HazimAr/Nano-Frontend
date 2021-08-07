@@ -101,18 +101,6 @@ export async function deleteGuildCommand(
 	);
 	return data;
 }
-// export async function sendEmbed(
-// 	channel_id: string,
-// 	embed: never,
-// 	token: unknown
-// ) {
-// 	const { data } = await axios.post(
-// 		`${SERVER_URL}/p/guilds/setCustomCommand`,
-// 		{ channel_id, embed, authorization: `Bearer ${token}` },
-// 		config
-// 	);
-// 	return data;
-// }
 
 export async function getGuildChannels(guild_id: string, token: unknown) {
 	const config = {
