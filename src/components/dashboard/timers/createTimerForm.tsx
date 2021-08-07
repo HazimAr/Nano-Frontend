@@ -38,7 +38,7 @@ export default function CreateTimerForm({
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
-	const [timer, setTimer] = useState(10);
+	const [timer, setTimer] = useState(null);
 	const [message, setMessage] = useState("Hey, I'm a timer!");
 
 	const toast = useToast();
