@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuild } from "@api/server";
+import { getMongoGuild } from "@api/server";
 import { VStack } from "@chakra-ui/react";
 import CreateCustom from "@components/dashboard/custom/createCustom";
 import YourCommands from "@components/dashboard/custom/yourCommands";
@@ -75,7 +75,7 @@ export async function getServerSideProps(context: any) {
 
 	const guild_id = context.req.cookies.guild;
 
-	const guild = await getGuild(guild_id);
+	const guild = await getMongoGuild(guild_id);
 
 	return { props: { session, guild, guild_id } };
 }

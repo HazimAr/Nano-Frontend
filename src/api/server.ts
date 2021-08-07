@@ -33,9 +33,19 @@ export async function getUser(id: string) {
 	return data;
 }
 
-export async function getGuild(id: string) {
+export async function getMongoGuild(id: string) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/getMongoGuild`,
+		{ id },
+		config
+	);
+
+	return data;
+}
+
+export async function getDiscordGuild(id: string) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/guilds/getDiscordGuild`,
 		{ id },
 		config
 	);

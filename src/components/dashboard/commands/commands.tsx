@@ -8,11 +8,12 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import Button from "@components/button";
+import axios from "axios";
 import { useState } from "react";
 
-export default function Commands({ commands }): JSX.Element {
+export default function Commands({ commands, guild_id, token }): JSX.Element {
 	const [groupState, setGroupState] = useState(null);
-	const [changed, setChanged] = useState(null);
+	const [changed, setChanged] = useState({});
 	const toast = useToast();
 
 	return (
@@ -89,9 +90,11 @@ export default function Commands({ commands }): JSX.Element {
 				</Grid>
 			) : (
 				<Stack>
-					{Object.keys(groupState).map((commandId, index) => {
+					{Object.keys(groupState).map((commandId) => {
 						const checked = groupState[commandId];
 						if (commandId == "groupDescription") return;
+						let enabled = checked.enabled === 1;
+
 						return (
 							<HStack
 								justify="space-between"
@@ -107,8 +110,13 @@ export default function Commands({ commands }): JSX.Element {
 									size="md"
 									defaultChecked={checked.enabled}
 									color="brand.primary"
-									onChange={(e) => {
-										console.log(e.target.value);
+									onChange={() => {
+										enabled = !enabled;
+
+										const temp = changed;
+										temp[commandId] = enabled ? 1 : 0;
+										console.log(temp);
+										setChanged(temp);
 									}}
 								/>
 							</HStack>
@@ -118,38 +126,45 @@ export default function Commands({ commands }): JSX.Element {
 						<Button
 							onClick={() => {
 								setGroupState(null);
+								setChanged({});
 							}}
 						>
-							Back
+							Cancel
 						</Button>
-						<HStack justify="space-between">
-							<Button
-								onClick={() => {
-									setGroupState(null);
-									setChanged(null);
-								}}
-							>
-								Cancel
-							</Button>
-							<Button
-								onClick={() => {
-									if (changed == null) {
-										toast({
-											title: "Error",
-											description:
-												"Looks like nothing was changed",
+						<Button
+							onClick={async () => {
+								if (changed === {}) {
+									toast({
+										title: "Error",
+										description:
+											"Looks like nothing was changed",
 
-											status: "error",
-											duration: 3000,
-											isClosable: true,
-										});
-										return;
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								const { data } = await axios.put(
+									"/api/guilds/nanoCommands",
+									{
+										guild_id,
+										commandsToChange: changed,
+										token,
 									}
-								}}
-							>
-								Save
-							</Button>
-						</HStack>
+								);
+								toast({
+									title: "Success",
+									description: data,
+
+									status: "success",
+									duration: 3000,
+									isClosable: true,
+								});
+							}}
+						>
+							Save
+						</Button>
 					</HStack>
 				</Stack>
 			)}

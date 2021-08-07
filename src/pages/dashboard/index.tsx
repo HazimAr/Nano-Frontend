@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
-import NextChakraLink from "@components/nextChakra";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -52,6 +51,8 @@ export default function Index({
 							return b.nano - a.nano;
 						})
 						.map((guild: any) => {
+							if (!(guild.permissions & (1 << 3)) && !guild.nano)
+								return;
 							return (
 								<Box key={guild.id}>
 									<HStack
@@ -106,16 +107,6 @@ export default function Index({
 													Invite
 												</Button>
 											)}
-											<NextChakraLink
-												href="/dashboard/guild"
-												display={
-													guild.permissions & (1 << 8)
-														? "block"
-														: "none"
-												}
-											>
-												<Button>Edit</Button>
-											</NextChakraLink>
 										</VStack>
 										<Flex
 											align="center"
