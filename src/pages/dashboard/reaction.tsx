@@ -28,26 +28,26 @@ export default function Custom({
 					They're useful when you want to give reminders for example.
 				</Text>
 				{/* <CreateReaction categories={categories} /> */}
-				{reactionRoles.length ? (
-					// <TimersList
-					// 	reactionRoles={reactionRoles}
-					// 	guild_id={guild_id}
-					// 	token={session.accessToken}
-					// 	categories={categories}
-					// />
-					<></>
-				) : (
-					<Center
-						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
-						color="grey"
-						py={5}
-					>
-						<Text color="white" mx={5}>
-							You don't have any timers right now. Click on the
-							"Add Timer" button to add one.
-						</Text>
-					</Center>
-				)}
+				{/* {reactionRoles.length ? (
+					<TimersList
+						reactionRoles={reactionRoles}
+						guild_id={guild_id}
+						token={session.accessToken}
+						categories={categories}
+					/>
+					
+				) : ( */}
+				<Center
+					style={{ outlineStyle: "dashed", outlineWidth: 2 }}
+					color="grey"
+					py={5}
+				>
+					<Text color="white" mx={5}>
+						You don't have any reaction roles setup. Click on the
+						"Add Reaction Role" button to add one.
+					</Text>
+				</Center>
+				{/* )} */}
 			</Stack>
 		</Layout>
 	);

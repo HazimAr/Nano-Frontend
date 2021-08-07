@@ -9,7 +9,7 @@ const config = {
 };
 
 export async function getLeaderboards() {
-	const { data } = await axios.get(`${SERVER_URL}/leaderboards`, config);
+	const { data } = await axios.post(`${SERVER_URL}/leaderboards`, config);
 	return data;
 }
 
