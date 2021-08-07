@@ -10,7 +10,7 @@ import {
 	Osu,
 	Rank,
 	Tokens,
-	Votes
+	Votes,
 } from "@components/dashboard/leaderboards/types";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
@@ -124,7 +124,6 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	// const guild_id = "199325828843044865";
 	const guild_id = context.req.cookies.guild;
 
 	const leader = await getLeaderboards(

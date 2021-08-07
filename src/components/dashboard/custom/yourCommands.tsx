@@ -17,7 +17,7 @@ export default function YourCommands({
 			<HStack justify="space-between">
 				<Heading size="md">Your Commands</Heading>
 				<Heading size="md">
-					{commands.length}/{guild?.premium !== 0 ? 1 : 5}
+					{commands.length}/{guild?.premium === 0 ? 1 : 5}
 				</Heading>
 			</HStack>
 			<Divider my={5} />

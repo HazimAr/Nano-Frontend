@@ -115,7 +115,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 
 										const temp = changed;
 										temp[commandId] = enabled ? 1 : 0;
-										console.log(temp);
+										
 										setChanged(temp);
 									}}
 								/>
