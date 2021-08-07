@@ -31,8 +31,8 @@ export default function CreateReaction({
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
-	const [emoji, setEmoji] = useState() as any;
-	const [reactionRoles, setReactionRoles] = useState([]);
+	const [_, setEmoji] = useState() as any;
+	// const [reactionRoles, setReactionRoles] = useState([]);
 	const [message, setMessage] = useState("Hey, I'm a timer!");
 
 	const toast = useToast();
@@ -80,7 +80,7 @@ export default function CreateReaction({
 						</Button>
 						<Button
 							onClick={async () => {
-								if (!channel || !message || !timer) {
+								if (!channel || !message) {
 									toast({
 										title: "Error",
 										description:
@@ -98,7 +98,7 @@ export default function CreateReaction({
 									{
 										guild_id,
 										channel_id: channel.channel_id,
-										timer,
+										// timer,
 										timer_id,
 										message,
 										token: session.accessToken,
