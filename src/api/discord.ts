@@ -4,7 +4,7 @@
 import axios from "axios";
 import { DISCORD_BASE_URL, SERVER_URL } from "config";
 
-async function getGuilds(token: string) {
+async function getGuilds(token: unknown) {
 	const config = {
 		timeout: 1000 * 5,
 		headers: {
@@ -13,29 +13,13 @@ async function getGuilds(token: string) {
 		},
 	};
 
-	const og = await axios.get(
-		`${DISCORD_BASE_URL}/users/@me/guilds`,
-
-		config
-	);
-
-	const ids = og.data.map((guild: any) => guild.id);
-
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/nanoInGuilds`,
-		{ ids },
+		`${SERVER_URL}/p/dashboard`,
+		{ authorization: `Bearer ${token}` },
 		config
 	);
 
-	ids?.forEach((id: any, index: number) => {
-		if (data.includes(id)) {
-			og.data[index].nano = true;
-			return;
-		}
-		og.data[index].nano = false;
-	});
-
-	return og.data;
+	return data;
 }
 
 async function getId(accessToken: unknown) {

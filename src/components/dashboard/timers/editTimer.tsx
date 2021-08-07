@@ -75,7 +75,11 @@ export default function EditTimer({
 								</InputLeftAddon>
 								<Input
 									type="number"
-									initialValue={timerInterval}
+									value={(
+										timerInterval /
+										1_000 /
+										60
+									).toString()}
 									onChange={(e: any) =>
 										setTimerInterval(
 											// minutes to milliseconds
@@ -113,6 +117,18 @@ export default function EditTimer({
 										title: "Error",
 										description:
 											"Please fill out all fields.",
+
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								if (timer < 60000) {
+									toast({
+										title: "Error",
+										description:
+											"Please provide a number greater then 1 minute",
 
 										status: "error",
 										duration: 3000,

@@ -41,18 +41,20 @@ export default function Index({
 				{guilds.length > 0 ? (
 					guilds
 						.sort((a: any, b: any) => {
-							if (a.nano === b.nano) {
-								return a.name === b.name
+							console.log(a.status, b.status);
+							if (a.status === b.status) {
+								return a.guild.name === b.guild.name
 									? 0
-									: a.name > b.name
+									: a.guild.name > b.guild.name
 									? 1
 									: -1;
 							}
-							return b.nano - a.nano;
+							return a.status.length - b.status.length;
+							// return a.status.length - b.status.length;
 						})
-						.map((guild: any) => {
-							if (!(guild.permissions & (1 << 3)) && !guild.nano)
-								return;
+						.map((guildObject: any) => {
+							const guild = guildObject.guild;
+
 							return (
 								<Box key={guild.id}>
 									<HStack
@@ -72,11 +74,21 @@ export default function Index({
 											spacing={0}
 											justify="flex-start"
 										>
-											{guild.nano ? (
+											{guildObject.status !== "invite" ? (
 												guild.id === guildCookie ? (
-													<Heading size="md">
-														Selected
-													</Heading>
+													<Button
+														onClick={() => {
+															void router.push(
+																"/dashboard/guild"
+															);
+														}}
+														mt={3}
+														mb={3}
+														bg="#fff"
+														w="74px"
+													>
+														Edit
+													</Button>
 												) : (
 													<Button
 														onClick={() => {
@@ -164,8 +176,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	// @ts-ignore
-	const guilds = await getGuilds(session?.accessToken);
+	const guilds = await getGuilds(session.accessToken);
 	return {
 		props: {
 			session,

@@ -5,11 +5,9 @@ import React from "react";
 import {
 	FaClock,
 	FaCode,
-	FaCog,
 	FaCrown,
 	FaMedal,
 	FaPlus,
-	FaRegQuestionCircle,
 	FaSurprise,
 } from "react-icons/fa";
 import { Logo } from "./logo";
@@ -85,22 +83,6 @@ export function Sidebar(props: any): JSX.Element {
 								label="Timers"
 								icon={FaClock}
 								href="/dashboard/timers"
-							/>
-						</Stack>
-
-						<Divider />
-
-						<Stack spacing="1">
-							<NavLink
-								label="Help"
-								icon={FaRegQuestionCircle}
-								href="/dashboard/help"
-							/>
-
-							<NavLink
-								label="Settings"
-								icon={FaCog}
-								href="/dashboard/settings"
 							/>
 						</Stack>
 					</Stack>

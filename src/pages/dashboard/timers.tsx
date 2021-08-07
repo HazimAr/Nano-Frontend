@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuildChannels, getGuildTimers } from "@api/server";
-import { Center, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+	Center,
+	Divider,
+	Heading,
+	HStack,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateTimerForm from "@components/dashboard/timers/createTimerForm";
 import TimersList from "@components/dashboard/timers/timers";
@@ -12,20 +19,21 @@ export default function Timers({
 	session,
 	categories,
 	guild_id,
-	guildTimers,
+
+	guild,
 }: {
 	session: DiscordUser;
 	categories: any;
 	guild_id: string;
-	guildTimers: any;
+	guild: any;
 }): JSX.Element {
-	console.log(guildTimers);
+	console.log(guild);
 
-	const timers = guildTimers.timers[1]
-		? Object.keys(guildTimers.timers)
+	const timers = guild.timers[1]
+		? Object.keys(guild.timers)
 				.map((timerId) => {
 					if (timerId === "bump") return;
-					const timer = guildTimers.timers[timerId];
+					const timer = guild.timers[timerId];
 					timer.timer_id = timerId;
 					return timer;
 				})
@@ -35,7 +43,7 @@ export default function Timers({
 
 	return (
 		<Layout session={session}>
-			<Stack spacing={5}>
+			<Stack spacing={5} w="100%">
 				<Heading>Timers</Heading>
 				<Text>
 					Timers are messages sent every x time in a specific channel.
@@ -47,6 +55,13 @@ export default function Timers({
 					guild_id={guild_id}
 					timer_id={tempId}
 				/>
+				<HStack justify="space-between">
+					<Heading size="md">Your Timers</Heading>
+					<Heading size="md">
+						{timers.length}/{guild.premium === 0 ? 1 : 5}
+					</Heading>
+				</HStack>
+				<Divider my={5} />
 				{timers.length ? (
 					<TimersList
 						timers={timers}
@@ -92,7 +107,15 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
-	const guildTimers = await getGuildTimers(guild_id);
+	const guild = await getGuildTimers(guild_id);
 	const categories = await getGuildChannels(guild_id, session.accessToken);
-	return { props: { session, categories, guild_id, guildTimers } };
+
+	return {
+		props: {
+			session,
+			categories,
+			guild_id,
+			guild,
+		},
+	};
 }

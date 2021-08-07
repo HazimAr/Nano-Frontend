@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getMongoGuild } from "@api/server";
-import { VStack } from "@chakra-ui/react";
+import { Heading, Stack, Text } from "@chakra-ui/react";
 import CreateCustom from "@components/dashboard/custom/createCustom";
 import YourCommands from "@components/dashboard/custom/yourCommands";
 import Layout from "@components/dashboard/layout";
@@ -38,7 +38,12 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 	}
 	return (
 		<Layout session={session}>
-			<VStack w="100%">
+			<Stack w="100%">
+				<Heading>Custom Commands</Heading>
+				<Text>
+					Set a custom command so when you type "-myCustomCommand" the
+					bot will respond with a customizable message.
+				</Text>
 				<CreateCustom
 					guild_id={guild_id}
 					token={session.accessToken}
@@ -51,7 +56,7 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 					commands={commands}
 					token={session.accessToken}
 				/>
-			</VStack>
+			</Stack>
 		</Layout>
 	);
 }

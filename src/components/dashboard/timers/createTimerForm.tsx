@@ -39,7 +39,7 @@ export default function CreateTimerForm({
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
 	const [timer, setTimer] = useState(null);
-	const [message, setMessage] = useState("Hey, I'm a timer!");
+	const [message, setMessage] = useState("");
 
 	const toast = useToast();
 	const router = useRouter();
@@ -93,6 +93,7 @@ export default function CreateTimerForm({
 								onChange={(e) => {
 									setMessage(e.target.value);
 								}}
+								placeholder="Hey, I'm a timer!"
 								value={message}
 							></Textarea>
 						</Stack>
