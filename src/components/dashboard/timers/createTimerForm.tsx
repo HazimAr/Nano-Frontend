@@ -70,6 +70,8 @@ export default function CreateTimerForm({
 								<Input
 									placeholder="10"
 									type="number"
+									// @ts-expect-error
+									onWheel={(e) => e.target.blur()}
 									onChange={(e: any) =>
 										setTimer(
 											// minutes to milliseconds
@@ -107,6 +109,18 @@ export default function CreateTimerForm({
 										title: "Error",
 										description:
 											"Please fill out all fields.",
+
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								if (timer < 60000) {
+									toast({
+										title: "Error",
+										description:
+											"Please provide a number greater then 1 minute",
 
 										status: "error",
 										duration: 3000,
