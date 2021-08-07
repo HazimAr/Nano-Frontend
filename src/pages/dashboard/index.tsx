@@ -41,7 +41,6 @@ export default function Index({
 				{guilds.length > 0 ? (
 					guilds
 						.sort((a: any, b: any) => {
-							console.log(a.status, b.status);
 							if (a.status === b.status) {
 								return a.guild.name === b.guild.name
 									? 0
