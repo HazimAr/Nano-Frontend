@@ -4,6 +4,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
+import {
+	Messages,
+	Rank,
+	Tokens,
+	Votes,
+} from "@components/dashboard/leaderboards/types";
 import { useState } from "react";
 import Select from "react-select";
 
@@ -12,7 +18,6 @@ const options = [
 	{ value: "votes", label: "Votes" },
 	{ value: "messages", label: "Messages" },
 	{ value: "tokens", label: "Tokens" },
-	{ value: "osu", label: "Osu Rank" },
 ];
 
 /* secondary: "#f6a", primary: "#7549ac", primary2: "#fab107", */
@@ -50,7 +55,7 @@ export default function Custom({ leader }: { leader: any }): JSX.Element {
 			/>
 			<Box>
 				{sort.value === "rank" ? (
-					<Rank leaderboards={leader.xp} guild={guild_id} />
+					<Rank leaderboards={leader.xp} />
 				) : sort.value === "votes" ? (
 					<Votes leaderboards={leader.votes} />
 				) : sort.value === "messages" ? (

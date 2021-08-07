@@ -360,10 +360,10 @@ export function Messages({ leaderboards }: any): JSX.Element {
 			return user;
 		})
 		.sort((a: any, b: any) => {
-			if (a.messages === b.messages) {
+			if (a.messages.month === b.messages.month) {
 				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
 			}
-			return b.messages - a.messages;
+			return b.messages.month - a.messages.month;
 		});
 	return (
 		<>
@@ -422,9 +422,9 @@ export function Messages({ leaderboards }: any): JSX.Element {
 								mx={{ base: 0, md: 3 }}
 							>
 								<Text fontSize="xs" color="text.400">
-									Messages (All)
+									Messages (Month)
 								</Text>
-								{user.messages}
+								{user.messages.month}
 							</Box>
 							{/* <Box w={{ base: "100%", md: "65px" }}>
 								<Text fontSize="xs" color="text.400">
