@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getLeaderboards } from "@api/server";
+import { getGuildLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import {
@@ -51,28 +51,8 @@ export default function Custom({
 	guild_id: any;
 	leader: any;
 }): JSX.Element {
-	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
-	const [game] = useState("osu");
-
-	const leaderboards = leader.lbAll.map((user: any) => {
-		return {
-			img: user?.img,
-			tag: user?.tag,
-			votes: {
-				all: user?.votes?.all,
-				monthly: user?.votes?.month,
-			},
-			tokens: user?.tokens,
-			lvl: user?.guilds[guild_id]?.lvl,
-			xp: user?.guilds[guild_id]?.xp,
-			donated: user?.guilds[guild_id]?.donatedTokens,
-			nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
-			messages: user?.guilds[guild_id]?.messages?.all,
-			osu: user?.osu,
-		};
-	});
-
+	console.log(leader);
 	return (
 		<Layout session={session}>
 			<Box maxW="700px" w="100%">
@@ -87,15 +67,15 @@ export default function Custom({
 				/>
 				<Box>
 					{sort.value === "rank" ? (
-						<Rank leaderboards={leaderboards} guild={guild_id} />
+						<Rank leaderboards={leader.xp} guild={guild_id} />
 					) : sort.value === "votes" ? (
-						<Votes leaderboards={leaderboards} />
+						<Votes leaderboards={leader.votes} />
 					) : sort.value === "osu" ? (
-						<Osu leaderboards={leaderboards} game={game} />
+						<Osu leaderboards={leader.osu} />
 					) : sort.value === "messages" ? (
-						<Messages leaderboards={leaderboards} />
+						<Messages leaderboards={leader.messages} />
 					) : (
-						<Tokens leaderboards={leaderboards} />
+						<Tokens leaderboards={leader.tokens} />
 					)}
 				</Box>
 			</Box>
@@ -123,12 +103,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.cookies.guild;
-
-	const leader = await getLeaderboards(
-		// @ts-ignore
-		session?.accessToken,
-		guild_id
-	);
+	const leader = await getGuildLeaderboards(guild_id);
 
 	return { props: { session, leader, guild_id } };
 }

@@ -16,7 +16,6 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 	const [changed, setChanged] = useState({});
 	const toast = useToast();
 
-	console.log(changed);
 	return (
 		<>
 			{groupState == null ? (

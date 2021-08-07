@@ -13,7 +13,7 @@ export async function getLeaderboards() {
 	return data;
 }
 
-export async function getGuildLeaderboards({ guild_id }) {
+export async function getGuildLeaderboards(guild_id) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/leaderboards`,
 		{ guild_id },

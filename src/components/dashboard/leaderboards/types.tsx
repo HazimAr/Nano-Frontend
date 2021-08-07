@@ -10,10 +10,10 @@ export function Votes({ leaderboards }: any): JSX.Element {
 			return user;
 		})
 		.sort((a: any, b: any) => {
-			if (a.votes.monthly === b.votes.monthly) {
+			if (a.votes.all === b.votes.all) {
 				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
 			}
-			return b.votes.monthly - a.votes.monthly;
+			return b.votes.all - a.votes.all;
 		});
 	return (
 		<>
@@ -67,15 +67,15 @@ export function Votes({ leaderboards }: any): JSX.Element {
 							justify="center"
 							w={{ base: "100%", md: "inherit" }}
 						>
-							<Box
+							{/* <Box
 								w={{ base: "100%", md: "85px" }}
 								mx={{ base: 0, md: 3 }}
 							>
 								<Text fontSize="xs" color="text.400">
 									Votes (Monthly)
 								</Text>
-								{user.votes.monthly}
-							</Box>
+								{user.votes.month}
+							</Box> */}
 							<Box w={{ base: "100%", md: "65px" }}>
 								<Text fontSize="xs" color="text.400">
 									Votes (All)

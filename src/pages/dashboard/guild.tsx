@@ -27,8 +27,7 @@ export default function Custom({
 	discordGuild: any;
 	mongoGuild: any;
 }): JSX.Element {
-	console.log(discordGuild);
-	console.log(mongoGuild);
+
 	return (
 		<Layout session={session}>
 			<Stack align="center" mt={5} spacing={5}>
