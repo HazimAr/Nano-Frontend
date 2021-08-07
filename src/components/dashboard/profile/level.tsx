@@ -10,7 +10,7 @@ export default function Level(props: any): JSX.Element {
 			// value={50}
 			value={
 				(props.user.guilds
-					? getPercent(props.user.guilds[props.guild]?.xp)
+					? getPercent(props.user.xp)
 					: getPercent(props.user.xp)) * 100
 			}
 			color="brand.primary"
@@ -18,9 +18,7 @@ export default function Level(props: any): JSX.Element {
 			{...props}
 		>
 			<CircularProgressLabel>
-				{props.user.guilds
-					? props.user.guilds[props.guild]?.lvl
-					: props.user.lvl}
+				{props.user.guilds ? props.user.lvl : props.user.lvl}
 			</CircularProgressLabel>
 		</CircularProgress>
 	);

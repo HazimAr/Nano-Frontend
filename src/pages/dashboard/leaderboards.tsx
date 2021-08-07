@@ -55,25 +55,23 @@ export default function Custom({
 	const [sort, setSort] = useState(options[0]);
 	const [game] = useState("osu");
 
-	const [leaderboards] = useState(
-		leader.lbAll.map((user: any) => {
-			return {
-				img: user?.img,
-				tag: user?.tag,
-				votes: {
-					all: user?.votes?.all,
-					monthly: user?.votes?.month,
-				},
-				tokens: user?.tokens,
-				lvl: user?.guilds[guild_id]?.lvl,
-				xp: user?.guilds[guild_id]?.xp,
-				donated: user?.guilds[guild_id]?.donatedTokens,
-				nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
-				messages: user?.guilds[guild_id]?.messages?.all,
-				osu: user?.osu,
-			};
-		})
-	);
+	const leaderboards = leader.lbAll.map((user: any) => {
+		return {
+			img: user?.img,
+			tag: user?.tag,
+			votes: {
+				all: user?.votes?.all,
+				monthly: user?.votes?.month,
+			},
+			tokens: user?.tokens,
+			lvl: user?.guilds[guild_id]?.lvl,
+			xp: user?.guilds[guild_id]?.xp,
+			donated: user?.guilds[guild_id]?.donatedTokens,
+			nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
+			messages: user?.guilds[guild_id]?.messages?.all,
+			osu: user?.osu,
+		};
+	});
 
 	return (
 		<Layout session={session}>

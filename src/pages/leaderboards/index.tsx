@@ -4,17 +4,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
-import Layout from "@components/dashboard/layout";
-import {
-	Messages,
-	Osu,
-	Rank,
-	Tokens,
-	Votes,
-} from "@components/dashboard/leaderboards/types";
 import { useState } from "react";
 import Select from "react-select";
-import { DiscordUser } from "types";
 
 const options = [
 	{ value: "rank", label: "Rank" },
@@ -41,64 +32,34 @@ const customStyles = {
 	},
 };
 
-export default function Custom({
-	session,
-	leader,
-	guild_id,
-}: {
-	session: DiscordUser;
-	guild_id: any;
-	leader: any;
-}): JSX.Element {
+export default function Custom({ leader }: { leader: any }): JSX.Element {
 	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
-	const [game] = useState("osu");
-
-	const leaderboards = leader.lbAll.map((user: any) => {
-		return {
-			img: user?.img,
-			tag: user?.tag,
-			votes: {
-				all: user?.votes?.all,
-				monthly: user?.votes?.month,
-			},
-			tokens: user?.tokens,
-			lvl: user?.guilds[guild_id]?.lvl,
-			xp: user?.guilds[guild_id]?.xp,
-			donated: user?.guilds[guild_id]?.donatedTokens,
-			nextLvlPercent: user?.guilds[guild_id]?.nextLvlPercent,
-			messages: user?.guilds[guild_id]?.messages?.all,
-			osu: user?.osu,
-		};
-	});
+	console.log(leader);
 
 	return (
-		<Layout session={session}>
-			<Box maxW="700px" w="100%">
-				<Select
-					// @ts-ignore
-					onChange={setSort}
-					defaultValue={sort}
-					options={options}
-					styles={customStyles}
-					isSearchable={false}
-					style={{ minWidth: "0" }}
-				/>
-				<Box>
-					{sort.value === "rank" ? (
-						<Rank leaderboards={leaderboards} guild={guild_id} />
-					) : sort.value === "votes" ? (
-						<Votes leaderboards={leaderboards} />
-					) : sort.value === "osu" ? (
-						<Osu leaderboards={leaderboards} game={game} />
-					) : sort.value === "messages" ? (
-						<Messages leaderboards={leaderboards} />
-					) : (
-						<Tokens leaderboards={leaderboards} />
-					)}
-				</Box>
+		<Box maxW="700px" w="100%">
+			<Select
+				// @ts-ignore
+				onChange={setSort}
+				defaultValue={sort}
+				options={options}
+				styles={customStyles}
+				isSearchable={false}
+				style={{ minWidth: "0" }}
+			/>
+			<Box>
+				{sort.value === "rank" ? (
+					<Rank leaderboards={leader.xp} guild={guild_id} />
+				) : sort.value === "votes" ? (
+					<Votes leaderboards={leader.votes} />
+				) : sort.value === "messages" ? (
+					<Messages leaderboards={leader.messages} />
+				) : (
+					<Tokens leaderboards={leader.tokens} />
+				)}
 			</Box>
-		</Layout>
+		</Box>
 	);
 }
 
