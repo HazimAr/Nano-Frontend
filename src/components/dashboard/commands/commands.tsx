@@ -115,7 +115,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 
 										const temp = changed;
 										temp[commandId] = enabled ? 1 : 0;
-										
+
 										setChanged(temp);
 									}}
 								/>
@@ -161,6 +161,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 									duration: 3000,
 									isClosable: true,
 								});
+								setChanged({});
 							}}
 						>
 							Save
