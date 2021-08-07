@@ -216,10 +216,14 @@ export async function createReactionRoleMessage(
 	return data;
 }
 
-export async function getGuildReactionRoles(guild_id: string) {
+export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/guilds/reactionRoles`,
-		{ guild_id },
+		{
+			guild_id,
+
+			authorization: `Bearer ${token}`,
+		},
 		config
 	);
 	return data;
