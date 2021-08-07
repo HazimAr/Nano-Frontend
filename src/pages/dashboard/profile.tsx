@@ -43,7 +43,6 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
@@ -64,7 +63,6 @@ export default function Profile({
 			: null;
 	}, [osuState]);
 
-
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
@@ -76,70 +74,65 @@ export default function Profile({
 						mt={5}
 						spacing={0}
 					>
-						<>
-							{" "}
-							<Flex align="center">
-								<Avatar
-									// size="lg"
-									boxSize={{
-										base: "75px",
-										sm: "125px",
-										md: "175px",
-									}}
-									name={session.user.name}
-									src={session.user.image}
-									fallbackSrc="/oss.png"
+						<Flex align="center">
+							<Avatar
+								// size="lg"
+								boxSize={{
+									base: "75px",
+									sm: "125px",
+									md: "175px",
+								}}
+								name={session.user.name}
+								src={session.user.image}
+								fallbackSrc="/oss.png"
+							/>
+							<Heading ml={5}>{session.user.name}</Heading>
+							<Box mx={3}>
+								<Level
+									user={serverUser}
+									guild={guildId}
+									size={75}
 								/>
-								<Heading ml={5}>{session.user.name}</Heading>
-								<Box mx={3}>
-									<Level
-										user={serverUser}
-										guild={guildId}
-										size={75}
-									/>
-								</Box>
-							</Flex>
-							<Flex
-								flexDir={{ base: "row", sm: "column" }}
-								align={{ base: "center", sm: "flex-start" }}
-								justify={{ base: "center", sm: "flex-start" }}
-								textAlign={{ base: "center", sm: "left" }}
-							>
-								<Text w="100%">
-									Prefix:{" "}
-									{serverUser.premium !== "none" ? (
-										serverUser.prefix
-									) : (
-										<Button
-											onClick={() => {
-												void router.push(
-													"/dashboard/premium"
-												);
-											}}
-										>
-											Premium
-										</Button>
-									)}
-								</Text>
-								<Text w="100%">
-									Tokens: {serverUser.tokens}
-								</Text>
-								<Text w="100%">
-									Messages: {serverUser.messages.all}
-								</Text>
-								<Text w="100%">
-									Votes: {serverUser.votes.all}{" "}
+							</Box>
+						</Flex>
+						<Flex
+							flexDir={{ base: "row", sm: "column" }}
+							align={{ base: "center", sm: "flex-start" }}
+							justify={{ base: "center", sm: "flex-start" }}
+							textAlign={{ base: "center", sm: "left" }}
+						>
+							<Text w="100%">
+								Prefix:{" "}
+								{serverUser.premium !== "none" ? (
+									serverUser.prefix
+								) : (
 									<Button
-										fontSize="6px"
 										onClick={() => {
-											void router.push("/vote");
+											void router.push(
+												"/dashboard/premium"
+											);
 										}}
 									>
-										Vote
+										Premium
 									</Button>
-								</Text>
-							</Flex>
-						</>
+								)}
+							</Text>
+							<Text w="100%">Tokens: {serverUser.tokens}</Text>
+							<Text w="100%">
+								Messages: {serverUser.messages.all}
+							</Text>
+							<Text w="100%">
+								Votes: {serverUser.votes.all}{" "}
+								<Button
+									fontSize="6px"
+									onClick={() => {
+										void router.push("/vote");
+									}}
+								>
+									Vote
+								</Button>
+							</Text>
+						</Flex>
 					</HStack>
 				) : (
 					<Heading textAlign="center">
@@ -307,8 +300,6 @@ export default function Profile({
 					{osu.osu ? null : (
 						<Button
 							onClick={async () => {
-								
-
 								const link = await loginOsu(
 									session.accessToken
 								);
