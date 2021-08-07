@@ -7,7 +7,6 @@ import CreateReaction from "@components/dashboard/reaction/createReaction";
 import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
-import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
@@ -15,12 +14,6 @@ export default function Custom({
 	categories,
 	reactionRoles,
 	guild_id,
-}: {
-	session: DiscordUser;
-	custom: any[];
-	categories: any[];
-	reactionRoles: any[];
-	guild_id: string;
 }): JSX.Element {
 	const [_, setEmoji] = useState() as any;
 
