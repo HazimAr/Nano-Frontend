@@ -22,7 +22,7 @@ export default function Custom({
 	reactionRoles: any[];
 	guild_id: string;
 }): JSX.Element {
-	const [emoji, setEmoji] = useState() as any;
+	const [_, setEmoji] = useState() as any;
 
 	return (
 		<Layout session={session}>
