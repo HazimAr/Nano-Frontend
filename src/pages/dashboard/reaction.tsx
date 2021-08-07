@@ -13,7 +13,7 @@ export default function Custom({
 	custom,
 	categories,
 	reactionRoles,
-	guild_id,
+	// guild_id,
 }): JSX.Element {
 	const [_, setEmoji] = useState() as any;
 
