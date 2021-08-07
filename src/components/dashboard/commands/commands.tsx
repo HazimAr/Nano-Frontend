@@ -55,7 +55,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 										<Heading size="md">
 											<Text>{groupId}</Text>
 										</Heading>
-										<Switch
+										{/* <Switch
 											size="lg"
 											defaultChecked
 											color="brand.primary"
@@ -63,7 +63,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 												cursor: "pointer",
 												color: "white",
 											}}
-										/>
+										/> */}
 									</HStack>
 									<Text color="grey">
 										{group.groupDescription}
