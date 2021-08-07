@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function Custom({
 	session,
 	custom,
-	categories,
+	// categories,
 	reactionRoles,
 	// guild_id,
 }): JSX.Element {
