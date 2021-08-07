@@ -3,7 +3,7 @@
 import { getGuildChannels, getGuildEmojis } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
-import CreateReaction from "@components/dashboard/reaction/createReaction";
+// import CreateReaction from "@components/dashboard/reaction/createReaction";
 import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function Custom({
 					Timers are messages sent every x time in a specific channel.
 					They're useful when you want to give reminders for example.
 				</Text>
-				<CreateReaction categories={categories} />
+				{/* <CreateReaction categories={categories} /> */}
 				{reactionRoles.length ? (
 					// <TimersList
 					// 	reactionRoles={reactionRoles}
