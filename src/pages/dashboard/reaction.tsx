@@ -29,12 +29,13 @@ export default function Custom({
 				</Text>
 				<CreateReaction categories={categories} />
 				{reactionRoles.length ? (
-					<TimersList
-						reactionRoles={reactionRoles}
-						guild_id={guild_id}
-						token={session.accessToken}
-						categories={categories}
-					/>
+					// <TimersList
+					// 	reactionRoles={reactionRoles}
+					// 	guild_id={guild_id}
+					// 	token={session.accessToken}
+					// 	categories={categories}
+					// />
+					<></>
 				) : (
 					<Center
 						style={{ outlineStyle: "dashed", outlineWidth: 2 }}
