@@ -85,7 +85,7 @@ export default function Index({
 														mt={3}
 														mb={3}
 														bg="#fff"
-														w="74px"
+														w="75px"
 													>
 														Edit
 													</Button>
