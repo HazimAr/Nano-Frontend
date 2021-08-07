@@ -69,22 +69,6 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 									<Text color="grey">
 										{group.groupDescription}
 									</Text>
-									{/* {Object.keys(command).map((commandId) => {
-								const checked = command[commandId];
-
-								return (
-									<HStack justify="space-between">
-										<Text>
-											{checked.name} {checked.arguments}
-										</Text>
-										<Switch
-											size="md"
-											defaultChecked={checked.enabled}
-											color="brand.primary"
-										/>
-									</HStack>
-								);
-							})} */}
 								</Stack>
 							);
 						})}

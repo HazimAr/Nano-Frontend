@@ -8,10 +8,15 @@ const config = {
 	timeout: 1000 * 10,
 };
 
-export async function getLeaderboards(token: string, guild_id: string) {
+export async function getLeaderboards() {
+	const { data } = await axios.get(`${SERVER_URL}/leaderboards`, config);
+	return data;
+}
+
+export async function getGuildLeaderboards({ guild_id }) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/leaderboards`,
-		{ authorization: `Bearer ${token}`, guild_id },
+		`${SERVER_URL}/guilds/leaderboards`,
+		{ guild_id },
 		config
 	);
 	return data;

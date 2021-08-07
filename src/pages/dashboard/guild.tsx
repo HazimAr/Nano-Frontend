@@ -1,8 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getDiscordGuild, getMongoGuild } from "@api/server";
-import { Avatar, Flex, Heading, HStack, Image, Stack } from "@chakra-ui/react";
+import {
+	Avatar,
+	Flex,
+	Grid,
+	Heading,
+	HStack,
+	Stack,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
+import NextChakraLink from "@components/nextChakra";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
@@ -21,8 +31,7 @@ export default function Custom({
 	console.log(mongoGuild);
 	return (
 		<Layout session={session}>
-			<Image />
-			<Stack align="center" mt={5} spacing={0}>
+			<Stack align="center" mt={5} spacing={5}>
 				<Flex align="center" w="100%">
 					<Avatar
 						// size="lg"
@@ -68,8 +77,61 @@ export default function Custom({
 						</Button>
 					</Text> */}
 				</HStack>
+				<Grid
+					templateColumns={{
+						base: "repeat(1, 1fr)",
+						sm: "repeat(2, 1fr)",
+					}}
+					gap={5}
+				>
+					<Panel
+						name="Enable / Disable Commands"
+						description="Click on a switch to activate and deactivate certain command nano commands."
+						href="/commands"
+					/>
+					<Panel
+						name="Custom Commands"
+						description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message."
+						href="/custom"
+					/>
+					<Panel
+						name="Reaction Roles"
+						description="Create a customizable message that when users will react to they will recieve a specified role."
+						href="/reaction"
+					/>
+					<Panel
+						name="Timers"
+						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."
+						href="/reaction"
+					/>
+				</Grid>
 			</Stack>
 		</Layout>
+	);
+}
+
+function Panel({ name, description, href }): JSX.Element {
+	return (
+		<VStack
+			p={5}
+			w="100%"
+			maxW="400px"
+			justify="space-between"
+			bg="rgba(0,0,0,0.2)"
+			rounded={5}
+			transitionTimingFunction="ease"
+			transitionDuration=".2s"
+			_hover={{
+				transform: "scale(0.9)",
+				cursor: "pointer",
+				color: "brand.secondary",
+			}}
+		>
+			<NextChakraLink href={`/dashboard${href}`}>
+				<Heading>{name}</Heading>
+				<Text color="grey">{description}</Text>
+			</NextChakraLink>
+		</VStack>
 	);
 }
 

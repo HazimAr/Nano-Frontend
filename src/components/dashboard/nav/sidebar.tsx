@@ -3,10 +3,11 @@
 import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
 import React from "react";
 import {
+	FaBars,
 	FaClock,
 	FaCode,
-	FaCrown,
 	FaMedal,
+	FaPen,
 	FaPlus,
 	FaSurprise,
 } from "react-icons/fa";
@@ -49,10 +50,16 @@ export function Sidebar(props: any): JSX.Element {
 								href="/dashboard"
 							/>
 							<NavLink
+								label="Edit Guild"
+								icon={FaPen}
+								href="/dashboard/guild"
+							/>
+
+							{/* <NavLink
 								label="Premium"
 								icon={FaCrown}
 								href="/dashboard/premium"
-							/>
+							/> */}
 							<NavLink
 								label="Leaderboards"
 								icon={FaMedal}
@@ -65,7 +72,7 @@ export function Sidebar(props: any): JSX.Element {
 						<Stack spacing="1">
 							<NavLink
 								label="Nano Commands"
-								icon={FaCode}
+								icon={FaBars}
 								href="/dashboard/commands"
 							/>
 							<NavLink
