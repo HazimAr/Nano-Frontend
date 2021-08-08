@@ -31,7 +31,7 @@ export default function Custom({
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
-				{reactionRoles.length ? (
+				{reactionRoles.reaction_roles?.length ? (
 					<ReactionRoles
 						reactionRoles={reactionRoles.reaction_roles}
 						availableRoles={reactionRoles.roles}
