@@ -37,6 +37,7 @@ export default function Timers({
 				})
 				.filter((timer) => timer != undefined)
 		: [];
+
 	let tempId = (timers.length + 1).toString();
 
 	return (
