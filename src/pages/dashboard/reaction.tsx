@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildReactionRoles } from "@api/server";
+import { getGuildChannels, getGuildReactionRoles } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
-// import CreateReaction from "@components/dashboard/reaction/createReaction";
+import CreateReaction from "@components/dashboard/reaction/createReaction";
 import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
 
 export default function Custom({
 	session,
-	custom,
-	// categories,
+	categories,
 	reactionRoles,
-	// guild_id,
+	guild_id,
 }): JSX.Element {
 	const [_, setEmoji] = useState() as any;
-
+	console.log(reactionRoles);
 	return (
 		<Layout session={session}>
-			<EmojiPicker setEmoji={setEmoji} custom={custom} />
+			<EmojiPicker setEmoji={setEmoji} custom={reactionRoles.emojis} />
 
 			<Stack spacing={5}>
 				<Heading>Reaction Roles</Heading>
@@ -27,10 +26,14 @@ export default function Custom({
 					Setup reaction roles so when one of you server members
 					reacts to a message they will recieve a role
 				</Text>
-				{/* <CreateReaction categories={categories} /> */}
+				<CreateReaction
+					categories={categories}
+					availableRoles={reactionRoles.roles}
+				/>
 				{reactionRoles.length ? (
-					<TimersList
-						reactionRoles={reactionRoles}
+					<ReactionRoles
+						reactionRoles={reactionRoles.reaction_roles}
+						availableRoles={reactionRoles.roles}
 						guild_id={guild_id}
 						token={session.accessToken}
 						categories={categories}
@@ -76,6 +79,7 @@ export async function getServerSideProps(context: any) {
 		guild_id,
 		session.accessToken
 	);
+	const categories = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, reactionRoles, guild_id } };
+	return { props: { session, categories, reactionRoles, guild_id } };
 }

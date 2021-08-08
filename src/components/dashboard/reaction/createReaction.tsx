@@ -24,9 +24,9 @@ import { useState } from "react";
 
 export default function CreateReaction({
 	categories,
-	session,
+	token,
 	guild_id,
-	timer_id,
+	reaction_role_id,
 	custom,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -99,9 +99,9 @@ export default function CreateReaction({
 										guild_id,
 										channel_id: channel.channel_id,
 										// timer,
-										timer_id,
+										reaction_role_id,
 										message,
-										token: session.accessToken,
+										token,
 									}
 								);
 
