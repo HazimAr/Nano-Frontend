@@ -46,14 +46,16 @@ export default function EmojiPicker({
 						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
-								setEmoji(
-									`<${item.animated ? "a" : ""}:${
+								setEmoji({
+									emoji: `<${item.animated ? "a" : ""}:${
 										item.name
-									}:${item.id}>`
-								);
+									}:${item.id}>`,
+									img: item.imageUrl,
+								});
 								break;
 							}
 						}
+						onClose();
 					}}
 					set="twitter"
 					title="Pick your emoji…"

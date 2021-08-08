@@ -1,6 +1,7 @@
 import {
 	Heading,
 	HStack,
+	Image,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -9,6 +10,7 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Stack,
+	Text,
 	useDisclosure,
 	VStack,
 } from "@chakra-ui/react";
@@ -20,7 +22,7 @@ export default function CreateReactionRoleModal({
 	custom,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [emoji, setEmoji] = useState();
+	const [emoji, setEmoji] = useState() as any;
 	const [role, setRole] = useState();
 	useEffect(() => {
 		console.log(emoji);
@@ -48,28 +50,35 @@ export default function CreateReactionRoleModal({
 						<Stack spacing={5}>
 							<HStack justify="center" spacing={5}>
 								<VStack>
-									<Heading size="md">Pick Emoji</Heading>
-									<EmojiPicker
-										setEmoji={setEmoji}
-										custom={custom}
-									/>
-								</VStack>
-								<VStack>
 									<Heading size="md">Pick Role</Heading>
 									<EmojiPicker
 										setEmoji={setEmoji}
 										custom={custom}
 									/>
 								</VStack>
+								<VStack>
+									<Heading size="md">Pick Emoji</Heading>
+									<EmojiPicker
+										setEmoji={setEmoji}
+										custom={custom}
+									/>
+								</VStack>
 							</HStack>
-							<Stack>
+							<Stack spacing={5}>
 								<Heading size="md">
 									Users will recieve: {role}
 								</Heading>
 
-								<Heading size="md">
-									When reacted with: {emoji}
-								</Heading>
+								<HStack size="md">
+									<Heading size="md">
+										When reacted with:{" "}
+									</Heading>
+									{emoji?.img ? (
+										<Image src={emoji.img} w={10} />
+									) : (
+										<Text fontSize="3xl">{emoji}</Text>
+									)}
+								</HStack>
 							</Stack>
 						</Stack>
 					</ModalBody>
