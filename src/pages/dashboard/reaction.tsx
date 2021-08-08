@@ -22,7 +22,9 @@ export default function Custom({
 					reacts to a message they will recieve a role
 				</Text>
 				<CreateReaction
-					// reaction_role_id={reactionRoles.reaction_roles.length + 1}
+					reaction_role_id={
+						reactionRoles.reaction_roles?.length + 1 ?? 1
+					}
 					token={session.accessToken}
 					guild_id={guild_id}
 					categories={categories}
