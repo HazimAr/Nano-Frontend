@@ -62,7 +62,8 @@ export default function Custom({ leader }: { leader: any }): JSX.Element {
 					<Messages leaderboards={leader.messages} />
 				) : (
 					<Tokens leaderboards={leader.tokens} />
-				)}
+				)
+                }
 			</Box>
 		</Box>
 	);

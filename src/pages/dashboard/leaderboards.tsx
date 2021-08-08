@@ -5,13 +5,7 @@
 import { getGuildLeaderboards } from "@api/server";
 import { Box } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
-import {
-	Messages,
-	Osu,
-	Rank,
-	Tokens,
-	Votes,
-} from "@components/dashboard/leaderboards/types";
+import { Messages, Osu, Rank } from "@components/dashboard/leaderboards/types";
 import { getSession } from "next-auth/client";
 import { useState } from "react";
 import Select from "react-select";
@@ -19,9 +13,8 @@ import { DiscordUser } from "types";
 
 const options = [
 	{ value: "rank", label: "Rank" },
-	{ value: "votes", label: "Votes" },
 	{ value: "messages", label: "Messages" },
-	{ value: "tokens", label: "Tokens" },
+	// { value: "tokens", label: "Tokens" },
 	{ value: "osu", label: "Osu Rank" },
 ];
 
@@ -66,17 +59,18 @@ export default function Custom({
 					style={{ minWidth: "0" }}
 				/>
 				<Box>
-					{sort.value === "rank" ? (
-						<Rank leaderboards={leader.xp} guild={guild_id} />
-					) : sort.value === "votes" ? (
-						<Votes leaderboards={leader.votes} />
-					) : sort.value === "osu" ? (
-						<Osu leaderboards={leader.osu} />
-					) : sort.value === "messages" ? (
-						<Messages leaderboards={leader.messages} />
-					) : (
-						<Tokens leaderboards={leader.tokens} />
-					)}
+					{
+						sort.value === "rank" ? (
+							<Rank leaderboards={leader.xp} guild={guild_id} />
+						) : sort.value === "osu" ? (
+							<Osu leaderboards={leader.osu} />
+						) : (
+							<Messages leaderboards={leader.messages} />
+						)
+						//  (
+						// 	<Tokens leaderboards={leader.tokens} />
+						// )
+					}
 				</Box>
 			</Box>
 		</Layout>
