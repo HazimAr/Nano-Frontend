@@ -27,7 +27,6 @@ export default function Custom({
 	discordGuild: any;
 	mongoGuild: any;
 }): JSX.Element {
-
 	return (
 		<Layout session={session}>
 			<Stack align="center" mt={5} spacing={5}>
@@ -101,7 +100,7 @@ export default function Custom({
 					<Panel
 						name="Timers"
 						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."
-						href="/reaction"
+						href="/timers"
 					/>
 				</Grid>
 			</Stack>
@@ -155,8 +154,14 @@ export async function getServerSideProps(context: any) {
 
 	const guild_id = context.req.cookies.guild;
 	// @ts-ignore
-	const discordGuild = await getDiscordGuild(guild_id);
-	const mongoGuild = await getMongoGuild(guild_id);
+	const promises = [getDiscordGuild(guild_id), getMongoGuild(guild_id)];
+	let discordGuild;
+	let mongoGuild;
+	await Promise.all(promises).then((values) => {
+		discordGuild = values[0];
+		mongoGuild = values[1];
+	});
+	
 	return {
 		props: {
 			session,
