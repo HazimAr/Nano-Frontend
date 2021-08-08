@@ -218,7 +218,7 @@ export async function createReactionRoleMessage(
 
 export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/reactionRoles`,
+		`${SERVER_URL}/p/guilds/reactionRoles`,
 		{
 			guild_id,
 

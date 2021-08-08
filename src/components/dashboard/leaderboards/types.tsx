@@ -270,12 +270,10 @@ export function Tokens({ leaderboards }: any): JSX.Element {
 export function Osu({ leaderboards }: any): JSX.Element {
 	const newLeaderboards: any[] = [];
 	leaderboards
-		.sort((a: any, b: any) => a.osu?.osuRank - b.osu?.osuRank)
-		.forEach((user: any) => {
-			if (user.osu.id) {
-				newLeaderboards.push(user);
-			}
-		});
+		.map((user: any) => {
+			return user;
+		})
+		.sort((a: any, b: any) => a.osu?.osuRank - b.osu?.osuRank);
 
 	return (
 		<>
