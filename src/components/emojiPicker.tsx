@@ -16,7 +16,7 @@ export default function EmojiPicker({
 	return (
 		<Box
 			onMouseMove={(e) => {
-				console.log(e);
+			
 				if (!isOpen) {
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);

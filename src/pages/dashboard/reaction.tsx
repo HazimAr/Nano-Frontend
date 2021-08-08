@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-	getGuildChannels,
-	getGuildEmojis,
-	getGuildReactionRoles,
-} from "@api/server";
+import { getGuildReactionRoles } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 // import CreateReaction from "@components/dashboard/reaction/createReaction";
@@ -75,21 +71,11 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.cookies.guild;
-	const promises = [
-		getGuildEmojis(guild_id, session.accessToken),
-		getGuildChannels(guild_id, session.accessToken),
-		getGuildReactionRoles(guild_id, session.accessToken),
-	];
 
-	let custom;
-	let categories;
-	let reactionRoles;
+	const reactionRoles = await getGuildReactionRoles(
+		guild_id,
+		session.accessToken
+	);
 
-	await Promise.all(promises).then((values) => {
-		console.log(values);
-		custom = values[0];
-		categories = values[1];
-		reactionRoles = values[2];
-	});
-	return { props: { session, custom, categories, reactionRoles, guild_id } };
+	return { props: { session, reactionRoles, guild_id } };
 }
