@@ -11,6 +11,7 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Stack,
+	Text,
 	Textarea,
 	useDisclosure,
 	useToast,
@@ -76,6 +77,18 @@ export default function CreateReaction({
 								reactionRole={reactionRole}
 								setReactionRole={setReactionRole}
 							/>
+							{Object.keys(reactionRole).map(
+								(reactionRoleId) => {
+									return <HStack>
+										<Text>
+											{reactionRole[reactionRoleId].name}
+										</Text>
+										<Text>
+											{reactionRole[reactionRoleId].id}
+										</Text>
+									</HStack>
+								}
+							)}
 						</Stack>
 					</ModalBody>
 

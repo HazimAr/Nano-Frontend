@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import EmojiPicker from "@components/emojiPicker";
+import Select from "@components/select";
 import { useState } from "react";
 export default function CreateReactionRoleModal({
 	reactionRole,
@@ -24,13 +25,24 @@ export default function CreateReactionRoleModal({
 	availableRoles,
 	custom,
 }): JSX.Element {
+	const options = availableRoles
+		.sort((a, b) => {
+			return b[1].rawPosition - a[1].rawPosition;
+		})
+		.map((role) => {
+			return {
+				value: {
+					id: role[0],
+					name: role[1].name,
+					color: role[1].color,
+				},
+				label: role[1].name,
+			};
+		});
+
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [emoji, setEmoji] = useState() as any;
-	const [role] = useState({
-		name: "test role",
-		id: "4236436734576",
-		color: 6323595,
-	}) as any;
+	const [emoji, setEmoji] = useState(null) as any;
+	const [role, setRole] = useState(null) as any;
 	const toast = useToast();
 	return (
 		<VStack>
@@ -54,15 +66,17 @@ export default function CreateReactionRoleModal({
 					<ModalBody>
 						<Stack spacing={5}>
 							<HStack justify="center" spacing={5}>
-								<VStack>
+								<Stack w="100%">
 									<Heading size="md">Pick Role</Heading>
-									<EmojiPicker
-										setEmoji={setEmoji}
-										custom={custom}
+									<Select
+										options={options}
+										onChange={(e) => {
+											setRole(e.value);
+										}}
 									/>
-								</VStack>
+								</Stack>
 								<VStack>
-									<Heading size="md">Pick Emoji</Heading>
+									<Heading size="md">Emoji</Heading>
 									<EmojiPicker
 										setEmoji={setEmoji}
 										custom={custom}
@@ -74,15 +88,19 @@ export default function CreateReactionRoleModal({
 									<Heading size="md">
 										Users will recieve:{" "}
 									</Heading>
-									<Text
-										bg="rgba(0,0,0,0.2)"
-										px={2}
-										py={1}
-										rounded={5}
-										color={`#${role.color.toString(16)}`}
-									>
-										{role?.name}
-									</Text>
+									{role?.name && (
+										<Text
+											bg="rgba(0,0,0,0.2)"
+											px={2}
+											py={1}
+											rounded={5}
+											color={`#${role?.color?.toString(
+												16
+											)}`}
+										>
+											{role?.name}
+										</Text>
+									)}
 								</HStack>
 								<HStack size="md">
 									<Heading size="md">
@@ -114,13 +132,35 @@ export default function CreateReactionRoleModal({
 										});
 										return;
 									}
+
+									if (!role) {
+										toast({
+											title: "Error",
+											description: "Please A Role.",
+											status: "error",
+											duration: 3000,
+											isClosable: true,
+										});
+										return;
+									}
 									const temp = reactionRole;
+									console.log(temp);
+
 									temp[Object.keys(temp).length + 1] = {
-										animated: emoji.animated,
-										emoji_id: emoji.emoji_id,
-										name: emoji.name,
-										role_id: role.id,
+										animated: emoji.animated ?? null,
+										emoji_id: emoji.emoji_id ?? null,
+										name: emoji.name ?? null,
+										emoji:
+											typeof emoji === "string"
+												? emoji
+												: null,
+										role_id: role.id ?? null,
+										img: emoji.img ?? null,
 									};
+									console.log(temp);
+
+									setReactionRole(temp);
+									setEmoji(null);
 									onClose();
 								}}
 							>

@@ -13,7 +13,6 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
-	console.log(reactionRoles);
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -36,7 +35,6 @@ export default function Custom({
 					<ReactionRoles
 						reactionRoles={reactionRoles.reaction_roles}
 						availableRoles={reactionRoles.roles}
-						
 						guild_id={guild_id}
 						token={session.accessToken}
 						categories={categories}
