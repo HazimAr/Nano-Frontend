@@ -91,5 +91,5 @@ export async function getServerSideProps(context: any) {
 		categories = values[1];
 		reactionRoles = values[2];
 	});
-	return { props: { session, custom, categories, guild_id } };
+	return { props: { session, custom, categories, reactionRoles, guild_id } };
 }
