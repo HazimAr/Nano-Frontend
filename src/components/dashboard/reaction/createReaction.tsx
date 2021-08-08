@@ -33,7 +33,6 @@ export default function CreateReaction({
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
-	const [_, setEmoji] = useState() as any;
 	// const [reactionRoles, setReactionRoles] = useState([]);
 	const [message, setMessage] = useState("Hey, I'm a timer!");
 
@@ -72,11 +71,11 @@ export default function CreateReaction({
 							<Heading size="md" textAlign="center">
 								Reaction and roles
 							</Heading>
-							{/* <EmojiPicker
-								setEmoji={setEmoji}
+							
+							<CreateReactionRoleModal
+								availableRoles={availableRoles}
 								custom={customEmojis}
-							/> */}
-							<CreateReactionRoleModal />
+							/>
 						</Stack>
 					</ModalBody>
 

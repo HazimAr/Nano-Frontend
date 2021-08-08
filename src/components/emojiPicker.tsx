@@ -16,12 +16,12 @@ export default function EmojiPicker({
 	return (
 		<Box
 			onMouseMove={(e) => {
-			
 				if (!isOpen) {
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);
 				}
 			}}
+			w="fit-content"
 		>
 			<Image
 				filter="grayscale(100%)"
@@ -37,16 +37,20 @@ export default function EmojiPicker({
 				onClick={isOpen ? onClose : onOpen}
 			/>
 
-			{isOpen ? (
+			{isOpen && (
 				<Picker
 					onSelect={(emoji: any) => {
 						if (emoji.native) {
-							setEmoji(emoji);
+							setEmoji(emoji.native);
 							return;
 						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
-								setEmoji(item);
+								setEmoji(
+									`<${item.animated ? "a" : ""}:${
+										item.name
+									}:${item.id}>`
+								);
 								break;
 							}
 						}
@@ -58,7 +62,7 @@ export default function EmojiPicker({
 					custom={custom}
 					style={{ position: "absolute", top: mouseY, left: mouseX }}
 				/>
-			) : null}
+			)}
 		</Box>
 	);
 }
