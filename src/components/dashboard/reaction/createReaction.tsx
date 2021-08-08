@@ -27,15 +27,13 @@ export default function CreateReaction({
 	token,
 	guild_id,
 	reaction_role_id,
-
 	customEmojis,
 	availableRoles,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
-	// const [reactionRoles, setReactionRoles] = useState([]);
 	const [message, setMessage] = useState("Hey, I'm a timer!");
-
+	const [reactionRole, setReactionRole] = useState({}) as any;
 	const toast = useToast();
 	const router = useRouter();
 	return (
@@ -71,10 +69,12 @@ export default function CreateReaction({
 							<Heading size="md" textAlign="center">
 								Reaction and roles
 							</Heading>
-							
+
 							<CreateReactionRoleModal
 								availableRoles={availableRoles}
 								custom={customEmojis}
+								reactionRole={reactionRole}
+								setReactionRole={setReactionRole}
 							/>
 						</Stack>
 					</ModalBody>
@@ -97,13 +97,25 @@ export default function CreateReaction({
 									});
 									return;
 								}
+								if (!Object.keys(reactionRole).length) {
+									toast({
+										title: "Error",
+										description:
+											'Please add a reactionRole "Add Roll".',
+
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
 								onClose();
+
 								const { data } = await axios.put(
-									"/api/guilds/timers",
+									"/api/guilds/reactionRoles",
 									{
 										guild_id,
 										channel_id: channel.channel_id,
-										// timer,
 										reaction_role_id,
 										message,
 										token,

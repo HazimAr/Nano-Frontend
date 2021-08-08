@@ -1,4 +1,4 @@
-import { Box, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Image, useBoolean } from "@chakra-ui/react";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import { useState } from "react";
@@ -10,13 +10,14 @@ export default function EmojiPicker({
 	setEmoji: Function;
 	custom: any[];
 }): JSX.Element {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [open, setOpen] = useBoolean();
 	const [mouseX, setMouseX] = useState(0);
 	const [mouseY, setMouseY] = useState(0);
+	
 	return (
 		<Box
 			onMouseMove={(e) => {
-				if (!isOpen) {
+				if (!open) {
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);
 				}
@@ -34,28 +35,29 @@ export default function EmojiPicker({
 				}}
 				w={7}
 				src="/emoji.png"
-				onClick={isOpen ? onClose : onOpen}
+				onClick={setOpen.toggle}
 			/>
 
-			{isOpen && (
+			{open && (
 				<Picker
 					onSelect={(emoji: any) => {
 						if (emoji.native) {
 							setEmoji(emoji.native);
+							setOpen.toggle();
 							return;
 						}
 						for (const item of custom) {
 							if (item.imageUrl === emoji.imageUrl) {
 								setEmoji({
-									emoji: `<${item.animated ? "a" : ""}:${
-										item.name
-									}:${item.id}>`,
+									animated: item.animated,
+									emoji_id: item.id,
+									name: item.name,
 									img: item.imageUrl,
 								});
-								break;
+								setOpen.toggle();
+								return;
 							}
 						}
-						onClose();
 					}}
 					set="twitter"
 					title="Pick your emoji…"

@@ -36,6 +36,7 @@ export default function Custom({
 					<ReactionRoles
 						reactionRoles={reactionRoles.reaction_roles}
 						availableRoles={reactionRoles.roles}
+						
 						guild_id={guild_id}
 						token={session.accessToken}
 						categories={categories}
