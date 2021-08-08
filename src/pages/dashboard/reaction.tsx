@@ -4,9 +4,7 @@ import { getGuildChannels, getGuildReactionRoles } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateReaction from "@components/dashboard/reaction/createReaction";
-import EmojiPicker from "@components/emojiPicker";
 import { getSession } from "next-auth/client";
-import { useState } from "react";
 
 export default function Custom({
 	session,
@@ -14,12 +12,9 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
-	const [_, setEmoji] = useState() as any;
 	console.log(reactionRoles);
 	return (
 		<Layout session={session}>
-			<EmojiPicker setEmoji={setEmoji} custom={reactionRoles.emojis} />
-
 			<Stack spacing={5}>
 				<Heading>Reaction Roles</Heading>
 				<Text>
@@ -27,8 +22,12 @@ export default function Custom({
 					reacts to a message they will recieve a role
 				</Text>
 				<CreateReaction
+					// reaction_role_id={reactionRoles.reaction_roles.length + 1}
+					token={session.accessToken}
+					guild_id={guild_id}
 					categories={categories}
 					availableRoles={reactionRoles.roles}
+					customEmojis={reactionRoles.emojis}
 				/>
 				{reactionRoles.length ? (
 					<ReactionRoles

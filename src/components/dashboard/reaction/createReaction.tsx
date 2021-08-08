@@ -27,7 +27,9 @@ export default function CreateReaction({
 	token,
 	guild_id,
 	reaction_role_id,
-	custom,
+
+	customEmojis,
+	availableRoles,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState() as any;
@@ -70,7 +72,10 @@ export default function CreateReaction({
 							<Heading size="md" textAlign="center">
 								Reaction and roles
 							</Heading>
-							<EmojiPicker setEmoji={setEmoji} custom={custom} />
+							<EmojiPicker
+								setEmoji={setEmoji}
+								custom={customEmojis}
+							/>
 						</Stack>
 					</ModalBody>
 
