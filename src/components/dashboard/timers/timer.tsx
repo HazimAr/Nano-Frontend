@@ -25,7 +25,7 @@ export default function Timer({
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
-	const interval = timer.interval / 1000 / 60;
+	// const interval = timer.interval / 1000 / 60;
 	return (
 		<HStack
 			justify="space-between"
@@ -40,9 +40,9 @@ export default function Timer({
 				<Text size="md" color="grey">
 					{timer.message}
 				</Text>
-				<Text size="md">
+				{/* <Text size="md">
 					Every {interval} {interval > 1 ? "minutes" : "minute"}
-				</Text>
+				</Text> */}
 			</Stack>
 
 			<VStack justify="center">
