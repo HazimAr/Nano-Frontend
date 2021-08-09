@@ -77,7 +77,7 @@ export async function createCustomCommand(
 	update: boolean = false
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/g/customCommand`,
+		`${SERVER_URL}/g/customCommand`,
 		{
 			guild_id,
 			trigger,
@@ -131,7 +131,7 @@ export async function createTimer(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/g/timers`,
+		`${SERVER_URL}/g/timers`,
 		{
 			guild_id,
 			channel_id,
@@ -157,7 +157,7 @@ export async function getGuildTimers(guild_id: string) {
 
 export async function getGuildPremium(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/g/premium`,
+		`${SERVER_URL}/g/premium`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -173,7 +173,7 @@ export async function deleteGuildTimer(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/g/timers/delete`,
+		`${SERVER_URL}/g/timers/delete`,
 
 		{
 			guild_id,
@@ -186,7 +186,7 @@ export async function deleteGuildTimer(
 
 export async function getGuildEmojis(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/reactionRoles`,
+		`${SERVER_URL}/reactionRoles`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -206,7 +206,7 @@ export async function createReactionRoleMessage(
 	role_rows: any[]
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/reactionRoles`,
+		`${SERVER_URL}/reactionRoles`,
 		{
 			guild_id,
 			channel_id,
@@ -223,7 +223,7 @@ export async function createReactionRoleMessage(
 
 export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/reactionRoles`,
+		`${SERVER_URL}/g/reactionRoles`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -250,7 +250,7 @@ export async function updateNanoCommands(
 	token: string
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/g/nanoCommands`,
+		`${SERVER_URL}/g/nanoCommands`,
 		{
 			guild_id,
 			commandsToChange,
