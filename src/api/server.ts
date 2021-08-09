@@ -200,15 +200,21 @@ export async function getGuildEmojis(guild_id: string, token: unknown) {
 export async function createReactionRoleMessage(
 	guild_id: string,
 	channel_id: string,
-	legend: object,
-	token: unknown
+	reaction_role_id: string,
+	_delete: boolean = false,
+	message: string,
+	token: unknown,
+	role_rows: any[]
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/p/guilds/reactionRoles`,
 		{
 			guild_id,
 			channel_id,
-			legend,
+			reaction_role_id,
+			_delete,
+			message,
+			role_rows,
 			authorization: `Bearer ${token}`,
 		},
 		config

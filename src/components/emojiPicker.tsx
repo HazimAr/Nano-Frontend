@@ -13,7 +13,7 @@ export default function EmojiPicker({
 	const [open, setOpen] = useBoolean();
 	const [mouseX, setMouseX] = useState(0);
 	const [mouseY, setMouseY] = useState(0);
-	
+
 	return (
 		<Box
 			onMouseMove={(e) => {

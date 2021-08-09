@@ -13,6 +13,8 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
+	console.log(reactionRoles.reaction_roles);
+
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -21,9 +23,11 @@ export default function Custom({
 					Setup reaction roles so when one of you server members
 					reacts to a message they will recieve a role
 				</Text>
+
 				<CreateReaction
 					reaction_role_id={
-						reactionRoles.reaction_roles?.length + 1 ?? 1
+						Object.keys({ ...reactionRoles.reaction_roles })
+							.length + 1
 					}
 					token={session.accessToken}
 					guild_id={guild_id}

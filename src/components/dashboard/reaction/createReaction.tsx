@@ -3,6 +3,7 @@
 import {
 	Divider,
 	Heading,
+	HStack,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -32,11 +33,12 @@ export default function CreateReaction({
 	availableRoles,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [channel, setChannel] = useState() as any;
-	const [message, setMessage] = useState("Hey, I'm a timer!");
+	const [channel, setChannel] = useState(null) as any;
+	const [message, setMessage] = useState("");
 	const [reactionRole, setReactionRole] = useState({}) as any;
 	const toast = useToast();
 	const router = useRouter();
+	console.log();
 	return (
 		<>
 			<Button onClick={onOpen}>Add Reaction Role</Button>
@@ -63,6 +65,7 @@ export default function CreateReaction({
 									setMessage(e.target.value);
 								}}
 								value={message}
+								placeholder="Hey, I'm a timer!"
 							></Textarea>
 						</Stack>
 						<Divider my={5} />
@@ -77,18 +80,42 @@ export default function CreateReaction({
 								reactionRole={reactionRole}
 								setReactionRole={setReactionRole}
 							/>
-							{Object.keys(reactionRole).map(
-								(reactionRoleId) => {
-									return <HStack>
-										<Text>
-											{reactionRole[reactionRoleId].name}
+							<HStack
+								color="grey"
+								justify="space-between"
+								spacing={0}
+							>
+								<Text>Emoji: </Text>
+								<Text>Role: </Text>
+							</HStack>
+							{Object.keys(reactionRole).map((reactionRoleId) => {
+								return (
+									<HStack
+										key={reactionRoleId}
+										justify="space-between"
+									>
+										<Text fontSize="2xl">
+											{reactionRole[reactionRoleId].emoji}
 										</Text>
 										<Text>
-											{reactionRole[reactionRoleId].id}
+											<Text
+												bg="rgba(0,0,0,0.2)"
+												px={2}
+												py={1}
+												rounded={5}
+												color={`#${reactionRole[
+													reactionRoleId
+												]?.color?.toString(16)}`}
+											>
+												{
+													reactionRole[reactionRoleId]
+														.role_name
+												}
+											</Text>
 										</Text>
 									</HStack>
-								}
-							)}
+								);
+							})}
 						</Stack>
 					</ModalBody>
 
@@ -122,6 +149,7 @@ export default function CreateReaction({
 									});
 									return;
 								}
+
 								onClose();
 
 								const { data } = await axios.put(
@@ -131,10 +159,11 @@ export default function CreateReaction({
 										channel_id: channel.channel_id,
 										reaction_role_id,
 										message,
+										role_rows: reactionRole,
 										token,
 									}
 								);
-
+								setReactionRole({});
 								toast({
 									title: "Success",
 									description: data,

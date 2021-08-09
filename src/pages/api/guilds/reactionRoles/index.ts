@@ -1,4 +1,4 @@
-import { createTimer } from "@api/server";
+import { createReactionRoleMessage } from "@api/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // eslint-disable-next-line import/ano-default-export
@@ -9,13 +9,15 @@ export default async function Timer(
 	if (req.method === "PUT") {
 		const body = req.body;
 
-		const response = await createTimer(
+		const response = await createReactionRoleMessage(
 			body.guild_id,
 			body.channel_id,
-			body.timer,
-			body.timer_id,
+			body.reaction_role_id,
+
+			body._delete,
 			body.message,
 			body.token,
+			body.role_rows
 		);
 
 		void res.status(200).json(response);
