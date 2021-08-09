@@ -1,6 +1,6 @@
 import { Heading, HStack, Stack, useToast, VStack } from "@chakra-ui/react";
 import Button from "@components/button";
-// import EditReactionRole from "@components/dashboard/reaction/editReactionRole";
+import EditReactionRole from "@components/dashboard/reaction/editReactionRole";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
@@ -9,14 +9,14 @@ export default function ReactionRole({
 	guild_id,
 	token,
 	reactionRole,
-	// categories,
-	// availableRoles,
-	// reaction_role_id,
-	// custom,
+	categories,
+	availableRoles,
+	reaction_role_id,
+	custom,
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
-	// const interval = timer.interval / 1000 / 60;
+
 	return (
 		<HStack
 			justify="space-between"
@@ -36,7 +36,7 @@ export default function ReactionRole({
 			</Stack>
 
 			<VStack justify="center">
-				{/* <EditReactionRole
+				<EditReactionRole
 					token={token}
 					reactionRoleOg={reactionRole}
 					customEmojis={custom}
@@ -44,7 +44,7 @@ export default function ReactionRole({
 					reaction_role_id={reaction_role_id}
 					categories={categories}
 					availableRoles={availableRoles}
-				/> */}
+				/>
 				<Button
 					type="delete"
 					onClick={async () => {
