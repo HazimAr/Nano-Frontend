@@ -50,7 +50,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.cookies.guild;
-	const commands = await getNanoCommands(guild_id);
+	const commands = await getNanoCommands(guild_id, session.accessToken);
 
 	return { props: { session, commands, guild_id } };
 }

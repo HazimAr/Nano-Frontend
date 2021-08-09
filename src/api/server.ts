@@ -38,31 +38,20 @@ export async function getUser(id: string) {
 	return data;
 }
 
-export async function getMongoGuild(id: string) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/g/getMongoGuild`,
-		{ id },
-		config
-	);
-
-	return data;
-}
-
-export async function getDiscordGuild(id: string) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/g/getDiscordGuild`,
-		{ id },
-		config
-	);
-
-	return data;
-}
-
 export async function loginOsu(token: string) {
 	const id = await getId(token);
 	const { data } = await axios.put(
 		`${SERVER_URL}/osu/newUser`,
 		{ id },
+		config
+	);
+	return data;
+}
+
+export async function getCustomCommands(guild_id: string, token: unknown) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/g/customCommands`,
+		{ guild_id, authorization: `Bearer ${token}` },
 		config
 	);
 	return data;
@@ -74,15 +63,15 @@ export async function createCustomCommand(
 	command_id: string,
 	response: any,
 	token: string,
-	update: boolean = false
+	_delete: boolean = false
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/g/customCommand`,
+		`${SERVER_URL}/g/customCommands`,
 		{
 			guild_id,
 			trigger,
 			response,
-			update,
+			_delete,
 			command_id,
 			authorization: `Bearer ${token}`,
 		},
@@ -192,11 +181,12 @@ export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 	return data;
 }
 
-export async function getNanoCommands(guild_id: string) {
+export async function getNanoCommands(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/g/nanoCommands`,
+		`${SERVER_URL}/g/toggleCommands`,
 		{
 			guild_id,
+			authorization: `Bearer ${token}`,
 		},
 		config
 	);
@@ -209,7 +199,7 @@ export async function updateNanoCommands(
 	token: string
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/g/nanoCommands`,
+		`${SERVER_URL}/g/toggleCommands`,
 		{
 			guild_id,
 			commandsToChange,

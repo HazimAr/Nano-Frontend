@@ -15,7 +15,7 @@ export default async function CustomCommand(
 			body.command_id,
 			body.response,
 			body.token,
-			body.update
+			body._delete
 		);
 
 		void res.status(200).json(response);

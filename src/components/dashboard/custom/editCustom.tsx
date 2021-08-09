@@ -124,7 +124,6 @@ export default function EditCustom({
 										response,
 										command_id: command.command_id,
 										token,
-										update: true,
 									}
 								);
 

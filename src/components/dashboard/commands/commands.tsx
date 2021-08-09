@@ -87,9 +87,12 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 								key={commandId}
 								p={5}
 							>
-								<Text>
-									{checked.name} {checked.arguments}
-								</Text>
+								<HStack>
+									<Text>{checked.name}</Text>
+									<Text color="brand.primary2">
+										{checked.arguments}
+									</Text>
+								</HStack>
 								<Switch
 									size="md"
 									defaultChecked={checked.enabled}

@@ -37,7 +37,7 @@ export default function Command({
 					{prefix}
 					{command.trigger}
 				</Heading>
-				<Text>{command.message}</Text>
+				<Text >{command.message}</Text>
 			</Stack>
 
 			<VStack justify="center">
@@ -57,14 +57,16 @@ export default function Command({
 							isClosable: true,
 						});
 
-						const { data } = await axios.post(
-							"/api/guilds/customCommand/delete",
+						const { data } = await axios.put(
+							"/api/guilds/customCommand",
 							{
 								guild_id,
 								command_id: command.command_id,
 								token,
+								_delete: true,
 							}
 						);
+
 						if (data.error) {
 							toast({
 								title: "Error",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildChannels, getGuildReactionRoles } from "@api/server";
+import { getGuildReactionRoles } from "@api/server";
 import { Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateReaction from "@components/dashboard/reaction/createReaction";
@@ -9,10 +9,21 @@ import { getSession } from "next-auth/client";
 
 export default function Custom({
 	session,
-	categories,
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
+	const categories = reactionRoles.categories;
+	let reaction_role_id;
+
+	Object.keys({ ...reactionRoles.reaction_roles }).forEach(
+		(reactionRoleId) => {
+			if (reaction_role_id) return;
+			const reactionRole = reactionRoles.reaction_roles[reactionRoleId];
+			if (reactionRole.channel_id) return;
+			reaction_role_id = parseInt(reactionRoleId);
+		}
+	);
+
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -23,17 +34,14 @@ export default function Custom({
 				</Text>
 
 				<CreateReaction
-					reaction_role_id={
-						Object.keys({ ...reactionRoles.reaction_roles })
-							.length + 1
-					}
+					reaction_role_id={reaction_role_id}
 					token={session.accessToken}
 					guild_id={guild_id}
 					categories={categories}
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
-				{reactionRoles.reaction_roles?.length ? (
+				{Object.keys(reactionRoles.reaction_roles).length ? (
 					<ReactionRoles
 						custom={reactionRoles.emojis}
 						reactionRoles={reactionRoles.reaction_roles}
@@ -83,7 +91,6 @@ export async function getServerSideProps(context: any) {
 		guild_id,
 		session.accessToken
 	);
-	const categories = await getGuildChannels(guild_id, session.accessToken);
 
-	return { props: { session, categories, reactionRoles, guild_id } };
+	return { props: { session, reactionRoles, guild_id } };
 }
