@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getDiscordGuild, getMongoGuild } from "@api/server";
+
 import {
 	Avatar,
 	Flex,
@@ -154,14 +154,14 @@ export async function getServerSideProps(context: any) {
 
 	const guild_id = context.req.cookies.guild;
 	// @ts-ignore
-	const promises = [getDiscordGuild(guild_id), getMongoGuild(guild_id)];
+	// const promises = [getDiscordGuild(guild_id), getMongoGuild(guild_id)];
 	let discordGuild;
 	let mongoGuild;
-	await Promise.all(promises).then((values) => {
-		discordGuild = values[0];
-		mongoGuild = values[1];
-	});
-	
+	// await Promise.all(promises).then((values) => {
+	// 	discordGuild = values[0];
+	// 	mongoGuild = values[1];
+	// });
+
 	return {
 		props: {
 			session,
