@@ -15,7 +15,7 @@ export async function getLeaderboards() {
 
 export async function getGuildLeaderboards(guild_id) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/leaderboards`,
+		`${SERVER_URL}/g/leaderboards`,
 		{ guild_id },
 		config
 	);
@@ -30,7 +30,7 @@ export async function getOsuRank(id: string) {
 
 export async function getUser(id: string) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/users/getMongoProfile`,
+		`${SERVER_URL}/u/getMongoProfile`,
 		{ id },
 		config
 	);
@@ -40,7 +40,7 @@ export async function getUser(id: string) {
 
 export async function getMongoGuild(id: string) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/getMongoGuild`,
+		`${SERVER_URL}/g/getMongoGuild`,
 		{ id },
 		config
 	);
@@ -50,7 +50,7 @@ export async function getMongoGuild(id: string) {
 
 export async function getDiscordGuild(id: string) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/getDiscordGuild`,
+		`${SERVER_URL}/g/getDiscordGuild`,
 		{ id },
 		config
 	);
@@ -77,7 +77,7 @@ export async function createCustomCommand(
 	update: boolean = false
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/customCommand`,
+		`${SERVER_URL}/p/g/customCommand`,
 		{
 			guild_id,
 			trigger,
@@ -114,7 +114,7 @@ export async function getGuildChannels(guild_id: string, token: unknown) {
 	};
 
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/channels`,
+		`${SERVER_URL}/g/channels`,
 		{ guild_id },
 		config
 	);
@@ -131,7 +131,7 @@ export async function createTimer(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/timers`,
+		`${SERVER_URL}/p/g/timers`,
 		{
 			guild_id,
 			channel_id,
@@ -148,7 +148,7 @@ export async function createTimer(
 
 export async function getGuildTimers(guild_id: string) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/timers`,
+		`${SERVER_URL}/g/timers`,
 		{ guild_id },
 		config
 	);
@@ -157,7 +157,7 @@ export async function getGuildTimers(guild_id: string) {
 
 export async function getGuildPremium(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/guilds/premium`,
+		`${SERVER_URL}/p/g/premium`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -173,7 +173,7 @@ export async function deleteGuildTimer(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/timers/delete`,
+		`${SERVER_URL}/p/g/timers/delete`,
 
 		{
 			guild_id,
@@ -235,7 +235,7 @@ export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 
 export async function getNanoCommands(guild_id: string) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/guilds/nanoCommands`,
+		`${SERVER_URL}/g/nanoCommands`,
 		{
 			guild_id,
 		},
@@ -250,7 +250,7 @@ export async function updateNanoCommands(
 	token: string
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/nanoCommands`,
+		`${SERVER_URL}/p/g/nanoCommands`,
 		{
 			guild_id,
 			commandsToChange,
