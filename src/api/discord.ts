@@ -14,7 +14,7 @@ async function getGuilds(token: unknown) {
 	};
 
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/dashboard`,
+		`${SERVER_URL}/g/dashboard`,
 		{ authorization: `Bearer ${token}` },
 		config
 	);

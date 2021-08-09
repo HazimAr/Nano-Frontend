@@ -45,14 +45,12 @@ export default function Timer({
 				<Button
 					type="delete"
 					onClick={async () => {
-						const { data } = await axios.post(
-							"/api/guilds/timers/delete",
-							{
-								guild_id,
-								timer_id: timer.timer_id,
-								token,
-							}
-						);
+						const { data } = await axios.put("/api/guilds/timers", {
+							guild_id,
+							timer_id: timer.timer_id,
+							token,
+							_delete: true,
+						});
 						toast({
 							title: "Success",
 							description: data,

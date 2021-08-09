@@ -92,43 +92,14 @@ export async function createCustomCommand(
 	return data;
 }
 
-export async function deleteGuildCommand(
-	guild_id: string,
-	command_id: string,
-	token: unknown
-) {
-	const { data } = await axios.put(`${SERVER_URL}/p/customCommand/delete`, {
-		guild_id,
-		command_id,
-		authorization: `Bearer ${token}`,
-	});
-	return data;
-}
-
-export async function getGuildChannels(guild_id: string, token: unknown) {
-	const config = {
-		timeout: 1000 * 5,
-		headers: {
-			authorization: `Bearer ${token}`,
-		},
-	};
-
-	const { data } = await axios.post(
-		`${SERVER_URL}/g/channels`,
-		{ guild_id },
-		config
-	);
-
-	return data;
-}
-
 export async function createTimer(
 	guild_id: string,
 	channel_id: string,
 	interval: number,
 	timer_id: number,
 	message: string,
-	token: unknown
+	token: unknown,
+	_delete: boolean = false
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/timers`,
@@ -139,17 +110,17 @@ export async function createTimer(
 			timer_id,
 			message,
 			authorization: `Bearer ${token}`,
-			embed: null,
+			_delete,
 		},
 		config
 	);
 	return data;
 }
 
-export async function getGuildTimers(guild_id: string) {
+export async function getGuildTimers(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
 		`${SERVER_URL}/g/timers`,
-		{ guild_id },
+		{ guild_id, authorization: `Bearer ${token}` },
 		config
 	);
 	return data;

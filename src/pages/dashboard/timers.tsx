@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getGuildChannels, getGuildTimers } from "@api/server";
+import { getGuildTimers } from "@api/server";
 import {
 	Center,
 	Divider,
@@ -17,16 +17,19 @@ import { DiscordUser } from "types";
 
 export default function Timers({
 	session,
-	categories,
+
 	guild_id,
 
-	guild,
+	server,
 }: {
 	session: DiscordUser;
-	categories: any;
+
 	guild_id: string;
-	guild: any;
+	server: any;
 }): JSX.Element {
+	const guild = server.guild;
+	const categories = server.categories;
+
 	const timers = guild.timers[1]
 		? Object.keys(guild.timers)
 				.map((timerId) => {
@@ -106,15 +109,13 @@ export async function getServerSideProps(context: any) {
 		return { props: { session, guild_id } };
 	}
 
-	const guild = await getGuildTimers(guild_id);
-	const categories = await getGuildChannels(guild_id, session.accessToken);
+	const server = await getGuildTimers(guild_id, session.accessToken);
 
 	return {
 		props: {
 			session,
-			categories,
+			server,
 			guild_id,
-			guild,
 		},
 	};
 }
