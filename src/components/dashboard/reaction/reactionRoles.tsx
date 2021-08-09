@@ -9,7 +9,7 @@ export default function ReactionRoles({
 	availableRoles,
 	custom,
 }): JSX.Element {
-	console.log(reactionRoles);
+	// console.log(reactionRoles);
 	const reactionRoles2 = Object.keys(reactionRoles)
 		.map((key) => {
 			const reactionRole = reactionRoles[key];
@@ -18,20 +18,25 @@ export default function ReactionRoles({
 				reaction_role_id: key,
 				message: reactionRole.message,
 			};
-			Object.keys(reactionRole).forEach((key) => {
-				key += 1;
+			Object.keys(reactionRole).forEach((key2) => {
 				try {
-					parseInt(key);
+					parseInt(key2);
 				} catch {
 					return;
 				}
-				const emoji = reactionRole[key];
-				if (emoji?.roles?.length) newReactionRole[key] = emoji;
+
+				const emoji = reactionRole[key2];
+
+				if (emoji?.roles_ids?.length) {
+					console.log("test");
+					newReactionRole[key2] = emoji;
+				}
 			});
+			console.log(newReactionRole);
 			return newReactionRole;
 		})
-		.filter((reactionRole) => reactionRole[1]);
-	console.log(reactionRoles2);
+		.filter((reactionRole) => reactionRole.channel_id);
+	// console.log(reactionRoles2);
 	return (
 		<Stack>
 			{reactionRoles2.map((reactionRole: any, index) => {
