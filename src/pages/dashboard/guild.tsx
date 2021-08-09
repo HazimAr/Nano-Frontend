@@ -18,12 +18,12 @@ import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
-	guild_id,
+
 	discordGuild,
 	mongoGuild,
 }: {
 	session: DiscordUser;
-	guild_id: string;
+
 	discordGuild: any;
 	mongoGuild: any;
 }): JSX.Element {
