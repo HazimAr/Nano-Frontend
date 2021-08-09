@@ -29,24 +29,24 @@ import { useState } from "react";
 export default function EditReactionRole({
 	token,
 	categories,
-	timer,
+	reactionRole,
 	guild_id,
 }: {
 	token: unknown;
 	categories: any;
-	timer: any;
+	reactionRole: any;
 	guild_id: string;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [channel, setChannel] = useState(timer.channel);
+	const [channel, setChannel] = useState(reactionRole.channel);
 	const [timerInterval, setTimerInterval] = useState(
-		timer.interval.toString()
+		reactionRole.interval.toString()
 	);
-	const [message, setMessage] = useState(timer.message);
+	const [message, setMessage] = useState(reactionRole.message);
 	const toast = useToast();
 	const router = useRouter();
 
-	const timer_id = timer.timer_id;
+	const timer_id = reactionRole.timer_id;
 
 	return (
 		<Box w="100%">
@@ -112,7 +112,7 @@ export default function EditReactionRole({
 						</Button>
 						<Button
 							onClick={async () => {
-								if (!channel || !message || !timer) {
+								if (!channel || !message || !reactionRole) {
 									toast({
 										title: "Error",
 										description:
@@ -124,7 +124,7 @@ export default function EditReactionRole({
 									});
 									return;
 								}
-								if (timer < 60000) {
+								if (reactionRole < 60000) {
 									toast({
 										title: "Error",
 										description:
