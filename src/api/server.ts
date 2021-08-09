@@ -184,18 +184,6 @@ export async function deleteGuildTimer(
 	return data;
 }
 
-export async function getGuildEmojis(guild_id: string, token: unknown) {
-	const { data } = await axios.post(
-		`${SERVER_URL}/reactionRoles`,
-		{
-			guild_id,
-			authorization: `Bearer ${token}`,
-		},
-		config
-	);
-	return data;
-}
-
 export async function createReactionRoleMessage(
 	guild_id: string,
 	channel_id: string,
@@ -206,7 +194,7 @@ export async function createReactionRoleMessage(
 	role_rows: any[]
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/reactionRoles`,
+		`${SERVER_URL}/g/reactionRoles`,
 		{
 			guild_id,
 			channel_id,
