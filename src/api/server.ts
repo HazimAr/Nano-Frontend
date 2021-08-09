@@ -97,14 +97,11 @@ export async function deleteGuildCommand(
 	command_id: string,
 	token: unknown
 ) {
-	const { data } = await axios.put(
-		`${SERVER_URL}/p/customCommand/delete`,
-		{
-			guild_id,
-			command_id,
-			authorization: `Bearer ${token}`,
-		}
-	);
+	const { data } = await axios.put(`${SERVER_URL}/p/customCommand/delete`, {
+		guild_id,
+		command_id,
+		authorization: `Bearer ${token}`,
+	});
 	return data;
 }
 
