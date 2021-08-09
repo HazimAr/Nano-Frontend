@@ -77,7 +77,7 @@ export async function createCustomCommand(
 	update: boolean = false
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/customCommand`,
+		`${SERVER_URL}/p/customCommand`,
 		{
 			guild_id,
 			trigger,
@@ -98,7 +98,7 @@ export async function deleteGuildCommand(
 	token: unknown
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/customCommand/delete`,
+		`${SERVER_URL}/p/customCommand/delete`,
 		{
 			guild_id,
 			command_id,
@@ -189,7 +189,7 @@ export async function deleteGuildTimer(
 
 export async function getGuildEmojis(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/p/guilds/reactionRoles`,
+		`${SERVER_URL}/p/reactionRoles`,
 		{
 			guild_id,
 			authorization: `Bearer ${token}`,
@@ -209,7 +209,7 @@ export async function createReactionRoleMessage(
 	role_rows: any[]
 ) {
 	const { data } = await axios.put(
-		`${SERVER_URL}/p/guilds/reactionRoles`,
+		`${SERVER_URL}/p/reactionRoles`,
 		{
 			guild_id,
 			channel_id,
