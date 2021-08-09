@@ -10,11 +10,13 @@ export default function ReactionRole({
 	token,
 	reactionRole,
 	categories,
+	availableRoles,
 }: {
 	guild_id: string;
 	token: unknown;
 	reactionRole: any;
 	categories: any;
+	availableRoles: any;
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
@@ -31,17 +33,16 @@ export default function ReactionRole({
 				<Heading size="md">
 					Users recieve: {reactionRole.role_names.join(", ")}
 				</Heading>
-				<Heading size="md">
-					When reacted: #{reactionRole.emoji}
-				</Heading>
+				<Heading size="md">When reacted: #{reactionRole.emoji}</Heading>
 			</Stack>
 
 			<VStack justify="center">
 				<EditReactionRole
 					token={token}
-					reactionRole={reactionRole}
+					reactionRoleOg={reactionRole}
 					guild_id={guild_id}
 					categories={categories}
+					availableRoles={availableRoles}
 				/>
 				<Button
 					type="delete"

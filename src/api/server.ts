@@ -91,6 +91,7 @@ export async function createCustomCommand(
 
 	return data;
 }
+
 export async function deleteGuildCommand(
 	guild_id: string,
 	command_id: string,
@@ -168,6 +169,7 @@ export async function getGuildPremium(guild_id: string, token: unknown) {
 	);
 	return data;
 }
+
 export async function deleteGuildTimer(
 	guild_id: string,
 	timer_id: string,
@@ -227,7 +229,6 @@ export async function getGuildReactionRoles(guild_id: string, token: unknown) {
 		`${SERVER_URL}/p/guilds/reactionRoles`,
 		{
 			guild_id,
-
 			authorization: `Bearer ${token}`,
 		},
 		config

@@ -1,13 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/no-default-export */
 import {
-	Box,
 	Divider,
 	Heading,
-	Input,
-	InputGroup,
-	InputLeftAddon,
-	InputRightAddon,
+	HStack,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -16,6 +12,7 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Stack,
+	Text,
 	Textarea,
 	useDisclosure,
 	useToast,
@@ -25,38 +22,33 @@ import Channels from "@components/dashboard/channels";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import CreateReactionRoleModal from "./modal/createReactionRoleModal";
 
-export default function EditReactionRole({
-	token,
+export default function EditReaction({
 	categories,
-	reactionRole,
+	token,
 	guild_id,
-}: {
-	token: unknown;
-	categories: any;
-	reactionRole: any;
-	guild_id: string;
+	reaction_role_id,
+	customEmojis,
+	availableRoles,
+	reactionRoleOg,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [channel, setChannel] = useState(reactionRole.channel);
-	const [timerInterval, setTimerInterval] = useState(
-		reactionRole.interval.toString()
-	);
-	const [message, setMessage] = useState(reactionRole.message);
+	const [channel, setChannel] = useState(reactionRoleOg.channel) as any;
+	const [message, setMessage] = useState(reactionRoleOg.message);
+	const [reactionRole, setReactionRole] = useState(reactionRoleOg) as any;
 	const toast = useToast();
 	const router = useRouter();
 
-	const timer_id = reactionRole.timer_id;
-
+	console.log();
 	return (
-		<Box w="100%">
-			<Button w="100%" onClick={onOpen}>
-				Edit
-			</Button>
+		<>
+			<Button onClick={onOpen}>Add Reaction Role</Button>
+
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="bg.primary">
-					<ModalHeader>Add Timer</ModalHeader>
+					<ModalHeader>Add Reaction Role</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
 						<Channels
@@ -65,34 +57,7 @@ export default function EditReactionRole({
 							setChannel={setChannel}
 						/>
 						<Divider my={5} />
-						<Stack>
-							<Heading size="md" textAlign="center">
-								Interval
-							</Heading>
-							<InputGroup>
-								<InputLeftAddon bg="rgba(0,0,0,0.2)">
-									Every
-								</InputLeftAddon>
-								<Input
-									type="number"
-									value={(
-										timerInterval /
-										1_000 /
-										60
-									).toString()}
-									onChange={(e: any) =>
-										setTimerInterval(
-											// minutes to milliseconds
-											e.target.value * 1_000 * 60
-										)
-									}
-								/>
-								<InputRightAddon bg="rgba(0,0,0,0.2)">
-									minutes
-								</InputRightAddon>
-							</InputGroup>
-						</Stack>
-						<Divider my={5} />
+
 						<Stack>
 							<Heading size="md" textAlign="center">
 								Message
@@ -102,7 +67,57 @@ export default function EditReactionRole({
 									setMessage(e.target.value);
 								}}
 								value={message}
+								placeholder="Hey, I'm a timer!"
 							></Textarea>
+						</Stack>
+						<Divider my={5} />
+						<Stack>
+							<Heading size="md" textAlign="center">
+								Reaction and roles
+							</Heading>
+
+							<CreateReactionRoleModal
+								availableRoles={availableRoles}
+								custom={customEmojis}
+								reactionRole={reactionRole}
+								setReactionRole={setReactionRole}
+							/>
+							<HStack
+								color="grey"
+								justify="space-between"
+								spacing={0}
+							>
+								<Text>Emoji: </Text>
+								<Text>Role: </Text>
+							</HStack>
+							{Object.keys(reactionRole).map((reactionRoleId) => {
+								return (
+									<HStack
+										key={reactionRoleId}
+										justify="space-between"
+									>
+										<Text fontSize="2xl">
+											{reactionRole[reactionRoleId].emoji}
+										</Text>
+										<Text>
+											<Text
+												bg="rgba(0,0,0,0.2)"
+												px={2}
+												py={1}
+												rounded={5}
+												color={`#${reactionRole[
+													reactionRoleId
+												]?.color?.toString(16)}`}
+											>
+												{
+													reactionRole[reactionRoleId]
+														.role_name
+												}
+											</Text>
+										</Text>
+									</HStack>
+								);
+							})}
 						</Stack>
 					</ModalBody>
 
@@ -112,7 +127,7 @@ export default function EditReactionRole({
 						</Button>
 						<Button
 							onClick={async () => {
-								if (!channel || !message || !reactionRole) {
+								if (!channel || !message) {
 									toast({
 										title: "Error",
 										description:
@@ -124,11 +139,11 @@ export default function EditReactionRole({
 									});
 									return;
 								}
-								if (reactionRole < 60000) {
+								if (!Object.keys(reactionRole).length) {
 									toast({
 										title: "Error",
 										description:
-											"Please provide a number greater then 1 minute",
+											'Please add a reactionRole "Add Roll".',
 
 										status: "error",
 										duration: 3000,
@@ -136,19 +151,21 @@ export default function EditReactionRole({
 									});
 									return;
 								}
+
 								onClose();
 
 								const { data } = await axios.put(
-									"/api/guilds/timers",
+									"/api/guilds/reactionRoles",
 									{
 										guild_id,
-										timer_id,
-										timer: timerInterval,
-										channel_id: channel.id,
+										channel_id: channel.channel_id,
+										reaction_role_id,
 										message,
+										role_rows: reactionRole,
 										token,
 									}
 								);
+								setReactionRole({});
 								toast({
 									title: "Success",
 									description: data,
@@ -156,14 +173,14 @@ export default function EditReactionRole({
 									duration: 3000,
 									isClosable: true,
 								});
-								router.push("/dashboard/timers");
+								router.push("/dashboard/reaction");
 							}}
 						>
-							Save
+							Create
 						</Button>
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
-		</Box>
+		</>
 	);
 }
