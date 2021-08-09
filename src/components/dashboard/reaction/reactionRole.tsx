@@ -28,10 +28,11 @@ export default function ReactionRole({
 			rounded={5}
 		>
 			<Stack textAlign="left">
-				<Heading size="md">Sends: {timer.message}</Heading>
-				<Heading size="md">In: #{timer.channel?.name}</Heading>
 				<Heading size="md">
-					Every: {interval} {interval > 1 ? "minutes" : "minute"}
+					Users recieve: {reactionRole.role_names.join(", ")}
+				</Heading>
+				<Heading size="md">
+					When reacted: #{reactionRole.emoji}
 				</Heading>
 			</Stack>
 
@@ -46,11 +47,12 @@ export default function ReactionRole({
 					type="delete"
 					onClick={async () => {
 						const { data } = await axios.post(
-							"/api/guilds/timers/delete",
+							"/api/guilds/reactionRoles",
 							{
 								guild_id,
-								timer_id: timer.timer_id,
+								reaction_role_id: reactionRole.timer_id,
 								token,
+								_delete: true,
 							}
 						);
 						toast({
