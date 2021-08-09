@@ -13,8 +13,6 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
-	console.log(reactionRoles.reaction_roles);
-
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -37,6 +35,7 @@ export default function Custom({
 				/>
 				{reactionRoles.reaction_roles?.length ? (
 					<ReactionRoles
+						custom={reactionRoles.emojis}
 						reactionRoles={reactionRoles.reaction_roles}
 						availableRoles={reactionRoles.roles}
 						guild_id={guild_id}

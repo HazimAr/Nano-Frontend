@@ -11,12 +11,8 @@ export default function ReactionRole({
 	reactionRole,
 	categories,
 	availableRoles,
-}: {
-	guild_id: string;
-	token: unknown;
-	reactionRole: any;
-	categories: any;
-	availableRoles: any;
+	reaction_role_id,
+	custom,
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
@@ -40,7 +36,9 @@ export default function ReactionRole({
 				<EditReactionRole
 					token={token}
 					reactionRoleOg={reactionRole}
+					customEmojis={custom}
 					guild_id={guild_id}
+					reaction_role_id={reaction_role_id}
 					categories={categories}
 					availableRoles={availableRoles}
 				/>
