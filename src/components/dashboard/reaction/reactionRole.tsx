@@ -32,7 +32,7 @@ export default function ReactionRole({
 						return `${role.name} `;
 					})}
 				</Heading>
-				<Heading size="md">When reacted: #{reactionRole.emoji}</Heading>
+				<Heading size="md">When reacted: {reactionRole.emoji}</Heading>
 			</Stack>
 
 			<VStack justify="center">
