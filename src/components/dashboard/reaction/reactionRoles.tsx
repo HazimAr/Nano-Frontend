@@ -1,4 +1,5 @@
 import { Stack } from "@chakra-ui/react";
+import ReactionRole from "./reactionRole";
 
 export default function ReactionRoles({
 	guild_id,
@@ -18,13 +19,14 @@ export default function ReactionRoles({
 				message: reactionRole.message,
 			};
 			Object.keys(reactionRole).forEach((key) => {
+				key += 1;
 				try {
 					parseInt(key);
 				} catch {
 					return;
 				}
 				const emoji = reactionRole[key];
-				if (emoji.role_ids?.length) newReactionRole[key] = emoji;
+				if (emoji?.roles?.length) newReactionRole[key] = emoji;
 			});
 			return newReactionRole;
 		})
@@ -32,20 +34,20 @@ export default function ReactionRoles({
 	console.log(reactionRoles2);
 	return (
 		<Stack>
-			{/* {reactionRoles2.map((reactionRole: any, index) => {
+			{reactionRoles2.map((reactionRole: any, index) => {
 				return (
 					<ReactionRole
 						key={reactionRole.message}
-						reactionRole={reactionRole}
 						guild_id={guild_id}
-						reaction_role_id={index + 1}
+						reactionRole={reactionRole}
 						token={token}
+						reaction_role_id={index + 1}
 						custom={custom}
 						categories={categories}
 						availableRoles={availableRoles}
 					/>
 				);
-			})} */}
+			})}
 		</Stack>
 	);
 }
