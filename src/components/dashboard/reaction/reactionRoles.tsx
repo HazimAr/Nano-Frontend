@@ -19,24 +19,20 @@ export default function ReactionRoles({
 				message: reactionRole.message,
 			};
 			Object.keys(reactionRole).forEach((key2) => {
-				try {
-					parseInt(key2);
-				} catch {
-					return;
-				}
-
 				const emoji = reactionRole[key2];
+				if (typeof emoji === "string") return;
+				console.log(emoji?.role_ids?.length);
+				if (emoji?.roles_ids?.length == 0) return;
+				console.log(emoji?.role_ids?.length);
+				console.log("\n");
 
-				if (emoji?.roles_ids?.length) {
-					console.log("test");
-					newReactionRole[key2] = emoji;
-				}
+				newReactionRole[key2] = emoji;
 			});
-			console.log(newReactionRole);
+
 			return newReactionRole;
 		})
 		.filter((reactionRole) => reactionRole.channel_id);
-	// console.log(reactionRoles2);
+	console.log(reactionRoles2);
 	return (
 		<Stack>
 			{reactionRoles2.map((reactionRole: any, index) => {
