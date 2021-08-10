@@ -18,7 +18,7 @@ import {
 import Button from "@components/button";
 import EmojiPicker from "@components/emojiPicker";
 import Select from "@components/select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function CreateReactionRoleModal({
 	reactionRole,
@@ -45,8 +45,6 @@ export default function CreateReactionRoleModal({
 	const [emoji, setEmoji] = useState(null) as any;
 	const [role, setRole] = useState(null) as any;
 	const toast = useToast();
-
-
 
 	return (
 		<VStack>
@@ -149,7 +147,6 @@ export default function CreateReactionRoleModal({
 									}
 
 									const temp = { ...reactionRole };
-									
 
 									temp[Object.keys(temp).length + 1] = {
 										animated: emoji.animated ?? null,
@@ -164,7 +161,6 @@ export default function CreateReactionRoleModal({
 										img: emoji.img ?? null,
 										color: role.color ?? null,
 									};
-									
 
 									setReactionRole(temp);
 									setEmoji(null);

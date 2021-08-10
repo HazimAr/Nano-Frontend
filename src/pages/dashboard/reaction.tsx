@@ -24,8 +24,6 @@ export default function Custom({
 		}
 	);
 
-	
-
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>
@@ -43,7 +41,8 @@ export default function Custom({
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
-				{reactionRoles.reaction_roles["1"]["1"]?.fetchedRoles?.length ? (
+				{reactionRoles.reaction_roles["1"]["1"]?.fetchedRoles
+					?.length ? (
 					<ReactionRoles
 						custom={reactionRoles.emojis}
 						reactionRoles={reactionRoles.reaction_roles}
