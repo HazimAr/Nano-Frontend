@@ -5,7 +5,7 @@ import {
 	Stack,
 	Switch,
 	Text,
-	useToast,
+	useToast
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import axios from "axios";
@@ -116,6 +116,14 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 								setChanged({});
 							}}
 						>
+							Back
+						</Button>
+						<HStack><Button
+							onClick={() => {
+								setGroupState(null);
+								setChanged({});
+							}}
+						>
 							Cancel
 						</Button>
 						<Button
@@ -152,7 +160,8 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 							}}
 						>
 							Save
-						</Button>
+						</Button></HStack>
+						
 					</HStack>
 				</Stack>
 			)}
