@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { getGuild } from "@api/server";
 import {
 	Avatar,
 	Flex,
@@ -9,7 +10,7 @@ import {
 	HStack,
 	Stack,
 	Text,
-	VStack,
+	VStack
 } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakra";
@@ -18,14 +19,11 @@ import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
-
-	discordGuild,
-	mongoGuild,
+	guild
 }: {
 	session: DiscordUser;
 
-	discordGuild: any;
-	mongoGuild: any;
+	guild: any;
 }): JSX.Element {
 	return (
 		<Layout session={session}>
@@ -153,20 +151,12 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.cookies.guild;
-	// @ts-ignore
-	// const promises = [getDiscordGuild(guild_id), getMongoGuild(guild_id)];
-	let discordGuild;
-	let mongoGuild;
-	// await Promise.all(promises).then((values) => {
-	// 	discordGuild = values[0];
-	// 	mongoGuild = values[1];
-	// });
+	const guild = getGuild(guild_id, session.accessToken)
 
 	return {
 		props: {
 			session,
-			discordGuild,
-			mongoGuild,
+			guild,
 			guild_id,
 		},
 	};

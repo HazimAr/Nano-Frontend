@@ -57,6 +57,15 @@ export async function getCustomCommands(guild_id: string, token: unknown) {
 	return data;
 }
 
+export async function getGuild(guild_id: string, token: unknown) {
+	const { data } = await axios.post(
+		`${SERVER_URL}/g/guild`,
+		{ guild_id, authorization: `Bearer ${token}` },
+		config
+	);
+	return data;
+}
+
 export async function createCustomCommand(
 	guild_id: string,
 	trigger: string,
