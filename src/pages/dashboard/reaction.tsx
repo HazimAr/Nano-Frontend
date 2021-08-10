@@ -12,6 +12,7 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
+	console.log(reactionRoles);
 	const categories = reactionRoles.categories;
 	let reaction_role_id;
 

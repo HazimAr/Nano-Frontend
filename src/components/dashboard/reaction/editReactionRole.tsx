@@ -34,21 +34,22 @@ export default function EditReaction({
 	reactionRoleOg,
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [channel, setChannel] = useState(reactionRoleOg.channel) as any;
+	const [channel, setChannel] = useState(reactionRoleOg.channel_id) as any;
 	const [message, setMessage] = useState(reactionRoleOg.message);
 	const [reactionRole, setReactionRole] = useState(reactionRoleOg) as any;
 	const toast = useToast();
 	const router = useRouter();
 
-	console.log();
 	return (
 		<>
-			<Button onClick={onOpen}>Add Reaction Role</Button>
+			<Button onClick={onOpen} w="100%">
+				Edit
+			</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="bg.primary">
-					<ModalHeader>Add Reaction Role</ModalHeader>
+					<ModalHeader>Edit Reaction Role</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
 						<Channels
@@ -91,6 +92,16 @@ export default function EditReaction({
 								<Text>Role: </Text>
 							</HStack>
 							{Object.keys(reactionRole).map((reactionRoleId) => {
+								if (
+									typeof reactionRole[reactionRoleId] ===
+									"string"
+								)
+									return;
+								if (
+									!reactionRole[reactionRoleId].role_ids
+										.length
+								)
+									return;
 								return (
 									<HStack
 										key={reactionRoleId}
@@ -100,20 +111,23 @@ export default function EditReaction({
 											{reactionRole[reactionRoleId].emoji}
 										</Text>
 										<Text>
-											<Text
-												bg="rgba(0,0,0,0.2)"
-												px={2}
-												py={1}
-												rounded={5}
-												color={`#${reactionRole[
-													reactionRoleId
-												]?.color?.toString(16)}`}
-											>
-												{
-													reactionRole[reactionRoleId]
-														.role_name
-												}
-											</Text>
+											{reactionRole[
+												reactionRoleId
+											].fetchedRoles.map((role) => {
+												return (
+													<Text
+														bg="rgba(0,0,0,0.2)"
+														px={2}
+														py={1}
+														rounded={5}
+														color={`#${role.color?.toString(
+															16
+														)}`}
+													>
+														{role.name}
+													</Text>
+												);
+											})}
 										</Text>
 									</HStack>
 								);

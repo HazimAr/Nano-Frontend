@@ -40,7 +40,7 @@ const customStyles = {
 export default function Custom({ leader }: { leader: any }): JSX.Element {
 	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
-	console.log(leader);
+
 
 	return (
 		<Box maxW="700px" w="100%">

@@ -15,7 +15,7 @@ export default function Channels({ channel, setChannel, categories }) {
 	if (typeof channel === "string") {
 		categories.map((category: any) => {
 			category.channels.map((curChannel: any) => {
-				if (curChannel.id === channel) {
+				if (curChannel.channel_id === channel) {
 					channel = curChannel;
 				}
 			});

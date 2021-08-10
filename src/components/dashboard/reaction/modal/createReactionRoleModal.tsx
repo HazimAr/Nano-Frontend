@@ -46,9 +46,7 @@ export default function CreateReactionRoleModal({
 	const [role, setRole] = useState(null) as any;
 	const toast = useToast();
 
-	useEffect(() => {
-		console.log(reactionRole);
-	}, [reactionRole]);
+
 
 	return (
 		<VStack>
@@ -151,7 +149,7 @@ export default function CreateReactionRoleModal({
 									}
 
 									const temp = { ...reactionRole };
-									console.log(temp);
+									
 
 									temp[Object.keys(temp).length + 1] = {
 										animated: emoji.animated ?? null,
@@ -166,7 +164,7 @@ export default function CreateReactionRoleModal({
 										img: emoji.img ?? null,
 										color: role.color ?? null,
 									};
-									console.log(temp);
+									
 
 									setReactionRole(temp);
 									setEmoji(null);

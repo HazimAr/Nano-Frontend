@@ -1,4 +1,11 @@
-import { Heading, HStack, Stack, useToast, VStack } from "@chakra-ui/react";
+import {
+	Heading,
+	HStack,
+	Stack,
+	Text,
+	useToast,
+	VStack,
+} from "@chakra-ui/react";
 import Button from "@components/button";
 import EditReactionRole from "@components/dashboard/reaction/editReactionRole";
 import axios from "axios";
@@ -16,7 +23,6 @@ export default function ReactionRole({
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
-
 	return (
 		<HStack
 			justify="space-between"
@@ -27,12 +33,30 @@ export default function ReactionRole({
 		>
 			<Stack textAlign="left">
 				<Heading size="md">
-					Users recieve:{" "}
-					{reactionRole.roles.map((role) => {
-						return `${role.name} `;
+					{Object.keys(reactionRole)?.map((roleId) => {
+						const role = reactionRole[roleId];
+						if (typeof role === "string") return;
+						if (!role.role_ids.length) return;
+
+						return (
+							<HStack>
+								<Text>{role.emoji ? role.emoji : ""}</Text>
+
+								{role.fetchedRoles.map((role) => {
+									return (
+										<Text
+											color={`#${role.color?.toString(
+												16
+											)}`}
+										>
+											{role.name}{" "}
+										</Text>
+									);
+								})}
+							</HStack>
+						);
 					})}
 				</Heading>
-				<Heading size="md">When reacted: {reactionRole.emoji}</Heading>
 			</Stack>
 
 			<VStack justify="center">

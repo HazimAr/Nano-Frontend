@@ -38,7 +38,7 @@ export default function CreateReaction({
 	const [reactionRole, setReactionRole] = useState({}) as any;
 	const toast = useToast();
 	const router = useRouter();
-	console.log();
+
 	return (
 		<>
 			<Button onClick={onOpen}>Add Reaction Role</Button>
