@@ -21,7 +21,6 @@ import Layout from "@components/dashboard/layout";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { DiscordUser } from "types";
 
 export default function Index({
@@ -33,7 +32,6 @@ export default function Index({
 	guilds: any;
 	session: DiscordUser;
 }): JSX.Element {
-	const [guildCookie, setGuildCookie] = useState(guild_id);
 	const router = useRouter();
 	return (
 		<Layout session={session}>
@@ -81,9 +79,7 @@ export default function Index({
 															guild.id,
 															7
 														);
-														setGuildCookie(
-															guild.id
-														);
+
 														void router.push(
 															"/dashboard/guild"
 														);
