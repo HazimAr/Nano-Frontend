@@ -65,7 +65,7 @@ export default function CreateReaction({
 									setMessage(e.target.value);
 								}}
 								value={message}
-								placeholder="Hey, I'm a timer!"
+								placeholder="Hey, React to me!"
 							></Textarea>
 						</Stack>
 						<Divider my={5} />
