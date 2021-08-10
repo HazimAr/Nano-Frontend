@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { getGuilds } from "@api/discord";
 import {
 	Box,
@@ -14,14 +13,16 @@ import {
 	HStack,
 	Image,
 	Stack,
-	VStack,
+	VStack
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import NextChakraLink from "@components/nextChakra";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { DiscordUser } from "types";
+
 
 export default function Index({
 	session,
@@ -91,6 +92,7 @@ export default function Index({
 													Edit
 												</Button>
 											) : (
+												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
 												<Button
 													onClick={() => {
 														void router.push(
@@ -103,6 +105,7 @@ export default function Index({
 												>
 													Invite
 												</Button>
+												</NextChakraLink>
 											)}
 										</VStack>
 										<Flex
