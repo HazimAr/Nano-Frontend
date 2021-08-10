@@ -26,9 +26,7 @@ import { DiscordUser } from "types";
 export default function Index({
 	session,
 	guilds,
-	guild_id,
 }: {
-	guild_id: string;
 	guilds: any;
 	session: DiscordUser;
 }): JSX.Element {
