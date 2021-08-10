@@ -30,8 +30,8 @@ export default function Custom({
 			<Stack spacing={5}>
 				<Heading>Reaction Roles</Heading>
 				<Text>
-					Setup reaction roles so when one of you server members
-					reacts to a message they will recieve a role
+					Setup reaction roles so when one of your server members
+					reacts to a message they will receive a role
 				</Text>
 
 				<CreateReaction

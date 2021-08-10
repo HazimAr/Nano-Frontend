@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import axios from "axios";
+import router from "next/router";
 import { useState } from "react";
 
 export default function Commands({ commands, guild_id, token }): JSX.Element {
@@ -157,6 +158,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 									isClosable: true,
 								});
 								setChanged({});
+							router.push("/dashboard/commands")
 							}}
 						>
 							Save
