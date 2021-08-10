@@ -23,6 +23,7 @@ export default function ReactionRole({
 }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
+
 	return (
 		<HStack
 			justify="space-between"
@@ -72,11 +73,11 @@ export default function ReactionRole({
 				<Button
 					type="delete"
 					onClick={async () => {
-						const { data } = await axios.post(
+						const { data } = await axios.put(
 							"/api/guilds/reactionRoles",
 							{
 								guild_id,
-								reaction_role_id: reactionRole.timer_id,
+								reaction_role_id: reactionRole.reaction_role_id,
 								token,
 								_delete: true,
 							}

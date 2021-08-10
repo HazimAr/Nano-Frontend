@@ -12,7 +12,6 @@ export default function Custom({
 	reactionRoles,
 	guild_id,
 }): JSX.Element {
-	console.log(reactionRoles);
 	const categories = reactionRoles.categories;
 	let reaction_role_id;
 
@@ -24,6 +23,7 @@ export default function Custom({
 			reaction_role_id = parseInt(reactionRoleId);
 		}
 	);
+	console.log(reactionRoles.reaction_roles["1"]);
 
 	return (
 		<Layout session={session}>
@@ -42,7 +42,7 @@ export default function Custom({
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
-				{Object.keys(reactionRoles.reaction_roles).length ? (
+				{/* {reactionRoles.reaction_roles["1"]?.fetchedRoles?.length ? (
 					<ReactionRoles
 						custom={reactionRoles.emojis}
 						reactionRoles={reactionRoles.reaction_roles}
@@ -62,7 +62,7 @@ export default function Custom({
 							the "Add Reaction Role" button to add one.
 						</Text>
 					</Center>
-				)}
+				)} */}
 			</Stack>
 		</Layout>
 	);

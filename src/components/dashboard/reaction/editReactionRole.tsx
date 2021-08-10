@@ -172,14 +172,14 @@ export default function EditReaction({
 									"/api/guilds/reactionRoles",
 									{
 										guild_id,
-										channel_id: channel.channel_id,
+										channel_id: channel,
 										reaction_role_id,
 										message,
 										role_rows: reactionRole,
 										token,
 									}
 								);
-								setReactionRole({});
+
 								toast({
 									title: "Success",
 									description: data,
@@ -190,7 +190,7 @@ export default function EditReaction({
 								router.push("/dashboard/reaction");
 							}}
 						>
-							Create
+							Save
 						</Button>
 					</ModalFooter>
 				</ModalContent>

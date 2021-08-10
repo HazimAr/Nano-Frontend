@@ -13,10 +13,10 @@ export default async function Timer(
 			body.guild_id,
 			body.channel_id,
 			body.reaction_role_id,
-			body._delete,
 			body.message,
 			body.token,
-			body.role_rows
+			body.role_rows,
+			body._delete,
 		);
 
 		void res.status(200).json(response);

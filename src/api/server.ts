@@ -148,10 +148,10 @@ export async function createReactionRoleMessage(
 	guild_id: string,
 	channel_id: string,
 	reaction_role_id: string,
-	_delete: boolean = false,
 	message: string,
 	token: unknown,
-	role_rows: any[]
+	role_rows: any[],
+	_delete: boolean = false,
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/reactionRoles`,
