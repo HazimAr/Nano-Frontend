@@ -365,7 +365,7 @@ export function Messages({ leaderboards }: any): JSX.Element {
 		});
 	return (
 		<>
-			{newLeaderboards.map((user: any, index: number) => {
+			{newLeaderboards.map((user: any, index: number) => {			
 				return (
 					<Flex
 						key={user.tag}
@@ -422,7 +422,7 @@ export function Messages({ leaderboards }: any): JSX.Element {
 								<Text fontSize="xs" color="text.400">
 									Messages (all)
 								</Text>
-								{user.messages}
+								{user.messages.all}
 							</Box>
 							{/* <Box w={{ base: "100%", md: "65px" }}>
 								<Text fontSize="xs" color="text.400">
