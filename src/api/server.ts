@@ -59,7 +59,7 @@ export async function getCustomCommands(guild_id: string, token: unknown) {
 
 export async function getGuild(guild_id: string, token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/g/guild`,
+		`${SERVER_URL}/g/profile`,
 		{ guild_id, authorization: `Bearer ${token}` },
 		config
 	);
@@ -160,7 +160,7 @@ export async function createReactionRoleMessage(
 	message: string,
 	token: unknown,
 	role_rows: any[],
-	_delete: boolean = false,
+	_delete: boolean = false
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/reactionRoles`,

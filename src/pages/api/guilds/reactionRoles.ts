@@ -16,7 +16,7 @@ export default async function Timer(
 			body.message,
 			body.token,
 			body.role_rows,
-			body._delete,
+			body._delete
 		);
 
 		void res.status(200).json(response);

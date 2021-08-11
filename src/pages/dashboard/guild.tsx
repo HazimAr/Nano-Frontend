@@ -10,7 +10,7 @@ import {
 	HStack,
 	Stack,
 	Text,
-	VStack
+	VStack,
 } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakra";
@@ -25,6 +25,8 @@ export default function Custom({
 
 	guild: any;
 }): JSX.Element {
+	const discordGuild = guild.discordGuild;
+	const mongoGuild = guild.mongoGuildObject;
 	return (
 		<Layout session={session}>
 			<Stack align="center" mt={5} spacing={5}>
@@ -36,17 +38,21 @@ export default function Custom({
 							sm: "125px",
 							md: "175px",
 						}}
+
 						src={`https://cdn.discordapp.com/icons/${
 							discordGuild.id
 						}/${discordGuild.icon}.${
 							discordGuild.icon?.startsWith("a_") ? "gif" : "png"
 						}`}
+
 						fallbackSrc="/oss.png"
 						rounded="50%"
 						mx={{ base: 0, sm: 5 }}
 						name={discordGuild.name}
 					/>
+
 					<Heading ml={5}>{discordGuild.name}</Heading>
+					
 					{/* <Box mx={3}>
 						<Level user={serverUser} guild={guildId} size={75} />
 					</Box> */}
