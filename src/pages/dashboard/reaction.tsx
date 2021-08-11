@@ -19,10 +19,12 @@ export default function Custom({
 		(reactionRoleId) => {
 			if (reaction_role_id) return;
 			const reactionRole = reactionRoles.reaction_roles[reactionRoleId];
-			if (reactionRole.channel_id) return;
+			if (reactionRole?.channel_id) return;
 			reaction_role_id = parseInt(reactionRoleId);
 		}
 	);
+
+	console.log(reactionRoles.reaction_roles);
 
 	return (
 		<Layout session={session}>
@@ -41,7 +43,7 @@ export default function Custom({
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
-				{reactionRoles.reaction_roles["1"]["1"]?.fetchedRoles
+				{reactionRoles.reaction_roles["1"]?.["1"]?.fetchedRoles
 					?.length ? (
 					<ReactionRoles
 						custom={reactionRoles.emojis}
