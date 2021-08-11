@@ -19,7 +19,7 @@ import { DiscordUser } from "types";
 
 export default function Custom({
 	session,
-	guild
+	guild,
 }: {
 	session: DiscordUser;
 
@@ -151,7 +151,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.cookies.guild;
-	const guild = getGuild(guild_id, session.accessToken)
+	const guild = await getGuild(guild_id, session.accessToken);
 
 	return {
 		props: {
