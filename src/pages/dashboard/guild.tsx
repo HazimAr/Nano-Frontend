@@ -17,7 +17,7 @@ import NextChakraLink from "@components/nextChakra";
 import { getSession } from "next-auth/client";
 import { DiscordUser } from "types";
 
-export default function Custom({
+export default function Guild({
 	session,
 	guild,
 }: {
@@ -38,13 +38,11 @@ export default function Custom({
 							sm: "125px",
 							md: "175px",
 						}}
-
 						src={`https://cdn.discordapp.com/icons/${
 							discordGuild.id
 						}/${discordGuild.icon}.${
 							discordGuild.icon?.startsWith("a_") ? "gif" : "png"
 						}`}
-
 						fallbackSrc="/oss.png"
 						rounded="50%"
 						mx={{ base: 0, sm: 5 }}
@@ -52,7 +50,7 @@ export default function Custom({
 					/>
 
 					<Heading ml={5}>{discordGuild.name}</Heading>
-					
+
 					{/* <Box mx={3}>
 						<Level user={serverUser} guild={guildId} size={75} />
 					</Box> */}
