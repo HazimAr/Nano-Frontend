@@ -30,7 +30,8 @@ export default function Timers({
 	const guild = server.guild;
 	const categories = server.categories;
 
-	const timers = guild.timers[1]
+	console.log(guild);
+	const timers = guild.timers?.[1]
 		? Object.keys(guild.timers)
 				.map((timerId) => {
 					if (timerId === "bump") return;
