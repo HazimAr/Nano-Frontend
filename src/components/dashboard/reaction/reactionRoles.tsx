@@ -9,15 +9,17 @@ export default function ReactionRoles({
 	availableRoles,
 	custom,
 }): JSX.Element {
-
 	const reactionRoles2 = Object.keys(reactionRoles)
 		.map((key) => {
 			const reactionRole = reactionRoles[key];
+			if (!reactionRole) return;
+
 			const newReactionRole = {
-				channel_id: reactionRole.channel_id,
+				channel_id: reactionRole?.channel_id,
 				reaction_role_id: key,
-				message: reactionRole.message,
+				message: reactionRole?.message,
 			};
+
 			Object.keys(reactionRole).forEach((key2) => {
 				const emoji = reactionRole[key2];
 				if (typeof emoji === "string") return;
@@ -26,7 +28,7 @@ export default function ReactionRoles({
 
 			return newReactionRole;
 		})
-		.filter((reactionRole) => reactionRole.channel_id);
+		.filter((reactionRole) => reactionRole?.channel_id);
 
 	return (
 		<Stack>
