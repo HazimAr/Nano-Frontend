@@ -41,7 +41,6 @@ export default function Custom({ leader }: { leader: any }): JSX.Element {
 	// guild_id = BigInt(guild_id);
 	const [sort, setSort] = useState(options[0]);
 
-
 	return (
 		<Box maxW="700px" w="100%">
 			<Select

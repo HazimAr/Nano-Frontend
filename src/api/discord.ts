@@ -6,7 +6,7 @@ import { DISCORD_BASE_URL, SERVER_URL } from "config";
 
 async function getGuilds(token: unknown) {
 	const config = {
-		timeout: 1000 * 5,
+		timeout: 1000 * 10,
 		headers: {
 			// @ts-ignore
 			authorization: `Bearer ${token}`,
