@@ -90,10 +90,15 @@ export default function CreateTimerForm({
 								Message
 							</Heading>
 							<Textarea
-								onChange={(e) => {
-									setMessage(e.target.value);
-								}}
 								placeholder="Hey, I'm a timer!"
+								onChange={(e: any) => {
+									const response = e.target.value;
+									if (response.length > 2000) {
+										setMessage(response.substring(0, 2000));
+										return;
+									}
+									setMessage(response);
+								}}
 								value={message}
 							></Textarea>
 						</Stack>
@@ -149,6 +154,9 @@ export default function CreateTimerForm({
 									duration: 3000,
 									isClosable: true,
 								});
+								setChannel(null);
+								setTimer(null);
+								setMessage("");
 								router.push("/dashboard/timers");
 							}}
 						>
