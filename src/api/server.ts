@@ -28,10 +28,10 @@ export async function getOsuRank(id: string) {
 	return data;
 }
 
-export async function getUser(id: string) {
+export async function getUser(token: unknown) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/u/getMongoProfile`,
-		{ id },
+		`${SERVER_URL}/u/profile`,
+		{ authorization: `Bearer ${token}` },
 		config
 	);
 

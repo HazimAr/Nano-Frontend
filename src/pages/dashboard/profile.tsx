@@ -6,7 +6,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getId } from "@api/discord";
 import { getOsuRank, getUser, loginOsu } from "@api/server";
 import {
 	AspectRatio,
@@ -101,22 +100,6 @@ export default function Profile({
 							justify={{ base: "center", sm: "flex-start" }}
 							textAlign={{ base: "center", sm: "left" }}
 						>
-							<Text w="100%">
-								Prefix:{" "}
-								{serverUser.premium !== "none" ? (
-									serverUser.prefix
-								) : (
-									<Button
-										onClick={() => {
-											void router.push(
-												"/dashboard/premium"
-											);
-										}}
-									>
-										Premium
-									</Button>
-								)}
-							</Text>
 							<Text w="100%">Tokens: {serverUser.tokens}</Text>
 							<Text w="100%">
 								Messages: {serverUser.messages.all}
@@ -136,7 +119,6 @@ export default function Profile({
 					</HStack>
 				) : (
 					<Heading textAlign="center">
-						{" "}
 						Select a guild to see your stats
 					</Heading>
 				)}
@@ -331,13 +313,11 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	// const osu = context.req.cookies.osu ?? null;
 
-	const id = await getId(session.accessToken);
-	const serverUser = await getUser(id);
-	const osu = await getOsuRank(id);
+	const serverUser = await getUser(session.accessToken);
+	console.log(serverUser);
+	const osu = serverUser.osu ?? "";
 
-	// const guildId = "199325828843044865";
 	const guildId = context.req.cookies.guild ?? "";
 
 	return { props: { session, osu, guildId, serverUser } };
