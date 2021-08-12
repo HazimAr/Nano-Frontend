@@ -42,8 +42,8 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
-	serverUser = serverUser.mongoUserObject.guilds[guildId];
 	console.log(serverUser);
+	const serverUser2 = serverUser.mongoUserObject.guilds[guildId];
 
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
@@ -91,7 +91,10 @@ export default function Profile({
 							<Heading ml={5}>{session.user.name}</Heading>
 							<Box mx={3}>
 								<Level
-									user={serverUser}
+									user={
+										serverUser.mongoUserObject
+											.nextLvlPercent
+									}
 									guild={guildId}
 									size={75}
 								/>
@@ -105,10 +108,10 @@ export default function Profile({
 						>
 							{/* <Text w="100%">Tokens: {serverUser.tokens}</Text> */}
 							<Text w="100%">
-								Messages: {serverUser.messages}
+								Messages: {serverUser2.messages}
 							</Text>
 							<Text w="100%">
-								Votes: {serverUser.votes}{" "}
+								Votes: {serverUser2.votes}{" "}
 								<Button
 									fontSize="6px"
 									onClick={() => {
