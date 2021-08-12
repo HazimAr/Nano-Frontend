@@ -9,13 +9,13 @@ const config = {
 };
 
 export async function getLeaderboards() {
-	const { data } = await axios.post(`${SERVER_URL}/leaderboards`, config);
+	const { data } = await axios.post(`${SERVER_URL}/lb`, config);
 	return data;
 }
 
 export async function getGuildLeaderboards(guild_id) {
 	const { data } = await axios.post(
-		`${SERVER_URL}/g/leaderboards`,
+		`${SERVER_URL}/lb/guild`,
 		{ guild_id },
 		config
 	);
