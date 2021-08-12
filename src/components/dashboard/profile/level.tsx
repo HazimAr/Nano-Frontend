@@ -7,12 +7,14 @@ export default function Level(props): JSX.Element {
 	return (
 		<CircularProgress
 			// value={50}
-			value={props.user.nextLvlPercent * 100}
+			value={(props.user.nextLvlPercent ?? props.user.percent) * 100}
 			color="brand.primary"
 			trackColor="transparent"
 			{...props}
 		>
-			<CircularProgressLabel>{props.user.lvl}</CircularProgressLabel>
+			<CircularProgressLabel>
+				{props.user.lvl ?? props.user.level}
+			</CircularProgressLabel>
 		</CircularProgress>
 	);
 }
