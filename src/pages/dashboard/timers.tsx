@@ -17,13 +17,10 @@ import { DiscordUser } from "types";
 
 export default function Timers({
 	session,
-
 	guild_id,
-
 	server,
 }: {
 	session: DiscordUser;
-
 	guild_id: string;
 	server: any;
 }): JSX.Element {
