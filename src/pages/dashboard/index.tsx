@@ -146,7 +146,7 @@ export default function Index({
 							);
 						})
 				) : (
-					<Heading>Looks like you are not in any guilds</Heading>
+					<Heading>Looks like you have no permissions to edit any guilds</Heading>
 				)}
 			</Stack>
 		</Layout>
