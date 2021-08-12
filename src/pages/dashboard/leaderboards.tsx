@@ -45,6 +45,7 @@ export default function Custom({
 	leader: any;
 }): JSX.Element {
 	const [sort, setSort] = useState(options[0]);
+	console.log(leader);
 
 	return (
 		<Layout session={session}>
