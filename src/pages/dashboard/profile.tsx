@@ -43,6 +43,7 @@ export default function Profile({
 	serverUser: any;
 }): JSX.Element {
 	serverUser = serverUser.mongoUserObject.guilds[guildId];
+
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
@@ -103,10 +104,10 @@ export default function Profile({
 						>
 							<Text w="100%">Tokens: {serverUser.tokens}</Text>
 							<Text w="100%">
-								Messages: {serverUser.messages.all}
+								Messages: {serverUser.messages}
 							</Text>
 							<Text w="100%">
-								Votes: {serverUser.votes.all}{" "}
+								Votes: {serverUser.votes}{" "}
 								<Button
 									fontSize="6px"
 									onClick={() => {
