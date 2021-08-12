@@ -50,6 +50,8 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 					guild={guild}
 					command_id={id}
 					commands={allCommands}
+					commandsLength={commands.length}
+					premium={guild.premium}
 				/>
 				<YourCommands
 					guild={guild}

@@ -54,6 +54,8 @@ export default function Timers({
 					session={session}
 					guild_id={guild_id}
 					timer_id={tempId}
+					timerLength={timers.length}
+					premium={guild.premium}
 				/>
 				<HStack justify="space-between">
 					<Heading size="md">Your Timers</Heading>

@@ -27,12 +27,16 @@ export default function CreateCustom({
 	guild_id,
 	command_id,
 	commands,
+	commandsLength,
+	premium,
 }: {
 	guild: any;
 	token: string;
 	guild_id: string;
 	command_id: any;
 	commands: string[];
+	commandsLength: number;
+	premium: number;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [trigger, setTrigger] = useState("");
@@ -44,6 +48,7 @@ export default function CreateCustom({
 			<Button w="100%" onClick={onOpen}>
 				Create Custom Command
 			</Button>
+			{commandsLength < (premium === 0 ? 1 : 5) ? (
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="bg.primary">
@@ -164,6 +169,7 @@ export default function CreateCustom({
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
+			):null}
 		</Box>
 	);
 }

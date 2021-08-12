@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuildReactionRoles } from "@api/server";
-import { Center, Heading, Stack, Text } from "@chakra-ui/react";
+import { Center, Heading, Stack, Text, HStack, Divider } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateReaction from "@components/dashboard/reaction/createReaction";
 import ReactionRoles from "@components/dashboard/reaction/reactionRoles";
@@ -11,6 +11,7 @@ export default function Custom({
 	session,
 	reactionRoles,
 	guild_id,
+	guild,
 }): JSX.Element {
 	const categories = reactionRoles.categories;
 	let reaction_role_id;
@@ -43,6 +44,13 @@ export default function Custom({
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
 				/>
+				<HStack justify="space-between">
+					<Heading size="md">Your Reaction Roles</Heading>
+					<Heading size="md">
+						{reactionRoles.reaction_roles.length}/{guild?.premium === 0 ? 1 : 5}
+					</Heading>
+				</HStack>
+				<Divider my={5} />
 				{reactionRoles.reaction_roles["1"]?.["1"]?.fetchedRoles
 					?.length ? (
 					<ReactionRoles
