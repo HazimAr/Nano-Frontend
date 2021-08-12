@@ -13,7 +13,7 @@ import {
 	HStack,
 	Image,
 	Stack,
-	VStack
+	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -22,7 +22,6 @@ import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { DiscordUser } from "types";
-
 
 export default function Index({
 	session,
@@ -92,19 +91,17 @@ export default function Index({
 													Edit
 												</Button>
 											) : (
-												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
-												<Button
-													onClick={() => {
-														void router.push(
-															`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`
-														);
-													}}
-													mt={3}
-													mb={3}
-													bg="#fff"
+												<NextChakraLink
+													isExternal
+													href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}
 												>
-													Invite
-												</Button>
+													<Button
+														mt={3}
+														mb={3}
+														bg="#fff"
+													>
+														Invite
+													</Button>
 												</NextChakraLink>
 											)}
 										</VStack>
