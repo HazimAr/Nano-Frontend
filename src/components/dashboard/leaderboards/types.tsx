@@ -93,16 +93,12 @@ export function Votes({ leaderboards }: any): JSX.Element {
 }
 
 export function Rank({ leaderboards }: any): JSX.Element {
-	const newLeaderboards = leaderboards
-		.map((user: any) => {
-			return user;
-		})
-		.sort((a: any, b: any) => {
-			if (a.xp === b.xp) {
-				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
-			}
-			return b.xp - a.xp;
-		});
+	const newLeaderboards = leaderboards.sort((a: any, b: any) => {
+		if (a.xp === b.xp) {
+			return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+		}
+		return b.xp - a.xp;
+	});
 
 	return (
 		<>
@@ -166,7 +162,7 @@ export function Rank({ leaderboards }: any): JSX.Element {
 								w={{ base: "100%", md: "85px" }}
 								mx={{ base: 0, md: 3 }}
 							>
-								<Level user={user} />
+								<Level user={user.nextLvlPercent} />
 							</Box>
 						</Flex>
 
@@ -353,19 +349,15 @@ export function Osu({ leaderboards }: any): JSX.Element {
 }
 
 export function Messages({ leaderboards }: any): JSX.Element {
-	const newLeaderboards = leaderboards
-		.map((user: any) => {
-			return user;
-		})
-		.sort((a: any, b: any) => {
-			if (a.messages === b.messages) {
-				return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
-			}
-			return b.messages - a.messages;
-		});
+	const newLeaderboards = leaderboards.sort((a: any, b: any) => {
+		if (a.messages === b.messages) {
+			return a.tag === b.tag ? 0 : a.tag > b.tag ? 1 : -1;
+		}
+		return b.messages - a.messages;
+	});
 	return (
 		<>
-			{newLeaderboards.map((user: any, index: number) => {			
+			{newLeaderboards.map((user: any, index: number) => {
 				return (
 					<Flex
 						key={user.tag}
@@ -422,7 +414,7 @@ export function Messages({ leaderboards }: any): JSX.Element {
 								<Text fontSize="xs" color="text.400">
 									Messages (all)
 								</Text>
-								{user.messages.all}
+								{user.messages}
 							</Box>
 							{/* <Box w={{ base: "100%", md: "65px" }}>
 								<Text fontSize="xs" color="text.400">
