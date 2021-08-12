@@ -18,7 +18,7 @@ const META: MetaType = {
 
 const SERVER_URL = IS_PRODUCTION
 	? "https://nano-osu.teamdragonsden.com"
-	: "https://52d41d57de6b.ngrok.io";
+	: "https://cb43d0558cb2.ngrok.io";
 
 const DISCORD_BASE_URL = "https://discord.com/api/v9";
 
