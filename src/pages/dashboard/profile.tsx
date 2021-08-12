@@ -42,6 +42,7 @@ export default function Profile({
 	guildId: string;
 	serverUser: any;
 }): JSX.Element {
+	serverUser = serverUser.mongoUserObject.guilds[guildId];
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
 	const [search, setSearch] = useState("");
