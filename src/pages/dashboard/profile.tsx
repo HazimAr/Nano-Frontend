@@ -43,6 +43,7 @@ export default function Profile({
 	serverUser: any;
 }): JSX.Element {
 	serverUser = serverUser.mongoUserObject.guilds[guildId];
+	console.log(serverUser);
 
 	const [osuState, setOsuState] = useState(osu);
 	const [osuGame, setOsuGame] = useState(osu.osu);
@@ -102,7 +103,7 @@ export default function Profile({
 							justify={{ base: "center", sm: "flex-start" }}
 							textAlign={{ base: "center", sm: "left" }}
 						>
-							<Text w="100%">Tokens: {serverUser.tokens}</Text>
+							{/* <Text w="100%">Tokens: {serverUser.tokens}</Text> */}
 							<Text w="100%">
 								Messages: {serverUser.messages}
 							</Text>
@@ -317,7 +318,6 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const serverUser = await getUser(session.accessToken);
-	console.log(serverUser);
 	const osu = serverUser.osu ?? "";
 
 	const guildId = context.req.cookies.guild ?? "";
