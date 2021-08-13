@@ -108,10 +108,10 @@ export default function Profile({
 						>
 							{/* <Text w="100%">Tokens: {serverUser.tokens}</Text> */}
 							<Text w="100%">
-								Messages: {serverUser2.messages}
+								Messages: {serverUser2?.messages}
 							</Text>
 							<Text w="100%">
-								Votes: {serverUser2.votes}{" "}
+								Votes: {serverUser2?.votes}{" "}
 								<Button
 									fontSize="6px"
 									onClick={() => {

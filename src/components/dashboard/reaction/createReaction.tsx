@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Channels from "@components/dashboard/channels";
+import EmojiPicker from "@components/emojiPicker";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -74,12 +75,13 @@ export default function CreateReaction({
 								Reaction and roles
 							</Heading>
 
-							<CreateReactionRoleModal
+							{/* <CreateReactionRoleModal
 								availableRoles={availableRoles}
 								custom={customEmojis}
 								reactionRole={reactionRole}
 								setReactionRole={setReactionRole}
-							/>
+							/> */}
+							<EmojiPicker/>
 							<HStack
 								color="grey"
 								justify="space-between"
