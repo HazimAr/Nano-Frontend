@@ -138,7 +138,7 @@ export default function CreateReactionRoleModal({
 									if (!role) {
 										toast({
 											title: "Error",
-											description: "Please A Role.",
+											description: "Please Select A Role.",
 											status: "error",
 											duration: 3000,
 											isClosable: true,
