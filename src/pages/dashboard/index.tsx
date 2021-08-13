@@ -82,7 +82,7 @@ export default function Index({
 															);
 
 															void router.push(
-																`${router.asPath}/${guild.id}/guild`
+																`${router.asPath}/${guild.id}`
 															);
 														}}
 														type="secondary"
