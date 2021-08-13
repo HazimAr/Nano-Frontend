@@ -12,7 +12,6 @@ import {
 import Layout from "@components/dashboard/layout";
 import CreateReaction from "@components/dashboard/reaction/createReaction";
 import ReactionRoles from "@components/dashboard/reaction/reactionRoles";
-import EmojiPicker from "@components/emojiPicker"
 import { getSession } from "next-auth/client";
 
 export default function Custom({
@@ -86,7 +85,6 @@ export default function Custom({
 						</Text>
 					</Center>
 				)}
-				<EmojiPicker/>
 			</Stack>
 		</Layout>
 	);

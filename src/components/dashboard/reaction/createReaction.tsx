@@ -14,16 +14,15 @@ import {
 	Stack,
 	Text,
 	Textarea,
-	useDisclosure, 
+	useDisclosure,
 	useToast,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Channels from "@components/dashboard/channels";
-import EmojiPicker from "@components/emojiPicker";
+import CreateReactionRoleModal from "./modal/createReactionRoleModal";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import CreateReactionRoleModal from "./modal/createReactionRoleModal";
 
 export default function CreateReaction({
 	categories,
@@ -75,13 +74,13 @@ export default function CreateReaction({
 								Reaction and roles
 							</Heading>
 
-							{/* <CreateReactionRoleModal
+							<CreateReactionRoleModal
 								availableRoles={availableRoles}
 								custom={customEmojis}
 								reactionRole={reactionRole}
 								setReactionRole={setReactionRole}
-							/> */}
-							<EmojiPicker/>
+							/>
+
 							<HStack
 								color="grey"
 								justify="space-between"
