@@ -31,6 +31,8 @@ export default function CreateReaction({
 	reaction_role_id,
 	customEmojis,
 	availableRoles,
+	reactionRolesLength,
+	premium
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [channel, setChannel] = useState(null) as any;
@@ -43,6 +45,7 @@ export default function CreateReaction({
 		<>
 			<Button onClick={onOpen}>Add Reaction Role</Button>
 
+			{reactionRolesLength < (premium === 0 ? 1 : 5) && (
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="bg.primary">
@@ -180,6 +183,7 @@ export default function CreateReaction({
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
+			)}
 		</>
 	);
 }
