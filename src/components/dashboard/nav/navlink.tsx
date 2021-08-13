@@ -20,7 +20,6 @@ type NavLinkProps = {
 export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, href, ...rest } = props;
 	const router = useRouter();
-	console.log();
 	return (
 		<NextLink
 			href={`/${router.asPath.split("/")[1]}/${
@@ -30,9 +29,17 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 		>
 			<Link
 				bg={
-					router.asPath.split("/")[
-						router.asPath.split("/").length - 1
-					] === props.href
+					props.href == "" &&
+					!isNaN(
+						//@ts-ignore
+						router.asPath.split("/")[
+							router.asPath.split("/").length - 1
+						]
+					)
+						? "brand.primary2"
+						: router.asPath.split("/")[
+								router.asPath.split("/").length - 1
+						  ] === props.href
 						? "brand.primary2"
 						: ""
 				}

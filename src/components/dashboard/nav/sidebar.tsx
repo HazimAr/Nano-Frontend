@@ -8,7 +8,6 @@ import {
 	FaCode,
 	FaMedal,
 	FaPen,
-	FaPlus,
 	FaSurprise,
 } from "react-icons/fa";
 import { Logo } from "./logo";
@@ -44,16 +43,7 @@ export function Sidebar(props: any): JSX.Element {
 
 					<Stack spacing="6" as="nav" aria-label="Sidebar Navigation">
 						<Stack spacing="1">
-							<NavLink
-								label="Guilds"
-								icon={FaPlus}
-								href="dashboard"
-							/>
-							<NavLink
-								label="Edit Guild"
-								icon={FaPen}
-								href="guild"
-							/>
+							<NavLink label="Edit Guild" icon={FaPen} href="" />
 
 							{/* <NavLink
 								label="Premium"
