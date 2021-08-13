@@ -79,6 +79,7 @@ export default function Guild({
 						</Button>
 					</Text> */}
 				</HStack>
+
 				<Grid
 					templateColumns={{
 						base: "repeat(1, 1fr)",
@@ -107,6 +108,7 @@ export default function Guild({
 						href={`${guild_id}/timers`}
 					/>
 				</Grid>
+				
 			</Stack>
 		</Layout>
 	);
