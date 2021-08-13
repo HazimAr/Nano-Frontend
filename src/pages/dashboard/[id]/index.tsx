@@ -94,17 +94,17 @@ export default function Guild({
 					<Panel
 						name="Custom Commands"
 						description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message."
-						href={`/custom/${guild_id}/commands`}
+						href={`/dashboard/${guild_id}/custom`}
 					/>
 					<Panel
 						name="Reaction Roles"
 						description="Create a customizable message that when users will react to they will recieve a specified role."
-						href={`/reaction/${guild_id}/commands`}
+						href={`/dashboard/${guild_id}/reaction`}
 					/>
 					<Panel
 						name="Timers"
 						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."
-						href={`/timers/${guild_id}/commands`}
+						href={`/dashboard/${guild_id}/timers`}
 					/>
 				</Grid>
 			</Stack>
