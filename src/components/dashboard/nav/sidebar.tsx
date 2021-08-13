@@ -15,6 +15,7 @@ import { NavLink } from "./navlink";
 import { UserProfile } from "./userprofile";
 
 export function Sidebar(props: any): JSX.Element {
+	const { guild, ...rest } = props;
 	return (
 		<Box>
 			<Flex
@@ -23,7 +24,7 @@ export function Sidebar(props: any): JSX.Element {
 				borderRightWidth="1px"
 				width="225px"
 				position="fixed"
-				{...props}
+				{...rest}
 			>
 				<Flex
 					direction="column"
@@ -60,6 +61,7 @@ export function Sidebar(props: any): JSX.Element {
 						<Divider />
 
 						<Stack spacing="1">
+							{guild?.name}
 							<NavLink
 								label="Nano Commands"
 								icon={FaBars}
