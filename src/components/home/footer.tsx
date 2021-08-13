@@ -5,8 +5,8 @@ import ContainerInside from "@components/containerInside";
 // eslint-disable-next-line import/no-default-export
 export default function Footer(): JSX.Element {
 	return (
-		<Box as="footer">
-			<Container bg="brand.purple.light" mt="-7px">
+		<Box as="footer" bg="bg.secondary">
+			<Container bg="brand.purple.light">
 				<ContainerInside>
 					<Flex
 						justify="space-between"
@@ -23,9 +23,7 @@ export default function Footer(): JSX.Element {
 						align="center"
 						color="text.200"
 					>
-						<Text>
-							Nano © 2021 All Rights Reserved
-						</Text>
+						<Text>Nano © 2021 All Rights Reserved</Text>
 						<Text>
 							<Link href="/terms">Terms of Service</Link> |{" "}
 							<Link href="/privacy">Privacy Policy</Link>

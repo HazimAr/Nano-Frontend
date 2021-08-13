@@ -22,7 +22,12 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 	const router = useRouter();
 	console.log();
 	return (
-		<NextLink href={href} passHref>
+		<NextLink
+			href={`/${router.asPath.split("/")[1]}/${
+				router.asPath.split("/")[2]
+			}/${href}`}
+			passHref
+		>
 			<Link
 				bg={
 					router.asPath.split("/")[

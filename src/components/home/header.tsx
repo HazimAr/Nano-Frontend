@@ -20,7 +20,7 @@ export default function Header({
 	session: DiscordUser;
 }): JSX.Element {
 	return (
-		<Container as="header" py={3}>
+		<Container as="header" py={3} bg="bg.secondary">
 			<ContainerInside>
 				<Flex justify="space-between" align="center" flexWrap="wrap">
 					<Link href="/" _hover={{}} _focus={{}}>
