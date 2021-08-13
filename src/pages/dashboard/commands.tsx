@@ -16,6 +16,7 @@ export default function NanoCommands({
 	commands: any;
 	guild_id: string;
 }): JSX.Element {
+	console.log(commands);
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">

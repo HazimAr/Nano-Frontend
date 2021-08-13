@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuildReactionRoles } from "@api/server";
-import { Center, Heading, Stack, Text, HStack, Divider } from "@chakra-ui/react";
+import {
+	Center,
+	Divider,
+	Heading,
+	HStack,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import CreateReaction from "@components/dashboard/reaction/createReaction";
 import ReactionRoles from "@components/dashboard/reaction/reactionRoles";
@@ -47,7 +54,12 @@ export default function Custom({
 				<HStack justify="space-between">
 					<Heading size="md">Your Reaction Roles</Heading>
 					<Heading size="md">
-						{reactionRoles.reaction_roles.length}/{guild?.premium === 0 ? 1 : 5}
+						{
+							Object.keys(reactionRoles.reaction_roles).filter(
+								(r) => !r
+							).length
+						}
+						/{guild?.premium === 0 ? 1 : 5}
 					</Heading>
 				</HStack>
 				<Divider my={5} />
