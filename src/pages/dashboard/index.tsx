@@ -16,7 +16,8 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
-import Layout from "@components/dashboard/layout";
+import Container from "@components/container";
+import HeadFoot from "@components/home/headfoot";
 import NextChakraLink from "@components/nextChakra";
 import { setCookie } from "@lib/cookie";
 import { getSession } from "next-auth/client";
@@ -27,126 +28,134 @@ export default function Index({
 	session,
 	guilds,
 }: {
-	guilds: any;
 	session: DiscordUser;
+	guilds: any;
 }): JSX.Element {
 	const router = useRouter();
 	return (
-		<Layout session={session}>
-			<Stack maxW="800px" w="100%" spacing={3}>
-				{guilds.length > 0 ? (
-					guilds
-						.sort((a: any, b: any) => {
-							if (a.status === b.status) {
-								return a.guild.name === b.guild.name
-									? 0
-									: a.guild.name > b.guild.name
-									? 1
-									: -1;
-							}
-							return a.status.length - b.status.length;
-							// return a.status.length - b.status.length;
-						})
-						.map((guildObject: any) => {
-							const guild = guildObject.guild;
+		<HeadFoot session={session}>
+			<Container>
+				<Stack maxW="800px" w="100%" spacing={3}>
+					{guilds.length > 0 ? (
+						guilds
+							.sort((a: any, b: any) => {
+								if (a.status === b.status) {
+									return a.guild.name === b.guild.name
+										? 0
+										: a.guild.name > b.guild.name
+										? 1
+										: -1;
+								}
+								return a.status.length - b.status.length;
+								// return a.status.length - b.status.length;
+							})
+							.map((guildObject: any) => {
+								const guild = guildObject.guild;
 
-							return (
-								<Box key={guild.id}>
-									<HStack
-										justify={{
-											base: "center",
-											sm: "flex-start",
-										}}
-										align="center"
-										spacing={0}
-										flexDir={{
-											base: "column",
-											sm: "row",
-										}}
-										// key={guild.id}
-									>
-										<VStack
-											spacing={0}
-											justify="flex-start"
-										>
-											{guildObject.status !== "invite" ? (
-												<Button
-													onClick={() => {
-														setCookie(
-															"guild",
-															guild.id,
-															7
-														);
-
-														void router.push(
-															"/dashboard/guild"
-														);
-													}}
-													type="secondary"
-													mt={3}
-													mb={3}
-													bg="#fff"
-													w="75px"
-												>
-													Edit
-												</Button>
-											) : (
-												<NextChakraLink
-													isExternal
-													href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}
-												>
-													<Button
-														mt={3}
-														mb={3}
-														bg="#fff"
-													>
-														Invite
-													</Button>
-												</NextChakraLink>
-											)}
-										</VStack>
-										<Flex
+								return (
+									<Box key={guild.id}>
+										<HStack
+											justify={{
+												base: "center",
+												sm: "flex-start",
+											}}
 											align="center"
+											spacing={0}
 											flexDir={{
 												base: "column",
 												sm: "row",
 											}}
-											justify="center"
+											// key={guild.id}
 										>
-											<Image
-												src={`https://cdn.discordapp.com/icons/${
-													guild.id
-												}/${guild.icon}.${
-													guild.icon?.startsWith("a_")
-														? "gif"
-														: "png"
-												}`}
-												fallbackSrc="/oss.png"
-												w={20}
-												rounded="50%"
-												mx={{ base: 0, sm: 5 }}
-											/>
-											<Heading
-												size="md"
-												my={{ base: 3, sm: 5 }}
-												textAlign="center"
+											<VStack
+												spacing={0}
+												justify="flex-start"
 											>
-												{guild.name}
-											</Heading>
-										</Flex>
-									</HStack>
-									<Divider
-										mt={2}
-										// display={{ base: "block", sm: "none" }}
-									/>
-								</Box>
-							);
-						})
-				) : (
-					<Heading>Looks like you have no permissions to edit any guilds</Heading>
-				)}
-			</Stack>
-		</Layout>
+												{guildObject.status !==
+												"invite" ? (
+													<Button
+														onClick={() => {
+															setCookie(
+																"guild",
+																guild.id,
+																7
+															);
+
+															void router.push(
+																`${router.asPath}/${guild.id}/guild`
+															);
+														}}
+														type="secondary"
+														mt={3}
+														mb={3}
+														bg="#fff"
+														w="75px"
+													>
+														Edit
+													</Button>
+												) : (
+													<NextChakraLink
+														isExternal
+														href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}
+													>
+														<Button
+															mt={3}
+															mb={3}
+															bg="#fff"
+														>
+															Invite
+														</Button>
+													</NextChakraLink>
+												)}
+											</VStack>
+											<Flex
+												align="center"
+												flexDir={{
+													base: "column",
+													sm: "row",
+												}}
+												justify="center"
+											>
+												<Image
+													src={`https://cdn.discordapp.com/icons/${
+														guild.id
+													}/${guild.icon}.${
+														guild.icon?.startsWith(
+															"a_"
+														)
+															? "gif"
+															: "png"
+													}`}
+													fallbackSrc="/oss.png"
+													w={20}
+													rounded="50%"
+													mx={{ base: 0, sm: 5 }}
+												/>
+												<Heading
+													size="md"
+													my={{ base: 3, sm: 5 }}
+													textAlign="center"
+												>
+													{guild.name}
+												</Heading>
+											</Flex>
+										</HStack>
+										<Divider
+											mt={2}
+											// display={{ base: "block", sm: "none" }}
+										/>
+									</Box>
+								);
+							})
+					) : (
+						<Heading>
+							Looks like you have no permissions to edit any
+							guilds
+						</Heading>
+					)}
+				</Stack>
+			</Container>
+		</HeadFoot>
 	);
 }
 
@@ -166,7 +175,6 @@ export async function getServerSideProps(context: any) {
 		props: {
 			session,
 			guilds,
-			guild_id: context.req.cookies.guild || null,
 		},
 	};
 }

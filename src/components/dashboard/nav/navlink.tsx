@@ -20,11 +20,17 @@ type NavLinkProps = {
 export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, href, ...rest } = props;
 	const router = useRouter();
-
+	console.log();
 	return (
 		<NextLink href={href} passHref>
 			<Link
-				bg={router.asPath === props.href ? "brand.primary2" : ""}
+				bg={
+					router.asPath.split("/")[
+						router.asPath.split("/").length - 1
+					] === props.href
+						? "brand.primary2"
+						: ""
+				}
 				display="block"
 				py="2"
 				px="3"

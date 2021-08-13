@@ -323,9 +323,9 @@ export async function getServerSideProps(context: any) {
 	const serverUser = await getUser(session.accessToken);
 	const osu = serverUser.osu ?? "";
 
-	const guildId = context.req.cookies.guild ?? "";
+	const guild_id = context.req.url.split("/")[2] ?? "";
 
-	return { props: { session, osu, guildId, serverUser } };
+	return { props: { session, osu, guildId: guild_id, serverUser } };
 }
 
 function graph(theme: any, data: any[][]) {

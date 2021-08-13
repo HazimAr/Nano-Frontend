@@ -47,12 +47,12 @@ export function Sidebar(props: any): JSX.Element {
 							<NavLink
 								label="Guilds"
 								icon={FaPlus}
-								href="/dashboard"
+								href="dashboard"
 							/>
 							<NavLink
 								label="Edit Guild"
 								icon={FaPen}
-								href="/dashboard/guild"
+								href="guild"
 							/>
 
 							{/* <NavLink
@@ -63,7 +63,7 @@ export function Sidebar(props: any): JSX.Element {
 							<NavLink
 								label="Leaderboards"
 								icon={FaMedal}
-								href="/dashboard/leaderboards"
+								href="leaderboards"
 							/>
 						</Stack>
 
@@ -73,23 +73,23 @@ export function Sidebar(props: any): JSX.Element {
 							<NavLink
 								label="Nano Commands"
 								icon={FaBars}
-								href="/dashboard/commands"
+								href="commands"
 							/>
 							<NavLink
 								label="Custom Commands"
 								icon={FaCode}
-								href="/dashboard/custom"
+								href="custom"
 							/>
 							<NavLink
 								label="Reaction Roles"
 								icon={FaSurprise}
-								href="/dashboard/reaction"
+								href="reaction"
 							/>
 
 							<NavLink
 								label="Timers"
 								icon={FaClock}
-								href="/dashboard/timers"
+								href="timers"
 							/>
 						</Stack>
 					</Stack>

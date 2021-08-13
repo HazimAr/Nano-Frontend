@@ -99,7 +99,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const guild_id = context.req.cookies.guild ?? "";
+	const guild_id = context.req.url.split("/")[2];
 
 	if (!guild_id) {
 		context.res.writeHead(307, {
