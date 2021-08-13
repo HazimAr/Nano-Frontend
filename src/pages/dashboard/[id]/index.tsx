@@ -20,10 +20,12 @@ import { DiscordUser } from "types";
 export default function Guild({
 	session,
 	guild,
+	guild_id,
 }: {
 	session: DiscordUser;
 
 	guild: any;
+	guild_id: string;
 }): JSX.Element {
 	const discordGuild = guild.discordGuild;
 	const mongoGuild = guild.mongoGuildObject;
@@ -87,22 +89,22 @@ export default function Guild({
 					<Panel
 						name="Enable / Disable Commands"
 						description="Click on a switch to activate and deactivate certain command nano commands."
-						href="/commands"
+						href={`/dashboard/${guild_id}/commands`}
 					/>
 					<Panel
 						name="Custom Commands"
 						description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message."
-						href="/custom"
+						href={`/custom/${guild_id}/commands`}
 					/>
 					<Panel
 						name="Reaction Roles"
 						description="Create a customizable message that when users will react to they will recieve a specified role."
-						href="/reaction"
+						href={`/reaction/${guild_id}/commands`}
 					/>
 					<Panel
 						name="Timers"
 						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."
-						href="/timers"
+						href={`/timers/${guild_id}/commands`}
 					/>
 				</Grid>
 			</Stack>
