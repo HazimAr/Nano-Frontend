@@ -100,7 +100,8 @@ export function Sidebar(props: any): JSX.Element {
 											? "gif"
 											: "png"
 									}`}
-									w="sm"
+									w="50px"
+									rounded="50%"
 								/>
 								<Heading size="md" textAlign="center">
 									{guild?.name}
