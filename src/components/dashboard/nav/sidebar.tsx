@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import { DISCORD_BASE_URL } from "config";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
 	FaBars,
 	FaClock,
@@ -30,7 +30,7 @@ export function Sidebar(props: any): JSX.Element {
 	const router = useRouter();
 	const guild_id = router.asPath.split("/")[2];
 
-	let guild;
+	let [guild, setGuild] = useState(null);
 	useEffect(() => {
 		axios
 			.get(`${DISCORD_BASE_URL}/users/@me/guilds`, {
@@ -39,8 +39,7 @@ export function Sidebar(props: any): JSX.Element {
 				},
 			})
 			.then(({ data }) => {
-				guild = data.find((g) => g.id === guild_id);
-				console.log(guild);
+				setGuild(data.find((g) => g.id === guild_id));
 
 				// guild = data;
 			});
@@ -92,7 +91,6 @@ export function Sidebar(props: any): JSX.Element {
 						<Divider />
 
 						<Stack spacing="1">
-							{console.log(guild)}
 							<HStack justify="center">
 								<Avatar
 									src={`https://cdn.discordapp.com/icons/${
