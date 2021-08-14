@@ -30,7 +30,7 @@ export default function Guild({
 	const discordGuild = guild.discordGuild;
 	const mongoGuild = guild.mongoGuildObject;
 	return (
-		<Layout guild={discordGuild} session={session}>
+		<Layout  session={session}>
 			<Stack align="center" mt={5} spacing={5}>
 				<Flex align="center" w="100%">
 					<Avatar

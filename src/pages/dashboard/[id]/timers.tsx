@@ -42,7 +42,7 @@ export default function Timers({
 	let tempId = (timers.length + 1).toString();
 
 	return (
-		<Layout guildName={guildName} session={session}>
+		<Layout session={session}>
 			<Stack spacing={5} w="100%">
 				<Heading>Timers</Heading>
 				<Text>
