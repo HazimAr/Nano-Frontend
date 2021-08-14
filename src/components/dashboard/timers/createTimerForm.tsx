@@ -50,7 +50,7 @@ export default function CreateTimerForm({
 	return (
 		<>
 			<Button onClick={onOpen}>Add Timer</Button>
-			{timerLength < (premium === 0 ? 1 : 5) ? (
+			{timerLength < (premium === 0 ? 1 : 5) && (
 				<Modal isOpen={isOpen} onClose={onClose}>
 					<ModalOverlay />
 					<ModalContent bg="bg.primary">
@@ -171,7 +171,7 @@ export default function CreateTimerForm({
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
-			):null}
+			)}
 		</>
 	);
 }

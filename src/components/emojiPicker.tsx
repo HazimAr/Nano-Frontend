@@ -5,10 +5,10 @@ import { useState } from "react";
 
 export default function EmojiPicker({
 	setEmoji,
-	custom,
+	custom = [],
 }: {
 	setEmoji: Function;
-	custom: any[];
+	custom?: any[];
 }): JSX.Element {
 	const [open, setOpen] = useBoolean();
 	const [mouseX, setMouseX] = useState(0);
@@ -21,6 +21,7 @@ export default function EmojiPicker({
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);
 				}
+				console.log(e);
 			}}
 			w="fit-content"
 		>
@@ -64,7 +65,7 @@ export default function EmojiPicker({
 					emoji="point_up"
 					theme="dark"
 					custom={custom}
-					style={{ position: "absolute", top: mouseY, left: mouseX }}
+					style={{ position: "fixed", top: mouseY, left: mouseX }}
 				/>
 			)}
 		</Box>

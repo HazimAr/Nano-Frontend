@@ -18,10 +18,11 @@ export default function Custom({
 	session,
 	reactionRoles,
 	guild_id,
-	guild,
 }): JSX.Element {
 	const categories = reactionRoles.categories;
 	let reaction_role_id;
+
+	const guild = reactionRoles.mongoGuildObject;
 
 	Object.keys({ ...reactionRoles.reaction_roles }).forEach(
 		(reactionRoleId) => {
@@ -33,6 +34,7 @@ export default function Custom({
 	);
 
 	console.log(reactionRoles.reaction_roles);
+	console.log(reactionRoles);
 
 	return (
 		<Layout session={session}>
@@ -50,6 +52,8 @@ export default function Custom({
 					categories={categories}
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
+					reactionRolesLength={reactionRoles.reaction_roles.length}
+					premium={guild?.premium}
 				/>
 				<HStack justify="space-between">
 					<Heading size="md">Your Reaction Roles</Heading>
