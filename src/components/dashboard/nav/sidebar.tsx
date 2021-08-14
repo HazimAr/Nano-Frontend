@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
-	Avatar,
 	Box,
 	Divider,
 	Flex,
 	Heading,
 	HStack,
+	Image,
 	Spacer,
 	Stack,
 } from "@chakra-ui/react";
@@ -92,7 +92,7 @@ export function Sidebar(props: any): JSX.Element {
 
 						<Stack spacing="1">
 							<HStack justify="center">
-								<Avatar
+								<Image
 									src={`https://cdn.discordapp.com/icons/${
 										guild?.id
 									}/${guild?.icon}.${
@@ -100,7 +100,7 @@ export function Sidebar(props: any): JSX.Element {
 											? "gif"
 											: "png"
 									}`}
-									size="sm"
+									w="sm"
 								/>
 								<Heading size="md" textAlign="center">
 									{guild?.name}
