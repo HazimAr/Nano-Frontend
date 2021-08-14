@@ -52,7 +52,11 @@ export default function Custom({
 					categories={categories}
 					availableRoles={reactionRoles.roles}
 					customEmojis={reactionRoles.emojis}
-					reactionRolesLength={reactionRoles.reaction_roles.length}
+					reactionRolesLength={
+						reactionRoles.reaction_roles
+							? Object.keys(reactionRoles.reaction_roles).length
+							: 0
+					}
 					premium={guild?.premium}
 				/>
 				<HStack justify="space-between">
@@ -67,7 +71,7 @@ export default function Custom({
 					</Heading>
 				</HStack>
 				<Divider my={5} />
-				{reactionRoles.reaction_roles["1"]?.["1"]?.fetchedRoles
+				{reactionRoles.reaction_roles?.["1"]?.["1"]?.fetchedRoles
 					?.length ? (
 					<ReactionRoles
 						custom={reactionRoles.emojis}
