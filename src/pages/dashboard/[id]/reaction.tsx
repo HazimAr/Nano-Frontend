@@ -33,9 +33,6 @@ export default function Custom({
 		}
 	);
 
-	console.log(reactionRoles.reaction_roles);
-	console.log(reactionRoles);
-
 	return (
 		<Layout session={session}>
 			<Stack spacing={5}>

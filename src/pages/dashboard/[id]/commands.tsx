@@ -18,7 +18,7 @@ export default function NanoCommands({
 }): JSX.Element {
 	console.log(commands);
 	return (
-		<Layout session={session}>
+		<Layout  session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				<Heading textAlign="center">
 					Enable and Disable Commands

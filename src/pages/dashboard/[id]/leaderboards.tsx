@@ -47,7 +47,7 @@ export default function Custom({
 	const [sort, setSort] = useState(options[0]);
 
 	return (
-		<Layout session={session}>
+		<Layout  session={session}>
 			<Box maxW="700px" w="100%">
 				<Select
 					// @ts-ignore

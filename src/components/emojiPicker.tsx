@@ -21,7 +21,6 @@ export default function EmojiPicker({
 					setMouseX(e.clientX);
 					setMouseY(e.clientY);
 				}
-				console.log(e);
 			}}
 			w="fit-content"
 		>

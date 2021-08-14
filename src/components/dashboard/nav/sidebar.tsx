@@ -1,7 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
-import React from "react";
+import {
+	Avatar,
+	Box,
+	Divider,
+	Flex,
+	Heading,
+	HStack,
+	Spacer,
+	Stack,
+} from "@chakra-ui/react";
+import axios from "axios";
+import { DISCORD_BASE_URL } from "config";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import {
 	FaBars,
 	FaClock,
@@ -15,7 +27,25 @@ import { NavLink } from "./navlink";
 import { UserProfile } from "./userprofile";
 
 export function Sidebar(props: any): JSX.Element {
-	const { guild, ...rest } = props;
+	const router = useRouter();
+	const guild_id = router.asPath.split("/")[2];
+
+	let guild;
+	useEffect(() => {
+		axios
+			.get(`${DISCORD_BASE_URL}/users/@me/guilds`, {
+				headers: {
+					authorization: `Bearer ${props.session.accessToken}`,
+				},
+			})
+			.then(({ data }) => {
+				guild = data.find((g) => g.id === guild_id);
+				console.log(guild);
+
+				// guild = data;
+			});
+	}, []);
+
 	return (
 		<Box>
 			<Flex
@@ -24,7 +54,7 @@ export function Sidebar(props: any): JSX.Element {
 				borderRightWidth="1px"
 				width="225px"
 				position="fixed"
-				{...rest}
+				{...props}
 			>
 				<Flex
 					direction="column"
@@ -46,22 +76,38 @@ export function Sidebar(props: any): JSX.Element {
 						<Stack spacing="1">
 							<NavLink label="Edit Guild" icon={FaPen} href="" />
 
-							{/* <NavLink
-								label="Premium"
-								icon={FaCrown}
-								href="/dashboard/premium"
-							/> */}
 							<NavLink
 								label="Leaderboards"
 								icon={FaMedal}
 								href="leaderboards"
 							/>
+
+							{/* <NavLink
+								label="Premium"
+								icon={FaCrown}
+								href="/dashboard/premium"
+							/> */}
 						</Stack>
 
 						<Divider />
 
 						<Stack spacing="1">
-							{guild?.name}
+							{console.log(guild)}
+							<HStack justify="center">
+								<Avatar
+									src={`https://cdn.discordapp.com/icons/${
+										guild?.id
+									}/${guild?.icon}.${
+										guild?.icon?.startsWith("a_")
+											? "gif"
+											: "png"
+									}`}
+									size="sm"
+								/>
+								<Heading size="md" textAlign="center">
+									{guild?.name}
+								</Heading>
+							</HStack>
 							<NavLink
 								label="Nano Commands"
 								icon={FaBars}

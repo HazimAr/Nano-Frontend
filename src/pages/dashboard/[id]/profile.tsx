@@ -8,18 +8,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getOsuRank, getUser, loginOsu } from "@api/server";
 import {
-	AspectRatio,
-	Avatar,
-	Box,
-	Center,
-	CircularProgress,
-	Flex,
-	FormControl,
-	Heading,
-	HStack,
-	Input,
-	Stack,
-	Text,
+    AspectRatio,
+    Avatar,
+    Box,
+    Center,
+    CircularProgress,
+    Flex,
+    FormControl,
+    Heading,
+    HStack,
+    Input,
+    Stack,
+    Text
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -66,7 +66,7 @@ export default function Profile({
 	}, [osuState]);
 
 	return (
-		<Layout session={session}>
+		<Layout  session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				{guildId ? (
 					<HStack

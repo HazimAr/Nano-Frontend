@@ -23,14 +23,14 @@ export default function Guild({
 	guild_id,
 }: {
 	session: DiscordUser;
-
+	
 	guild: any;
 	guild_id: string;
 }): JSX.Element {
 	const discordGuild = guild.discordGuild;
 	const mongoGuild = guild.mongoGuildObject;
 	return (
-		<Layout session={session}>
+		<Layout guild={discordGuild} session={session}>
 			<Stack align="center" mt={5} spacing={5}>
 				<Flex align="center" w="100%">
 					<Avatar

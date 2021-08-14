@@ -37,7 +37,7 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 		id = 1;
 	}
 	return (
-		<Layout session={session}>
+		<Layout  session={session}>
 			<Stack w="100%">
 				<Heading>Custom Commands</Heading>
 				<Text>
