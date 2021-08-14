@@ -92,16 +92,19 @@ export default function Guild({
 						description="Click on a switch to activate and deactivate certain command nano commands."
 						href={`/${guild_id}/commands`}
 					/>
+
 					<Panel
 						name="Custom Commands"
 						description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message."
 						href={`/${guild_id}/custom`}
 					/>
+
 					<Panel
 						name="Reaction Roles"
 						description="Create a customizable message that when users will react to they will recieve a specified role."
 						href={`/${guild_id}/reaction`}
 					/>
+
 					<Panel
 						name="Timers"
 						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."

@@ -54,11 +54,11 @@ export default function Custom({
 				<HStack justify="space-between">
 					<Heading size="md">Your Reaction Roles</Heading>
 					<Heading size="md">
-						{
-							Object.keys(reactionRoles.reaction_roles).filter(
-								(r) => !r
-							).length
-						}
+						{reactionRoles.reaction_roles
+							? Object.keys(reactionRoles.reaction_roles).filter(
+									(r) => !r
+							  ).length
+							: 0}
 						/{guild?.premium === 0 ? 1 : 5}
 					</Heading>
 				</HStack>
