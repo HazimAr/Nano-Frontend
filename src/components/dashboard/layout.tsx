@@ -9,11 +9,9 @@ import { Sidebar } from "./nav/sidebar";
 export default function Layout({
 	children,
 	session,
-
 }: {
 	children: React.ReactNode;
 	session: DiscordUser;
-
 }): JSX.Element {
 	return (
 		<Flex
@@ -23,7 +21,7 @@ export default function Layout({
 			overflowY="auto"
 			overflowX="hidden"
 		>
-			<MobileTopBar session={session}/>
+			<MobileTopBar session={session} />
 			<Flex flex="1">
 				<Sidebar
 					display={{ base: "none", md: "flex" }}
