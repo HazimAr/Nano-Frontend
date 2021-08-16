@@ -72,7 +72,8 @@ export async function createCustomCommand(
 	command_id: string,
 	response: any,
 	token: string,
-	_delete: boolean = false
+	_delete: boolean = false,
+	enabled?: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/customCommands`,
@@ -81,6 +82,7 @@ export async function createCustomCommand(
 			trigger,
 			response,
 			_delete,
+			enabled,
 			command_id,
 			authorization: `Bearer ${token}`,
 		},
@@ -98,6 +100,7 @@ export async function createTimer(
 	message: string,
 	token: unknown,
 	_delete: boolean = false
+	enabled?: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/timers`,
@@ -107,6 +110,7 @@ export async function createTimer(
 			interval,
 			timer_id,
 			message,
+			enabled,
 			authorization: `Bearer ${token}`,
 			_delete,
 		},
@@ -161,6 +165,7 @@ export async function createReactionRoleMessage(
 	token: unknown,
 	role_rows: any[],
 	_delete: boolean = false
+	enabled?: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/reactionRoles`,
@@ -170,6 +175,7 @@ export async function createReactionRoleMessage(
 			reaction_role_id,
 			_delete,
 			message,
+			enabled,
 			role_rows,
 			authorization: `Bearer ${token}`,
 		},
