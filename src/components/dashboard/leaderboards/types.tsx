@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, Divider, Flex, Text } from "@chakra-ui/react";
 import Level from "@components/dashboard/profile/level";
 
 export function Votes({ leaderboards }: any): JSX.Element {
@@ -50,7 +50,7 @@ export function Votes({ leaderboards }: any): JSX.Element {
 							</Flex>
 
 							<Flex justify="center" mx={3}>
-								<Image
+								<Avatar
 									alt={user.tag}
 									src={user.img}
 									boxSize="50px"
@@ -135,7 +135,7 @@ export function Rank({ leaderboards }: any): JSX.Element {
 							</Flex>
 
 							<Flex justify="center" mx={3}>
-								<Image
+								<Avatar
 									src={user.img}
 									boxSize="50px"
 									rounded="50%"
@@ -221,7 +221,7 @@ export function Tokens({ leaderboards }: any): JSX.Element {
 							</Flex>
 
 							<Flex justify="center" mx={3}>
-								<Image
+								<Avatar
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"
@@ -306,7 +306,7 @@ export function Osu({ leaderboards }: any): JSX.Element {
 							</Flex>
 
 							<Flex justify="center" mx={3}>
-								<Image
+								<Avatar
 									src={user.img}
 									boxSize="50px"
 									fallbackSrc="/oss.png"
@@ -390,7 +390,7 @@ export function Messages({ leaderboards }: any): JSX.Element {
 							</Flex>
 
 							<Flex justify="center" mx={3}>
-								<Image
+								<Avatar
 									alt={user.tag}
 									src={user.img}
 									boxSize="50px"
