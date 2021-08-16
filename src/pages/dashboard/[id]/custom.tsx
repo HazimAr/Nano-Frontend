@@ -36,6 +36,7 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 	} catch {
 		id = 1;
 	}
+	console.log(id)
 	return (
 		<Layout  session={session}>
 			<Stack w="100%">
