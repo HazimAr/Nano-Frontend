@@ -73,7 +73,7 @@ export async function createCustomCommand(
 	response: any,
 	token: string,
 	_delete: boolean = false,
-	enabled?: boolean = true
+	enabled: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/customCommands`,
@@ -100,7 +100,7 @@ export async function createTimer(
 	message: string,
 	token: unknown,
 	_delete: boolean = false,
-	enabled?: boolean = true
+	enabled: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/timers`,
@@ -165,7 +165,7 @@ export async function createReactionRoleMessage(
 	token: unknown,
 	role_rows: any[],
 	_delete: boolean = false,
-	enabled?: boolean = true
+	enabled: boolean = true
 ) {
 	const { data } = await axios.put(
 		`${SERVER_URL}/g/reactionRoles`,
