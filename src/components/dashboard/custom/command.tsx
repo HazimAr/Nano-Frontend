@@ -16,12 +16,15 @@ export default function Command({
 	prefix,
 	token,
 	command,
+	premium,
 }: {
 	guild_id: string;
 	token: unknown;
 	command: any;
 	prefix: string;
+	premium: number;
 }): JSX.Element {
+
 	const toast = useToast();
 	return (
 		<HStack
@@ -31,6 +34,8 @@ export default function Command({
 			px={5}
 			my={5}
 			rounded={5}
+			opacity = {!premium && !command.trigger ? 0.3 : 1}
+			_hover = {{cursor: !premium ? "not-allowed" : "auto"}}
 		>
 			<Stack>
 				<Heading size="lg">
@@ -46,10 +51,21 @@ export default function Command({
 					command={command}
 					prefix={prefix}
 					guild_id={guild_id}
+					premium={premium}
 				/>
 				<Button
 					type="delete"
 					onClick={async () => {
+						if(!premium){
+							toast({
+								title: "Error",
+								description:
+									"Premium required to modify",
+								duration: 3000,
+								isClosable: true,
+							});
+							return
+						}
 						toast({
 							title: "Sent",
 							description: "Your custom command is being deleted",

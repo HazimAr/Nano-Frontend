@@ -30,6 +30,7 @@ export default function YourCommands({
 							token={token}
 							prefix={guild?.prefix ?? "!"}
 							guild_id={guild._id}
+							premium={guild?.premium}
 						/>
 					);
 				})

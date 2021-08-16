@@ -26,11 +26,13 @@ export default function EditCustom({
 	guild_id,
 	prefix,
 	command,
+	premium,
 }: {
 	token: unknown;
 	guild_id: string;
 	command: any;
 	prefix: string;
+	premium: number;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [trigger, setTrigger] = useState(command.trigger);
@@ -39,7 +41,21 @@ export default function EditCustom({
 	const router = useRouter();
 	return (
 		<Box w="100%">
-			<Button w="100%" onClick={onOpen}>
+			<Button
+				w="100%"
+				onClick={async () => {
+					if (!premium) {
+						toast({
+							title: "Error",
+							description: "Premium required to modify",
+							duration: 3000,
+							isClosable: true,
+						});
+						return;
+					}
+					onOpen;
+				}}
+			>
 				Edit
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose}>
@@ -110,7 +126,7 @@ export default function EditCustom({
 								toast({
 									title: "Sent",
 									description:
-										"Your custom command is being Updating",
+										"Your custom command is being updated",
 
 									duration: 3000,
 									isClosable: true,
