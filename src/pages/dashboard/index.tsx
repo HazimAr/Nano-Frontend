@@ -6,13 +6,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuilds } from "@api/discord";
 import {
-	Avatar,
 	Box,
 	Divider,
 	Flex,
 	Heading,
-	HStack, Stack,
-	VStack
+	HStack,
+	Image,
+	Stack,
+	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Container from "@components/container";
@@ -115,7 +116,7 @@ export default function Index({
 												}}
 												justify="center"
 											>
-												<Avatar
+												<Image
 													src={`https://cdn.discordapp.com/icons/${
 														guild.id
 													}/${guild.icon}.${

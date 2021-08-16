@@ -8,22 +8,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getOsuRank, getUser, loginOsu } from "@api/server";
 import {
-    AspectRatio,
-    Avatar,
-    Box,
-    Center,
-    CircularProgress,
-    Flex,
-    FormControl,
-    Heading,
-    HStack,
-    Input,
-    Stack,
-    Text
+	AspectRatio,
+	Avatar,
+	Box,
+	Center,
+	CircularProgress,
+	Flex,
+	FormControl,
+	Heading,
+	HStack,
+	Input,
+	Stack,
+	Text,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import Level from "@components/dashboard/profile/level";
+import NextChakraLink from "@components/nextChakra";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { getSession, signOut } from "next-auth/client";
@@ -36,11 +37,13 @@ export default function Profile({
 	osu,
 	guildId,
 	serverUser,
+	loginLink,
 }: {
 	session: DiscordUser;
 	osu: any;
 	guildId: string;
 	serverUser: any;
+	loginLink: string;
 }): JSX.Element {
 	console.log(serverUser);
 	const serverUser2 = serverUser.mongoUserObject.guilds[guildId];
@@ -53,6 +56,11 @@ export default function Profile({
 	const [fromUser, setFromUser] = useState(false);
 	const router = useRouter();
 
+	// console.log(`osu.osu object: ${osu.osu}`);
+	// console.log(`osu object:`);
+	// console.log(JSON.stringify(osu));
+
+	
 	useEffect(() => {
 		game === "osu"
 			? setOsuGame(osuState.osu)
@@ -66,7 +74,7 @@ export default function Profile({
 	}, [osuState]);
 
 	return (
-		<Layout  session={session}>
+		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				{guildId ? (
 					<HStack
@@ -285,18 +293,11 @@ export default function Profile({
 					) : null}
 				</Flex>
 				<Stack justify="center" align="center">
-					{osu.osu ? null : (
-						<Button
-							onClick={async () => {
-								const link = await loginOsu(
-									session.accessToken
-								);
-								await router.push(link);
-							}}
-						>
-							Sign in with Osu
-						</Button>
-					)}
+					{loginLink ? (
+						<NextChakraLink href={loginLink} isExternal>
+							<Button>Sign in with Osu</Button>
+						</NextChakraLink>
+					) : null}
 					<Button
 						onClick={async () => {
 							await signOut();
@@ -311,7 +312,7 @@ export default function Profile({
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session = (await getSession(context)) as DiscordUser;
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: "/",
@@ -320,12 +321,33 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const serverUser = await getUser(session.accessToken);
-	const osu = serverUser.osu ?? "";
+	const promises: Promise<any>[] = [];
 
-	const guild_id = context.req.url.split("/")[2] ?? "";
+	const props: Record<string, any> = { session };
 
-	return { props: { session, osu, guildId: guild_id, serverUser } };
+	// for serverUser, osu, and guildId
+	promises.push(
+		getUser(session.accessToken).then((user) => {
+			const osu = user.osu ?? "";
+
+			const guild_id = context.req.url.split("/")[2] ?? "";
+
+			props.serverUser = user;
+			props.osu = osu;
+			props.guildId = guild_id;
+		})
+	);
+
+	// for the login link
+	promises.push(
+		loginOsu(session.accessToken).then((success) => {
+			props.loginLink = success;
+		})
+	);
+
+	return Promise.all(promises).then(() => {
+		props;
+	});
 }
 
 function graph(theme: any, data: any[][]) {
