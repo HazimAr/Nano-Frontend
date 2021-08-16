@@ -158,7 +158,7 @@ export default function Commands({ commands, guild_id, token }): JSX.Element {
 									isClosable: true,
 								});
 								setChanged({});
-							router.push("/dashboard/commands")
+							router.push(router.asPath)
 							}}
 						>
 							Save

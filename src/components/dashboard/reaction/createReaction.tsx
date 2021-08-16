@@ -175,7 +175,7 @@ export default function CreateReaction({
 									duration: 3000,
 									isClosable: true,
 								});
-								router.push("/dashboard/reaction");
+								router.push(router.asPath);
 							}}
 						>
 							Create

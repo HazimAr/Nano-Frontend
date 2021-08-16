@@ -161,7 +161,7 @@ export default function CreateCustom({
 									duration: 3000,
 									isClosable: true,
 								});
-								router.push("/dashboard/custom");
+								router.push(router.asPath);
 							}}
 						>
 							Create

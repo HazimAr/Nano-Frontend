@@ -156,7 +156,7 @@ export default function EditTimer({
 									duration: 3000,
 									isClosable: true,
 								});
-								router.push("/dashboard/timers");
+								router.push(router.asPath);
 							}}
 						>
 							Save

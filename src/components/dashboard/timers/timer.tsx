@@ -68,7 +68,7 @@ export default function Timer({
 							duration: 3000,
 							isClosable: true,
 						});
-						router.push("/dashboard/timers");
+						router.push(router.asPath);
 					}}
 				>
 					Delete

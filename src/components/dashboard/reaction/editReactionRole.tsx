@@ -187,7 +187,7 @@ export default function EditReaction({
 									duration: 3000,
 									isClosable: true,
 								});
-								router.push("/dashboard/reaction");
+								router.push(router.asPath);
 							}}
 						>
 							Save

@@ -87,7 +87,7 @@ export default function Command({
 							isClosable: true,
 						});
 
-						router.push("/dashboard/custom");
+						router.push(router.asPath);
 					}}
 				>
 					Delete

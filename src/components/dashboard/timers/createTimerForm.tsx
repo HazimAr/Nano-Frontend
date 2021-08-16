@@ -163,7 +163,7 @@ export default function CreateTimerForm({
 									setChannel(null);
 									setTimer(null);
 									setMessage("");
-									router.push("/dashboard/timers");
+									router.push(router.asPath);
 								}}
 							>
 								Create
