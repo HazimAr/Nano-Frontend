@@ -164,7 +164,7 @@ export async function createReactionRoleMessage(
 	message: string,
 	token: unknown,
 	role_rows: any[],
-	_delete: boolean = false
+	_delete: boolean = false,
 	enabled?: boolean = true
 ) {
 	const { data } = await axios.put(
