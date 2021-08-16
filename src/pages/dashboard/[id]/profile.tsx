@@ -60,8 +60,8 @@ export default function Profile({
 	// console.log(`osu object:`);
 	// console.log(JSON.stringify(osu));
 
-	/// @ts-expect-error
-	useEffect(async () => {
+	
+	useEffect(() => {
 		game === "osu"
 			? setOsuGame(osuState.osu)
 			: game === "taiko"
