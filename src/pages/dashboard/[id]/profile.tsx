@@ -321,23 +321,33 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const serverUser = await getUser(session.accessToken);
-	const osu = serverUser.osu ?? "";
+	const promises: Promise<any>[] = [];
 
-	const guild_id = context.req.url.split("/")[2] ?? "";
+	const props: Record<string, any> = { session };
 
-	const props: Record<string, any> = {
-		session,
-		osu,
-		guildId: guild_id,
-		serverUser,
-	};
+	// for serverUser, osu, and guildId
+	promises.push(
+		getUser(session.accessToken).then((user) => {
+			const osu = user.osu ?? "";
 
-	if (!osu.osu) {
-		props.loginLink = await loginOsu(session.accessToken);
-	}
+			const guild_id = context.req.url.split("/")[2] ?? "";
 
-	return { props };
+			props.serverUser = user;
+			props.osu = osu;
+			props.guildId = guild_id;
+		})
+	);
+
+	// for the login link
+	promises.push(
+		loginOsu(session.accessToken).then((success) => {
+			props.loginLink = success;
+		})
+	);
+
+	return Promise.all(promises).then(() => {
+		props;
+	});
 }
 
 function graph(theme: any, data: any[][]) {
