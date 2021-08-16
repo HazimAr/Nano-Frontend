@@ -23,13 +23,13 @@ const options = [
 /* secondary: "#f6a", primary: "#7549ac", primary2: "#fab107", */
 
 const customStyles = {
-	option: (provided: any, state: { isSelected: any }) => ({
+	option: (provided: any, state: { isSelected: boolean }) => ({
 		...provided,
 		borderBottom: "1px solid white",
 		backgroundColor: state.isSelected ? "#fab107" : "#7549ac",
 	}),
 
-	singleValue: (provided: any, state: { isDisabled: any }) => {
+	singleValue: (provided: any, state: { isDisabled: boolean }) => {
 		const opacity = state.isDisabled ? 0.5 : 1;
 		const transition = "opacity 300ms";
 
