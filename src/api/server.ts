@@ -99,7 +99,7 @@ export async function createTimer(
 	timer_id: number,
 	message: string,
 	token: unknown,
-	_delete: boolean = false
+	_delete: boolean = false,
 	enabled?: boolean = true
 ) {
 	const { data } = await axios.put(
