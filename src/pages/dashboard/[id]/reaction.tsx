@@ -20,7 +20,7 @@ export default function Custom({
 	guild_id,
 }): JSX.Element {
 	const categories = reactionRoles.categories;
-	let reaction_role_id;
+	let reaction_role_id: Number = 1;
 
 	const guild = reactionRoles.mongoGuildObject;
 

@@ -165,6 +165,7 @@ export async function createReactionRoleMessage(
 	token: unknown,
 	role_rows: any[],
 	_delete: boolean = false,
+	_edit: boolean = false,
 	enabled: boolean = true
 ) {
 	const { data } = await axios.put(
@@ -174,6 +175,7 @@ export async function createReactionRoleMessage(
 			channel_id,
 			reaction_role_id,
 			_delete,
+			_edit,
 			message,
 			enabled,
 			role_rows,

@@ -60,7 +60,6 @@ export default function Profile({
 	// console.log(`osu object:`);
 	// console.log(JSON.stringify(osu));
 
-	
 	useEffect(() => {
 		game === "osu"
 			? setOsuGame(osuState.osu)
@@ -346,7 +345,7 @@ export async function getServerSideProps(context: any) {
 	);
 
 	return Promise.all(promises).then(() => {
-		props;
+		return { props };
 	});
 }
 
