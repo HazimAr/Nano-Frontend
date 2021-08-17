@@ -17,14 +17,16 @@ export default function Command({
 	token,
 	command,
 	premium,
+	check,
 }: {
 	guild_id: string;
 	token: unknown;
 	command: any;
 	prefix: string;
 	premium: number;
+	check: number;
 }): JSX.Element {
-
+	
 	const toast = useToast();
 	return (
 		<HStack
@@ -34,8 +36,8 @@ export default function Command({
 			px={5}
 			my={5}
 			rounded={5}
-			opacity = {!premium && !command.trigger ? 0.3 : 1}
-			_hover = {{cursor: !premium ? "not-allowed" : "auto"}}
+			opacity = {(!premium && !command.trigger &&	check!=1) ? 0.3 : 1}
+			_hover = {{cursor: (!premium &&	check!=1)? "not-allowed" : "auto"}}
 		>
 			<Stack>
 				<Heading size="lg">
@@ -52,11 +54,12 @@ export default function Command({
 					prefix={prefix}
 					guild_id={guild_id}
 					premium={premium}
+					check={check}
 				/>
 				<Button
 					type="delete"
 					onClick={async () => {
-						if(!premium){
+						if(!premium &&	check!=1){
 							toast({
 								title: "Error",
 								description:

@@ -27,12 +27,14 @@ export default function EditCustom({
 	prefix,
 	command,
 	premium,
+	check,
 }: {
 	token: unknown;
 	guild_id: string;
 	command: any;
 	prefix: string;
 	premium: number;
+	check: number;
 }): JSX.Element {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [trigger, setTrigger] = useState(command.trigger);
@@ -44,7 +46,7 @@ export default function EditCustom({
 			<Button
 				w="100%"
 				onClick={async () => {
-					if (!premium) {
+					if (!premium && check != 1) {
 						toast({
 							title: "Error",
 							description: "Premium required to modify",
@@ -53,7 +55,7 @@ export default function EditCustom({
 						});
 						return;
 					}
-					onOpen;
+						onOpen
 				}}
 			>
 				Edit

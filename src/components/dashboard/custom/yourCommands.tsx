@@ -12,6 +12,7 @@ export default function YourCommands({
 	guild: any;
 	token: string;
 }): JSX.Element {
+	console.log(commands)
 	return (
 		<Box w="100%">
 			<HStack justify="space-between">
@@ -23,6 +24,7 @@ export default function YourCommands({
 			<Divider my={5} />
 			{commands.length > 0 ? (
 				commands.map((command) => {
+					//console.log(command.command_id)
 					return (
 						<Command
 							key={command.command_id}
@@ -31,6 +33,7 @@ export default function YourCommands({
 							prefix={guild?.prefix ?? "!"}
 							guild_id={guild._id}
 							premium={guild?.premium}
+							check={command.command_id}
 						/>
 					);
 				})
