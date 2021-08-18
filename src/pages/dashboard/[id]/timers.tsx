@@ -100,14 +100,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.req.url.split("/")[2];
-
-	if (!guild_id) {
-		context.res.writeHead(307, {
-			Location: "/dashboard",
-		});
-		context.res.end();
-		return { props: { session, guild_id } };
-	}
+	console.log(guild_id);
 
 	const server = await getGuildTimers(guild_id, session.accessToken);
 
