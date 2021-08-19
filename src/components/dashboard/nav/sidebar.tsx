@@ -17,6 +17,7 @@ import {
 	GiIncomingRocket,
 	GiDoubleDragon,
 	GiSlashedShield,
+	GiImpLaugh,
 } from 'react-icons/gi';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
@@ -80,6 +81,7 @@ export function Sidebar(props: any): JSX.Element {
 							<NavLink label="Info" icon={GiInfo} href="info" />
 							<NavLink label="Games" icon={GiDoubleDragon} href="games" />
 							<NavLink label="Guild" icon={GiSlashedShield} href="guild" />
+							<NavLink label="Role Playing" icon={GiImpLaugh} href="role_playing" />
 							<Divider />
 							<NavLink label="Leaderboards" icon={FaMedal} href="leaderboards" />
 							<Divider />

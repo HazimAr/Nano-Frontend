@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultGuildPost } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
-import { _Commands } from '@components/dashboard/commands/_commands';
+import { CommandSection } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
@@ -13,8 +13,7 @@ export default function Games({ session, data, guild_id }: { session: DiscordUse
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<Heading textAlign="center">Enable and Disable Games Commands</Heading>
-				<_Commands commands={commands} />
+				<CommandSection commands={commands} title="Games" />
 			</Stack>
 		</Layout>
 	);

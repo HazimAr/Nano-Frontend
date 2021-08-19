@@ -3,7 +3,7 @@
 import { defaultGuildPost } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
 import { Commands } from '@components/dashboard/commands/commands';
-import { _Commands } from '@components/dashboard/commands/_commands';
+import { CommandSection } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
@@ -15,7 +15,7 @@ export default function Util({ session, data, guild_id }: { session: DiscordUser
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				<Heading textAlign="center">Enable and Disable Utility Commands</Heading>
-				<_Commands commands={commands} />
+				<CommandSection commands={commands} />
 				{/* <Commands commands={commands} guild_id={guild_id} token={session.accessToken} /> */}
 			</Stack>
 		</Layout>
