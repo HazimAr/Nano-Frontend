@@ -6,7 +6,18 @@ import { DISCORD_BASE_URL } from 'config';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaMedal, FaPen } from 'react-icons/fa';
-import { GiAbstract039, GiCirclingFish, GiToggles, GiSwordSmithing, GiBackwardTime, GiBearFace } from 'react-icons/gi';
+import {
+	GiAbstract039,
+	GiCirclingFish,
+	GiToggles,
+	GiSwordSmithing,
+	GiBackwardTime,
+	GiBearFace,
+	GiInfo,
+	GiIncomingRocket,
+	GiDoubleDragon,
+	GiSlashedShield,
+} from 'react-icons/gi';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
@@ -44,18 +55,6 @@ export function Sidebar(props: any): JSX.Element {
 				</Box> */}
 
 					<Stack spacing="6" as="nav" aria-label="Sidebar Navigation">
-						<Stack spacing="1">
-							<NavLink label="Edit Guild" icon={FaPen} href="" />
-
-							<NavLink label="Leaderboards" icon={FaMedal} href="leaderboards" />
-
-							{/* <NavLink
-								label="Premium"
-								icon={FaCrown}
-								href="/dashboard/premium"
-							/> */}
-						</Stack>
-
 						<Divider />
 
 						<Stack spacing="1">
@@ -71,20 +70,32 @@ export function Sidebar(props: any): JSX.Element {
 									{guild?.name}
 								</Heading>
 							</HStack>
-							<NavLink label="Nano Commands" icon={GiToggles} href="commands" />
-							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="custom" />
-							<NavLink label="Reaction Roles" icon={GiBearFace} href="reaction" />
 							<NavLink label="osu!" icon={GiAbstract039} href="osu" />
+							<NavLink label="Reaction Roles" icon={GiBearFace} href="reaction" />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
 							<NavLink label="Utility" icon={HiOutlineCollection} href="util" />
 							<NavLink label="Anime" icon={GiCirclingFish} href="anime" />
 							<NavLink label="Timers" icon={GiBackwardTime} href="timers" />
-							<NavLink label="Info" icon={GiBackwardTime} href="info" />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
+							<NavLink label="Info" icon={GiInfo} href="info" />
+							<NavLink label="Games" icon={GiDoubleDragon} href="games" />
+							<NavLink label="Guild" icon={GiSlashedShield} href="guild" />
+							<Divider />
+							<NavLink label="Leaderboards" icon={FaMedal} href="leaderboards" />
+							<Divider />
+							<NavLink label="Edit Guild" icon={FaPen} href="" />
+							{/* <NavLink
+								label="Premium"
+								icon={FaCrown}
+								href="/dashboard/premium"
+							/> */}
+							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="custom" />
+							<NavLink label="Nano Commands" icon={GiToggles} href="commands" />
+							<UserProfile session={props.session} />
 						</Stack>
 					</Stack>
 					<Spacer />
 				</Flex>
-
-				<UserProfile session={props.session} />
 			</Flex>
 			<Box h="100vh" w="225px" display={{ base: 'none', md: 'block' }} />
 		</Box>
