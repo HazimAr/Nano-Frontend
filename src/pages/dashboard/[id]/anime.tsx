@@ -7,13 +7,13 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Util({ session, data, guild_id }: { session: DiscordUser; commands: any; guild_id: string }): JSX.Element {
+export default function Util({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	console.log(data);
 	const { commands } = data;
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<Heading textAlign="center">Enable and Disable osu! Commands</Heading>
+				<Heading textAlign="center">Enable and Disable Anime Commands</Heading>
 				{commands.map((cmd) => (
 					<h1 key={cmd.name}>
 						Name: {cmd.name}

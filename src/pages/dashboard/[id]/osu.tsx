@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultGuildPost } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
-import { Commands } from '@components/dashboard/commands/commands';
+import { _Commands } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
@@ -14,14 +14,7 @@ export default function Osu({ session, data, guild_id }: { session: DiscordUser;
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
 				<Heading textAlign="center">Enable and Disable osu! Commands</Heading>
-				{commands.map((cmd) => (
-					<h1 key={cmd.name}>
-						Name: {cmd.name}
-						<br />
-						Enabled: {cmd.enabled && 'true'}
-					</h1>
-				))}
-				{/* <Commands commands={commands} guild_id={guild_id} token={session.accessToken} /> */}
+				<_Commands commands={commands} />
 			</Stack>
 		</Layout>
 	);
