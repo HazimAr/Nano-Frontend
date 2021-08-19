@@ -7,13 +7,21 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function NanoCommands({ session, commands, guild_id }: { session: DiscordUser; commands: any; guild_id: string }): JSX.Element {
-	console.log(commands);
+export default function Info({ session, data, guild_id }: { session: DiscordUser; commands: any; guild_id: string }): JSX.Element {
+	console.log(data);
+	const { commands } = data;
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<Heading textAlign="center">Enable and Disable Commands</Heading>
-				<Commands commands={commands} guild_id={guild_id} token={session.accessToken} />
+				<Heading textAlign="center">Enable and Disable osu! Commands</Heading>
+				{commands.map((cmd) => (
+					<h1 key={cmd.name}>
+						Name: {cmd.name}
+						<br />
+						Enabled: {cmd.enabled && 'true'}
+					</h1>
+				))}
+				{/* <Commands commands={commands} guild_id={guild_id} token={session.accessToken} /> */}
 			</Stack>
 		</Layout>
 	);
@@ -37,7 +45,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const [, , guild_id] = context.req.url.split('/');
-	const commands = await defaultGuildPost('util', guild_id, session.accessToken);
+	const data = await defaultGuildPost('info', guild_id, session.accessToken);
 
-	return { props: { session, commands, guild_id } };
+	return { props: { session, data, guild_id } };
 }
