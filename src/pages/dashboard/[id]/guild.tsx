@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { defaultGuildPost } from '@api/server';
+import { defaultPostRequest } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
 import { CommandSection } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Guild({ session, data, guild_id }: { session: DiscordUser; commands: any; guild_id: string }): JSX.Element {
+export default function Guild({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
 	return (
 		<Layout session={session}>
@@ -36,7 +36,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const [, , guild_id] = context.req.url.split('/');
-	const data = await defaultGuildPost('guild', guild_id, session.accessToken);
+	const data = await defaultPostRequest('guild', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };
 }

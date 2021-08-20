@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { defaultGuildPost } from '@api/server';
+import { defaultPostRequest } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
-import { Commands } from '@components/dashboard/commands/commands';
+import { CommandSection } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
@@ -13,14 +13,7 @@ export default function Util({ session, data, guild_id }: { session: DiscordUser
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<Heading textAlign="center">Enable and Disable Anime Commands</Heading>
-				{commands.map((cmd) => (
-					<h1 key={cmd.name}>
-						Name: {cmd.name}
-						<br />
-						Enabled: {cmd.enabled && 'true'}
-					</h1>
-				))}
+				<CommandSection commands={commands} title="Games" />
 				{/* <Commands commands={commands} guild_id={guild_id} token={session.accessToken} /> */}
 			</Stack>
 		</Layout>
@@ -45,7 +38,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const [, , guild_id] = context.req.url.split('/');
-	const data = await defaultGuildPost('anime', guild_id, session.accessToken);
+	const data = await defaultPostRequest('g/groups/anime', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };
 }

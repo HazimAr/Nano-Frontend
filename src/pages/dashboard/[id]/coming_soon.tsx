@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { defaultGuildPost } from '@api/server';
+import { defaultPostRequest } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
 import { CommandSection } from '@components/dashboard/commands/_commands';
 import Layout from '@components/dashboard/layout';
@@ -38,7 +38,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const [, , guild_id] = context.req.url.split('/');
-	const data = await defaultGuildPost('coming_soon', guild_id, session.accessToken);
+	const data = await defaultPostRequest('coming_soon', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };
 }
