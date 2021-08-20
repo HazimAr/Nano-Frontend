@@ -1,14 +1,7 @@
-import {
-	HStack,
-	Icon,
-	Link,
-	LinkProps,
-	Text,
-	useColorModeValue as mode,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
+import { HStack, Icon, Link, LinkProps, Text, useColorModeValue as mode } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 type NavLinkProps = {
 	isActive?: boolean;
@@ -21,28 +14,8 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, href, ...rest } = props;
 	const router = useRouter();
 	return (
-		<NextLink
-			href={`/${router.asPath.split("/")[1]}/${
-				router.asPath.split("/")[2]
-			}/${href}`}
-			passHref
-		>
+		<NextLink href={`/${router.asPath.split('/')[1]}/${router.asPath.split('/')[2]}/${href}`} passHref>
 			<Link
-				bg={
-					props.href == "" &&
-					!isNaN(
-						//@ts-ignore
-						router.asPath.split("/")[
-							router.asPath.split("/").length - 1
-						]
-					)
-						? "brand.primary2"
-						: router.asPath.split("/")[
-								router.asPath.split("/").length - 1
-						  ] === props.href
-						? "brand.primary2"
-						: ""
-				}
 				display="block"
 				py="2"
 				px="3"
@@ -51,19 +24,16 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 				fontWeight="medium"
 				fontSize="sm"
 				userSelect="none"
-				aria-current={isActive ? "page" : undefined}
-				color={mode("white.700", "white.400")}
+				aria-current={isActive ? 'page' : undefined}
+				color={href === '' && (!isNaN(router.asPath.split('/')[router.asPath.split('/').length - 1]) || router.asPath.split('/')[router.asPath.split('/').length - 1] === href) && 'hsl(334, 88%, 55%)'}
+				// {mode('white.700', 'white.400')}
 				// _hover={{
 				// 	bg: mode("blue.200", "blue.700"),
 				// 	color: mode("white.900", "white"),
 				// }}
-				_hover={
-					router.asPath === props.href
-						? { color: "brand.primary" }
-						: { color: "brand.secondary" }
-				}
+				_hover={router.asPath === href ? { color: 'brand.primary' } : { color: 'brand.secondary' }}
 				// _activeLink={{
-				// 	bg: router.asPath === props.href ? "blue.200" : "",
+				// 	bg: router.asPath === href ? "blue.200" : "",
 				// 	color: "inherit",
 				// }}
 				{...rest}

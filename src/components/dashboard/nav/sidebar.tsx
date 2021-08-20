@@ -6,19 +6,7 @@ import { DISCORD_BASE_URL } from 'config';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaMedal, FaPen } from 'react-icons/fa';
-import {
-	GiAbstract039,
-	GiCirclingFish,
-	GiToggles,
-	GiSwordSmithing,
-	GiBackwardTime,
-	GiBearFace,
-	GiInfo,
-	GiIncomingRocket,
-	GiDoubleDragon,
-	GiSlashedShield,
-	GiImpLaugh,
-} from 'react-icons/gi';
+import { GiAbstract039, GiCirclingFish, GiToggles, GiSwordSmithing, GiBackwardTime, GiBearFace, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
@@ -46,9 +34,9 @@ export function Sidebar(props): JSX.Element {
 	// }, []);
 
 	return (
-		<Box color="black">
-			<Flex bg="linear-gradient(#f6a 50%, #e68ab3)" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
-				<Flex direction="column" flex="1" py="6" px="4" overflowY="auto">
+		<Box>
+			<Flex bg="bg.primary2" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
+				<Flex direction="column" flex="1" py="8" px="10" overflowY="auto">
 					<Logo />
 
 					{/* <Box mb="6">
@@ -58,13 +46,7 @@ export function Sidebar(props): JSX.Element {
 					<Stack spacing="6" as="nav" aria-label="Sidebar Navigation">
 						<Stack spacing="1">
 							<HStack justify="center">
-								<Image
-									src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${
-										guild?.icon?.startsWith('a_') ? 'gif' : 'png'
-									}`}
-									w="50px"
-									rounded="50%"
-								/>
+								<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="50px" rounded="50%" />
 								<Heading size="md" textAlign="center">
 									{guild?.name}
 									...Guild Image

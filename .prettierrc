@@ -3,6 +3,6 @@
 	"tabWidth": 4,
 	"singleQuote": true,
 	"useTabs": true,
-	"printWidth": 150,
+	"printWidth": 250,
 	"proseWrap": "never"
 }
