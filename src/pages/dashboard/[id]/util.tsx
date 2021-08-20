@@ -1,22 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
-import { Heading, Stack } from '@chakra-ui/react';
-import { Commands } from '@components/dashboard/commands/commands';
+import { Stack } from '@chakra-ui/react';
 import { CommandSection } from '@components/dashboard/commands/CommandSection';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
 export default function Util({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
-	console.log(data);
 	const { commands } = data;
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<Heading textAlign="center">Enable and Disable Utility Commands</Heading>
-				<CommandSection commands={commands} />
-				{/* <Commands commands={commands} guild_id={guild_id} token={session.accessToken} /> */}
+				<CommandSection title="Utility" commands={commands} />
 			</Stack>
 		</Layout>
 	);

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
-import { Heading, Stack } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { CommandSection } from '@components/dashboard/commands/CommandSection';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
 export default function Games({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
-	console.log(data);
 	const { commands } = data;
 	return (
 		<Layout session={session}>
