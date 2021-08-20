@@ -4,26 +4,34 @@ import axios from 'axios';
 import { SERVER_URL } from 'config';
 import { getId } from './discord';
 
-const config = {
-	timeout: 1000 * 10,
-};
-
+const config = { timeout: 1000 * 10 };
 //
 // 🌟 ------------------------------------------------------------------- POST REQUESTS ------------------------------------------------------------------- 🌟 //
 //
-export async function defaultGuildPost(guild_file: string, guild_id: string, authorization: string) {
-	return (await axios.post(`${SERVER_URL}/g/${guild_file}`, { guild_id, authorization: `Bearer ${authorization}` }, config)).data;
+
+export async function defaultPostRequest(path: string, guild_id: string, authorization: string) {
+	return (await axios.post(`${SERVER_URL}/${path}`, { guild_id, authorization: `Bearer ${authorization}` }, config)).data;
 }
+
 //
-// ----------------------------------------------------------------------------------------------------------------------
+// -------------------------------- 💠 OPEN 💠 --------------------------------
 //
+
 export async function getLeaderboards() {
 	return await axios.post(`${SERVER_URL}/lb`, config);
 }
 
+//
+// -------------------------------- 💠 GUILDS 💠 --------------------------------
+//
+
 export async function getGuildLeaderboards(guild_id) {
 	return await axios.post(`${SERVER_URL}/lb/guild`, { guild_id }, config);
 }
+
+//
+// -------------------------------- 💠 USERS 💠 --------------------------------
+//
 
 export async function getOsuRank(id: string) {
 	return await axios.post(`${SERVER_URL}/osu/user`, { id }, config);
@@ -34,48 +42,19 @@ export async function getUser(token: unknown) {
 }
 
 //
-// -------------------------------- 💠 Guilds 💠 --------------------------------
-//
-
-// export async function getGuildAnime(guild_id: string, token: string) {
-// 	return await defaultGuildPost('anime', guild_id, token);
-// }
-
-export async function getGuildOsu(guild_id: string, token: string) {
-	return await defaultGuildPost('osu', guild_id, token);
-}
-
-export async function getGuildReactionRoles(guild_id: string, token: string) {
-	return await defaultGuildPost('reactionRoles', guild_id, token);
-}
-
-export async function getNanoCommands(guild_id: string, token: string) {
-	return await defaultGuildPost('toggleCommands', guild_id, token);
-}
-
-export async function getCustomCommands(guild_id: string, token: string) {
-	return await defaultGuildPost('customCommands', guild_id, token);
-}
-
-export async function getGuild(guild_id: string, token: string) {
-	return await defaultGuildPost('profile', guild_id, token);
-}
-
-export async function getGuildTimers(guild_id: string, token: string) {
-	return await defaultGuildPost('timers', guild_id, token);
-}
-
-// This 👇 should be using g/guild to get premium 🤔
-
-// export async function getGuildPremium(guild_id: string, token: unknown) {
-// 	return await defaultGuildPost('premium', guild_id, `Bearer ${token}`);
-// }
-
-//
 // 🍎 ------------------------------------------------------------------- PUT REQUESTS ------------------------------------------------------------------- 🍎 //
 //
+
+//
+// -------------------------------- 💠 OPEN 💠 --------------------------------
+//
+
+//
+// -------------------------------- 💠 GUILDS 💠 --------------------------------
+//
+
 export async function updateNanoCommands(guild_id: string, commandsToChange: object, token: string) {
-	const { data } = await axios.put(
+	return await axios.put(
 		`${SERVER_URL}/g/toggleCommands`,
 		{
 			guild_id,
@@ -84,13 +63,6 @@ export async function updateNanoCommands(guild_id: string, commandsToChange: obj
 		},
 		config
 	);
-	return data;
-}
-
-export async function loginOsu(token: string) {
-	const id = await getId(token);
-	const { data } = await axios.put(`${SERVER_URL}/osu/newUser`, { id }, config);
-	return data;
 }
 
 export async function createCustomCommand(
@@ -102,7 +74,7 @@ export async function createCustomCommand(
 	_delete: boolean = false,
 	enabled: boolean = true
 ) {
-	const { data } = await axios.put(
+	return await axios.put(
 		`${SERVER_URL}/g/customCommands`,
 		{
 			guild_id,
@@ -115,8 +87,6 @@ export async function createCustomCommand(
 		},
 		config
 	);
-
-	return data;
 }
 
 export async function createTimer(
@@ -125,11 +95,11 @@ export async function createTimer(
 	interval: number,
 	timer_id: number,
 	message: string,
-	token: unknown,
+	token: string,
 	_delete: boolean = false,
 	enabled: boolean = true
 ) {
-	const { data } = await axios.put(
+	return await axios.put(
 		`${SERVER_URL}/g/timers`,
 		{
 			guild_id,
@@ -143,20 +113,10 @@ export async function createTimer(
 		},
 		config
 	);
-	return data;
 }
 
 export async function deleteGuildTimer(guild_id: string, timer_id: string, token: unknown) {
-	const { data } = await axios.put(
-		`${SERVER_URL}/g/timers/delete`,
-
-		{
-			guild_id,
-			timer_id,
-			authorization: `Bearer ${token}`,
-		}
-	);
-	return data;
+	return await axios.put(`${SERVER_URL}/g/timers/delete`, { guild_id, timer_id, authorization: `Bearer ${token}` });
 }
 
 export async function createReactionRoleMessage(
@@ -170,8 +130,8 @@ export async function createReactionRoleMessage(
 	_edit: boolean = false,
 	enabled: boolean = true
 ) {
-	const { data } = await axios.put(
-		`${SERVER_URL}/g/reactionRoles`,
+	return await axios.put(
+		`${SERVER_URL}/g/reaction_roles`,
 		{
 			guild_id,
 			channel_id,
@@ -185,5 +145,13 @@ export async function createReactionRoleMessage(
 		},
 		config
 	);
-	return data;
+}
+
+//
+// -------------------------------- 💠 USERS 💠 --------------------------------
+//
+
+export async function loginOsu(token: string) {
+	const id = await getId(token);
+	return await axios.put(`${SERVER_URL}/osu/newUser`, { id }, config);
 }
