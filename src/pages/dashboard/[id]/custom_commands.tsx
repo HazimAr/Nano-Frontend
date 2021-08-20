@@ -39,15 +39,7 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 			<Stack w="100%">
 				<Heading>Custom Commands</Heading>
 				<Text>Set a custom command so when you type "-myCustomCommand" the bot will respond with a customizable message.</Text>
-				<CreateCustom
-					guild_id={guild_id}
-					token={session.accessToken}
-					guild={guild}
-					command_id={id}
-					commands={allCommands}
-					commandsLength={commands.length}
-					premium={guild.premium}
-				/>
+				<CreateCustom guild_id={guild_id} token={session.accessToken} guild={guild} command_id={id} commands={allCommands} commandsLength={commands.length} premium={guild.premium} />
 				<YourCommands guild={guild} commands={commands} token={session.accessToken} />
 			</Stack>
 		</Layout>
@@ -63,15 +55,8 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	if (!context.req.url.split('/')[2]) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
 
-	const guild_id = context.req.url.split('/')[2];
+	const guild_id = context.params.id;
 
 	const guild = await defaultPostRequest('g/custom_commands', guild_id, session.accessToken);
 

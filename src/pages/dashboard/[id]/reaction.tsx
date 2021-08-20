@@ -39,20 +39,12 @@ export default function Custom({ session, reactionRoles, guild_id }): JSX.Elemen
 				<HStack justify="space-between">
 					<Heading size="md">Your Reaction Roles</Heading>
 					<Heading size="md">
-						{reactionRoles.reaction_roles ? Object.keys(reactionRoles.reaction_roles).filter((r) => !r).length : 0}/
-						{guild?.premium === 0 ? 1 : 5}
+						{reactionRoles.reaction_roles ? Object.keys(reactionRoles.reaction_roles).filter((r) => !r).length : 0}/{guild?.premium === 0 ? 1 : 5}
 					</Heading>
 				</HStack>
 				<Divider my={5} />
 				{reactionRoles.reaction_roles?.['1']?.['1']?.fetchedRoles?.length ? (
-					<ReactionRoles
-						custom={reactionRoles.emojis}
-						reactionRoles={reactionRoles.reaction_roles}
-						availableRoles={reactionRoles.roles}
-						guild_id={guild_id}
-						token={session.accessToken}
-						categories={categories}
-					/>
+					<ReactionRoles custom={reactionRoles.emojis} reactionRoles={reactionRoles.reaction_roles} availableRoles={reactionRoles.roles} guild_id={guild_id} token={session.accessToken} categories={categories} />
 				) : (
 					<Center style={{ outlineStyle: 'dashed', outlineWidth: 2 }} color="grey" py={5}>
 						<Text color="white" mx={5}>
@@ -71,14 +63,6 @@ export async function getServerSideProps(context: any) {
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-
-	if (!context.req.url.split('/')[2]) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
 		});
 		context.res.end();
 		return { props: { session } };

@@ -21,21 +21,12 @@ export default function Osu({ session, data, guild_id }: { session: DiscordUser;
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 	if (!session) {
-		context.res.writeHead(307, {
-			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-	if (!context.req.url.split('/')[2]) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
-		});
+		context.res.writeHead(307, { Location: '/' });
 		context.res.end();
 		return { props: { session } };
 	}
 
-	const [, , guild_id] = context.req.url.split('/');
+	const guild_id = context.params.id;
 	const data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };

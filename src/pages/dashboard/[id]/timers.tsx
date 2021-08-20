@@ -31,14 +31,7 @@ export default function Timers({ session, guild_id, server }: { session: Discord
 			<Stack spacing={5} w="100%">
 				<Heading>Timers</Heading>
 				<Text>Timers are messages sent every x time in a specific channel. They're useful when you want to give reminders for example.</Text>
-				<CreateTimerForm
-					categories={categories}
-					session={session}
-					guild_id={guild_id}
-					timer_id={tempId}
-					timerLength={timers.length}
-					premium={guild.premium}
-				/>
+				<CreateTimerForm categories={categories} session={session} guild_id={guild_id} timer_id={tempId} timerLength={timers.length} premium={guild.premium} />
 				<HStack justify="space-between">
 					<Heading size="md">Your Timers</Heading>
 					<Heading size="md">
@@ -70,7 +63,7 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	const guild_id = context.req.url.split('/')[2];
+	const guild_id = context.params.id;
 	const server = await defaultPostRequest('g/timers', guild_id, session.accessToken);
 
 	return { props: { session, server, guild_id } };

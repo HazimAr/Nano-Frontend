@@ -7,12 +7,12 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Util({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
+export default function Util({ session, data, guild_id, context }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<CommandSection commands={commands} title="Games" />
+				<CommandSection commands={commands} title="Anime" />
 			</Stack>
 		</Layout>
 	);
@@ -21,21 +21,12 @@ export default function Util({ session, data, guild_id }: { session: DiscordUser
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 	if (!session) {
-		context.res.writeHead(307, {
-			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-	if (!context.req.url.split('/')[2]) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
-		});
+		context.res.writeHead(307, { Location: '/' });
 		context.res.end();
 		return { props: { session } };
 	}
 
-	const [, , guild_id] = context.req.url.split('/');
+	const guild_id = context.params.id;
 	const data = await defaultPostRequest('g/groups/anime', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };

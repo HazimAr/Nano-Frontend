@@ -11,7 +11,6 @@
 // 	return (
 // 		<Layout session={session}>
 // 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-// 				<Heading textAlign="center">Enable and Disable Commands</Heading>
 // 				<Commands commands={commands} guild_id={guild_id} token={session.accessToken} />
 // 			</Stack>
 // 		</Layout>

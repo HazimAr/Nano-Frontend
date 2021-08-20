@@ -31,9 +31,7 @@ export default function Guild({
 							sm: '125px',
 							md: '175px',
 						}}
-						src={`https://cdn.discordapp.com/icons/${discordGuild.id}/${discordGuild.icon}.${
-							discordGuild.icon?.startsWith('a_') ? 'gif' : 'png'
-						}`}
+						src={`https://cdn.discordapp.com/icons/${discordGuild.id}/${discordGuild.icon}.${discordGuild.icon?.startsWith('a_') ? 'gif' : 'png'}`}
 						fallbackSrc="/oss.png"
 						rounded="50%"
 						mx={{ base: 0, sm: 5 }}
@@ -46,13 +44,7 @@ export default function Guild({
 						<Level user={serverUser} guild={guildId} size={75} />
 					</Box> */}
 				</Flex>
-				<HStack
-					flexDirection={{ base: 'column', sm: 'row' }}
-					align={{ base: 'center', sm: 'flex-start' }}
-					justify={{ base: 'center', sm: 'flex-start' }}
-					textAlign={{ base: 'center', sm: 'left' }}
-					w="100%"
-				>
+				<HStack flexDirection={{ base: 'column', sm: 'row' }} align={{ base: 'center', sm: 'flex-start' }} justify={{ base: 'center', sm: 'flex-start' }} textAlign={{ base: 'center', sm: 'left' }} w="100%">
 					<Heading w="100%">Prefix: {mongoGuild.prefix}</Heading>
 					<Heading w="100%">Tokens: {mongoGuild.tokens}</Heading>
 					<Heading w="100%">Xp: {mongoGuild.xp}</Heading>
@@ -76,29 +68,13 @@ export default function Guild({
 					}}
 					gap={5}
 				>
-					<Panel
-						name="Enable / Disable Commands"
-						description="Click on a switch to activate and deactivate certain command nano commands."
-						href={`/${guild_id}/commands`}
-					/>
+					<Panel name="Enable / Disable Commands" description="Click on a switch to activate and deactivate certain command nano commands." href={`/${guild_id}/commands`} />
 
-					<Panel
-						name="Custom Commands"
-						description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message."
-						href={`/${guild_id}/custom`}
-					/>
+					<Panel name="Custom Commands" description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message." href={`/${guild_id}/custom`} />
 
-					<Panel
-						name="Reaction Roles"
-						description="Create a customizable message that when users will react to they will recieve a specified role."
-						href={`/${guild_id}/reaction`}
-					/>
+					<Panel name="Reaction Roles" description="Create a customizable message that when users will react to they will recieve a specified role." href={`/${guild_id}/reaction`} />
 
-					<Panel
-						name="Timers"
-						description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel."
-						href={`/${guild_id}/timers`}
-					/>
+					<Panel name="Timers" description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel." href={`/${guild_id}/timers`} />
 				</Grid>
 			</Stack>
 		</Layout>
@@ -141,15 +117,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	if (!context.req.url.split('/')[2]) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-
-	const guild_id = context.req.url.split('/')[2];
+	const guild_id = context.params.id;
 	const guild = await defaultPostRequest('g/groups/profile', guild_id, session.accessToken);
 
 	return {
