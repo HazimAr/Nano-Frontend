@@ -1,4 +1,4 @@
-import { Box, VStack, SimpleGrid, Switch, Divider } from '@chakra-ui/react';
+import { Box, VStack, SimpleGrid, Switch, Divider, Text } from '@chakra-ui/react';
 import { Fragment } from 'react';
 
 export function CommandSection({ commands, title }) {
@@ -19,14 +19,17 @@ export function CommandSection({ commands, title }) {
 					<Divider />
 					{commands.map((cmd) => (
 						<Fragment key={cmd.memberName}>
-							<Box fontSize="16px" textAlign="center">
-								{cmd.name}
+							<Box fontSize="18px" textAlign="center">
+								{cmd.name} <br />
+								<Text fontSize="14px" color="whatsapp.300">
+									{cmd.description}
+								</Text>
 							</Box>
-							<Box fontSize="16px" textAlign="center">
+							<Box fontSize="18px" textAlign="center" color="osu">
 								{cmd.format}
 							</Box>
 							<Box textAlign="right" px="8">
-								<Switch colorScheme="red" defaultChecked={cmd.enabled} />
+								<Switch colorScheme="green" defaultChecked={cmd.enabled} />
 							</Box>
 						</Fragment>
 					))}
