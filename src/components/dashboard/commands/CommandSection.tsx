@@ -1,4 +1,5 @@
-import { Box, VStack, Switch, FormControl } from '@chakra-ui/react';
+import { Box, VStack, SimpleGrid, Switch, Divider } from '@chakra-ui/react';
+import { Fragment } from 'react';
 
 export function CommandSection({ commands, title }) {
 	return (
@@ -7,14 +8,29 @@ export function CommandSection({ commands, title }) {
 				<Box py="4" bgColor="bg.primaryDark" textAlign="center" borderRadius="xl" color="osu">
 					{title} Commands
 				</Box>
-				{commands.map((cmd) => (
-					<FormControl display="flex" alignItems="center" key={cmd.name}>
-						<Box fontSize="16px" textAlign="left" px="16" py="4">
-							{cmd.name}
-						</Box>
-						<Switch colorScheme="red" defaultChecked={cmd.enabled} />
-					</FormControl>
-				))}
+				<SimpleGrid columns={3} spacing={10} pt="15px" fontSize="25px">
+					<Box textAlign="center">Command</Box>
+					<Box textAlign="center">Options</Box>
+					<Box textAlign="right" px="8">
+						Enabled
+					</Box>
+					<Divider />
+					<Divider />
+					<Divider />
+					{commands.map((cmd) => (
+						<Fragment key={cmd.memberName}>
+							<Box fontSize="16px" textAlign="center">
+								{cmd.name}
+							</Box>
+							<Box fontSize="16px" textAlign="center">
+								{cmd.format}
+							</Box>
+							<Box textAlign="right" px="8">
+								<Switch colorScheme="red" defaultChecked={cmd.enabled} />
+							</Box>
+						</Fragment>
+					))}
+				</SimpleGrid>
 			</Box>
 		</VStack>
 	);
