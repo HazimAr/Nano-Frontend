@@ -37,7 +37,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const [, , guild_id] = context.req.url.split('/');
-	const data = await defaultPostRequest('games', guild_id, session.accessToken);
+	const data = await defaultPostRequest('g/groups/games', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };
 }
