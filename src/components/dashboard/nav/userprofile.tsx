@@ -10,7 +10,7 @@ export function UserProfile({ session }: any): JSX.Element {
 	return (
 		<NextLink href={`/${router.asPath.split('/')[1]}/${router.asPath.split('/')[2]}/profile`} passHref>
 			<Link href="profile">
-				<HStack spacing="4" px="2" flexShrink={0} borderTopWidth="1px" p="4">
+				<HStack spacing="4" px="2" flexShrink={0} p="4">
 					<Avatar size="md" name={session.user.name} src={session.user.image} fallbackSrc="/oss.png" />
 					<Flex direction="column" fontWeight="medium">
 						<Text fontSize="md">{session.user.name}</Text>

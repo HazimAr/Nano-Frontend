@@ -55,11 +55,11 @@ const theme = extendTheme({
 			},
 			'&::-webkit-scrollbar-track': {
 				// boxShadow: "inset 0 0 2px #1A1A1D",
+				background: 'linear-gradient(#f6a 50%, #e68ab3)',
 				borderRadius: '0px',
-				background: 'brand.primary',
 			},
 			'&::-webkit-scrollbar-thumb': {
-				background: 'brand.secondary',
+				background: '#43464B',
 				borderRadius: '50px',
 			},
 

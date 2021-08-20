@@ -24,40 +24,38 @@ import { Logo } from './logo';
 import { NavLink } from './navlink';
 import { UserProfile } from './userprofile';
 
-export function Sidebar(props: any): JSX.Element {
+export function Sidebar(props): JSX.Element {
+	const { session, authedGuilds } = props;
 	const router = useRouter();
 	const guild_id = router.asPath.split('/')[2];
 
-	let [guild, setGuild] = useState(null);
-	useEffect(() => {
-		axios
-			.get(`${DISCORD_BASE_URL}/users/@me/guilds`, {
-				headers: {
-					authorization: `Bearer ${props.session.accessToken}`,
-				},
-			})
-			.then(({ data }) => {
-				setGuild(data.find((g) => g.id === guild_id));
+	const [guild, setGuild] = useState(null);
 
-				// guild = data;
-			});
-	}, []);
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`${DISCORD_BASE_URL}/users/@me/guilds`, {
+	// 			headers: {
+	// 				authorization: `Bearer ${session.accessToken}`,
+	// 			},
+	// 		})
+	// 		.then(({ data }) => {
+	// 			setGuild(data.find((g) => g.id === guild_id));
+
+	// 			// guild = data;
+	// 		});
+	// }, []);
 
 	return (
-		<Box>
-			<Flex bg="linear-gradient(#7549ac 60%, #f6a)" direction="column" borderRightWidth="1px" width="225px" position="fixed" {...props}>
-				<Flex direction="column" flex="1" pt="5" pb="4" overflowY="auto" px="4">
-					<Box mb="6">
-						<Logo />
-					</Box>
+		<Box color="black">
+			<Flex bg="linear-gradient(#f6a 50%, #e68ab3)" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
+				<Flex direction="column" flex="1" py="6" px="4" overflowY="auto">
+					<Logo />
 
 					{/* <Box mb="6">
 					<SearchField />
 				</Box> */}
 
 					<Stack spacing="6" as="nav" aria-label="Sidebar Navigation">
-						<Divider />
-
 						<Stack spacing="1">
 							<HStack justify="center">
 								<Image
@@ -69,31 +67,28 @@ export function Sidebar(props: any): JSX.Element {
 								/>
 								<Heading size="md" textAlign="center">
 									{guild?.name}
+									...Guild Image
 								</Heading>
 							</HStack>
+							<UserProfile session={session} />
 							<NavLink label="osu!" icon={GiAbstract039} href="osu" />
-							<NavLink label="Reaction Roles" icon={GiBearFace} href="reaction" />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
 							<NavLink label="Utility" icon={HiOutlineCollection} href="util" />
 							<NavLink label="Anime" icon={GiCirclingFish} href="anime" />
-							<NavLink label="Timers" icon={GiBackwardTime} href="timers" />
 							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
 							<NavLink label="Info" icon={GiInfo} href="info" />
 							<NavLink label="Games" icon={GiDoubleDragon} href="games" />
 							<NavLink label="Guild" icon={GiSlashedShield} href="guild" />
 							<NavLink label="Role Playing" icon={GiImpLaugh} href="role_playing" />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
 							<Divider />
 							<NavLink label="Leaderboards" icon={FaMedal} href="leaderboards" />
 							<Divider />
+							<NavLink label="Reaction Roles" icon={GiBearFace} href="reaction" />
+							<NavLink label="Timers" icon={GiBackwardTime} href="timers" />
 							<NavLink label="Edit Guild" icon={FaPen} href="" />
-							{/* <NavLink
-								label="Premium"
-								icon={FaCrown}
-								href="/dashboard/premium"
-							/> */}
+							<NavLink label="Premium" icon={FaPen} href="/dashboard/premium" />
 							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="custom" />
 							<NavLink label="Nano Commands" icon={GiToggles} href="commands" />
-							<UserProfile session={props.session} />
 						</Stack>
 					</Stack>
 					<Spacer />
