@@ -3,7 +3,7 @@
 import { defaultPostRequest } from '@api/server';
 import { Heading, Stack } from '@chakra-ui/react';
 import { Commands } from '@components/dashboard/commands/commands';
-import { CommandSection } from '@components/dashboard/commands/_commands';
+import { CommandSection } from '@components/dashboard/commands/CommandSection';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';

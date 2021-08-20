@@ -4,10 +4,14 @@ import { extendTheme } from '@chakra-ui/react';
 const theme = extendTheme({
 	colors: {
 		bg: {
+			primaryLight: 'hsl(334, 88%, 50%)',
 			primary: 'hsl(334, 88%, 17%)',
 			primary2: 'hsl(334, 88%, 14%)',
+			primaryDark: 'hsl(334, 88%, 12%)',
 			secondary: 'hsl(267.15328467153284, 7.462686567164178%, 13.137254901960786%)',
+			steel: '#43464B',
 		},
+		osu: '#FF66AA',
 		brand: {
 			error: '#cf6679',
 			secondary: '#f6a',
@@ -55,11 +59,11 @@ const theme = extendTheme({
 			},
 			'&::-webkit-scrollbar-track': {
 				// boxShadow: "inset 0 0 2px #1A1A1D",
-				background: 'linear-gradient(#f6a 50%, #e68ab3)',
+				background: 'bg.primary2',
 				borderRadius: '0px',
 			},
 			'&::-webkit-scrollbar-thumb': {
-				background: '#43464B',
+				background: 'bg.steel',
 				borderRadius: '50px',
 			},
 
