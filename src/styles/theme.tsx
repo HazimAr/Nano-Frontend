@@ -11,6 +11,11 @@ const theme = extendTheme({
 			secondary: 'hsl(267.15328467153284, 7.462686567164178%, 13.137254901960786%)',
 			steel: '#43464B',
 		},
+		red_black: {
+			red: 'hsl(357, 71%, 52%)',
+			gray: '	hsl(0, 0%, 19%)',
+			black: 'hsl(0, 0%, 3%)',
+		},
 		osu: '#FF66AA',
 		brand: {
 			error: '#cf6679',
@@ -44,7 +49,7 @@ const theme = extendTheme({
 				lineHeight: 'base',
 				padding: 0,
 				margin: 0,
-				backgroundColor: 'bg.primary',
+				backgroundColor: 'red_black.black',
 			},
 			a: {
 				color: 'inherit',
@@ -59,11 +64,11 @@ const theme = extendTheme({
 			},
 			'&::-webkit-scrollbar-track': {
 				// boxShadow: "inset 0 0 2px #1A1A1D",
-				background: 'bg.primary2',
+				background: 'red_black.black',
 				borderRadius: '0px',
 			},
 			'&::-webkit-scrollbar-thumb': {
-				background: 'bg.steel',
+				background: 'red_black.red',
 				borderRadius: '50px',
 			},
 

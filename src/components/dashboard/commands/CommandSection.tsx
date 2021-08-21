@@ -21,7 +21,7 @@ export function CommandSection({ commands, title }) {
 						<Fragment key={cmd.memberName}>
 							<Box fontSize="18px" textAlign="center">
 								{cmd.name} <br />
-								<Text fontSize="14px" color="whatsapp.300">
+								<Text fontSize="14px" color="red_black.red">
 									{cmd.description}
 								</Text>
 							</Box>

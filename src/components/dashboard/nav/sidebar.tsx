@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
-import axios from 'axios';
-import { DISCORD_BASE_URL } from 'config';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaMedal, FaPen } from 'react-icons/fa';
@@ -35,7 +33,7 @@ export function Sidebar(props): JSX.Element {
 
 	return (
 		<Box>
-			<Flex bg="bg.primary2" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
+			<Flex bg="red_black.gray" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
 				<Flex direction="column" flex="1" py="8" px="10" overflowY="auto">
 					<Logo />
 

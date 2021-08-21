@@ -65,15 +65,7 @@ export async function updateNanoCommands(guild_id: string, commandsToChange: obj
 	);
 }
 
-export async function createCustomCommand(
-	guild_id: string,
-	trigger: string,
-	command_id: string,
-	response: any,
-	token: string,
-	_delete: boolean = false,
-	enabled: boolean = true
-) {
+export async function createCustomCommand(guild_id: string, trigger: string, command_id: string, response: any, token: string, _delete: boolean = false, enabled: boolean = true) {
 	return await axios.put(
 		`${SERVER_URL}/g/customCommands`,
 		{
@@ -89,16 +81,7 @@ export async function createCustomCommand(
 	);
 }
 
-export async function createTimer(
-	guild_id: string,
-	channel_id: string,
-	interval: number,
-	timer_id: number,
-	message: string,
-	token: string,
-	_delete: boolean = false,
-	enabled: boolean = true
-) {
+export async function createTimer(guild_id: string, channel_id: string, interval: number, timer_id: number, message: string, token: string, _delete: boolean = false, enabled: boolean = true) {
 	return await axios.put(
 		`${SERVER_URL}/g/timers`,
 		{
@@ -119,17 +102,7 @@ export async function deleteGuildTimer(guild_id: string, timer_id: string, token
 	return await axios.put(`${SERVER_URL}/g/timers/delete`, { guild_id, timer_id, authorization: `Bearer ${token}` });
 }
 
-export async function createReactionRoleMessage(
-	guild_id: string,
-	channel_id: string,
-	reaction_role_id: string,
-	message: string,
-	token: unknown,
-	role_rows: any[],
-	_delete: boolean = false,
-	_edit: boolean = false,
-	enabled: boolean = true
-) {
+export async function createReactionRoleMessage(guild_id: string, channel_id: string, reaction_role_id: string, message: string, token: unknown, role_rows: any[], _delete: boolean = false, _edit: boolean = false, enabled: boolean = true) {
 	return await axios.put(
 		`${SERVER_URL}/g/reaction_roles`,
 		{
