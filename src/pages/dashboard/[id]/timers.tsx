@@ -9,8 +9,7 @@ import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
 export default function Timers({ session, guild_id, server }: { session: DiscordUser; guild_id: string; server: any }): JSX.Element {
-	const guild = server.guild;
-	const categories = server.categories;
+	const { guild, categories } = server;
 
 	console.log(guild);
 	const timers = guild.timers?.[1]
