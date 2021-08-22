@@ -47,7 +47,7 @@ export default function Custom({ session, guild, guild_id }): JSX.Element {
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 	if (!session) {
 		context.res.writeHead(307, {
 			Location: '/',

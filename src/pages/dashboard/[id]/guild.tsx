@@ -19,7 +19,7 @@ export default function Guild({ session, data, guild_id }: { session: DiscordUse
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 	if (!session) {
 		context.res.writeHead(307, { Location: '/' });
 		context.res.end();

@@ -7,7 +7,7 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Util({ session, data, guild_id, context }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
+export default function Util({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
 	return (
 		<Layout session={session}>
@@ -19,7 +19,7 @@ export default function Util({ session, data, guild_id, context }: { session: Di
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 	if (!session) {
 		context.res.writeHead(307, { Location: '/' });
 		context.res.end();

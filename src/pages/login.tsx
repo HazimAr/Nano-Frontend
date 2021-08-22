@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Box, Center } from "@chakra-ui/react";
-import Button from "@components/button";
-import { getSession, GetSessionOptions, signIn } from "next-auth/client";
+import { Box, Center } from '@chakra-ui/react';
+import Button from '@components/button';
+import { getSession, GetSessionOptions, signIn } from 'next-auth/client';
 
 export default function login(): JSX.Element {
 	return (
@@ -12,7 +12,7 @@ export default function login(): JSX.Element {
 			<Box>
 				<Button
 					onClick={() => {
-						signIn("discord");
+						signIn('discord');
 					}}
 				>
 					Login with Discord
@@ -23,10 +23,10 @@ export default function login(): JSX.Element {
 }
 
 export async function getServerSideProps(context: GetSessionOptions | any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 	if (session) {
 		context.res.writeHead(307, {
-			Location: "dashboard",
+			Location: 'dashboard',
 		});
 		context.res.end();
 	}

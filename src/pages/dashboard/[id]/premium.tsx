@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import Layout from "@components/dashboard/layout";
-import { getSession } from "next-auth/client";
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import Layout from '@components/dashboard/layout';
+import { getSession } from 'next-auth/client';
 // import { useState } from "react";
-import { DiscordUser } from "types";
+import { DiscordUser } from 'types';
 
-export default function Custom({
-	session,
-}: {
-	session: DiscordUser;
-}): JSX.Element {
+export default function Custom({ session }: { session: DiscordUser }): JSX.Element {
 	// const [plan, setPlan] = useState("month");
 	function Plan({ plan, price, per, save }: any) {
 		return (
@@ -20,19 +16,14 @@ export default function Custom({
 					<Heading>${price}</Heading>
 					<Text fontSize="xs">{per}</Text>
 				</Box>
-				<Box
-					fontSize="sm"
-					bg="brand.primary2"
-					opacity="50%"
-					rounded="50px"
-				>
+				<Box fontSize="sm" bg="brand.primary2" opacity="50%" rounded="50px">
 					<Text>{save}</Text>
 				</Box>
 			</Box>
 		);
 	}
 	return (
-		<Layout  session={session}>
+		<Layout session={session}>
 			<Flex justify="center">
 				<Plan plan="Monthly" price={5} per="per month" save="0%" />
 				<Plan plan="Yearly" price={3} per="per month" save="20%" />
@@ -43,10 +34,10 @@ export default function Custom({
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 	if (!session) {
 		context.res.writeHead(307, {
-			Location: "/",
+			Location: '/',
 		});
 		context.res.end();
 		return { props: { session } };

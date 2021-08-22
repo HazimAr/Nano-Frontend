@@ -1,4 +1,4 @@
-import { HStack, Icon, Link, LinkProps, Text, useColorModeValue as mode } from '@chakra-ui/react';
+import { HStack, Icon, Link, LinkProps, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -13,6 +13,7 @@ type NavLinkProps = {
 export function NavLink(props: NavLinkProps): JSX.Element {
 	const { icon, isActive, label, href, ...rest } = props;
 	const router = useRouter();
+	const pathCheck = router.asPath.split('/')[router.asPath.split('/').length - 1];
 	return (
 		<NextLink href={`/${router.asPath.split('/')[1]}/${router.asPath.split('/')[2]}/${href}`} passHref>
 			<Link
@@ -25,7 +26,7 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 				fontSize="sm"
 				userSelect="none"
 				aria-current={isActive ? 'page' : undefined}
-				color={href === '' && (!isNaN(router.asPath.split('/')[router.asPath.split('/').length - 1]) || router.asPath.split('/')[router.asPath.split('/').length - 1] === href) && 'hsl(334, 88%, 55%)'}
+				color={href === '' && (!Number.isNaN(pathCheck) || pathCheck === href) ? 'hsl(334, 88%, 55%)' : ''}
 				// {mode('white.700', 'white.400')}
 				// _hover={{
 				// 	bg: mode("blue.200", "blue.700"),

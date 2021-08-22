@@ -107,7 +107,7 @@ function Panel({ name, description, href }): JSX.Element {
 }
 
 export async function getServerSideProps(context: any) {
-	const session = await getSession(context);
+	const session: any = await getSession(context);
 
 	if (!session?.accessToken) {
 		context.res.writeHead(307, {
