@@ -1,8 +1,6 @@
+import { updateNanoCommands } from '@api/server';
 import { Box, VStack, SimpleGrid, Switch, Divider, Text, useToast } from '@chakra-ui/react';
 import { Fragment, useState } from 'react';
-import { updateNanoCommands } from '@api/server';
-import { useRouter } from 'next/router';
-import axios from 'axios';
 
 export function CommandSection({ commands, title, session, guild_id }) {
 	// const router = useRouter();
@@ -34,7 +32,7 @@ export function CommandSection({ commands, title, session, guild_id }) {
 								</Text>
 							</Box>
 							<Box fontSize="18px" textAlign="center" color="osu">
-								{cmd.format} {changes}
+								{cmd.format}
 							</Box>
 							<Box textAlign="right" px="8">
 								<Switch
