@@ -98,7 +98,7 @@ function Panel({ name, description, href }): JSX.Element {
 				color: 'brand.secondary',
 			}}
 		>
-			<NextChakraLink href={`${href}`}>
+			<NextChakraLink href={href}>
 				<Heading>{name}</Heading>
 				<Text color="grey">{description}</Text>
 			</NextChakraLink>
