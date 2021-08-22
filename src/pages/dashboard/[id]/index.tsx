@@ -18,8 +18,8 @@ export default function Guild({
 	guild: any;
 	guild_id: string;
 }): JSX.Element {
-	const discordGuild = guild.discordGuild;
-	const mongoGuild = guild.mongoGuildObject;
+	const { discordGuild } = guild;
+	const { mongoGuildObject: mongoGuild } = guild;
 	return (
 		<Layout session={session}>
 			<Stack align="center" mt={5} spacing={5}>
@@ -68,13 +68,13 @@ export default function Guild({
 					}}
 					gap={5}
 				>
-					<Panel name="Enable / Disable Commands" description="Click on a switch to activate and deactivate certain command nano commands." href={`/${guild_id}/commands`} />
+					<Panel name="Enable / Disable Commands" description="Click on a switch to activate and deactivate certain command nano commands." href={`/dashboard/${guild_id}/groups/commands`} />
 
-					<Panel name="Custom Commands" description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message." href={`/${guild_id}/custom`} />
+					<Panel name="Custom Commands" description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message." href={`/dashboard/${guild_id}/groups/custom_commands`} />
 
-					<Panel name="Reaction Roles" description="Create a customizable message that when users will react to they will recieve a specified role." href={`/${guild_id}/reaction`} />
+					<Panel name="Reaction Roles" description="Create a customizable message that when users will react to they will recieve a specified role." href={`/dashboard/${guild_id}/groups/reaction_roles`} />
 
-					<Panel name="Timers" description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel." href={`/${guild_id}/timers`} />
+					<Panel name="Timers" description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel." href={`/dashboard/${guild_id}/timers`} />
 				</Grid>
 			</Stack>
 		</Layout>
@@ -98,7 +98,7 @@ function Panel({ name, description, href }): JSX.Element {
 				color: 'brand.secondary',
 			}}
 		>
-			<NextChakraLink href={`/dashboard${href}`}>
+			<NextChakraLink href={`${href}`}>
 				<Heading>{name}</Heading>
 				<Text color="grey">{description}</Text>
 			</NextChakraLink>

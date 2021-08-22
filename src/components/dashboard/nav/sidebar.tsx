@@ -4,7 +4,7 @@ import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack } from '@chak
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaMedal, FaPen } from 'react-icons/fa';
-import { GiAbstract039, GiCirclingFish, GiToggles, GiSwordSmithing, GiBackwardTime, GiBearFace, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
+import { GiAbstract039, GiCirclingFish, GiToggles, GiSwordSmithing, GiBackwardTime, GiBearFace, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh, GiBoltSpellCast } from 'react-icons/gi';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
@@ -60,16 +60,14 @@ export function Sidebar(props): JSX.Element {
 							<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
 							<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
 							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
 							<Divider />
 							<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
 							<Divider />
-							<NavLink label="Reaction Roles" icon={GiBearFace} href="/reaction" />
+							<NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction`} />
 							<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
-							<NavLink label="Edit Guild" icon={FaPen} href="" />
-							<NavLink label="Premium" icon={FaPen} href="/dashboard/premium" />
-							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="/custom" />
-							<NavLink label="Nano Commands" icon={GiToggles} href="/commands" />
+							<NavLink label="Change Guild" icon={FaPen} href={`/dashboard`} />
+							<NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} />
+							<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
 						</Stack>
 					</Stack>
 					<Spacer />
