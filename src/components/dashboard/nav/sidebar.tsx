@@ -73,7 +73,7 @@ export function Sidebar(props): JSX.Element {
 					<Spacer />
 				</Flex>
 			</Flex>
-			<Box h="100vh" w="225px" display={{ base: 'none', md: 'block' }} />
+			<Box h="100vh" w="325px" display={{ base: 'none', md: 'block' }} />
 		</Box>
 	);
 }
