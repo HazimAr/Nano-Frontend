@@ -9,11 +9,12 @@ import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
 import { UserProfile } from './userprofile';
+import { SERVER_URL } from 'config';
 
 export function Sidebar(props): JSX.Element {
 	const { session, authedGuilds } = props;
 	const router = useRouter();
-	const guild_id = router.asPath.split('/')[2];
+	const guild_id = router?.query?.id;
 
 	const [guild, setGuild] = useState(null);
 
@@ -51,24 +52,24 @@ export function Sidebar(props): JSX.Element {
 								</Heading>
 							</HStack>
 							<UserProfile session={session} />
-							<NavLink label="osu!" icon={GiAbstract039} href="osu" />
-							<NavLink label="Utility" icon={HiOutlineCollection} href="util" />
-							<NavLink label="Anime" icon={GiCirclingFish} href="anime" />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
-							<NavLink label="Info" icon={GiInfo} href="info" />
-							<NavLink label="Games" icon={GiDoubleDragon} href="games" />
-							<NavLink label="Guild" icon={GiSlashedShield} href="guild" />
-							<NavLink label="Role Playing" icon={GiImpLaugh} href="role_playing" />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href="coming_soon" />
+							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
+							<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
+							<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
+							<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
+							<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
+							<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
+							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
 							<Divider />
-							<NavLink label="Leaderboards" icon={FaMedal} href="leaderboards" />
+							<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
 							<Divider />
-							<NavLink label="Reaction Roles" icon={GiBearFace} href="reaction" />
-							<NavLink label="Timers" icon={GiBackwardTime} href="timers" />
+							<NavLink label="Reaction Roles" icon={GiBearFace} href="/reaction" />
+							<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
 							<NavLink label="Edit Guild" icon={FaPen} href="" />
 							<NavLink label="Premium" icon={FaPen} href="/dashboard/premium" />
-							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="custom" />
-							<NavLink label="Nano Commands" icon={GiToggles} href="commands" />
+							<NavLink label="Custom Commands" icon={GiSwordSmithing} href="/custom" />
+							<NavLink label="Nano Commands" icon={GiToggles} href="/commands" />
 						</Stack>
 					</Stack>
 					<Spacer />
