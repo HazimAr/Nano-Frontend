@@ -7,13 +7,12 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Osu({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
+export default function Util({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
-
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<CommandSection commands={commands} title="osu!" session={session} guild_id={guild_id} />
+				<CommandSection session={session} guild_id={guild_id} commands={commands} title="Anime" />
 			</Stack>
 		</Layout>
 	);
@@ -28,7 +27,7 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.params.id;
-	const data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
+	const data = await defaultPostRequest('g/groups/anime', guild_id, session.accessToken);
 
 	return { props: { session, data, guild_id } };
 }

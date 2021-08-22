@@ -7,12 +7,12 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Guild({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
+export default function Coming_Soon({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<CommandSection commands={commands} title="Guild" />
+				<CommandSection session={session} guild_id={guild_id} title="Coming Soon" commands={commands} />
 			</Stack>
 		</Layout>
 	);
@@ -27,7 +27,6 @@ export async function getServerSideProps(context: any) {
 	}
 
 	const guild_id = context.params.id;
-	const data = await defaultPostRequest('g/groups/guild', guild_id, session.accessToken);
-
+	const data = await defaultPostRequest('g/groups/coming_soon', guild_id, session.accessToken);
 	return { props: { session, data, guild_id } };
 }

@@ -11,7 +11,6 @@ import { DiscordUser } from 'types';
 export default function Timers({ session, guild_id, server }: { session: DiscordUser; guild_id: string; server: any }): JSX.Element {
 	const { guild, categories } = server;
 
-	console.log(guild);
 	const timers = guild.timers?.[1]
 		? Object.keys(guild.timers)
 				.map((timerId) => {
