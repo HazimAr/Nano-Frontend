@@ -1,29 +1,21 @@
-import { createCustomCommand } from "@api/server";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { createCustomCommand } from '@api/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // eslint-disable-next-line import/ano-default-export
-export default async function CustomCommand(
-	req: NextApiRequest,
-	res: NextApiResponse
-): Promise<NextApiResponse> {
-	if (req.method === "PUT") {
-		const body = req.body;
+export default async function CustomCommand(req: NextApiRequest, res: NextApiResponse): Promise<NextApiResponse> {
+	if (req.method === 'PUT') {
+		const {
+			body: { guild_id, trigger, command_id, response, token, _delete },
+		} = req;
 
-		const response = await createCustomCommand(
-			body.guild_id,
-			body.trigger,
-			body.command_id,
-			body.response,
-			body.token,
-			body._delete
-		);
+		const API_response = await createCustomCommand(guild_id, trigger, command_id, response, token, _delete);
 
-		void res.status(200).json(response);
+		res.status(200).json(API_response);
 		return res;
 	}
-	res.setHeader("Content-Type", "application/json");
+	res.setHeader('Content-Type', 'application/json');
 	res.statusCode = 200;
-	res.status(100).json({ detail: "Method Not Allowed" });
-	res.redirect(100, "/#");
+	res.status(100).json({ detail: 'Method Not Allowed' });
+	res.redirect(100, '/#');
 	return res;
 }

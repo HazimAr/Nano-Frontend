@@ -9,10 +9,11 @@ import { DiscordUser } from 'types';
 
 export default function Osu({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
 	const { commands } = data;
+
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<CommandSection commands={commands} title="osu!" />
+				<CommandSection commands={commands} title="osu!" session={session} guild_id={guild_id} />
 			</Stack>
 		</Layout>
 	);

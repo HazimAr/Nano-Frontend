@@ -54,11 +54,12 @@ export async function getUser(token: unknown) {
 // -------------------------------- 💠 GUILDS 💠 --------------------------------
 //
 
-export async function updateNanoCommands(guild_id: string, commandsToChange: any, token: string) {
+export async function updateNanoCommands(guild_id: string, group_name: string, commandsToChange: any, token: string) {
 	return axios.put(
-		`${SERVER_URL}/g/toggleCommands`,
+		`${SERVER_URL}/g/groups/${group_name}/commands`,
 		{
 			guild_id,
+			group_name,
 			commandsToChange,
 			authorization: `Bearer ${token}`,
 		},

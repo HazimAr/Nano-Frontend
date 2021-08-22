@@ -1,7 +1,15 @@
-import { Box, VStack, SimpleGrid, Switch, Divider, Text } from '@chakra-ui/react';
-import { Fragment } from 'react';
+import { Box, VStack, SimpleGrid, Switch, Divider, Text, useToast } from '@chakra-ui/react';
+import { Fragment, useState } from 'react';
+import { updateNanoCommands } from '@api/server';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-export function CommandSection({ commands, title }) {
+export function CommandSection({ commands, title, session, guild_id }) {
+	// const router = useRouter();
+	const { accessToken: token } = session;
+	const toast = useToast();
+	const [changes, setChanges] = useState(0);
+
 	return (
 		<VStack spacing="8px" bg="blackAlpha.700" mt="4" borderRadius="xl">
 			<Box fontSize="26px" pb="4" width="100%" mx="auto">
@@ -26,10 +34,37 @@ export function CommandSection({ commands, title }) {
 								</Text>
 							</Box>
 							<Box fontSize="18px" textAlign="center" color="osu">
-								{cmd.format}
+								{cmd.format} {changes}
 							</Box>
 							<Box textAlign="right" px="8">
-								<Switch colorScheme="green" defaultChecked={cmd.enabled} />
+								<Switch
+									colorScheme="green"
+									defaultChecked={cmd.enabled}
+									onChange={async () => {
+										setChanges(changes + 1);
+
+										const { data } = await updateNanoCommands(guild_id, 'osu', { [cmd.memberName]: !cmd.enabled }, token);
+
+										if (data.error) {
+											toast({
+												title: 'Error',
+												description: 'The command you tried to set has an existing command already set.',
+												status: 'error',
+												duration: 3000,
+												isClosable: true,
+											});
+											return;
+										}
+
+										toast({
+											title: 'Success',
+											description: data,
+											status: 'success',
+											duration: 3000,
+											isClosable: true,
+										});
+									}}
+								/>
 							</Box>
 						</Fragment>
 					))}
