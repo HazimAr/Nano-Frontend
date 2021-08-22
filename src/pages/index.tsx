@@ -34,13 +34,13 @@ export default function Home({ session }: { session: DiscordUser }): JSX.Element
 
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
-	if (session) {
-		context.res.writeHead(307, {
-			Location: '/dashboard',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
+	// if (session) {
+	// 	context.res.writeHead(307, {
+	// 		Location: '/dashboard',
+	// 	});
+	// 	context.res.end();
+	// 	return { props: { session } };
+	// }
 
 	return { props: { session } };
 }
