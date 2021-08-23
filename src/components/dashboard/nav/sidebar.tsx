@@ -46,10 +46,10 @@ export function Sidebar(props): JSX.Element {
 						<Stack spacing="1">
 							<HStack justify="center">
 								<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="50px" rounded="50%" />
-								<Heading size="md" textAlign="center">
+								{/* <Heading size="md" textAlign="center">
 									{guild?.name}
 									...Guild Image
-								</Heading>
+								</Heading> */}
 							</HStack>
 							<UserProfile session={session} />
 							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />

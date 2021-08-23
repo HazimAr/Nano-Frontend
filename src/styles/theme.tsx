@@ -13,10 +13,11 @@ const theme = extendTheme({
 		},
 		red_black: {
 			red: 'hsl(357, 71%, 52%)',
-			gray: '	hsl(0, 0%, 19%)',
+			gray: '	hsl(0, 0%, 5%)',
 			black: 'hsl(0, 0%, 3%)',
 		},
 		osu: '#FF66AA',
+		light_white: 'hsl(0, 0%, 70%)',
 		brand: {
 			error: '#cf6679',
 			secondary: '#f6a',

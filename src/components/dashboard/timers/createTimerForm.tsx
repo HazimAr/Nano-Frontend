@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Divider, Heading, Input, InputGroup, InputLeftAddon, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Textarea, useDisclosure, useToast } from '@chakra-ui/react';
-import Button from '@components/button';
+import { Button, Divider, Heading, Input, InputGroup, InputLeftAddon, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Textarea, useDisclosure, useToast } from '@chakra-ui/react';
 import { Channels } from '@components/dashboard/channels';
 import { createTimer } from '@api/server';
 import { useRouter } from 'next/router';
@@ -18,11 +17,13 @@ export function CreateTimerForm({ categories, session, guild_id, timer_id, timer
 
 	return (
 		<>
-			<Button onClick={onOpen}>Add Timer</Button>
+			<Button onClick={onOpen} bg="red_black.red">
+				Add Timer
+			</Button>
 			{timerLength < (premium === 0 ? 1 : 5) && (
 				<Modal isOpen={isOpen} onClose={onClose}>
 					<ModalOverlay />
-					<ModalContent bg="bg.primary">
+					<ModalContent bg="red_black.black">
 						<ModalHeader>Add Timer</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody>
@@ -70,10 +71,11 @@ export function CreateTimerForm({ categories, session, guild_id, timer_id, timer
 						</ModalBody>
 
 						<ModalFooter>
-							<Button mr={3} onClick={onClose}>
+							<Button mr={3} onClick={onClose} bg="red_black.red">
 								Cancel
 							</Button>
 							<Button
+								bg="red_black.red"
 								onClick={async () => {
 									if (!channel || !message || !interval) {
 										return toast({

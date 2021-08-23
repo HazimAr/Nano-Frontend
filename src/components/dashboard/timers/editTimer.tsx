@@ -41,20 +41,31 @@ export function EditTimer({ token, categories, timer, guild_id }: { token: unkno
 		<>
 			<Button p="5px" w="100%" height="100%" minHeight="50px" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }} bg="red_black.black">
 				<VStack>
-					<Heading size="md" color="red_black.red">
-						{timer.channel?.name ? timer.channel.name : 'Set Timer'}
-					</Heading>
-					<Text size="md" color="white">
-						{interval && `Every ${(interval / 60_000).toFixed(1)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
-					</Text>
-					<Text size="md" color="red_black.gray">
-						{timer.message}
-					</Text>
+					{timer.channel?.name ? (
+						<>
+							<Heading size="md" color="red_black.red">
+								{timer.channel.name}
+							</Heading>
+							<Text size="md" color="light_white">
+								{interval && `Every ${(interval / 60_000).toFixed(1)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
+							</Text>
+							<Text size="md" color="white">
+								{timer.message}
+							</Text>
+						</>
+					) : (
+						<Heading size="md" color="red_black.red">
+							Set Timer
+						</Heading>
+					)}
 				</VStack>
 			</Button>
+			{/* // --------------------------             -------------------------- */}
+			{/* // -------------------------- POP-UP MENU -------------------------- */}
+			{/* // --------------------------             -------------------------- */}
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent bg="bg.primary">
+				<ModalContent bg="red_black.black">
 					<ModalHeader>Add Timer</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
@@ -80,10 +91,11 @@ export function EditTimer({ token, categories, timer, guild_id }: { token: unkno
 					</ModalBody>
 
 					<ModalFooter>
-						<Button mr={3} onClick={onClose}>
+						<Button mr={3} onClick={onClose} bg="red_black.red">
 							Cancel
 						</Button>
 						<Button
+							bg="red_black.red"
 							onClick={async () => {
 								if (!channel?.channel_id || !message || !timer) {
 									toast({
