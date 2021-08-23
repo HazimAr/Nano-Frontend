@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-default-export */
+import { createTimer } from '@api/server';
 import {
 	Button,
-	Box,
 	Divider,
 	Heading,
 	Input,
@@ -24,7 +24,6 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 import { Channels } from '@components/dashboard/channels';
-import { createTimer } from '@api/server';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -40,7 +39,7 @@ export function EditTimer({ token, categories, timer, guild_id }: { token: unkno
 
 	return (
 		<>
-			<Button p="5px" w="100%" height="100%" minHeight="50px" onClick={onOpen} _hover={{ transform: 'scale(1.1)' }} bg="red_black.black">
+			<Button p="5px" w="100%" height="100%" minHeight="50px" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }} bg="red_black.black">
 				<VStack>
 					<Heading size="md" color="red_black.red">
 						{timer.channel?.name ? timer.channel.name : 'Set Timer'}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
-import { Center, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react';
+import { Box, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 import Layout from '@components/dashboard/layout';
 import { CreateTimerForm } from '@components/dashboard/timers/createTimerForm';
 import { getSession } from 'next-auth/client';
@@ -32,7 +32,9 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 			<Stack spacing={5} w="100%">
 				<Heading>Timers</Heading>
 				<Text>Timers sent every x minutes in a Discord channel.</Text>
+				{/* // Add Timer Button */}
 				<CreateTimerForm categories={categories} session={session} guild_id={guild_id} timer_id={next_id.toString()} timerLength={timer_len} premium={guild.premium} />
+				{/* // ---------------- */}
 				<HStack justify="space-between">
 					<Heading size="md">Your Timers</Heading>
 					<Heading size="md">
@@ -40,11 +42,11 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 					</Heading>
 				</HStack>
 				<Divider my={5} />
-				<Stack>
+				<Box>
 					{arr.map((timer) => (
 						<Timer key={timer.message} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} />
 					))}
-				</Stack>
+				</Box>
 			</Stack>
 		</Layout>
 	);
