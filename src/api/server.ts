@@ -56,7 +56,7 @@ export async function getUser(token: unknown) {
 
 export async function updateNanoCommands(guild_id: string, group_name: string, commandsToChange: any, token: string) {
 	return axios.put(
-		`${SERVER_URL}/g/groups/${group_name}/commands`,
+		`${SERVER_URL}/g/groups/${group_name.endsWith('_rp') ? 'role_playing' : group_name}/commands`,
 		{
 			guild_id,
 			group_name,
@@ -98,10 +98,6 @@ export async function createTimer(guild_id: string, channel_id: string, interval
 		},
 		config
 	);
-}
-
-export async function deleteGuildTimer(guild_id: string, timer_id: string, token: string) {
-	return axios.put(`${SERVER_URL}/g/timers/delete`, { guild_id, timer_id, authorization: `Bearer ${token}` });
 }
 
 export async function createReactionRoleMessage(guild_id: string, channel_id: string, reaction_role_id: string, message: string, token: string, role_rows: any[], _delete = false, _edit = false, enabled = true) {
