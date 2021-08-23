@@ -1,79 +1,37 @@
-import {
-	Heading,
-	HStack,
-	Stack,
-	Text,
-	useToast,
-	VStack,
-} from "@chakra-ui/react";
-import Button from "@components/button";
-import EditTimer from "@components/dashboard/timers/editTimer";
-import axios from "axios";
-import { useRouter } from "next/router";
-import React from "react";
+import { HStack, useToast, Box, Button } from '@chakra-ui/react';
+import { EditTimer } from '@components/dashboard/timers/editTimer';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { createTimer } from '@api/server';
+import { GiTrashCan } from 'react-icons/gi';
 
-export default function Timer({
-	guild_id,
-	token,
-	timer,
-	categories,
-}: {
-	guild_id: string;
-	token: unknown;
-	timer: any;
-	categories: any;
-}): JSX.Element {
+export function Timer({ guild_id, token, timer, categories }: { guild_id: string; token: unknown; timer: any; categories: any }): JSX.Element {
 	const toast = useToast();
 	const router = useRouter();
-	// const interval = timer.interval / 1000 / 60;
+
 	return (
-		<HStack
-			justify="space-between"
-			bg="rgba(0,0,0,0.2)"
-			py={2}
-			px={5}
-			rounded={5}
-		>
-			<Stack textAlign="left">
-				<Heading size="md">{timer.channel?.name}</Heading>
-
-				<Text size="md" color="grey">
-					{timer.message}
-				</Text>
-				{/* <Text size="md">
-					Every {interval} {interval > 1 ? "minutes" : "minute"}
-				</Text> */}
-			</Stack>
-
-			<VStack justify="center">
-				<EditTimer
-					token={token}
-					timer={timer}
-					guild_id={guild_id}
-					categories={categories}
-				/>
-				<Button
-					type="delete"
-					onClick={async () => {
-						const { data } = await axios.put("/api/guilds/timers", {
-							guild_id,
-							timer_id: timer.timer_id,
-							token,
-							_delete: true,
-						});
-						toast({
-							title: "Success",
-							description: data,
-							status: "success",
-							duration: 3000,
-							isClosable: true,
-						});
-						router.push(router.asPath);
-					}}
-				>
-					Delete
-				</Button>
-			</VStack>
+		<HStack justify="space-between" bg="rgba(0,0,0,0.2)" p={5} rounded={5} backgroundColor="red_black.gray" h="100%">
+			<EditTimer token={token} timer={timer} guild_id={guild_id} categories={categories} />
+			<Button
+				onClick={async () => {
+					const { data } = await createTimer(guild_id, null, null, timer.timer_id, null, token, true, true);
+					toast({
+						title: 'Success',
+						description: data,
+						status: 'success',
+						duration: 3000,
+						isClosable: true,
+					});
+					router.push(router.asPath);
+				}}
+				_hover={{ transform: 'scale(.9)' }}
+				h="50px"
+				w="50px"
+				color="black"
+				ml="5px"
+			>
+				<GiTrashCan />
+			</Button>
 		</HStack>
 	);
 }

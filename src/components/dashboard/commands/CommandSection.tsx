@@ -41,7 +41,7 @@ export function CommandSection({ commands, title, session, guild_id }) {
 									onChange={async () => {
 										setChanges(changes + 1);
 
-										const { data } = await updateNanoCommands(guild_id, 'osu', { [cmd.memberName]: !cmd.enabled }, token);
+										const { data } = await updateNanoCommands(guild_id, cmd.groupID, { [cmd.memberName]: !cmd.enabled }, token);
 
 										if (data.error) {
 											toast({
