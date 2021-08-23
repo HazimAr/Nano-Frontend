@@ -12,7 +12,7 @@ export default function Util({ session, data, guild_id }: { session: DiscordUser
 	return (
 		<Layout session={session}>
 			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
-				<CommandSection session={session} guild_id={guild_id} title="Utility" commands={commands} />
+				<CommandSection session={session} guild_id={guild_id} title="Utility" commands={commands} group_membername="util" />
 			</Stack>
 		</Layout>
 	);

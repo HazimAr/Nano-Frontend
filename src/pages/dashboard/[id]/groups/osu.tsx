@@ -25,19 +25,19 @@ export default function Osu({ session, data, guild_id, error }: { session: Disco
 }
 
 export async function getServerSideProps(context: any) {
-	let [session, data, err] = [{}, {}, null];
+	let [data, err] = [{}, null];
 	const guild_id = context.params.id;
 
-	session = await getSession(context);
+	const session = await getSession(context);
 	data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
 
-	try {
-		throw 'testing this';
-	} catch (error) {
-		err = error;
-	}
+	// try {
+	// 	throw 'testing this';
+	// } catch (error) {
+	// 	err = error;
+	// }
 
-	if (!session) {
+	if (!session.accessToken) {
 		context.res.writeHead(307, { Location: '/' });
 		context.res.end();
 		return { props: { session } };

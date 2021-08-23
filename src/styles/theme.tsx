@@ -42,7 +42,6 @@ const theme = extendTheme({
 		global: () => ({
 			html: {
 				height: '100%',
-				overflow: 'hidden',
 			},
 			body: {
 				fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',

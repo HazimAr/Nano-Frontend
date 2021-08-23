@@ -3,49 +3,48 @@
 import { defaultPostRequest } from '@api/server';
 import { Center, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 import Layout from '@components/dashboard/layout';
-import CreateTimerForm from '@components/dashboard/timers/createTimerForm';
-import TimersList from '@components/dashboard/timers/timers';
+import { CreateTimerForm } from '@components/dashboard/timers/createTimerForm';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
+import { Timer } from '@components/dashboard/timers/timer';
 
-export default function Timers({ session, guild_id, server }: { session: DiscordUser; guild_id: string; server: any }): JSX.Element {
-	const { guild, categories } = server;
+export default function Timers({ session, api_response, guild_id }: { session: DiscordUser; api_response: any; guild_id: string }): JSX.Element {
+	const { guild, categories } = api_response ?? {};
 
-	const timers = guild.timers?.[1]
-		? Object.keys(guild.timers)
-				.map((timerId) => {
-					if (timerId === 'bump') return;
-					const timer = guild.timers[timerId];
-					timer.timer_id = timerId;
-					return timer;
-				})
-				.filter((timer) => timer != undefined)
-		: [];
+	const arr = [];
+	let timer_len = 0;
+	let next_id = 1;
 
-	let tempId = (timers.length + 1).toString();
+	for (let i = 1; i < 6; i++) {
+		if (guild?.timers?.[i]?.message) {
+			guild.timers[i].timer_id = i;
+			arr.push(guild.timers[i]);
+			timer_len++;
+		} else {
+			arr.push({ not_set: true, timer_id: i });
+			next_id = i;
+		}
+	}
+	arr.reverse();
 
 	return (
 		<Layout session={session}>
 			<Stack spacing={5} w="100%">
 				<Heading>Timers</Heading>
-				<Text>Timers are messages sent every x time in a specific channel. They're useful when you want to give reminders for example.</Text>
-				<CreateTimerForm categories={categories} session={session} guild_id={guild_id} timer_id={tempId} timerLength={timers.length} premium={guild.premium} />
+				<Text>Timers sent every x minutes in a Discord channel.</Text>
+				<CreateTimerForm categories={categories} session={session} guild_id={guild_id} timer_id={next_id.toString()} timerLength={timer_len} premium={guild.premium} />
 				<HStack justify="space-between">
 					<Heading size="md">Your Timers</Heading>
 					<Heading size="md">
-						{timers.length}/{guild.premium === 0 ? 1 : 5}
+						{timer_len}/{guild.premium === 0 ? 1 : 5}
 					</Heading>
 				</HStack>
 				<Divider my={5} />
-				{timers.length ? (
-					<TimersList timers={timers} guild_id={guild_id} token={session.accessToken} categories={categories} />
-				) : (
-					<Center style={{ outlineStyle: 'dashed', outlineWidth: 2 }} color="grey" py={5}>
-						<Text color="white" mx={5}>
-							You don't have any timers right now. Click on the "Add Timer" button to add one.
-						</Text>
-					</Center>
-				)}
+				<Stack>
+					{arr.map((timer) => (
+						<Timer key={timer.message} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} />
+					))}
+				</Stack>
 			</Stack>
 		</Layout>
 	);
@@ -62,7 +61,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 	const guild_id = context.params.id;
-	const server = await defaultPostRequest('g/timers', guild_id, session.accessToken);
+	const api_response = await defaultPostRequest('g/timers', guild_id, session.accessToken);
 
-	return { props: { session, server, guild_id } };
+	return { props: { session, api_response, guild_id } };
 }
