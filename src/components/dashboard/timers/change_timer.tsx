@@ -26,6 +26,7 @@ import {
 import { Channels } from '@components/dashboard/channels';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FcCancel } from 'react-icons/fc';
 
 export function EditTimer({ token, categories, timer, guild_id }: { token: unknown; categories: any; timer: any; guild_id: string }): JSX.Element {
 	const { timer_id, channel_id, interval: _interval } = timer ?? {};
@@ -60,9 +61,9 @@ export function EditTimer({ token, categories, timer, guild_id }: { token: unkno
 					)}
 				</VStack>
 			</Button>
-			{/* // --------------------------             -------------------------- */}
-			{/* // -------------------------- POP-UP MENU -------------------------- */}
-			{/* // --------------------------             -------------------------- */}
+			{/* // --------------------------                    -------------------------- */}
+			{/* // -------------------------- 🔽 POP-UP MENU 🔽 -------------------------- */}
+			{/* // --------------------------                    -------------------------- */}
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent bg="red_black.black">
@@ -141,4 +142,36 @@ export function EditTimer({ token, categories, timer, guild_id }: { token: unkno
 			</Modal>
 		</>
 	);
+}
+
+export function DeleteTimer({ token, categories, timer, guild_id }: { token: unknown; categories: any; timer: any; guild_id: string }): JSX.Element {
+	const { timer_id, channel_id, interval: _interval } = timer ?? {};
+
+	const toast = useToast();
+	const router = useRouter();
+
+	return timer.enabled ? (
+		<Button
+			onClick={async () => {
+				const { data } = await createTimer(guild_id, null, null, timer.timer_id, null, token, true, true);
+				toast({
+					title: 'Success',
+					description: data,
+					status: 'success',
+					duration: 3000,
+					isClosable: true,
+				});
+				router.push(router.asPath);
+			}}
+			_hover={{ transform: 'scale(1.15)' }}
+			_focus={{ transform: 'scale(1.15)' }}
+			bg="transparent"
+			position="absolute"
+			right="-25px"
+			top="-10px"
+			fontSize="40px"
+		>
+			<FcCancel />
+		</Button>
+	) : null;
 }

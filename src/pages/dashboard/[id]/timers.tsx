@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
-import { Box, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 import Layout from '@components/dashboard/layout';
-import { CreateTimerForm } from '@components/dashboard/timers/createTimerForm';
+import { Timer } from '@components/dashboard/timers/timer';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
-import { Timer } from '@components/dashboard/timers/timer';
 
 export default function Timers({ session, api_response, guild_id }: { session: DiscordUser; api_response: any; guild_id: string }): JSX.Element {
 	const { guild, categories } = api_response ?? {};
@@ -29,19 +28,14 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 
 	return (
 		<Layout session={session}>
-			<Stack spacing={5} w="100%">
-				<Heading>Timers</Heading>
-				<Text>Timers sent every x minutes in a Discord channel.</Text>
-				{/* // Add Timer Button */}
-				<CreateTimerForm categories={categories} session={session} guild_id={guild_id} timer_id={next_id.toString()} timerLength={timer_len} premium={guild.premium} />
-				{/* // ---------------- */}
+			<Stack spacing={5} w="100%" mt="50px" px="50px">
 				<HStack justify="space-between">
-					<Heading size="md">Your Timers</Heading>
-					<Heading size="md">
+					<Heading>Timers</Heading>
+					<Text>
 						{timer_len}/{guild.premium === 0 ? 1 : 5}
-					</Heading>
+					</Text>
 				</HStack>
-				<Divider my={5} />
+				<Text>Timers sent every x minutes in a Discord channel.</Text>
 				<Box>
 					{arr.map((timer) => (
 						<Timer key={timer.message} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} />
@@ -54,6 +48,7 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
+	const guild_id = context.params.id;
 
 	if (!session) {
 		context.res.writeHead(307, {
@@ -62,7 +57,7 @@ export async function getServerSideProps(context: any) {
 		context.res.end();
 		return { props: { session } };
 	}
-	const guild_id = context.params.id;
+
 	const api_response = await defaultPostRequest('g/timers', guild_id, session.accessToken);
 
 	return { props: { session, api_response, guild_id } };
