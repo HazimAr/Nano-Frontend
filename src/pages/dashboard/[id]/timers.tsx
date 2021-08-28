@@ -36,6 +36,7 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 					</Text>
 				</HStack>
 				<Text>Timers sent every x minutes in a Discord channel.</Text>
+
 				<Box>
 					{arr.map((timer) => (
 						<Timer key={timer.message} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} />

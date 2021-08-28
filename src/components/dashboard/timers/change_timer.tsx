@@ -28,7 +28,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FcCancel } from 'react-icons/fc';
 
-export function EditTimer({ token, categories, timer, guild_id }: { token: unknown; categories: any; timer: any; guild_id: string }): JSX.Element {
+export function EditTimer({ token, categories, guild_id, timer }: { token: unknown; categories: any; timer: any; guild_id: string }): JSX.Element {
 	const { timer_id, channel_id, interval: _interval } = timer ?? {};
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
