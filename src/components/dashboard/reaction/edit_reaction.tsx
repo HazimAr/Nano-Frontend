@@ -7,13 +7,13 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FcCancel } from 'react-icons/fc';
-import CreateReactionRoleModal from './modal/createReactionRoleModal';
+import { CreateReactionRoleModal } from './modal/createReactionRoleModal';
 import { GiAbstract111 } from 'react-icons/gi';
 
-export function EditReaction({ token, reaction_role_id, categories, guild_id, reaction, customEmojis, availableRoles, reactions_len, premium }): JSX.Element {
-	const [channel, setChannel] = useState('') as any;
+export function EditReaction({ token, reaction_role_id, categories, guild_id, reaction, customEmojis, availableRoles, premium }): JSX.Element {
+	const [channel, setChannel] = useState('');
 	const [message, setMessage] = useState('');
-	const [reactionRole, setReactionRole] = useState('') as any;
+	const [reactionRole, setReactionRole] = useState('');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
 	const router = useRouter();
@@ -37,7 +37,7 @@ export function EditReaction({ token, reaction_role_id, categories, guild_id, re
 							<HStack>
 								<Text mr="21px">{react?.emoji}</Text>
 								{reaction?.[i + 1]?.role_ids?.map((id, x) => (
-									<Text color={`#${react.roles?.[x].color.toString(16)}`}>
+									<Text key={react.roles?.[x].color.toString(16)} color={`#${react.roles?.[x].color.toString(16)}`}>
 										<HStack mr="7px">
 											<GiAbstract111 /> <Text>{react.roles?.[x].name}</Text>
 										</HStack>
@@ -160,41 +160,5 @@ export function EditReaction({ token, reaction_role_id, categories, guild_id, re
 				</ModalContent>
 			</Modal>
 		</Box>
-	);
-}
-
-export function DeleteReaction({ reaction, guild_id, reaction_id, token }): JSX.Element {
-	const toast = useToast();
-	const router = useRouter();
-
-	return (
-		<>Delete Button</>
-		// {timer.enabled ? (
-		// 	<Button
-		// 		onClick={async () => {
-		// 			const { data } = await createTimer(guild_id, null, null, timer.timer_id, null, token, true, true);
-		// 			toast({
-		// 				title: 'Success',
-		// 				description: data,
-		// 				status: 'success',
-		// 				duration: 3000,
-		// 				isClosable: true,
-		// 			});
-		// 			router.push(router.asPath);
-		// 		}}
-		// 		_hover={{ transform: 'scale(1.15)' }}
-		// 		_focus={{ transform: 'scale(1.15)' }}
-		// 		h="50px"
-		// 		w="50px"
-		// 		bg="transparent"
-		// 		position="absolute"
-		// 		right="-5px"
-		// 		top="-5px"
-		// 	>
-		// 		<FcCancel />
-		// 	</Button>
-		// ) : (
-		// 	''
-		// )}
 	);
 }
