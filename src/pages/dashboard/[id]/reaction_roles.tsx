@@ -3,7 +3,8 @@
 import { defaultPostRequest } from '@api/server';
 import { Heading, HStack, Stack, Text, Box } from '@chakra-ui/react';
 import Layout from '@components/dashboard/layout';
-import { Reaction } from '@components/dashboard/reaction/reaction';
+import { DeleteReaction } from '@components/dashboard/reaction/delete_reaction';
+import { EditReaction } from '@components/dashboard/reaction/edit_reaction';
 import { getSession } from 'next-auth/client';
 
 export default function ReactionRoles({ session, api_response, guild_id }): JSX.Element {
@@ -41,7 +42,10 @@ export default function ReactionRoles({ session, api_response, guild_id }): JSX.
 
 				<Box>
 					{arr.map((reaction) => (
-						<Reaction key={reaction.reaction_index} token={session.accessToken} reaction={reaction} reaction_role_id={next_id} premium={premium} categories={categories} guild_id={guild_id} customEmojis={emojis} availableRoles={roles} />
+						<Box key={reaction.reaction_index} bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray" h="100%" position="relative" py="2px" my="25px">
+							<EditReaction token={session.accessToken} reaction={reaction} reaction_role_id={next_id} premium={premium} categories={categories} guild_id={guild_id} customEmojis={emojis} availableRoles={roles} />
+							<DeleteReaction token={session.accessToken} reaction={reaction} reaction_role_id={next_id} premium={premium} categories={categories} guild_id={guild_id} customEmojis={emojis} availableRoles={roles} />
+						</Box>
 					))}
 				</Box>
 			</Stack>
