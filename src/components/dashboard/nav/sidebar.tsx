@@ -9,7 +9,6 @@ import { HiOutlineCollection } from 'react-icons/hi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
 import { UserProfile } from './userprofile';
-import { SERVER_URL } from 'config';
 
 export function Sidebar(props): JSX.Element {
 	const { session, authedGuilds } = props;

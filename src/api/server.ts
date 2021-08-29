@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios';
-import { SERVER_URL } from 'config';
-
 import { getId } from './discord';
 
+// Can't destructure non-standard js process.env
+// https://nextjs.org/docs/basic-features/environment-variables
+const HOST_DOMAIN = process.env.HOST_DOMAIN;
+//
 const config = { timeout: 1000 * 10 };
 //
 // 🌟 ------------------------------------------------------------------- POST REQUESTS ------------------------------------------------------------------- 🌟 //
 //
 
 export async function defaultPostRequest(path: string, guild_id: string, authorization: string) {
-	return (await axios.post(`${SERVER_URL}/${path}`, { guild_id, authorization: `Bearer ${authorization}` }, config)).data;
+	return (await axios.post(`${HOST_DOMAIN}/${path}`, { guild_id, authorization: `Bearer ${authorization}` }, config)).data;
 }
 
 //
@@ -19,7 +21,7 @@ export async function defaultPostRequest(path: string, guild_id: string, authori
 //
 
 export async function getLeaderboards() {
-	return axios.post(`${SERVER_URL}/lb`, config);
+	return axios.post(`${HOST_DOMAIN}/lb`, config);
 }
 
 //
@@ -27,7 +29,7 @@ export async function getLeaderboards() {
 //
 
 export async function getGuildLeaderboards(guild_id) {
-	return axios.post(`${SERVER_URL}/lb/guild`, { guild_id }, config);
+	return axios.post(`${HOST_DOMAIN}/lb/guild`, { guild_id }, config);
 }
 
 //
@@ -35,11 +37,11 @@ export async function getGuildLeaderboards(guild_id) {
 //
 
 export async function getOsuRank(id: string) {
-	return axios.post(`${SERVER_URL}/osu/user`, { id }, config);
+	return axios.post(`${HOST_DOMAIN}/osu/user`, { id }, config);
 }
 
 export async function getUser(token: unknown) {
-	return axios.post(`${SERVER_URL}/u/profile`, { authorization: token }, config);
+	return axios.post(`${HOST_DOMAIN}/u/profile`, { authorization: token }, config);
 }
 
 //
@@ -56,7 +58,7 @@ export async function getUser(token: unknown) {
 
 export async function updateNanoCommands(guild_id: string, group_name: string, commandsToChange: any, token: string) {
 	return axios.put(
-		`${SERVER_URL}/g/groups/${group_name.endsWith('_rp') ? 'role_playing' : group_name}/commands`,
+		`${HOST_DOMAIN}/g/groups/${group_name.endsWith('_rp') ? 'role_playing' : group_name}/commands`,
 		{
 			guild_id,
 			group_name,
@@ -69,7 +71,7 @@ export async function updateNanoCommands(guild_id: string, group_name: string, c
 
 export async function createCustomCommand(guild_id: string, trigger: string, command_id: string, response: any, token: string, _delete = false, enabled = true) {
 	return axios.put(
-		`${SERVER_URL}/g/customCommands`,
+		`${HOST_DOMAIN}/g/customCommands`,
 		{
 			guild_id,
 			trigger,
@@ -85,7 +87,7 @@ export async function createCustomCommand(guild_id: string, trigger: string, com
 
 export async function createTimer(guild_id: string, channel_id: string, interval: number, timer_id: number, message: string, token: string, _delete = false, enabled = true) {
 	return axios.put(
-		`${SERVER_URL}/g/timers`,
+		`${HOST_DOMAIN}/g/timers`,
 		{
 			guild_id,
 			channel_id,
@@ -102,7 +104,7 @@ export async function createTimer(guild_id: string, channel_id: string, interval
 
 export async function createReactionRoleMessage(guild_id: string, channel_id: string, reaction_role_id: string, message: string, token: string, role_rows: any[], _delete = false, _edit = false, enabled = true) {
 	return axios.put(
-		`${SERVER_URL}/g/reaction_roles`,
+		`${HOST_DOMAIN}/g/reaction_roles`,
 		{
 			guild_id,
 			channel_id,
@@ -124,5 +126,5 @@ export async function createReactionRoleMessage(guild_id: string, channel_id: st
 
 export async function loginOsu(token: string) {
 	const id = await getId(token);
-	return axios.put(`${SERVER_URL}/osu/newUser`, { id }, config);
+	return axios.put(`${HOST_DOMAIN}/osu/newUser`, { id }, config);
 }
