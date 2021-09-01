@@ -4,11 +4,15 @@ import { ModalSectionChannel } from './sections/modal_section_channel';
 import { ModalSectionEmbed } from './sections/modal_section_embed';
 import { ModalSectionMessage } from './sections/modal_section_message';
 
-export function DefaultModal({ reactionRole, setReactionRole, availableRoles, custom }): JSX.Element {
+export function DefaultModal(): JSX.Element {
 	const [emoji, setEmoji] = useState('');
 	const [role, setRole] = useState('');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
+
+	const [channel, setChannel] = useState('');
+	const [embed, setEmbed] = useState('');
+	const [message, setMessage] = useState('');
 
 	const template = {
 		embed: Object,

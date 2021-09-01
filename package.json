@@ -17,7 +17,8 @@
 		"build": "next build",
 		"start": "next start",
 		"clean": "npx prettier --write .",
-		"kill": "taskkill /f /im node.exe"
+		"kill": "taskkill /f /im node.exe",
+		"gitignore-clean": "git rm -r --cached . && git add ."
 	},
 	"dependencies": {
 		"@babel/core": "^7.15.0",
