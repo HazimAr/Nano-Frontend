@@ -58,13 +58,13 @@ export function Sidebar(props): JSX.Element {
 					<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
 					<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
 					<Divider />
+					<NavLink label="Change Guild" icon={FaPen} href="/dashboard" />
 					<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
 					<Divider />
-					<NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} />
-					<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
-					<NavLink label="Change Guild" icon={FaPen} href={`/dashboard`} />
-					<NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} />
 					<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
+					<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
+					{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} /> */}
+					{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} /> */}
 				</Stack>
 				<Spacer />
 			</Flex>
