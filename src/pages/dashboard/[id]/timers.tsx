@@ -26,8 +26,7 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 import { Channels } from '@components/dashboard/channels';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FcCancel } from 'react-icons/fc';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
@@ -50,13 +49,14 @@ export async function getServerSideProps(context: any) {
 	return { props: { session, api_response, guild_id } };
 }
 // ------------------------------------------------------
+
 const handleToast = (status, description, toast) => {
 	toast({
 		title: status,
 		description,
 
 		status: status.toLowerCase(),
-		duration: 3000,
+		duration: 2_000,
 		isClosable: true,
 	});
 };
@@ -220,9 +220,7 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 //
 function DeleteTimer({ token, categories, timer, guild_id, updateTimer }: { token: unknown; categories: any; timer: any; guild_id: string; updateTimer: any }): JSX.Element {
 	const { timer_id, channel_id, interval: _interval } = timer ?? {};
-
 	const toast = useToast();
-	const router = useRouter();
 
 	return timer.enabled ? (
 		<Button
@@ -237,7 +235,7 @@ function DeleteTimer({ token, categories, timer, guild_id, updateTimer }: { toke
 			position="absolute"
 			right="-25px"
 			top="-10px"
-			fontSize="40px"
+			fontSize="30px"
 		>
 			<FcCancel />
 		</Button>

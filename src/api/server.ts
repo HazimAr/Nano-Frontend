@@ -69,17 +69,17 @@ export async function updateNanoCommands(guild_id: string, group_name: string, c
 	);
 }
 
-export async function createCustomCommand(guild_id: string, trigger: string, command_id: string, response: any, token: string, _delete = false, enabled = true) {
+export async function createCustomCommand({ guild_id, trigger, response, command_id, enabled = true }, token: string, _delete = false) {
 	return axios.put(
-		`${HOST_DOMAIN}/g/customCommands`,
+		`${HOST_DOMAIN}/g/custom_commands`,
 		{
 			guild_id,
 			trigger,
 			response,
-			_delete,
 			enabled,
 			command_id,
 			authorization: `Bearer ${token}`,
+			_delete,
 		},
 		config
 	);
