@@ -14,7 +14,7 @@ export default function Role_Playing({ session, data, guild_id }: { session: Dis
 
 	return (
 		<Layout session={session}>
-			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
+			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%">
 				<CommandSection session={session} guild_id={guild_id} title="Positive" commands={positive} />
 				<CommandSection session={session} guild_id={guild_id} title="Neutral" commands={neutral} />
 				<CommandSection session={session} guild_id={guild_id} title="Negative" commands={negative} />

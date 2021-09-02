@@ -11,7 +11,7 @@ export default function Info({ session, data, guild_id }: { session: DiscordUser
 	const { commands } = data;
 	return (
 		<Layout session={session}>
-			<Stack spacing={3} flexDir="column" maxW="1200px" w="100%">
+			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%">
 				<CommandSection session={session} guild_id={guild_id} commands={commands} title="Info" />
 			</Stack>
 		</Layout>

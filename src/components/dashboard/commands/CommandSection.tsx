@@ -9,9 +9,9 @@ export function CommandSection({ commands, title, session, guild_id }) {
 	const [changes, setChanges] = useState(0);
 
 	return (
-		<VStack spacing="8px" bg="blackAlpha.700" mt="4" borderRadius="xl">
-			<Box fontSize="26px" pb="4" width="100%" mx="auto">
-				<Box py="4" bgColor="bg.primaryDark" textAlign="center" borderRadius="xl" color="osu">
+		<VStack bg="blackAlpha.700" borderRadius="xl" my="50px" py="25px">
+			<Box fontSize="26px" width="100%" mx="auto" px="32px">
+				<Box textAlign="center" borderRadius="xl" color="osu">
 					{title} Commands
 				</Box>
 				<SimpleGrid columns={3} spacing={10} pt="15px" fontSize="25px">
