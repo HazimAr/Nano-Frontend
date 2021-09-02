@@ -21,7 +21,7 @@ export async function defaultPostRequest(path: string, guild_id: string, authori
 //
 
 export async function getLeaderboards() {
-	return axios.post(`${HOST_DOMAIN}/lb`, config);
+	return axios.post(`${HOST_DOMAIN}/leaderboards`, config);
 }
 
 //

@@ -10,22 +10,20 @@ export function CommandSection({ commands, title, session, guild_id }) {
 
 	return (
 		<VStack bg="blackAlpha.700" borderRadius="xl" my="50px" py="25px">
-			<Box fontSize="26px" width="100%" mx="auto" px="32px">
+			<Box fontSize="26px" width="100%" mx="auto" px="100px">
 				<Box textAlign="center" borderRadius="xl" color="osu">
 					{title} Commands
 				</Box>
 				<SimpleGrid columns={3} spacing={10} pt="15px" fontSize="25px">
-					<Box textAlign="center">Command</Box>
+					<Text />
+					<Text />
+					<Text />
+					<Box textAlign="left">Command</Box>
 					<Box textAlign="center">Options</Box>
-					<Box textAlign="right" px="8">
-						Enabled
-					</Box>
-					<Divider />
-					<Divider />
-					<Divider />
+					<Box textAlign="right">Enabled</Box>
 					{commands.map((cmd) => (
 						<Fragment key={cmd.memberName}>
-							<Box fontSize="18px" textAlign="center">
+							<Box fontSize="18px" textAlign="left">
 								{cmd.name} <br />
 								<Text fontSize="14px" color="red_black.red">
 									{cmd.description}
@@ -34,7 +32,7 @@ export function CommandSection({ commands, title, session, guild_id }) {
 							<Box fontSize="18px" textAlign="center" color="osu">
 								{cmd.format}
 							</Box>
-							<Box textAlign="right" px="8">
+							<Box textAlign="right">
 								<Switch
 									colorScheme="green"
 									defaultChecked={cmd.enabled}

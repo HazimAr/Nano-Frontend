@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-default-export */
-import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
 
 export default function Level(props): JSX.Element {
+	const { user } = props;
+
 	return (
 		<CircularProgress
 			// value={50}
-			value={(props.user.nextLvlPercent ?? props.user.percent) * 100}
-			color="brand.primary"
+			value={(user.nextLvlPercent ?? user.percent) * 100}
+			color="osu"
 			trackColor="transparent"
 			{...props}
 		>
-			<CircularProgressLabel>
-				{props.user.lvl ?? props.user.level}
-			</CircularProgressLabel>
+			<CircularProgressLabel>{user.lvl ?? user.level}</CircularProgressLabel>
 		</CircularProgress>
 	);
 }

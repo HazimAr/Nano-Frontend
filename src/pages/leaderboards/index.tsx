@@ -2,47 +2,71 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getLeaderboards } from "@api/server";
-import { Box } from "@chakra-ui/react";
-import {
-	Messages,
-	Rank,
-	Tokens,
-	Votes,
-} from "@components/dashboard/leaderboards/types";
-import { useState } from "react";
-import Select from "react-select";
+import { getLeaderboards } from '@api/server';
+import { Box } from '@chakra-ui/react';
+import { Messages, Rank, Tokens, Votes } from '@components/dashboard/leaderboards/types';
+import { useState } from 'react';
+import Select from 'react-select';
 
 const options = [
-	{ value: "rank", label: "Rank" },
-	{ value: "votes", label: "Votes" },
-	{ value: "messages", label: "Messages" },
-	{ value: "tokens", label: "Tokens" },
+	{ value: 'rank', label: 'Rank' },
+	{ value: 'votes', label: 'Votes' },
+	{ value: 'messages', label: 'Messages' },
+	{ value: 'tokens', label: 'Tokens' },
 ];
 
 /* secondary: "#f6a", primary: "#7549ac", primary2: "#fab107", */
+const osu = {
+	1: 'hsl(333, 100%, 70%)',
+	2: 'hsl(333, 100%, 75%)',
+	3: 'hsl(328, 100%, 70%)',
+	4: 'hsl(328, 100%, 75%)',
+	dark: 'hsl(328, 100%, 30%)',
+};
 
 const customStyles = {
+	control: (base, state) => ({
+		...base,
+		background: 'transparent',
+		'&:hover': {
+			borderColor: osu[2],
+		},
+	}),
+
+	menu: (base) => ({
+		...base,
+		borderRadius: 0,
+		margin: 0,
+	}),
+
+	menuList: (base) => ({
+		...base,
+		padding: 0,
+	}),
+
 	option: (provided: any, state: { isSelected: boolean }) => ({
 		...provided,
-		borderBottom: "1px solid white",
-		backgroundColor: state.isSelected ? "#fab107" : "#7549ac",
+		borderBottom: osu.dark,
+		backgroundColor: state.isSelected ? osu[1] : osu[2],
+		'&:hover': {
+			backgroundColor: state.isSelected ? osu[3] : osu[4],
+		},
 	}),
 
 	singleValue: (provided: any, state: { isDisabled: boolean }) => {
 		const opacity = state.isDisabled ? 0.5 : 1;
-		const transition = "opacity 300ms";
+		const transition = 'opacity 300ms';
 
 		return { ...provided, opacity, transition };
 	},
 };
 
-export default function Custom({ leader }: { leader: any }): JSX.Element {
-	// guild_id = BigInt(guild_id);
+export default function Custom({ api_response }: { api_response: any }): JSX.Element {
+	const { xp, votes, messages, tokens } = api_response;
 	const [sort, setSort] = useState(options[0]);
 
 	return (
-		<Box maxW="700px" w="100%">
+		<Box maxW="700px" w="100%" mx="auto" my="50px">
 			<Select
 				// @ts-ignore
 				onChange={setSort}
@@ -50,25 +74,13 @@ export default function Custom({ leader }: { leader: any }): JSX.Element {
 				options={options}
 				styles={customStyles}
 				isSearchable={false}
-				style={{ minWidth: "0" }}
+				style={{ minWidth: '0' }}
 			/>
-			<Box>
-				{sort.value === "rank" ? (
-					<Rank leaderboards={leader.xp} />
-				) : sort.value === "votes" ? (
-					<Votes leaderboards={leader.votes} />
-				) : sort.value === "messages" ? (
-					<Messages leaderboards={leader.messages} />
-				) : (
-					<Tokens leaderboards={leader.tokens} />
-				)
-                }
-			</Box>
+			<Box mt="50px">{sort.value === 'rank' ? <Rank leaderboards={xp} /> : sort.value === 'votes' ? <Votes leaderboards={votes} /> : sort.value === 'messages' ? <Messages leaderboards={messages} /> : <Tokens leaderboards={tokens} />}</Box>
 		</Box>
 	);
 }
 
 export async function getServerSideProps() {
-	const leader = await getLeaderboards();
-	return { props: { leader } };
+	return { props: { api_response: (await getLeaderboards()).data } };
 }
