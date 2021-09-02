@@ -35,12 +35,11 @@ export async function getGuildLeaderboards(guild_id) {
 //
 // -------------------------------- 💠 USERS 💠 --------------------------------
 //
-
 export async function getOsuRank(id: string) {
 	return axios.post(`${HOST_DOMAIN}/osu/user`, { id }, config);
 }
 
-export async function getUser(token: unknown) {
+export async function getUser(token: string) {
 	return axios.post(`${HOST_DOMAIN}/u/profile`, { authorization: token }, config);
 }
 

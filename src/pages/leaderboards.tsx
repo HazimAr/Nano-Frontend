@@ -3,10 +3,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLeaderboards } from '@api/server';
-import { Box } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
+import Layout from '@components/dashboard/layout';
 import { Messages, Rank, Tokens, Votes } from '@components/dashboard/leaderboards/types';
 import { useState } from 'react';
 import Select from 'react-select';
+import { getSession } from 'next-auth/client';
 
 const options = [
 	{ value: 'rank', label: 'Rank' },
@@ -61,26 +63,32 @@ const customStyles = {
 	},
 };
 
-export default function Custom({ api_response }: { api_response: any }): JSX.Element {
+export async function getServerSideProps(context: any) {
+	const session = await getSession(context);
+
+	return { props: { api_response: (await getLeaderboards()).data, session } };
+}
+//
+//
+//
+export default function Custom({ api_response, session }: { api_response: any; session: any }): JSX.Element {
 	const { xp, votes, messages, tokens } = api_response;
 	const [sort, setSort] = useState(options[0]);
 
 	return (
-		<Box maxW="700px" w="100%" mx="auto" my="50px">
-			<Select
-				// @ts-ignore
-				onChange={setSort}
-				defaultValue={sort}
-				options={options}
-				styles={customStyles}
-				isSearchable={false}
-				style={{ minWidth: '0' }}
-			/>
-			<Box mt="50px">{sort.value === 'rank' ? <Rank leaderboards={xp} /> : sort.value === 'votes' ? <Votes leaderboards={votes} /> : sort.value === 'messages' ? <Messages leaderboards={messages} /> : <Tokens leaderboards={tokens} />}</Box>
-		</Box>
+		<Layout session={session}>
+			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%" mt="50px">
+				<Select
+					// @ts-ignore
+					onChange={setSort}
+					defaultValue={sort}
+					options={options}
+					styles={customStyles}
+					isSearchable={false}
+					style={{ minWidth: '0' }}
+				/>
+				<Box mt="50px">{sort.value === 'rank' ? <Rank leaderboards={xp} /> : sort.value === 'votes' ? <Votes leaderboards={votes} /> : sort.value === 'messages' ? <Messages leaderboards={messages} /> : <Tokens leaderboards={tokens} />}</Box>
+			</Stack>
+		</Layout>
 	);
-}
-
-export async function getServerSideProps() {
-	return { props: { api_response: (await getLeaderboards()).data } };
 }

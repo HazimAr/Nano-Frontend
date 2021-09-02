@@ -2,7 +2,7 @@
 import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 import { DiscordUser } from 'types';
-import { MobileTopBar } from './nav/mobiletopbar';
+// import { MobileTopBar } from './nav/mobiletopbar';
 import { Sidebar } from './nav/sidebar';
 
 // eslint-disable-next-line import/no-default-export
