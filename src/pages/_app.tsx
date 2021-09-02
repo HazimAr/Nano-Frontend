@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { pageview } from '@lib/gtag';
 import theme from '@styles/theme';
 import { META } from 'config';
-import { Provider } from 'next-auth/client';
+import { Provider as NextAuthProvider } from 'next-auth/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 				<title>{META.title}</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Provider session={pageProps.session}>
+			<NextAuthProvider session={pageProps.session}>
 				<ChakraProvider theme={theme}>
 					<Component
 						{...pageProps}
@@ -51,7 +51,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 						}}
 					/>
 				</ChakraProvider>
-			</Provider>
+			</NextAuthProvider>
 		</>
 	);
 }

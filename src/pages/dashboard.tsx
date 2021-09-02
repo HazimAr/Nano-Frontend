@@ -79,7 +79,7 @@ export default function Index({ session, guilds }: { session: DiscordUser; guild
 											}}
 											justify="center"
 										>
-											<Image src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${guild.icon?.startsWith('a_') ? 'gif' : 'png'}`} fallbackSrc="/oss.png" w={20} rounded="50%" mx={{ base: 0, sm: 5 }} />
+											<Image src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${guild.icon?.startsWith('a_') ? 'gif' : 'png'}`} fallbacksrc="/oss.png" w={20} rounded="50%" mx={{ base: 0, sm: 5 }} />
 											<Heading size="md" my={{ base: 3, sm: 5 }} textAlign="center">
 												{guild.name}
 											</Heading>

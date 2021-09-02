@@ -29,6 +29,8 @@ const theme = extendTheme({
 			900: 'hsl(333, 100%, 90%)',
 		},
 		// osu: '#FF66AA',
+		discord: 'hsl(227, 58%, 65%)',
+		// discord: '#7289da',
 		light_white: 'hsl(0, 0%, 70%)',
 		brand: {
 			error: '#cf6679',
