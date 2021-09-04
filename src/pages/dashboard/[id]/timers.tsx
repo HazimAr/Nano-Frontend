@@ -46,7 +46,7 @@ export async function getServerSideProps(context: any) {
 
 	const api_response = await defaultPostRequest('g/timers', guild_id, session.accessToken);
 
-	return { props: { session, api_response, guild_id } };
+	return { props: { session, api_response, guild_id, cookies: context.req.cookies } };
 }
 // ------------------------------------------------------
 
@@ -61,7 +61,7 @@ const handleToast = (status, description, toast) => {
 	});
 };
 
-export default function Timers({ session, api_response, guild_id }: { session: DiscordUser; api_response: any; guild_id: string }): JSX.Element {
+export default function Timers({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	const { guild, categories } = api_response ?? {};
 
 	const arr = [];
@@ -96,7 +96,7 @@ export default function Timers({ session, api_response, guild_id }: { session: D
 	};
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack spacing={5} w="100%" mt="50px" px="50px">
 				<HStack justify="space-between">
 					<Heading>Timers</Heading>

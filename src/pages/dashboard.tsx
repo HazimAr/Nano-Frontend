@@ -12,13 +12,35 @@ import NextChakraLink from '@components/nextChakra';
 import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { DiscordUser } from 'types';
-import cookie from 'cookie';
+//
+// --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
+export async function getServerSideProps(context: any) {
+	const session: any = await getSession(context);
 
-export default function Index({ session, authed_guild_statuses }: { session: DiscordUser; authed_guild_statuses: any }): JSX.Element {
+	if (!session?.accessToken) {
+		context.res.writeHead(307, {
+			Location: '/',
+		});
+		context.res.end();
+		return { props: { session } };
+	}
+
+	const { authed_guild_statuses } = await getGuilds(session.accessToken);
+	return {
+		props: {
+			session,
+			authed_guild_statuses,
+			cookies: context.req.cookies,
+		},
+	};
+}
+//
+//
+export default function Index({ session, authed_guild_statuses, cookies }: { session: DiscordUser; authed_guild_statuses: any; cookies: any }): JSX.Element {
 	const router = useRouter();
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack maxW="800px" w="100%" spacing={3} pt="50px">
 				{authed_guild_statuses.length > 0 ? (
 					authed_guild_statuses
@@ -62,7 +84,7 @@ export default function Index({ session, authed_guild_statuses }: { session: Dis
 															headers: {
 																'Content-Type': 'application/json',
 															},
-															body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 43_800 }),
+															body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 2.628e6 }),
 														});
 														void router.push(`${router.asPath}/${guild.id}`);
 													}}
@@ -99,24 +121,4 @@ export default function Index({ session, authed_guild_statuses }: { session: Dis
 			</Stack>
 		</Layout>
 	);
-}
-
-export async function getServerSideProps(context: any) {
-	const session: any = await getSession(context);
-
-	if (!session?.accessToken) {
-		context.res.writeHead(307, {
-			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-
-	const { authed_guild_statuses } = await getGuilds(session.accessToken);
-	return {
-		props: {
-			session,
-			authed_guild_statuses,
-		},
-	};
 }

@@ -62,21 +62,21 @@ const customStyles = {
 		return { ...provided, opacity, transition };
 	},
 };
-
+//
+// --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
 export async function getServerSideProps(context: any) {
 	const session = await getSession(context);
 
-	return { props: { api_response: (await getLeaderboards()).data, session } };
+	return { props: { api_response: (await getLeaderboards()).data, session, cookies: context.req.cookies } };
 }
 //
 //
-//
-export default function Custom({ api_response, session }: { api_response: any; session: any }): JSX.Element {
+export default function Custom({ api_response, session, cookies }: { api_response: any; session: any; cookies: any }): JSX.Element {
 	const { xp, votes, messages, tokens } = api_response;
 	const [sort, setSort] = useState(options[0]);
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%" mt="50px">
 				<Select
 					// @ts-ignore

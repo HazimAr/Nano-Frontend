@@ -7,13 +7,13 @@ import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 
-export default function Role_Playing({ session, data, guild_id }: { session: DiscordUser; data: any; guild_id: string }): JSX.Element {
+export default function Role_Playing({ session, data, guild_id, cookies }: { session: DiscordUser; data: any; guild_id: string; cookies: any }): JSX.Element {
 	// console.log(data);
 	const { commands } = data;
 	const [positive, neutral, negative] = commands;
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%">
 				<CommandSection session={session} guild_id={guild_id} title="Positive" commands={positive} />
 				<CommandSection session={session} guild_id={guild_id} title="Neutral" commands={neutral} />
@@ -34,5 +34,5 @@ export async function getServerSideProps(context: any) {
 	const { guild_id } = context.req.cookies;
 	const data = await defaultPostRequest('g/groups/role_playing', guild_id, session.accessToken);
 
-	return { props: { session, data, guild_id } };
+	return { props: { session, data, guild_id, cookies: context.req.cookies } };
 }

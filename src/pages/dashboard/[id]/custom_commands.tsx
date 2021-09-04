@@ -23,7 +23,7 @@ export async function getServerSideProps(context: any) {
 
 	const api_response = await defaultPostRequest('g/custom_commands', guild_id, session.accessToken);
 
-	return { props: { session, api_response, guild_id } };
+	return { props: { session, api_response, guild_id, cookies: context.req.cookies } };
 }
 // ------------------------------------------------------
 //
@@ -40,7 +40,7 @@ const handleToast = (status, description, toast) => {
 //
 //
 //
-export default function Commands({ session, api_response, guild_id }: { session: DiscordUser; api_response: any; guild_id: string }): JSX.Element {
+export default function Commands({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	const { mongoGuild } = api_response ?? {};
 	const { customCommands, premium } = mongoGuild ?? {};
 
@@ -76,7 +76,7 @@ export default function Commands({ session, api_response, guild_id }: { session:
 	};
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack spacing={5} w="100%" mt="50px" px="50px">
 				<HStack justify="space-between">
 					<Heading>Custom Commands</Heading>

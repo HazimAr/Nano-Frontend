@@ -8,7 +8,7 @@ import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { DiscordUser } from 'types';
 
-export default function Osu({ session, data, guild_id, error }: { session: DiscordUser; data: any; guild_id: string; error: boolean }): JSX.Element {
+export default function Osu({ session, data, guild_id, cookies }: { session: DiscordUser; data: any; guild_id: string; cookies: any }): JSX.Element {
 	// if (error)
 	// const router = useRouter();
 	// router.push({ pathname: '/404', query: { error } });
@@ -16,7 +16,7 @@ export default function Osu({ session, data, guild_id, error }: { session: Disco
 	const { commands } = data;
 
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%">
 				<CommandSection session={session} guild_id={guild_id} commands={commands} title="osu!" />
 			</Stack>
@@ -25,11 +25,11 @@ export default function Osu({ session, data, guild_id, error }: { session: Disco
 }
 
 export async function getServerSideProps(context: any) {
-	let [data, err] = [{}, null];
+	// let [data, err] = [{}, null];
 	const { guild_id } = context.req.cookies;
 
 	const session = await getSession(context);
-	data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
+	const data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
 
 	// try {
 	// 	throw 'testing this';
@@ -43,5 +43,5 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	return { props: { session, data, guild_id, error: err } };
+	return { props: { session, data, guild_id, cookies: context.req.cookies } };
 }

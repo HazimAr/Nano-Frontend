@@ -1,27 +1,43 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { defaultPostRequest } from '@api/server';
 import { Avatar, Flex, Grid, Heading, HStack, Stack, Text, VStack } from '@chakra-ui/react';
 import Layout from '@components/dashboard/layout';
 import NextChakraLink from '@components/nextChakra';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
+//
+// --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
+export async function getServerSideProps(context: any) {
+	const session: any = await getSession(context);
 
-export default function Guild({
-	session,
-	guild,
-	guild_id,
-}: {
-	session: DiscordUser;
+	if (!session?.accessToken) {
+		context.res.writeHead(307, {
+			Location: '/',
+		});
+		context.res.end();
+		return { props: { session } };
+	}
 
-	guild: any;
-	guild_id: string;
-}): JSX.Element {
+	const { guild_id } = context.req.cookies;
+	const guild = await defaultPostRequest('g/groups/profile', guild_id, session.accessToken);
+
+	return {
+		props: {
+			session,
+			guild,
+			guild_id,
+			cookies: context.req.cookies,
+		},
+	};
+}
+// ------------------------------------------------------
+//
+export default function Guild({ session, guild, guild_id, cookies }: { session: DiscordUser; guild: any; guild_id: string; cookies: any }): JSX.Element {
 	const { discordGuild } = guild;
 	const { mongoGuildObject: mongoGuild } = guild;
 	return (
-		<Layout session={session}>
+		<Layout session={session} cookies={cookies}>
 			<Stack align="center" mt={5} spacing={5}>
 				<Flex align="center" w="100%">
 					<Avatar
@@ -104,27 +120,4 @@ function Panel({ name, description, href }): JSX.Element {
 			</NextChakraLink>
 		</VStack>
 	);
-}
-
-export async function getServerSideProps(context: any) {
-	const session: any = await getSession(context);
-
-	if (!session?.accessToken) {
-		context.res.writeHead(307, {
-			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-
-	const { guild_id } = context.req.cookies;
-	const guild = await defaultPostRequest('g/groups/profile', guild_id, session.accessToken);
-
-	return {
-		props: {
-			session,
-			guild,
-			guild_id,
-		},
-	};
 }
