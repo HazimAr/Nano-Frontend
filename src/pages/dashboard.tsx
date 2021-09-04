@@ -9,19 +9,19 @@ import { Box, Divider, Flex, Heading, HStack, Image, Stack, VStack } from '@chak
 import Button from '@components/button';
 import Layout from '@components/dashboard/layout';
 import NextChakraLink from '@components/nextChakra';
-import { setCookie } from '@lib/cookie';
 import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { DiscordUser } from 'types';
+import cookie from 'cookie';
 
-export default function Index({ session, guilds }: { session: DiscordUser; guilds: any }): JSX.Element {
+export default function Index({ session, authed_guild_statuses }: { session: DiscordUser; authed_guild_statuses: any }): JSX.Element {
 	const router = useRouter();
 
 	return (
 		<Layout session={session}>
 			<Stack maxW="800px" w="100%" spacing={3} pt="50px">
-				{guilds.length > 0 ? (
-					guilds
+				{authed_guild_statuses.length > 0 ? (
+					authed_guild_statuses
 						.sort((a: any, b: any) => {
 							if (a.status === b.status) {
 								return a.guild.name === b.guild.name ? 0 : a.guild.name > b.guild.name ? 1 : -1;
@@ -48,11 +48,22 @@ export default function Index({ session, guilds }: { session: DiscordUser; guild
 										my="15px"
 									>
 										<VStack spacing={0} justify="flex-start">
-											{guildObject.status !== 'invite' ? (
+											{guildObject.status === 'invite' ? (
+												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
+													<Button mt={3} mb={3} bg="#fff">
+														Invite
+													</Button>
+												</NextChakraLink>
+											) : (
 												<Button
 													onClick={() => {
-														setCookie('guild', guild.id, 7);
-
+														fetch('/api/set_cookie', {
+															method: 'post',
+															headers: {
+																'Content-Type': 'application/json',
+															},
+															body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 43_800 }),
+														});
 														void router.push(`${router.asPath}/${guild.id}`);
 													}}
 													type="secondary"
@@ -63,12 +74,6 @@ export default function Index({ session, guilds }: { session: DiscordUser; guild
 												>
 													Edit
 												</Button>
-											) : (
-												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
-													<Button mt={3} mb={3} bg="#fff">
-														Invite
-													</Button>
-												</NextChakraLink>
 											)}
 										</VStack>
 										<Flex
@@ -107,11 +112,11 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const guilds = await getGuilds(session.accessToken);
+	const { authed_guild_statuses } = await getGuilds(session.accessToken);
 	return {
 		props: {
 			session,
-			guilds,
+			authed_guild_statuses,
 		},
 	};
 }
