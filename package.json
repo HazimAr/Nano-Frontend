@@ -21,7 +21,7 @@
 		"gitignore-clean": "git rm -r --cached . && git add ."
 	},
 	"dependencies": {
-		"@babel/core": "^7.15.0",
+		"@babel/core": "^7.15.4",
 		"@badrap/bar-of-progress": "^0.1.2",
 		"@chakra-ui/icons": "^1.0.15",
 		"@chakra-ui/react": "^1.6.6",
