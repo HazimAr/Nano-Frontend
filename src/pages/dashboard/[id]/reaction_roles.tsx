@@ -55,7 +55,7 @@ export default function ReactionRoles({ session, api_response, guild_id }): JSX.
 
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
-	const guild_id = context.params.id;
+	const { guild_id } = context.req.cookies;
 
 	if (!session) {
 		context.res.writeHead(307, {

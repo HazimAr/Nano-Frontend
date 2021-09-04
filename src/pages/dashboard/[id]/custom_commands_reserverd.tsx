@@ -18,7 +18,7 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const guild_id = context.params.id;
+	const { guild_id } = context.req.cookies;
 
 	const api_response = await defaultPostRequest('g/custom_commands', guild_id, session.accessToken);
 

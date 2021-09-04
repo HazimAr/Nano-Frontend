@@ -26,7 +26,7 @@ export default function Osu({ session, data, guild_id, error }: { session: Disco
 
 export async function getServerSideProps(context: any) {
 	let [data, err] = [{}, null];
-	const guild_id = context.params.id;
+	const { guild_id } = context.req.cookies;
 
 	const session = await getSession(context);
 	data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
