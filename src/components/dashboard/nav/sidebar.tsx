@@ -10,7 +10,8 @@ import { HiOutlineCollection } from 'react-icons/hi';
 import { GiAbstract039, GiCirclingFish, GiSwordSmithing, GiBackwardTime, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
 import { Logo } from './logo';
 import { NavLink } from './navlink';
-
+import { useRouter } from 'next/router';
+//
 export function Sidebar(props): JSX.Element {
 	const { session, cookies } = props;
 	const { guild_id } = cookies ?? {};
@@ -98,15 +99,24 @@ export function Sidebar(props): JSX.Element {
 
 function DropDown({ guilds, guild_id, guild, setGuild }) {
 	const [isOpen, setOpen] = useState(false);
+	const router = useRouter();
+
+	console.log(router.query);
 
 	return (
 		<Box mt="10px" pos="relative" color="white">
 			<Button onClick={() => setOpen(!isOpen)} borderRadius="none" height="40px" w="100%" bg="black">
-				<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="50px" rounded="50%" />
-				{guild.name}
+				<span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+					<Box mr="auto">
+						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="30px" rounded="50%" />
+					</Box>
+					<Box mr="auto">
+						{guild.name.slice(0, 16)} {JSON.stringify(router.query)}
+					</Box>
+				</span>
 			</Button>
 			{isOpen ? (
-				<Box bg="osu">
+				<Box w="100%">
 					{guilds.map((guild, i) => {
 						return (
 							<Button
@@ -124,13 +134,11 @@ function DropDown({ guilds, guild_id, guild, setGuild }) {
 								borderRadius="none"
 								bg="black"
 							>
-								<span>
-									<Flex alignItems="center">
-										<Box mr="auto">
-											<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="30px" rounded="50%" />
-										</Box>
-										<Box mr="auto">{guild.name}</Box>
-									</Flex>
+								<span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+									<Box mr="auto">
+										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="30px" rounded="50%" />
+									</Box>
+									<Box mr="auto">{guild.name.slice(0, 16)}</Box>
 								</span>
 							</Button>
 						);
