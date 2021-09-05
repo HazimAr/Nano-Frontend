@@ -25,25 +25,25 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const { authed_guild_statuses } = await getGuilds(session.accessToken);
+	const { authed_guilds_statuses } = await getGuilds(session.accessToken);
 	return {
 		props: {
 			session,
-			authed_guild_statuses,
+			authed_guilds_statuses,
 			cookies: context.req.cookies,
 		},
 	};
 }
 //
 //
-export default function Index({ session, authed_guild_statuses, cookies }: { session: DiscordUser; authed_guild_statuses: any; cookies: any }): JSX.Element {
+export default function Index({ session, authed_guilds_statuses, cookies }: { session: DiscordUser; authed_guilds_statuses: any; cookies: any }): JSX.Element {
 	const router = useRouter();
 
 	return (
 		<Layout session={session} cookies={cookies}>
 			<Stack maxW="800px" w="100%" spacing={3} pt="50px">
-				{authed_guild_statuses.length > 0 ? (
-					authed_guild_statuses
+				{authed_guilds_statuses.length > 0 ? (
+					authed_guilds_statuses
 						.sort((a: any, b: any) => {
 							if (a.status === b.status) {
 								return a.guild.name === b.guild.name ? 0 : a.guild.name > b.guild.name ? 1 : -1;

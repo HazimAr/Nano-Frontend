@@ -34,7 +34,8 @@ import { DiscordUser } from 'types';
 // --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
-	const { guild_id } = context.req.cookies;
+	const { guild_id } = context.params;
+	console.log(context.req.cookies);
 
 	if (!session) {
 		context.res.writeHead(307, {
@@ -46,7 +47,7 @@ export async function getServerSideProps(context: any) {
 
 	const api_response = await defaultPostRequest('g/timers', guild_id, session.accessToken);
 
-	return { props: { session, api_response, guild_id, cookies: context.req.cookies } };
+	return { props: { session, api_response, guild_id, cookies: { guild_id } } };
 }
 // ------------------------------------------------------
 
@@ -60,8 +61,12 @@ const handleToast = (status, description, toast) => {
 		isClosable: true,
 	});
 };
-
+//
 export default function Timers({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
+	return <Timers2 key={guild_id} session={session} api_response={api_response} guild_id={guild_id} cookies={cookies} />;
+}
+
+export function Timers2({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	const { guild, categories } = api_response ?? {};
 
 	const arr = [];

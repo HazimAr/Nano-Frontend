@@ -34,8 +34,8 @@ export async function getServerSideProps(context: any) {
 // ------------------------------------------------------
 //
 export default function Guild({ session, guild, guild_id, cookies }: { session: DiscordUser; guild: any; guild_id: string; cookies: any }): JSX.Element {
-	const { discordGuild } = guild;
-	const { mongoGuildObject: mongoGuild } = guild;
+	const { discordGuild, mongoGuildObject: mongoGuild = {} } = guild;
+
 	return (
 		<Layout session={session} cookies={cookies}>
 			<Stack align="center" mt={5} spacing={5}>

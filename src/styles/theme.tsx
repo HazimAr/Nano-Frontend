@@ -86,7 +86,6 @@ const theme = extendTheme({
 				background: 'red_black.red',
 				borderRadius: '50px',
 			},
-
 			'@font-face': {
 				fontFamily: 'Gagalin',
 				src: "url('/fonts/Gagalin.ttf')",

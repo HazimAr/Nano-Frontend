@@ -21,9 +21,9 @@ export function Sidebar(props): JSX.Element {
 
 	useEffect(() => {
 		async function _getGuilds() {
-			const { authedGuilds } = (await axios.post(`${process.env.HOST_DOMAIN}/u/get_guilds`, { authorization: `Bearer ${session.accessToken}` })).data;
-			setGuilds(authedGuilds.filter((g) => g));
-			setGuild(authedGuilds.find((g) => g.id === guild_id));
+			const { authed_guilds_filtered } = (await axios.post(`${process.env.HOST_DOMAIN}/u/get_guilds`, { authorization: `Bearer ${session.accessToken}` })).data;
+			setGuilds(authed_guilds_filtered);
+			setGuild(authed_guilds_filtered.find((g) => g.id === guild_id));
 		}
 
 		if (session?.accessToken) _getGuilds();
@@ -44,25 +44,7 @@ export function Sidebar(props): JSX.Element {
 					<Divider />
 					{session && guild_id ? (
 						<>
-							{
-								guild?.id ? (
-									<Box pt="16px">
-										<HStack>
-											<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="50px" rounded="50%" />
-											<Heading size="md" textAlign="center">
-												{guild?.name}
-											</Heading>
-										</HStack>
-										{/*  */}
-										<DropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} />
-									</Box>
-								) : null
-								// <Select value={value} onChange={handleChange} placeholder="Controlled select">
-								// 	<option value="Option 1">Option 1</option>
-								// 	<option value="Option 2">Option 2</option>
-								// 	<option value="Option 3">Option 3</option>
-								// </Select>
-							}
+							{guild?.id ? <DropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} /> : null}
 							<UserProfile session={session} />
 							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
 							<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
@@ -101,62 +83,79 @@ function DropDown({ guilds, guild_id, guild, setGuild }) {
 	const [isOpen, setOpen] = useState(false);
 	const router = useRouter();
 
-	console.log(router.query);
-
 	return (
-		<Box mt="10px" pos="relative" color="white">
-			<Button onClick={() => setOpen(!isOpen)} borderRadius="none" height="40px" w="100%" bg="black">
-				<span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+		<Box mt="10px" pt="10px" color="white" pos="relative">
+			<Button _focus={{ outline: 'none', color: 'osu' }} _hover={{ bg: 'transparent' }} onClick={() => setOpen(!isOpen)} borderRadius="none" height="60px" w="100%" bg="transparent" onBlur={() => setTimeout(() => setOpen(false), 100)}>
+				<span style={{ display: 'flex', alignItems: 'center', width: '100%', fontSize: '20px' }}>
 					<Box mr="auto">
-						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="30px" rounded="50%" />
+						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="40px" maxW="40px" rounded="50%" />
 					</Box>
-					<Box mr="auto">
-						{guild.name.slice(0, 16)} {JSON.stringify(router.query)}
-					</Box>
+					<Box mr="auto">{guild.name.slice(0, 20)}</Box>
 				</span>
 			</Button>
-			{isOpen ? (
-				<Box w="100%">
-					{guilds.map((guild, i) => {
+			<Box hidden={isOpen ? false : true} w="100%" bg="black" pos="absolute" h={`${guilds.length * 40 + 20}px`} zIndex="1" borderRadius="5%">
+				{guilds
+					.filter((g) => g.id !== guild_id)
+					.map((guild, i) => {
 						return (
 							<Button
 								key={guild.id}
 								pos="absolute"
-								top={`${(i + 1) * 40}px`}
+								top={`${i * 40 + 10}px`}
 								left="0px"
 								height="40px"
 								w="100%"
 								zIndex="1"
-								onClick={() => {
+								onClick={async () => {
 									setGuild(guild);
 									setOpen(!isOpen);
+									await fetch('/api/set_cookie', {
+										method: 'post',
+										headers: {
+											'Content-Type': 'application/json',
+										},
+										body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 2.628e6 }),
+									});
+									void router.push(router.asPath.replace(router.query.guild_id, guild.id));
+									// router.reload();
 								}}
+								_hover={{ bg: 'transparent', color: 'osu' }}
+								bg="transparent"
 								borderRadius="none"
-								bg="black"
 							>
-								<span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+								<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 									<Box mr="auto">
-										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} w="30px" rounded="50%" />
+										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="30px" maxW="30px" rounded="50%" />
 									</Box>
-									<Box mr="auto">{guild.name.slice(0, 16)}</Box>
+									<Box mr="auto">{guild.name.slice(0, 20)}</Box>
 								</span>
 							</Button>
 						);
 					})}
-				</Box>
-			) : null}
+				<Button
+					key={guild.id}
+					pos="absolute"
+					top={`${(guilds.length - 1) * 40 + 10}px`}
+					left="0px"
+					height="40px"
+					w="100%"
+					zIndex="1"
+					onClick={async () => {
+						setGuild(guild);
+						setOpen(!isOpen);
+					}}
+					_hover={{ bg: 'transparent', color: 'osu' }}
+					bg="transparent"
+					borderRadius="none"
+				>
+					<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+						<Box mr="auto">
+							<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="30px" maxW="30px" rounded="50%" />
+						</Box>
+						<Box mr="auto">{guild.name.slice(0, 20)}</Box>
+					</span>
+				</Button>
+			</Box>
 		</Box>
-		// <Select size="lg" bg="gray" borderColor="none" color="white" value={guild_id}>
-		// 	<option value="pick" style={{ backgroundColor: '#faa', fontSize: '25px', textAlign: 'center' }}>
-		// 		Pick a Guild
-		// 	</option>
-		// 	{guilds.map((guild) => {
-		// 		return (
-		// 			<option key={guild.id} style={{ backgroundColor: 'gray' }} value={guild.id}>
-		// 				{guild.name}
-		// 			</option>
-		// 		);
-		// 	})}
-		// </Select>
 	);
 }
