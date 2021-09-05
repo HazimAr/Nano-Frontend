@@ -18,7 +18,48 @@ import { getSession, signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { DiscordUser } from 'types';
+//
+//
+export async function getServerSideProps(context: any) {
+	const session: any = (await getSession(context)) as DiscordUser;
+	if (!session) {
+		context.res.writeHead(307, {
+			Location: '/',
+		});
+		context.res.end();
+		return { props: { session } };
+	}
 
+	const promises: Promise<any>[] = [];
+
+	const props: Record<string, any> = { session };
+
+	// for serverUser, osu, and guildId
+	promises.push(
+		getUser(session.accessToken).then((user: any) => {
+			const osu = user.osu ?? '';
+
+			const guild_id = context.req.url.split('/')[2] ?? '';
+
+			props.serverUser = user;
+			props.osu = osu;
+			props.guildId = guild_id;
+		})
+	);
+
+	// for the login link
+	promises.push(
+		loginOsu(session.accessToken).then((success) => {
+			props.loginLink = success;
+		})
+	);
+
+	return Promise.all(promises).then(() => {
+		return { props };
+	});
+}
+//
+//
 export default function Profile({ session, osu, guildId, serverUser, loginLink }: { session: DiscordUser; osu: any; guildId: string; serverUser: any; loginLink: string }): JSX.Element {
 	console.log(serverUser);
 	const serverUser2 = serverUser.mongoUserObject.guilds[guildId];
@@ -209,45 +250,6 @@ export default function Profile({ session, osu, guildId, serverUser, loginLink }
 			</Stack>
 		</Layout>
 	);
-}
-
-export async function getServerSideProps(context: any) {
-	const session: any = (await getSession(context)) as DiscordUser;
-	if (!session) {
-		context.res.writeHead(307, {
-			Location: '/',
-		});
-		context.res.end();
-		return { props: { session } };
-	}
-
-	const promises: Promise<any>[] = [];
-
-	const props: Record<string, any> = { session };
-
-	// for serverUser, osu, and guildId
-	promises.push(
-		getUser(session.accessToken).then((user: any) => {
-			const osu = user.osu ?? '';
-
-			const guild_id = context.req.url.split('/')[2] ?? '';
-
-			props.serverUser = user;
-			props.osu = osu;
-			props.guildId = guild_id;
-		})
-	);
-
-	// for the login link
-	promises.push(
-		loginOsu(session.accessToken).then((success) => {
-			props.loginLink = success;
-		})
-	);
-
-	return Promise.all(promises).then(() => {
-		return { props };
-	});
 }
 
 function graph(theme: any, data: any[][]) {

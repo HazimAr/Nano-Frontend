@@ -11,7 +11,7 @@ import { DiscordUser } from 'types';
 // --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
-	const { guild_id } = context.req.cookies;
+	const { cookies } = context.req;
 
 	if (!session) {
 		context.res.writeHead(307, {
@@ -21,11 +21,11 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const api_response = await defaultPostRequest('g/custom_commands', guild_id, session.accessToken);
+	const api_response = await defaultPostRequest('g/custom_commands', cookies.guild_id, session.accessToken);
 
-	return { props: { session, api_response, guild_id, cookies: context.req.cookies } };
+	return { props: { session, api_response, cookies } };
 }
-// ------------------------------------------------------
+//
 //
 const handleToast = (status, description, toast) => {
 	toast({
@@ -38,9 +38,12 @@ const handleToast = (status, description, toast) => {
 	});
 };
 //
+export default function Commands({ session, api_response, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
+	const { guild_id } = cookies ?? {};
+	return <Commands2 key={guild_id} session={session} api_response={api_response} cookies={cookies} guild_id={guild_id} />;
+}
 //
-//
-export default function Commands({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
+export function Commands2({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	const { mongoGuild } = api_response ?? {};
 	const { customCommands, premium } = mongoGuild ?? {};
 

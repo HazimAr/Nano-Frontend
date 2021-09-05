@@ -31,11 +31,11 @@ import { FcCancel } from 'react-icons/fc';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
+//
 // --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
 export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
-	const { guild_id } = context.params;
-	console.log(context.req.cookies);
+	const { cookies } = context.req;
 
 	if (!session) {
 		context.res.writeHead(307, {
@@ -45,12 +45,12 @@ export async function getServerSideProps(context: any) {
 		return { props: { session } };
 	}
 
-	const api_response = await defaultPostRequest('g/timers', guild_id, session.accessToken);
+	const api_response = await defaultPostRequest('g/timers', cookies.guild_id, session.accessToken);
 
-	return { props: { session, api_response, guild_id, cookies: { guild_id } } };
+	return { props: { session, api_response, cookies } };
 }
-// ------------------------------------------------------
-
+//
+//
 const handleToast = (status, description, toast) => {
 	toast({
 		title: status,
@@ -62,10 +62,11 @@ const handleToast = (status, description, toast) => {
 	});
 };
 //
-export default function Timers({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
-	return <Timers2 key={guild_id} session={session} api_response={api_response} guild_id={guild_id} cookies={cookies} />;
+export default function Timers({ session, api_response, cookies }: { session: DiscordUser; api_response: any; cookies: any }): JSX.Element {
+	const { guild_id } = cookies ?? {};
+	return <Timers2 key={guild_id} session={session} api_response={api_response} cookies={cookies} guild_id={guild_id} />;
 }
-
+//
 export function Timers2({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	const { guild, categories } = api_response ?? {};
 
@@ -153,7 +154,7 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 								{timer.channel.name ?? timer.channel?.channel_name}
 							</Heading>
 							<Text size="md" color="light_white">
-								{interval && `Every ${(interval / 60_000).toFixed(1)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
+								{interval && `Every ${(interval / 60_000).toFixed(0)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
 							</Text>
 							<Text size="md" color="white">
 								{timer.message}

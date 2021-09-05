@@ -5,15 +5,37 @@ import { Stack } from '@chakra-ui/react';
 import { CommandSection } from '@components/dashboard/commands/CommandSection';
 import Layout from '@components/dashboard/layout';
 import { getSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
 import { DiscordUser } from 'types';
+//
+// --------- 🚚 🚚 🚚 🚚 🚚 🚚 🚚 🚚 ---------
+export async function getServerSideProps(context: any) {
+	const session: any = await getSession(context);
+	const { cookies } = context.req;
 
-export default function Osu({ session, data, guild_id, cookies }: { session: DiscordUser; data: any; guild_id: string; cookies: any }): JSX.Element {
+	if (!session) {
+		context.res.writeHead(307, { Location: '/' });
+		context.res.end();
+		return { props: { session } };
+	}
+
+	const api_response = await defaultPostRequest('g/groups/osu', cookies.guild_id, session.accessToken);
+
+	return { props: { session, api_response, cookies } };
+}
+//
+//
+export default function Osu({ session, api_response, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
+	const { guild_id } = cookies ?? {};
+	return <Osu2 key={guild_id} session={session} api_response={api_response} cookies={cookies} guild_id={guild_id} />;
+}
+//
+//
+export function Osu2({ session, api_response, guild_id, cookies }: { session: DiscordUser; api_response: any; guild_id: string; cookies: any }): JSX.Element {
 	// if (error)
 	// const router = useRouter();
 	// router.push({ pathname: '/404', query: { error } });
 
-	const { commands } = data;
+	const { commands } = api_response;
 
 	return (
 		<Layout session={session} cookies={cookies}>
@@ -22,26 +44,4 @@ export default function Osu({ session, data, guild_id, cookies }: { session: Dis
 			</Stack>
 		</Layout>
 	);
-}
-
-export async function getServerSideProps(context: any) {
-	// let [data, err] = [{}, null];
-	const { guild_id } = context.req.cookies;
-
-	const session = await getSession(context);
-	const data = await defaultPostRequest('g/groups/osu', guild_id, session.accessToken);
-
-	// try {
-	// 	throw 'testing this';
-	// } catch (error) {
-	// 	err = error;
-	// }
-
-	if (!session.accessToken) {
-		context.res.writeHead(307, { Location: '/' });
-		context.res.end();
-		return { props: { session } };
-	}
-
-	return { props: { session, data, guild_id, cookies: context.req.cookies } };
 }
