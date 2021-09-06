@@ -17,7 +17,9 @@ export default function Layout({ session, cookies, children }: { session: Discor
 			<Box w="100%">
 				<Header session={session} isOpen={isOpen} setOpen={setOpen} />
 			</Box>
-			<Flex justifyContent="center">{children}</Flex>
+			<Flex justifyContent="center" pos="relative" zIndex={-1}>
+				{children}
+			</Flex>
 		</Box>
 	);
 }
