@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLeaderboards } from '@api/server';
-import { Avatar, Box, Stack, Flex, Text, Divider } from '@chakra-ui/react';
+import { Box, Stack, Flex, Text, Divider } from '@chakra-ui/react';
+import Image from 'next/image';
 import Layout from '@components/dashboard/layout';
 import { useState } from 'react';
 import Select from 'react-select';
@@ -201,9 +202,7 @@ function Osu({ leaderboards }: any): JSX.Element {
 								<Text>{index + 1}</Text>
 							</Flex>
 
-							<Flex justify="center" mx={3}>
-								<Avatar src={user.img} boxSize="50px" fallbackSrc="/oss.png" alt={user.tag} rounded="50%" />
-							</Flex>
+							<Image unoptimized loader={({ src, width, quality }) => user.img} src={user.img} width="15px" height="15px" alt={user.tag} className="avatar" />
 
 							<Text maxW="300px" textAlign="left">
 								{user.tag}
@@ -246,11 +245,9 @@ function DefaultLeaderboard({ user, index, stat_name, stat_to_show, is_rank }) {
 					<Text>{index + 1}</Text>
 				</Box>
 
-				<Box justify="center" mx={3}>
-					<Avatar alt={user.tag} src={user.img} boxSize="50px" fallbackSrc="/oss.png" rounded="50%" />
-				</Box>
+				<Image unoptimized loader={({ src, width, quality }) => user.img} src={user.img} width="60px" height="60px" alt={user.tag} className="avatar" />
 
-				<Text maxW="300px" textAlign="left">
+				<Text pl="10px" maxW="300px" textAlign="left">
 					{user.tag}
 				</Text>
 			</Flex>

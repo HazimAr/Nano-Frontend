@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack, Button } from '@chakra-ui/react';
+import axios from 'axios';
+import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
+import Button from '@components/button';
 import Link from 'next/link';
 import { signIn } from 'next-auth/client';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { FaMedal, FaPen } from 'react-icons/fa';
+import { FaMedal } from 'react-icons/fa';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { GiAbstract039, GiCirclingFish, GiSwordSmithing, GiBackwardTime, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
 import { NavLink } from './navlink';
@@ -20,7 +21,7 @@ export function Sidebar(props): JSX.Element {
 	const { guild_id } = cookies ?? {};
 
 	const [guilds, setGuilds] = useState([]);
-	const [guild, setGuild] = useState({});
+	const [guild, setGuild] = useState({ id: '' });
 
 	useEffect(() => {
 		async function _getGuilds() {
@@ -34,7 +35,7 @@ export function Sidebar(props): JSX.Element {
 
 	return (
 		<Flex bg="red_black.gray" direction="column" flex="1" px="10" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
-			<Stack spacing="2" as="nav" aria-label="Sidebar Navigation">
+			<Stack pos="relative" spacing="2" as="nav" aria-label="Sidebar Navigation">
 				<HStack pl="5px">
 					<Button bg="transparent" onClick={() => setOpen(!isOpen)}>
 						<GiHamburgerMenu />
@@ -44,7 +45,7 @@ export function Sidebar(props): JSX.Element {
 				{/*  */}
 				{session && guild_id ? (
 					<>
-						{guild?.id ? <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} /> : null}
+						{guild?.id && <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} />}
 						<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
 						<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
 						<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
@@ -84,21 +85,32 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 	const router = useRouter();
 
 	return (
-		<Box mt="10px" pt="10px" color="white" pos="relative" zIndex="900">
+		<Box pos="relative" zIndex="1" mt="10px" pt="10px" color="white">
 			{/* // Dropdown Button
 			// */}
-			<Button _focus={{ outline: 'none', color: 'osu' }} _hover={{ bg: 'transparent' }} onClick={() => setOpen(!isOpen)} borderRadius="none" height="60px" w="100%" bg="transparent" onBlur={() => setTimeout(() => setOpen(false), 200)}>
+			<Button
+				pos="relative"
+				zIndex="2"
+				borderRadius="none"
+				height="60px"
+				w="100%"
+				bg="transparent"
+				_focus={{ outline: 'none', color: 'osu' }}
+				_hover={{ bg: 'transparent', color: 'osu' }}
+				onClick={() => setOpen(!isOpen)}
+				onBlur={() => setTimeout(() => setOpen(false), 200)}
+			>
 				<span style={{ display: 'flex', alignItems: 'center', width: '100%', fontSize: '14px' }}>
-					<Box mr="auto">
+					<Box mr="5px">
 						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="40px" maxW="40px" rounded="50%" />
 					</Box>
-					<Box mr="auto">{guild.name}</Box>
+					<Box mr="5px">{guild.name}</Box>
 					<BsFillCaretDownFill transform={isOpen ? 'scale(1, -1)' : 'none'} style={{ transition: 'all 300ms linear' }} />
 				</span>
 			</Button>
 			{/* // Guild Buttons
 			// */}
-			<Box hidden={isOpen ? false : true} w="100%" bg="black" pos="absolute" h={`${guilds.length * 40 + 30}px`} zIndex="2" borderRadius="5%">
+			<Box pos="absolute" hidden={isOpen ? false : true} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
 				{guilds
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
@@ -106,11 +118,14 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 							<Button
 								key={guild.id}
 								pos="absolute"
+								zIndex="5"
 								top={`${i * 40 + 10}px`}
 								left="0px"
 								height="40px"
 								w="100%"
-								zIndex="1"
+								bg="transparent"
+								borderRadius="none"
+								_hover={{ bg: 'transparent', color: 'osu' }}
 								onClick={async () => {
 									setGuild(guild);
 									setOpen(!isOpen);
@@ -124,15 +139,12 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 									void router.push(router.asPath.replace(router.query.guild_id, guild.id));
 									// router.reload();
 								}}
-								_hover={{ bg: 'transparent', color: 'osu' }}
-								bg="transparent"
-								borderRadius="none"
 							>
 								<span style={{ display: 'flex', alignItems: 'center', width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-									<Box mr="auto">
+									<Box mr="5px">
 										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="30px" maxW="30px" rounded="50%" />
 									</Box>
-									<Box mr="auto">{guild.name}</Box>
+									<Box mr="5px">{guild.name}</Box>
 								</span>
 							</Button>
 						);
@@ -141,7 +153,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 			// */}
 				<Divider pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} />
 				<a href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=199325828843044865&response_type=code&redirect_uri=${process.env.CLIENT_DOMAIN}`}>
-					<Button key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" zIndex="1" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
+					<Button key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
 						<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 							<Box mr="auto">
 								<FiPlusCircle size="30px" />

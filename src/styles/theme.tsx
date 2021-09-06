@@ -90,6 +90,9 @@ const theme = extendTheme({
 				fontFamily: 'Gagalin',
 				src: "url('/fonts/Gagalin.ttf')",
 			},
+			'.avatar': {
+				borderRadius: '50%',
+			},
 		}),
 	},
 });
