@@ -78,14 +78,13 @@ export function Sidebar(props): JSX.Element {
 		</Flex>
 	);
 }
-
+//
 function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 	const [isOpen, setOpen] = useState(false);
 	const router = useRouter();
-	console.log(router);
 
 	return (
-		<Box mt="10px" pt="10px" color="white" pos="relative">
+		<Box mt="10px" pt="10px" color="white" pos="relative" zIndex="900">
 			{/* // Dropdown Button
 			// */}
 			<Button _focus={{ outline: 'none', color: 'osu' }} _hover={{ bg: 'transparent' }} onClick={() => setOpen(!isOpen)} borderRadius="none" height="60px" w="100%" bg="transparent" onBlur={() => setTimeout(() => setOpen(false), 200)}>
@@ -93,13 +92,13 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 					<Box mr="auto">
 						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="40px" maxW="40px" rounded="50%" />
 					</Box>
-					<Box mr="auto">{guild.name.slice(0, 20)}</Box>
+					<Box mr="auto">{guild.name}</Box>
 					<BsFillCaretDownFill transform={isOpen ? 'scale(1, -1)' : 'none'} style={{ transition: 'all 300ms linear' }} />
 				</span>
 			</Button>
 			{/* // Guild Buttons
 			// */}
-			<Box hidden={isOpen ? false : true} w="100%" bg="black" pos="absolute" h={`${guilds.length * 40 + 30}px`} zIndex="1" borderRadius="5%">
+			<Box hidden={isOpen ? false : true} w="100%" bg="black" pos="absolute" h={`${guilds.length * 40 + 30}px`} zIndex="2" borderRadius="5%">
 				{guilds
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
@@ -129,11 +128,11 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 								bg="transparent"
 								borderRadius="none"
 							>
-								<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+								<span style={{ display: 'flex', alignItems: 'center', width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
 									<Box mr="auto">
 										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="30px" maxW="30px" rounded="50%" />
 									</Box>
-									<Box mr="auto">{guild.name.slice(0, 20)}</Box>
+									<Box mr="auto">{guild.name}</Box>
 								</span>
 							</Button>
 						);
