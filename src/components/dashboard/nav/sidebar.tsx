@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack, Button } from '@chakra-ui/react';
-import { UserProfile } from './userprofile';
 import Link from 'next/link';
 import { signIn } from 'next-auth/client';
 import axios from 'axios';
@@ -9,14 +8,15 @@ import { useEffect, useState } from 'react';
 import { FaMedal, FaPen } from 'react-icons/fa';
 import { HiOutlineCollection } from 'react-icons/hi';
 import { GiAbstract039, GiCirclingFish, GiSwordSmithing, GiBackwardTime, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
-import { Logo } from './logo';
 import { NavLink } from './navlink';
 import { useRouter } from 'next/router';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { FiPlusCircle } from 'react-icons/fi';
+import { Logo } from '@components/dashboard/nav/logo';
+import { GiHamburgerMenu } from 'react-icons/gi';
 //
 export function Sidebar(props): JSX.Element {
-	const { session, cookies } = props;
+	const { session, cookies, isOpen, setOpen } = props;
 	const { guild_id } = cookies ?? {};
 
 	const [guilds, setGuilds] = useState([]);
@@ -33,43 +33,48 @@ export function Sidebar(props): JSX.Element {
 	}, []);
 
 	return (
-		<Flex bg="red_black.gray" direction="column" borderWidth="0px" width="325px" position="fixed" {...props}>
-			<Flex direction="column" flex="1" py="8" px="10" overflowY="auto" overflowX="hidden">
-				<Stack spacing="2" as="nav" aria-label="Sidebar Navigation">
-					{session && guild_id ? (
-						<>
-							{guild?.id ? <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} /> : null}
-							<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
-							<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
-							<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
-							<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
-							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
-							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
-							<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
-							<Divider />
-							<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
-							<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
-						</>
-					) : (
-						<Button
-							bg="discord"
-							_hover={{ bg: 'osu' }}
-							onClick={async () => {
-								await signIn('discord');
-							}}
-						>
-							Login With Discord
-						</Button>
-					)}
-					<Divider />
-					<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
+		<Flex bg="red_black.gray" direction="column" flex="1" px="10" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
+			<Stack spacing="2" as="nav" aria-label="Sidebar Navigation">
+				<HStack pl="5px">
+					<Button bg="transparent" onClick={() => setOpen(!isOpen)}>
+						<GiHamburgerMenu />
+					</Button>
+					<Logo />
+				</HStack>
+				{/*  */}
+				{session && guild_id ? (
+					<>
+						{guild?.id ? <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} /> : null}
+						<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
+						<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
+						<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
+						<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
+						<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
+						<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
+						<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
+						<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
+						<Divider />
+						<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
+						<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
+					</>
+				) : (
+					<Button
+						bg="discord"
+						_hover={{ bg: 'osu' }}
+						onClick={async () => {
+							await signIn('discord');
+						}}
+					>
+						Login With Discord
+					</Button>
+				)}
+				<Divider />
+				<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
 
-					{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} /> */}
-					{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} /> */}
-				</Stack>
-				<Spacer />
-			</Flex>
+				{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} /> */}
+				{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} /> */}
+			</Stack>
+			<Spacer />
 		</Flex>
 	);
 }
