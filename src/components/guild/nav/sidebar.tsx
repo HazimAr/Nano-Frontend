@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import axios from 'axios';
-import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
-import { CUSTOM_BUTTON_1 } from '@components/button';
-import Link from 'next/link';
-import { signIn } from 'next-auth/client';
-import { useEffect, useState } from 'react';
-import { FaMedal } from 'react-icons/fa';
-import { HiOutlineCollection } from 'react-icons/hi';
-import { GiAbstract039, GiCirclingFish, GiSwordSmithing, GiBackwardTime, GiInfo, GiIncomingRocket, GiDoubleDragon, GiSlashedShield, GiImpLaugh } from 'react-icons/gi';
-import { NavLink } from './navlink';
-import { useRouter } from 'next/router';
-import { BsFillCaretDownFill } from 'react-icons/bs';
-import { FiPlusCircle } from 'react-icons/fi';
+import { Box, Divider, Flex, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
+import Button from '@components/button';
 import { Logo } from '@components/guild/nav/logo';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import axios from 'axios';
+import { signIn } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { BsFillCaretDownFill } from 'react-icons/bs';
+import { FaMedal } from 'react-icons/fa';
+import { FiPlusCircle } from 'react-icons/fi';
+import { GiAbstract039, GiBackwardTime, GiCirclingFish, GiDoubleDragon, GiHamburgerMenu, GiImpLaugh, GiIncomingRocket, GiInfo, GiSlashedShield, GiSwordSmithing } from 'react-icons/gi';
+import { HiOutlineCollection } from 'react-icons/hi';
+import { NavLink } from './navlink';
 //
 export function Sidebar(props): JSX.Element {
 	const { session, cookies, isOpen, setOpen } = props;
@@ -37,9 +35,9 @@ export function Sidebar(props): JSX.Element {
 		<Flex bg="red_black.gray" direction="column" flex="1" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
 			<Stack pos="relative" as="nav" aria-label="Sidebar Navigation">
 				<HStack px="5" pl="5px">
-					<CUSTOM_BUTTON_1 bg="transparent" onClick={() => setOpen(!isOpen)}>
+					<Button bg="transparent" onClick={() => setOpen(!isOpen)}>
 						<GiHamburgerMenu />
-					</CUSTOM_BUTTON_1>
+					</Button>
 					<Logo />
 				</HStack>
 				{/*  */}
@@ -63,7 +61,7 @@ export function Sidebar(props): JSX.Element {
 						</Box>
 					</>
 				) : (
-					<CUSTOM_BUTTON_1
+					<Button
 						bg="discord"
 						_hover={{ bg: 'osu' }}
 						onClick={async () => {
@@ -71,7 +69,7 @@ export function Sidebar(props): JSX.Element {
 						}}
 					>
 						Login With Discord
-					</CUSTOM_BUTTON_1>
+					</Button>
 				)}
 				<Divider />
 				<Box px="5">
@@ -92,9 +90,9 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 
 	return (
 		<Box pos="relative" zIndex="1" color="white">
-			{/* // Dropdown CUSTOM_BUTTON_1
+			{/* // Dropdown Button
 			// */}
-			<CUSTOM_BUTTON_1
+			<Button
 				pos="relative"
 				zIndex="2"
 				borderRadius="none"
@@ -113,15 +111,15 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 					<Box mr="4px">{guild.name}</Box>
 					<BsFillCaretDownFill transform={isOpen ? 'scale(1, -1)' : 'none'} style={{ transition: 'all 300ms linear' }} />
 				</span>
-			</CUSTOM_BUTTON_1>
-			{/* // Guild CUSTOM_BUTTON_1s
+			</Button>
+			{/* // Guild Buttons
 			// */}
 			<Box pos="absolute" hidden={isOpen ? false : true} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
 				{guilds
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
 						return (
-							<CUSTOM_BUTTON_1
+							<Button
 								key={guild.id}
 								pos="absolute"
 								zIndex="5"
@@ -142,6 +140,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 										},
 										body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 2.628e6 }),
 									});
+									// @ts-ignore
 									void router.push(router.asPath.replace(router.query.guild_id, guild.id));
 									// router.reload();
 								}}
@@ -152,21 +151,21 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 									</Box>
 									<Box>{guild.name}</Box>
 								</span>
-							</CUSTOM_BUTTON_1>
+							</Button>
 						);
 					})}
-				{/* // Invite CUSTOM_BUTTON_1
+				{/* // Invite Button
 			// */}
 				<Divider pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} />
 				<a href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=199325828843044865&response_type=code&redirect_uri=${process.env.CLIENT_DOMAIN}`}>
-					<CUSTOM_BUTTON_1 key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
+					<Button key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
 						<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 							<Box mr="15px">
 								<FiPlusCircle size="30px" />
 							</Box>
 							<Box mr="auto">Add Server</Box>
 						</span>
-					</CUSTOM_BUTTON_1>
+					</Button>
 				</a>
 			</Box>
 		</Box>

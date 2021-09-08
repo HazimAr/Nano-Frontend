@@ -5,8 +5,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuilds } from '@api/discord';
-import { Box, Divider, Flex, Heading, HStack, Image, Stack, VStack } from '@chakra-ui/react';
-import { CUSTOM_BUTTON_1 } from '@components/button';
+import { Box, Flex, Heading, HStack, Image, Stack, VStack } from '@chakra-ui/react';
+import Button from '@components/button';
 import Layout from '@components/guild/layout';
 import NextChakraLink from '@components/nextChakraLink';
 import { getSession } from 'next-auth/client';
@@ -49,7 +49,6 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 								return a.guild.name === b.guild.name ? 0 : a.guild.name > b.guild.name ? 1 : -1;
 							}
 							return a.status.length - b.status.length;
-							// return a.status.length - b.status.length;
 						})
 						.map((guildObject: any) => {
 							const { guild } = guildObject;
@@ -72,12 +71,12 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 										<VStack spacing={0} justify="flex-start">
 											{guildObject.status === 'invite' ? (
 												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
-													<CUSTOM_BUTTON_1 mt={3} mb={3} bg="#fff">
+													<Button mt={3} mb={3} bg="#fff">
 														Invite
-													</CUSTOM_BUTTON_1>
+													</Button>
 												</NextChakraLink>
 											) : (
-												<CUSTOM_BUTTON_1
+												<Button
 													onClick={() => {
 														fetch('/api/set_cookie', {
 															method: 'post',
@@ -86,7 +85,7 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 															},
 															body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 2.628e6 }),
 														});
-														void router.push(`${router.asPath}/${guild.id}`);
+														router.push(`${router.asPath}/${guild.id}`);
 													}}
 													type="secondary"
 													mt={3}
@@ -95,7 +94,7 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 													w="75px"
 												>
 													Edit
-												</CUSTOM_BUTTON_1>
+												</Button>
 											)}
 										</VStack>
 										<Flex

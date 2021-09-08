@@ -21,8 +21,8 @@ export function CreateReactionRoleModal({ reactionRole, setReactionRole, availab
 		});
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [emoji, setEmoji] = useState('');
-	const [role, setRole] = useState('');
+	const [emoji, setEmoji] = useState() as any;
+	const [role, setRole] = useState() as any;
 	const toast = useToast();
 
 	return (

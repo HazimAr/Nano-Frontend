@@ -20,8 +20,8 @@ export function ModalReaction({ reactionRole, setReactionRole, availableRoles, c
 			};
 		});
 
-	const [emoji, setEmoji] = useState('');
-	const [role, setRole] = useState('');
+	const [emoji, setEmoji] = useState() as any;
+	const [role, setRole] = useState() as any;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
 
