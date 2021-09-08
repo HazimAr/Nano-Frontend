@@ -1,5 +1,5 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Heading, HStack, Stack, Text } from '@chakra-ui/react';
-import Channel from '@components/dashboard/channel';
+import { Channel } from '@components/dashboard/channel';
 
 export function Channels({ channel, setChannel, categories }) {
 	if (typeof channel === 'string') {

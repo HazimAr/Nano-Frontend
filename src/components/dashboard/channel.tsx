@@ -1,7 +1,7 @@
-import { HStack, Text } from "@chakra-ui/react";
-import Button from "@components/button";
+import { HStack, Text } from '@chakra-ui/react';
+import { CUSTOM_BUTTON_1 } from '@components/button';
 
-export default function channel({
+export function Channel({
 	curChannel,
 	channel,
 
@@ -14,11 +14,7 @@ export default function channel({
 	return (
 		<HStack my={3} justify="space-between">
 			<Text>{curChannel.channel_name}</Text>
-			{channel !== curChannel ? (
-				<Button onClick={() => setChannel(curChannel)}>Select</Button>
-			) : (
-				<Text fontSize="xl">Selected</Text>
-			)}
+			{channel !== curChannel ? <CUSTOM_BUTTON_1 onClick={() => setChannel(curChannel)}>Select</CUSTOM_BUTTON_1> : <Text fontSize="xl">Selected</Text>}
 		</HStack>
 	);
 }

@@ -80,7 +80,7 @@ export function Commands2({ session, api_response, guild_id, cookies }: { sessio
 
 	return (
 		<Layout session={session} cookies={cookies}>
-			<Stack spacing={5} w="100%" mt="50px" px="50px">
+			<Stack spacing={5} maxW="1200px" w="100%" mt="50px" px="50px">
 				<HStack justify="space-between">
 					<Heading>Custom Commands</Heading>
 					<Text>
@@ -103,7 +103,7 @@ export function Commands2({ session, api_response, guild_id, cookies }: { sessio
 //
 function Command({ token, command, guild_id, updateCommand }) {
 	return (
-		<Box bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray" h="100%" position="relative" py="2px" my="25px">
+		<Box position="relative" h="100%" minH="50px" maxH="75px" bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray" py="2px" my="25px">
 			<EditCommand token={token} command={command} guild_id={guild_id} updateCommand={updateCommand} />
 			<DeleteCommand token={token} command={command} guild_id={guild_id} updateCommand={updateCommand} />
 		</Box>
@@ -121,22 +121,20 @@ function EditCommand({ token, command, guild_id, updateCommand }): JSX.Element {
 	return (
 		<>
 			<Button p="5px" w="100%" height="100%" minHeight="50px" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }} bg="red_black.black">
-				<VStack>
-					{trigger ? (
-						<>
-							<Heading size="md" color="red_black.red">
-								{trigger}
-							</Heading>
-							<Text size="md" color="white">
-								{response}
-							</Text>
-						</>
-					) : (
-						<Heading size="md" color="osu">
-							Set Command {id}
+				{trigger ? (
+					<VStack>
+						<Heading size="md" color="red_black.red">
+							{trigger}
 						</Heading>
-					)}
-				</VStack>
+						<Text size="md" color="white">
+							{response}
+						</Text>
+					</VStack>
+				) : (
+					<Heading size="md" color="osu">
+						Set Command {id}
+					</Heading>
+				)}
 			</Button>
 			{/* // --------------------------                    -------------------------- */}
 			{/* // -------------------------- 🔽 POP-UP MENU 🔽 -------------------------- */}

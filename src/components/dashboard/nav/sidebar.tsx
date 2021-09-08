@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios';
 import { Box, Divider, Flex, Heading, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
-import Button from '@components/button';
+import { CUSTOM_BUTTON_1 } from '@components/button';
 import Link from 'next/link';
 import { signIn } from 'next-auth/client';
 import { useEffect, useState } from 'react';
@@ -34,32 +34,36 @@ export function Sidebar(props): JSX.Element {
 	}, []);
 
 	return (
-		<Flex bg="red_black.gray" direction="column" flex="1" px="10" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
-			<Stack pos="relative" spacing="2" as="nav" aria-label="Sidebar Navigation">
-				<HStack pl="5px">
-					<Button bg="transparent" onClick={() => setOpen(!isOpen)}>
+		<Flex bg="red_black.gray" direction="column" flex="1" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
+			<Stack pos="relative" as="nav" aria-label="Sidebar Navigation">
+				<HStack px="5" pl="5px">
+					<CUSTOM_BUTTON_1 bg="transparent" onClick={() => setOpen(!isOpen)}>
 						<GiHamburgerMenu />
-					</Button>
+					</CUSTOM_BUTTON_1>
 					<Logo />
 				</HStack>
 				{/*  */}
 				{session && guild_id ? (
 					<>
-						{guild?.id && <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} />}
-						<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
-						<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
-						<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
-						<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
-						<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
-						<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
-						<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
-						<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
+						<Box px="5">
+							{guild?.id && <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} />}
+							<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
+							<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
+							<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
+							<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
+							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
+							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
+							<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
+						</Box>
 						<Divider />
-						<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
-						<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
+						<Box px="5">
+							<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
+							<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
+						</Box>
 					</>
 				) : (
-					<Button
+					<CUSTOM_BUTTON_1
 						bg="discord"
 						_hover={{ bg: 'osu' }}
 						onClick={async () => {
@@ -67,10 +71,12 @@ export function Sidebar(props): JSX.Element {
 						}}
 					>
 						Login With Discord
-					</Button>
+					</CUSTOM_BUTTON_1>
 				)}
 				<Divider />
-				<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
+				<Box px="5">
+					<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
+				</Box>
 
 				{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} /> */}
 				{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} /> */}
@@ -85,10 +91,10 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 	const router = useRouter();
 
 	return (
-		<Box pos="relative" zIndex="1" mt="10px" pt="10px" color="white">
-			{/* // Dropdown Button
+		<Box pos="relative" zIndex="1" color="white">
+			{/* // Dropdown CUSTOM_BUTTON_1
 			// */}
-			<Button
+			<CUSTOM_BUTTON_1
 				pos="relative"
 				zIndex="2"
 				borderRadius="none"
@@ -101,21 +107,21 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 				onBlur={() => setTimeout(() => setOpen(false), 200)}
 			>
 				<span style={{ display: 'flex', alignItems: 'center', width: '100%', fontSize: '14px' }}>
-					<Box mr="5px">
+					<Box mr="15px">
 						<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="40px" maxW="40px" rounded="50%" />
 					</Box>
-					<Box mr="5px">{guild.name}</Box>
+					<Box mr="4px">{guild.name}</Box>
 					<BsFillCaretDownFill transform={isOpen ? 'scale(1, -1)' : 'none'} style={{ transition: 'all 300ms linear' }} />
 				</span>
-			</Button>
-			{/* // Guild Buttons
+			</CUSTOM_BUTTON_1>
+			{/* // Guild CUSTOM_BUTTON_1s
 			// */}
 			<Box pos="absolute" hidden={isOpen ? false : true} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
 				{guilds
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
 						return (
-							<Button
+							<CUSTOM_BUTTON_1
 								key={guild.id}
 								pos="absolute"
 								zIndex="5"
@@ -141,26 +147,26 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 								}}
 							>
 								<span style={{ display: 'flex', alignItems: 'center', width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-									<Box mr="5px">
+									<Box mr="15px">
 										<Image src={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.${guild?.icon?.startsWith('a_') ? 'gif' : 'png'}`} minW="30px" maxW="30px" rounded="50%" />
 									</Box>
-									<Box mr="5px">{guild.name}</Box>
+									<Box>{guild.name}</Box>
 								</span>
-							</Button>
+							</CUSTOM_BUTTON_1>
 						);
 					})}
-				{/* // Invite Button
+				{/* // Invite CUSTOM_BUTTON_1
 			// */}
 				<Divider pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} />
 				<a href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=199325828843044865&response_type=code&redirect_uri=${process.env.CLIENT_DOMAIN}`}>
-					<Button key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
+					<CUSTOM_BUTTON_1 key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
 						<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-							<Box mr="auto">
+							<Box mr="15px">
 								<FiPlusCircle size="30px" />
 							</Box>
 							<Box mr="auto">Add Server</Box>
 						</span>
-					</Button>
+					</CUSTOM_BUTTON_1>
 				</a>
 			</Box>
 		</Box>
