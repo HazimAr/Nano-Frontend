@@ -9,7 +9,7 @@ import Layout from '@components/guild/layout';
 import { useState } from 'react';
 import Select from 'react-select';
 import { getSession } from 'next-auth/client';
-import Level from '@components/guild/profile/level';
+import { Level } from '@components/guild/profile/level';
 
 const options = [
 	{ value: 'rank', label: 'Rank' },

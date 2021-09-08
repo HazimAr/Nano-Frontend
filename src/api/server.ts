@@ -16,6 +16,9 @@ export async function defaultPostRequest(path: string, guild_id: string, authori
 	return (await axios.post(`${HOST_DOMAIN}/${path}`, { guild_id, authorization: `Bearer ${authorization}` }, config)).data;
 }
 
+export async function default_user_post_request(path: string, user_id: string, authorization: string) {
+	return (await axios.post(`${HOST_DOMAIN}/${path}`, { user_id, authorization: `Bearer ${authorization}` }, config)).data;
+}
 //
 // -------------------------------- 💠 OPEN 💠 --------------------------------
 //

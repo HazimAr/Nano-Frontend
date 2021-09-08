@@ -1,14 +1,6 @@
-import {
-	Input,
-	InputGroup,
-	InputGroupProps,
-	InputLeftElement,
-	InputRightElement,
-	Square,
-	useColorModeValue as mode,
-} from "@chakra-ui/react";
-import React from "react";
-import { BsSearch } from "react-icons/bs";
+import { Input, InputGroup, InputGroupProps, InputLeftElement, InputRightElement, Square, useColorModeValue as mode } from '@chakra-ui/react';
+import React from 'react';
+import { BsSearch } from 'react-icons/bs';
 
 export function SearchField(props: InputGroupProps): JSX.Element {
 	return (
@@ -17,25 +9,17 @@ export function SearchField(props: InputGroupProps): JSX.Element {
 				<BsSearch opacity={0.5} />
 			</InputLeftElement>
 			<InputRightElement>
-				<Square
-					rounded="base"
-					fontSize="xs"
-					borderWidth="1px"
-					w="5"
-					h="5"
-					bg={mode("gray.100", "gray.800")}
-					color="gray.500"
-				>
+				<Square rounded="base" fontSize="xs" borderWidth="1px" w="5" h="5" bg={mode('gray.100', 'gray.800')} color="gray.500">
 					/
 				</Square>
 			</InputRightElement>
 			<Input
 				rounded="md"
 				placeholder="Search"
-				bg={mode("white", "gray.900")}
+				bg={mode('white', 'gray.900')}
 				_placeholder={{
 					opacity: 1,
-					color: mode("gray.400", "gray.500"),
+					color: mode('gray.400', 'gray.500'),
 				}}
 			/>
 		</InputGroup>

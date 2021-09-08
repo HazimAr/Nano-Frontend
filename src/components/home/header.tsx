@@ -28,7 +28,7 @@ export function Header({ session, isOpen, setOpen }: { session: DiscordUser; isO
 					Donate
 				</Link> */}
 				{session ? (
-					<Link href="/leaderboards">
+					<Link href={`/user/${session.user.id}/profile`}>
 						<Avatar size="md" name={session.user.name} src={session.user.image} />
 					</Link>
 				) : (

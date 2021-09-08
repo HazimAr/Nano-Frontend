@@ -7,6 +7,7 @@ import React from 'react';
 
 export function UserProfile({ session }: any): JSX.Element {
 	const router = useRouter();
+
 	return (
 		<NextLink href={`/${router.asPath.split('/')[1]}/${router.asPath.split('/')[2]}/profile`} passHref>
 			<Link href="profile">

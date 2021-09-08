@@ -3,7 +3,7 @@
 /* eslint-disable import/no-default-export */
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
 
-export default function Level(props): JSX.Element {
+export function Level(props): JSX.Element {
 	const { user } = props;
 
 	return (
