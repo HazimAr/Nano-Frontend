@@ -7,6 +7,7 @@ type MetaType = {
 	lang: string;
 	description: string;
 	url: string;
+	image: string;
 };
 
 const META: MetaType = {
@@ -14,6 +15,7 @@ const META: MetaType = {
 	lang: 'en-us',
 	description: '',
 	url: '',
+	image: '',
 };
 
 const DISCORD_BASE_URL = 'https://discord.com/api/v9';
