@@ -4,8 +4,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuildLeaderboards } from '@api/server';
 import { Box } from '@chakra-ui/react';
-import Layout from '@components/dashboard/layout';
-import { Messages, Osu, Rank } from '@components/dashboard/leaderboards/types';
+import Layout from '@components/guild/layout';
+import { Messages, Osu, Rank } from '@components/guild/leaderboards/types';
 import { getSession } from 'next-auth/client';
 import { useState } from 'react';
 import Select from 'react-select';
@@ -76,7 +76,7 @@ export async function getServerSideProps(context: any) {
 
 	if (!context.req.url.split('/')[2]) {
 		context.res.writeHead(307, {
-			Location: '/dashboard',
+			Location: '/guild',
 		});
 		context.res.end();
 		return { props: { session } };

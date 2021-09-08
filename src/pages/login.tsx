@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetSessionOptions | any) {
 	const session: any = await getSession(context);
 	if (session) {
 		context.res.writeHead(307, {
-			Location: 'dashboard',
+			Location: 'guild',
 		});
 		context.res.end();
 	}

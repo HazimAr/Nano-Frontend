@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
 import { Heading, HStack, Stack, Text, Box } from '@chakra-ui/react';
-import Layout from '@components/dashboard/layout';
-import { DeleteReaction } from '@components/dashboard/reaction/delete_reaction';
-import { EditReaction } from '@components/dashboard/reaction/edit_reaction';
+import Layout from '@components/guild/layout';
+import { DeleteReaction } from '@components/guild/reaction/delete_reaction';
+import { EditReaction } from '@components/guild/reaction/edit_reaction';
 import { getSession } from 'next-auth/client';
 
 export default function ReactionRoles({ session, api_response, guild_id }): JSX.Element {

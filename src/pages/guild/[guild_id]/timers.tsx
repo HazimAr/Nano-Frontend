@@ -25,10 +25,10 @@ import {
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
-import { Channels } from '@components/dashboard/channels';
+import { Channels } from '@components/guild/channels';
 import { useState } from 'react';
 import { FcCancel } from 'react-icons/fc';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 //

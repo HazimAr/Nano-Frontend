@@ -13,7 +13,7 @@ import { NavLink } from './navlink';
 import { useRouter } from 'next/router';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { FiPlusCircle } from 'react-icons/fi';
-import { Logo } from '@components/dashboard/nav/logo';
+import { Logo } from '@components/guild/nav/logo';
 import { GiHamburgerMenu } from 'react-icons/gi';
 //
 export function Sidebar(props): JSX.Element {
@@ -47,19 +47,19 @@ export function Sidebar(props): JSX.Element {
 					<>
 						<Box px="5">
 							{guild?.id && <GuildDropDown guilds={guilds} guild_id={guild_id} guild={guild} setGuild={setGuild} />}
-							<NavLink label="Anime" icon={GiCirclingFish} href={`/dashboard/${guild_id}/groups/anime`} />
-							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/dashboard/${guild_id}/groups/coming_soon`} />
-							<NavLink label="Games" icon={GiDoubleDragon} href={`/dashboard/${guild_id}/groups/games`} />
-							<NavLink label="Guild" icon={GiSlashedShield} href={`/dashboard/${guild_id}/groups/guild`} />
-							<NavLink label="Info" icon={GiInfo} href={`/dashboard/${guild_id}/groups/info`} />
-							<NavLink label="osu!" icon={GiAbstract039} href={`/dashboard/${guild_id}/groups/osu`} />
-							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/dashboard/${guild_id}/groups/role_playing`} />
-							<NavLink label="Utility" icon={HiOutlineCollection} href={`/dashboard/${guild_id}/groups/util`} />
+							<NavLink label="Anime" icon={GiCirclingFish} href={`/guild/${guild_id}/groups/anime`} />
+							<NavLink label="Coming Soon" icon={GiIncomingRocket} href={`/guild/${guild_id}/groups/coming_soon`} />
+							<NavLink label="Games" icon={GiDoubleDragon} href={`/guild/${guild_id}/groups/games`} />
+							<NavLink label="Guild" icon={GiSlashedShield} href={`/guild/${guild_id}/groups/guild`} />
+							<NavLink label="Info" icon={GiInfo} href={`/guild/${guild_id}/groups/info`} />
+							<NavLink label="osu!" icon={GiAbstract039} href={`/guild/${guild_id}/groups/osu`} />
+							<NavLink label="Role Playing" icon={GiImpLaugh} href={`/guild/${guild_id}/groups/role_playing`} />
+							<NavLink label="Utility" icon={HiOutlineCollection} href={`/guild/${guild_id}/groups/util`} />
 						</Box>
 						<Divider />
 						<Box px="5">
-							<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/dashboard/${guild_id}/custom_commands`} />
-							<NavLink label="Timers" icon={GiBackwardTime} href={`/dashboard/${guild_id}/timers`} />
+							<NavLink label="Custom Commands" icon={GiSwordSmithing} href={`/guild/${guild_id}/custom_commands`} />
+							<NavLink label="Timers" icon={GiBackwardTime} href={`/guild/${guild_id}/timers`} />
 						</Box>
 					</>
 				) : (
@@ -78,8 +78,8 @@ export function Sidebar(props): JSX.Element {
 					<NavLink label="Leaderboards" icon={FaMedal} href="/leaderboards" />
 				</Box>
 
-				{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/dashboard/${guild_id}/reaction_roles`} /> */}
-				{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/dashboard/${guild_id}/premium`} /> */}
+				{/* <NavLink label="Reaction Roles" icon={GiBearFace} href={`/guild/${guild_id}/reaction_roles`} /> */}
+				{/* <NavLink label="Premium" icon={GiBoltSpellCast} href={`/guild/${guild_id}/premium`} /> */}
 			</Stack>
 			<Spacer />
 		</Flex>

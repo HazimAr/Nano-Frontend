@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
 import { Avatar, Flex, Grid, Heading, HStack, Stack, Text, VStack } from '@chakra-ui/react';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import NextChakraLink from '@components/nextChakra';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
@@ -84,13 +84,13 @@ export default function Guild({ session, guild, guild_id, cookies }: { session: 
 					}}
 					gap={5}
 				>
-					<Panel name="Enable / Disable Commands" description="Click on a switch to activate and deactivate certain command nano commands." href={`/dashboard/${guild_id}/groups/commands`} />
+					<Panel name="Enable / Disable Commands" description="Click on a switch to activate and deactivate certain command nano commands." href={`/guild/${guild_id}/groups/commands`} />
 
-					<Panel name="Custom Commands" description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message." href={`/dashboard/${guild_id}/groups/custom_commands`} />
+					<Panel name="Custom Commands" description="Set a custom command so when you type -myCustomCommand the bot will respond with a customizable message." href={`/guild/${guild_id}/groups/custom_commands`} />
 
-					<Panel name="Reaction Roles" description="Create a customizable message that when users will react to they will recieve a specified role." href={`/dashboard/${guild_id}/groups/reaction_roles`} />
+					<Panel name="Reaction Roles" description="Create a customizable message that when users will react to they will recieve a specified role." href={`/guild/${guild_id}/groups/reaction_roles`} />
 
-					<Panel name="Timers" description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel." href={`/dashboard/${guild_id}/timers`} />
+					<Panel name="Timers" description="Add Timers to specific channels in your server. On an interval the bot will send a message in that channel." href={`/guild/${guild_id}/timers`} />
 				</Grid>
 			</Stack>
 		</Layout>

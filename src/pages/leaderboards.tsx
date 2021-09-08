@@ -5,11 +5,11 @@
 import { getLeaderboards } from '@api/server';
 import { Box, Stack, Flex, Text, Divider } from '@chakra-ui/react';
 import Image from 'next/image';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import { useState } from 'react';
 import Select from 'react-select';
 import { getSession } from 'next-auth/client';
-import Level from '@components/dashboard/profile/level';
+import Level from '@components/guild/profile/level';
 
 const options = [
 	{ value: 'rank', label: 'Rank' },

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import { getSession } from 'next-auth/client';
 // import { useState } from "react";
 import { DiscordUser } from 'types';

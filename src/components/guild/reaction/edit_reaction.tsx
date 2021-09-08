@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text, Textarea, useDisclosure, useToast, HStack, Modal, ModalOverlay, ModalHeader, ModalBody, ModalContent, ModalFooter, Heading, ModalCloseButton, Divider, Stack } from '@chakra-ui/react';
 import Button from '@components/button';
-import { Channels } from '@components/dashboard/channels';
+import { Channels } from '@components/guild/channels';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

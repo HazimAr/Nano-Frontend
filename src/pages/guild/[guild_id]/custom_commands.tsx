@@ -4,7 +4,7 @@ import { defaultPostRequest, createCustomCommand } from '@api/server';
 import { Box, Heading, HStack, Stack, Text, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Textarea, useDisclosure, useToast, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FcCancel } from 'react-icons/fc';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 //

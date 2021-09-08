@@ -1,6 +1,6 @@
 import { Heading, HStack, Stack, Text, useToast, VStack } from '@chakra-ui/react';
 import Button from '@components/button';
-import EditCustom from '@components/dashboard/custom/editCustom';
+import EditCustom from '@components/guild/custom/editCustom';
 import axios from 'axios';
 import router from 'next/router';
 

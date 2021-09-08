@@ -36,7 +36,7 @@ export async function getServerSideProps(context: any) {
 	const session: any = await getSession(context);
 	// if (session) {
 	// 	context.res.writeHead(307, {
-	// 		Location: '/dashboard',
+	// 		Location: '/guild',
 	// 	});
 	// 	context.res.end();
 	// 	return { props: { session } };

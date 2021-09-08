@@ -9,8 +9,8 @@
 import { getOsuRank, getUser, loginOsu } from '@api/server';
 import { AspectRatio, Avatar, Box, Center, CircularProgress, Flex, FormControl, Heading, HStack, Input, Stack, Text } from '@chakra-ui/react';
 import Button from '@components/button';
-import Layout from '@components/dashboard/layout';
-import Level from '@components/dashboard/profile/level';
+import Layout from '@components/guild/layout';
+import Level from '@components/guild/profile/level';
 import NextChakraLink from '@components/nextChakra';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';

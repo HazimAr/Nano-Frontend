@@ -4,8 +4,8 @@ import Container from '@components/container';
 import ContainerInside from '@components/containerInside';
 import { signIn } from 'next-auth/client';
 import { DiscordUser } from 'types';
-import { Logo } from '@components/dashboard/nav/logo';
-import { SearchField } from '@components/dashboard/nav/searchfield';
+import { Logo } from '@components/guild/nav/logo';
+import { SearchField } from '@components/guild/nav/searchfield';
 import { GiHamburgerMenu } from 'react-icons/gi';
 //
 // eslint-disable-next-line import/no-default-export

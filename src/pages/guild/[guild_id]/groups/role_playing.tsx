@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultPostRequest } from '@api/server';
 import { Stack } from '@chakra-ui/react';
-import { CommandSection } from '@components/dashboard/commands/CommandSection';
-import Layout from '@components/dashboard/layout';
+import { CommandSection } from '@components/guild/commands/CommandSection';
+import Layout from '@components/guild/layout';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 //

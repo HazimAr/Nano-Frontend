@@ -7,7 +7,7 @@
 import { getGuilds } from '@api/discord';
 import { Box, Divider, Flex, Heading, HStack, Image, Stack, VStack } from '@chakra-ui/react';
 import { CUSTOM_BUTTON_1 } from '@components/button';
-import Layout from '@components/dashboard/layout';
+import Layout from '@components/guild/layout';
 import NextChakraLink from '@components/nextChakra';
 import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
