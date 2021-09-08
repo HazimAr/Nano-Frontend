@@ -3,7 +3,7 @@
 /* eslint-disable import/no-default-export */
 import { Box } from '@chakra-ui/react';
 
-export function CUSTOM_BUTTON_1(props: any): JSX.Element {
+export default function CUSTOM_BUTTON_1(props: any): JSX.Element {
 	let bg;
 	let hover_bg;
 	switch (props.type) {

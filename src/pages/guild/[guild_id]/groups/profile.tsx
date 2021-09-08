@@ -11,7 +11,7 @@ import { AspectRatio, Avatar, Box, Center, CircularProgress, Flex, FormControl, 
 import Button from '@components/button';
 import Layout from '@components/guild/layout';
 import Level from '@components/guild/profile/level';
-import NextChakraLink from '@components/nextChakra';
+import NextChakraLink from '@components/nextChakraLink';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { getSession, signOut } from 'next-auth/client';

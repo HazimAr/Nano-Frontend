@@ -3,7 +3,7 @@
 import { default_user_post_request } from '@api/server';
 import { Avatar, Box, Button, Flex, Grid, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
 import Layout from '@components/guild/layout';
-import NextChakraLink from '@components/nextChakra';
+import NextChakraLink from '@components/nextChakraLink';
 import { getSession } from 'next-auth/client';
 import { DiscordUser } from 'types';
 import { Level } from '@components/guild/profile/level';
