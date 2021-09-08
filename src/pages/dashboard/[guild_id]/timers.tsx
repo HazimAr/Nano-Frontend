@@ -103,7 +103,7 @@ export function Timers2({ session, api_response, guild_id, cookies }: { session:
 
 	return (
 		<Layout session={session} cookies={cookies}>
-			<Stack spacing={5} w="100%" mt="50px" px="50px">
+			<Stack spacing={5} maxW="1200px" w="100%" mt="50px" px="50px">
 				<HStack justify="space-between">
 					<Heading>Timers</Heading>
 					<Text>
@@ -126,7 +126,7 @@ export function Timers2({ session, api_response, guild_id, cookies }: { session:
 //
 function Timer({ guild_id, token, timer, categories, updateTimer }: { guild_id: string; token: unknown; timer: any; categories: any; updateTimer: any }): JSX.Element {
 	return (
-		<Box bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray" h="100%" position="relative" py="2px" my="25px">
+		<Box position="relative" bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray" h="100%" minH="50px" maxH="75px" py="2px" my="25px">
 			<EditTimer token={token} timer={timer} guild_id={guild_id} categories={categories} updateTimer={updateTimer} />
 			<DeleteTimer token={token} timer={timer} guild_id={guild_id} categories={categories} updateTimer={updateTimer} />
 		</Box>
@@ -146,26 +146,24 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 
 	return (
 		<>
-			<Button p="5px" w="100%" height="100%" minHeight="50px" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }} bg="red_black.black">
-				<VStack>
-					{timer.channel?.name || timer.channel?.channel_name ? (
-						<>
-							<Heading size="md" color="red_black.red">
-								{timer.channel.name ?? timer.channel?.channel_name}
-							</Heading>
-							<Text size="md" color="light_white">
-								{interval && `Every ${(interval / 60_000).toFixed(0)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
-							</Text>
-							<Text size="md" color="white">
-								{timer.message}
-							</Text>
-						</>
-					) : (
-						<Heading size="md" color="osu">
-							Set Timer {timer_id}
+			<Button p="5px" w="100%" height="100%" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }} bg="red_black.black">
+				{timer.channel?.name || timer.channel?.channel_name ? (
+					<VStack>
+						<Heading size="md" color="red_black.red">
+							{timer.channel.name ?? timer.channel?.channel_name}
 						</Heading>
-					)}
-				</VStack>
+						<Text size="md" color="light_white">
+							{interval && `Every ${(interval / 60_000).toFixed(0)} ${interval > 60_000 ? 'minutes' : 'minute'}`}
+						</Text>
+						<Text size="md" color="white">
+							{timer.message}
+						</Text>
+					</VStack>
+				) : (
+					<Heading size="md" color="osu">
+						Set Timer {timer_id}
+					</Heading>
+				)}
 			</Button>
 			{/* // --------------------------                    -------------------------- */}
 			{/* // -------------------------- 🔽 POP-UP MENU 🔽 -------------------------- */}
@@ -230,18 +228,18 @@ function DeleteTimer({ token, categories, timer, guild_id, updateTimer }: { toke
 
 	return timer.enabled ? (
 		<Button
-			onClick={async () => {
-				const { data } = await createTimer(guild_id, null, null, timer_id, null, token, true, true);
-				updateTimer({ timer_id }, true);
-				handleToast('Success', data, toast);
-			}}
-			_hover={{ transform: 'scale(1.15)' }}
-			_focus={{ transform: 'scale(1.15)' }}
 			bg="transparent"
 			position="absolute"
 			right="-25px"
 			top="-10px"
 			fontSize="30px"
+			_hover={{ transform: 'scale(1.15)' }}
+			_focus={{ transform: 'scale(1.15)' }}
+			onClick={async () => {
+				const { data } = await createTimer(guild_id, null, null, timer_id, null, token, true, true);
+				updateTimer({ timer_id }, true);
+				handleToast('Success', data, toast);
+			}}
 		>
 			<FcCancel />
 		</Button>
