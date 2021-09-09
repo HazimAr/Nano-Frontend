@@ -22,7 +22,7 @@ const classes = [
 	},
 ];
 
-export function Classes() {
+export default function Classes() {
 	const [currentClass, setCurrentClass] = useState(classes[0]);
 	const primary = useToken('colors', 'brand.primary');
 
@@ -102,8 +102,26 @@ export function Classes() {
 						</Circle>
 					</HStack>
 					<VStack w="100%">
-						<Center display={{ base: 'none', md: 'block' }} w="50%">
-							<ReactPlayer url={`/classes/videos/${currentClass.name}.mp4`} width="100%" alt="trailer" height="fit-content" playing loop muted />
+						<Center display={{ base: 'none', xl: 'block' }} w="50%" h="360px">
+							{classes.map((_class) => {
+								return (
+									<ReactPlayer
+										url={`/classes/videos/${_class.name}.mp4`}
+										width="100%"
+										// height="100%"
+										alt="trailer"
+										height="fit-content"
+										playing={_class.name === currentClass.name}
+										loop
+										muted
+										style={{
+											position: 'absolute',
+											visibility: _class.name === currentClass.name ? 'visible' : 'hidden',
+											maxWidth: '300px',
+										}}
+									/>
+								);
+							})}
 						</Center>
 
 						<VStack maxW="50ch" align="flex-start">

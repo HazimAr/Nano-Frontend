@@ -47,7 +47,7 @@
 
 import { Center, Flex, Heading, HStack, Stack } from '@chakra-ui/react';
 import Hero from '@components/home/about';
-import { Classes } from '@components/home/classes';
+import  Classes from '@components/home/classes';
 import Info from '@components/home/info';
 import Play from '@components/home/play';
 import MobileTopBar from '@components/home/nav/mobiletopbar';
