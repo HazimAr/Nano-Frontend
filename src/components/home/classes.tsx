@@ -41,7 +41,7 @@ export default function Classes() {
 					CLASSES
 				</Heading>
 				<HStack h="100%" justify="center" spacing={{ base: 0, lg: 5 }} transition="all 0.1s ease-in" flexDir={{ base: 'column', xl: 'row' }}>
-					<HStack w="100%" justify="center">
+					<HStack w="100%" justify="space-between">
 						<CIRCLE_BUTTONS setCurrentClass={setCurrentClass} currentClass={currentClass} classes={classes} direction="left" />
 
 						{classes.map((cur) => {
