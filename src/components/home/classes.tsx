@@ -59,6 +59,7 @@ export default function Classes() {
 										width="100%"
 										// height="100%"
 										alt="trailer"
+										key={_class.name}
 										height="fit-content"
 										playing={_class.name === currentClass.name}
 										loop
