@@ -35,7 +35,12 @@ export function Sidebar(props): JSX.Element {
 		<Flex bg="red_black.gray" direction="column" flex="1" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
 			<Stack pos="relative" as="nav" aria-label="Sidebar Navigation">
 				<HStack px="5" pl="5px">
-					<CUSTOM_BUTTON_1 bg="transparent" onClick={() => setOpen(!isOpen)}>
+					<CUSTOM_BUTTON_1
+						bg="transparent"
+						onClick={() => {
+							setOpen(!isOpen);
+						}}
+					>
 						<GiHamburgerMenu />
 					</CUSTOM_BUTTON_1>
 					<Logo />

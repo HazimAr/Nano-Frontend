@@ -16,6 +16,9 @@ const theme = extendTheme({
 			gray: '	hsl(0, 0%, 5%)',
 			black: 'hsl(0, 0%, 3%)',
 		},
+		theme_blue: {
+			base: '#081825',
+		},
 		osu: 'hsl(333, 100%, 70%)',
 		_osu: {
 			100: 'hsl(333, 100%, 10%)',
@@ -59,11 +62,11 @@ const theme = extendTheme({
 				height: '100%',
 			},
 			body: {
+				margin: 0,
+				padding: 0,
 				fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
 				color: 'white',
 				lineHeight: 'base',
-				padding: 0,
-				margin: 0,
 				backgroundColor: 'red_black.black',
 			},
 			a: {
@@ -83,7 +86,7 @@ const theme = extendTheme({
 				borderRadius: '0px',
 			},
 			'&::-webkit-scrollbar-thumb': {
-				background: 'red_black.red',
+				background: 'gray',
 				borderRadius: '50px',
 			},
 			'@font-face': {

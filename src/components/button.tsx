@@ -87,12 +87,12 @@ export function SLIDING_BUTTON(props) {
 			onMouseOver={() => {
 				setTimeout(() => {
 					setHover(true);
-				}, 300);
+				}, 400);
 			}}
 			onMouseLeave={() => {
 				setTimeout(() => {
 					setHover(false);
-				}, 300);
+				}, 400);
 			}}
 			_before={{
 				content: '""',
