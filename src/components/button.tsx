@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-default-export */
-import { Box, Circle } from '@chakra-ui/react';
+import { Box, Circle, useToken } from '@chakra-ui/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 export function CUSTOM_BUTTON_1(props: any): JSX.Element {
@@ -62,5 +62,45 @@ export function CIRCLE_BUTTONS(props) {
 				{direction === 'left' ? <FaArrowLeft /> : <FaArrowRight />}
 			</Circle>
 		</Circle>
+	);
+}
+
+export default function Button(props) {
+	const primary = useToken('colors', 'brand.primary');
+	return (
+		<Box
+			as="button"
+			// lineHeight="1.2"
+			transition="all 0.2s ease"
+			position="relative"
+			display="block"
+			px="16px"
+			py="4px"
+			rounded={5}
+			fontSize="16px"
+			fontWeight="semibold"
+			overflow="hidden"
+			// borderWidth="1px"
+			border={`2px solid ${primary}`}
+			_before={{
+				content: '""',
+				background: primary,
+				position: 'absolute',
+				top: '50%',
+				left: '50%',
+				width: '100%',
+				height: '0%',
+				transform: 'translate(-50%, -50%) rotate(45deg)',
+				zIndex: -1,
+				transition: 'all 0.6s ease',
+			}}
+			_hover={{ _before: { height: '300%' }, cursor: 'pointer' }}
+			_active={{
+				transform: 'scale(0.90)',
+			}}
+			{...props}
+		>
+			{props.children}
+		</Box>
 	);
 }
