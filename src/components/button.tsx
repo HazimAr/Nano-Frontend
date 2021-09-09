@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-default-export */
-import { Box } from '@chakra-ui/react';
+import { Box, Circle } from '@chakra-ui/react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 export function CUSTOM_BUTTON_1(props: any): JSX.Element {
 	let bg;
@@ -34,5 +35,32 @@ export function CUSTOM_BUTTON_1(props: any): JSX.Element {
 		>
 			{props.children}
 		</Box>
+	);
+}
+
+export function CIRCLE_BUTTONS(props) {
+	const { setCurrentClass, currentClass, classes, direction } = props;
+
+	return (
+		<Circle
+			as="button"
+			borderWidth="2px"
+			borderColor="brand.primary"
+			p={1.5}
+			transition="border-color 0.1s ease-in"
+			_hover={{
+				cursor: 'pointer',
+				borderColor: 'transparent',
+			}}
+			onClick={() => {
+				direction === 'left' && setCurrentClass(classes.indexOf(currentClass) === 0 ? classes[classes.length - 1] : classes[classes.indexOf(currentClass) - 1]);
+				direction === 'right' && setCurrentClass(classes.indexOf(currentClass) != classes.length - 1 ? classes[classes.indexOf(currentClass) + 1] : classes[0]);
+			}}
+			mr={direction === 'left' ? 'auto' : ''}
+		>
+			<Circle bg="brand.primary" p={1}>
+				{direction === 'left' ? <FaArrowLeft /> : <FaArrowRight />}
+			</Circle>
+		</Circle>
 	);
 }

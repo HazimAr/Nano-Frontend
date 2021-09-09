@@ -43,7 +43,7 @@ export default function User({ session, user, user_id, cookies }: { session: Dis
 		<Layout session={session} cookies={cookies}>
 			<Stack spacing="45px" flexDir="column" maxW="1200px" w="100%">
 				<Box bg="whatsapp.800" mt="50px" borderRadius="10px" p="10px">
-					<Button w="15px" onClick={() => console.log(user)} />
+					<Button visibility="hidden" w="15px" onClick={() => console.log(user)} />
 					<HStack>
 						<Image w="150px" src={avatarURL} borderRadius="50%" />
 						<Text fontSize="26px">{tag}</Text>
@@ -51,7 +51,7 @@ export default function User({ session, user, user_id, cookies }: { session: Dis
 					</HStack>
 				</Box>
 				<Box bg="whatsapp.800" mt="50px" borderRadius="10px" p="10px">
-					<Button w="15px" onClick={() => console.log(user)} />
+					<Button display="none" w="15px" onClick={() => console.log(user)} />
 					<HStack>
 						<Image w="150px" src={avatarURL} borderRadius="50%" />
 						<Text fontSize="26px">{tag}</Text>

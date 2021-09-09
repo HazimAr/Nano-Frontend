@@ -1,7 +1,7 @@
 import { Box, Center, Circle, Grid, Heading, HStack, Image, Stack, Text, useBreakpointValue, useToken, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import ReactPlayer from 'react-player';
+import { CIRCLE_BUTTONS } from '@components/button';
 
 const classes = [
 	{
@@ -26,27 +26,6 @@ export default function Classes() {
 	const [currentClass, setCurrentClass] = useState(classes[0]);
 	const primary = useToken('colors', 'brand.primary');
 
-	function _Class({ _class }) {
-		const size = useBreakpointValue({ base: true, lg: false }) ? 60 : 120;
-
-		return (
-			<HStack transition="transform 0.1s ease-in" _hover={{ transform: 'scale(1.1)', cursor: 'pointer' }} onClick={() => setCurrentClass(_class)}>
-				<Image src={`/classes/${_class.name}.png`} alt={_class.name} w={{ base: '125px', lg: '200px' }} />
-				<Box
-					bg="brand.primary"
-					w={`${size * 0.75}px`}
-					h={`${size}px`}
-					transform="skew(-20deg)"
-					backgroundColor="hsla(240, 20%, 10%, 0.7)"
-					backdropFilter="blur(10px)"
-					position="absolute"
-					zIndex="-1"
-					rounded={5}
-					outline={currentClass.name === _class.name ? `2px solid ${primary}` : 'none'}
-				/>
-			</HStack>
-		);
-	}
 	return (
 		<Stack h="100%" py={20} mx={10} justify="center">
 			<Stack>
@@ -61,45 +40,15 @@ export default function Classes() {
 				>
 					CLASSES
 				</Heading>
-				<HStack h="100%" align="center" justify="center" spacing={{ base: 0, lg: 5 }} transition="all 0.1s ease-in" flexDir={{ base: 'column', xl: 'row' }}>
-					<HStack w="100%" justify="center" spacing={0}>
-						<Circle
-							borderWidth="2px"
-							borderColor="brand.primary"
-							p={1.5}
-							transition="border-color 0.1s ease-in"
-							_hover={{
-								cursor: 'pointer',
-								borderColor: 'transparent',
-							}}
-							onClick={() => {
-								setCurrentClass(classes.indexOf(currentClass) != 0 ? classes[classes.indexOf(currentClass) - 1] : classes[classes.length - 1]);
-							}}
-						>
-							<Circle bg="brand.primary" p={1}>
-								<FaArrowLeft />
-							</Circle>
-						</Circle>
+				<HStack h="100%" justify="center" spacing={{ base: 0, lg: 5 }} transition="all 0.1s ease-in" flexDir={{ base: 'column', xl: 'row' }}>
+					<HStack w="100%" justify="center">
+						<CIRCLE_BUTTONS setCurrentClass={setCurrentClass} currentClass={currentClass} classes={classes} direction="left" />
 
-						<Image src={`/classes/${currentClass.name}.png`} w="100%" alt={currentClass.name} maxW="500px" />
+						{classes.map((cur) => {
+							return <Image pos="absolute" h="auto" w="100%" mr="auto" key={cur.name} src={`/classes/${cur.name}.png`} alt={cur.name} maxW="500px" hidden={cur.name !== currentClass.name} />;
+						})}
 
-						<Circle
-							borderWidth="2px"
-							borderColor="brand.primary"
-							p={1.5}
-							transition="border-color 0.1s ease-in"
-							_hover={{
-								cursor: 'pointer',
-								borderColor: 'transparent',
-							}}
-							onClick={() => {
-								setCurrentClass(classes.indexOf(currentClass) != classes.length - 1 ? classes[classes.indexOf(currentClass) + 1] : classes[0]);
-							}}
-						>
-							<Circle bg="brand.primary" p={1}>
-								<FaArrowRight />
-							</Circle>
-						</Circle>
+						<CIRCLE_BUTTONS setCurrentClass={setCurrentClass} currentClass={currentClass} classes={classes} direction="right" />
 					</HStack>
 					<VStack w="100%">
 						<Center display={{ base: 'none', xl: 'block' }} w="50%" h="360px">
@@ -124,7 +73,7 @@ export default function Classes() {
 							})}
 						</Center>
 
-						<VStack maxW="50ch" align="flex-start">
+						<VStack minH="150px" maxW="50ch" align="flex-start">
 							<Heading>{currentClass.name}</Heading>
 							<Text color="darkgrey">{currentClass.description}</Text>
 						</VStack>
@@ -136,12 +85,34 @@ export default function Classes() {
 							gap={0}
 						>
 							{classes.map((_class) => {
-								return <_Class key={_class.name} _class={_class} />;
+								return <_Class key={_class.name} _class={_class} currentClass={currentClass} primary={primary} setCurrentClass={setCurrentClass} />;
 							})}
 						</Grid>
 					</VStack>
 				</HStack>
 			</Stack>
 		</Stack>
+	);
+}
+
+function _Class({ _class, currentClass, primary, setCurrentClass }) {
+	const size = useBreakpointValue({ base: true, lg: false }) ? 60 : 120;
+
+	return (
+		<HStack transition="transform 0.1s ease-in" _hover={{ transform: 'scale(1.1)', cursor: 'pointer' }} onClick={() => setCurrentClass(_class)}>
+			<Image src={`/classes/${_class.name}.png`} alt={_class.name} w={{ base: '125px', lg: '200px' }} />
+			<Box
+				bg="brand.primary"
+				w={`${size * 0.75}px`}
+				h={`${size}px`}
+				transform="skew(-20deg)"
+				backgroundColor="hsla(240, 20%, 10%, 0.7)"
+				backdropFilter="blur(10px)"
+				position="absolute"
+				zIndex="-1"
+				rounded={5}
+				outline={currentClass.name === _class.name ? `2px solid ${primary}` : 'none'}
+			/>
+		</HStack>
 	);
 }
