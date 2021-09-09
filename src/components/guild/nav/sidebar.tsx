@@ -114,7 +114,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 			</CUSTOM_BUTTON_1>
 			{/* // Guild Buttons
 			// */}
-			<Box pos="absolute" hidden={isOpen ? false : true} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
+			<Box pos="absolute" hidden={!isOpen} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
 				{guilds
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
@@ -140,9 +140,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 										},
 										body: JSON.stringify({ key: 'guild_id', value: guild.id, expire: 2.628e6 }),
 									});
-									// @ts-ignore
-									void router.push(router.asPath.replace(router.query.guild_id, guild.id));
-									// router.reload();
+									router.push(router.asPath.replace(router.query.guild_id, guild.id));
 								}}
 							>
 								<span style={{ display: 'flex', alignItems: 'center', width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
