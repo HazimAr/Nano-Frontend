@@ -47,11 +47,11 @@
 
 import { Center, Flex, Heading, HStack, Stack } from '@chakra-ui/react';
 import Hero from '@components/home/about';
-import Classes from '@components/home/classes';
+import { Classes } from '@components/home/classes';
 import Info from '@components/home/info';
 import Play from '@components/home/play';
 import MobileTopBar from '@components/home/nav/mobiletopbar';
-import Nav from '@components/home/nav/sidebar';
+import { LANDING_PAGE_SIDEBAR } from '@components/home/nav/landing_page_sidebar';
 import NextChakraLink from '@components/nextChakraLink';
 import { ScrollingProvider, Section } from '@lib/scroll';
 
@@ -67,7 +67,7 @@ export default function Index({ size }): JSX.Element {
 				<Flex h="100vh" flexDirection="column" w="100%">
 					<MobileTopBar size={size} />
 					<Flex direction="row-reverse">
-						<Nav display={{ base: 'none', md: 'flex' }} />
+						<LANDING_PAGE_SIDEBAR display={{ base: 'none', md: 'flex' }} />
 						<Stack w="100%" spacing={0}>
 							<FullSection id="Hero">
 								<Hero />

@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGuilds } from '@api/discord';
 import { Box, Flex, Heading, HStack, Image, Stack, VStack } from '@chakra-ui/react';
-import Button from '@components/button';
+import { CUSTOM_BUTTON_1 } from '@components/button';
 import Layout from '@components/guild/layout';
 import NextChakraLink from '@components/nextChakraLink';
 import { getSession } from 'next-auth/client';
@@ -71,12 +71,12 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 										<VStack spacing={0} justify="flex-start">
 											{guildObject.status === 'invite' ? (
 												<NextChakraLink isExternal href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=${guild.id}`}>
-													<Button mt={3} mb={3} bg="#fff">
+													<CUSTOM_BUTTON_1 mt={3} mb={3} bg="#f33" w="75px">
 														Invite
-													</Button>
+													</CUSTOM_BUTTON_1>
 												</NextChakraLink>
 											) : (
-												<Button
+												<CUSTOM_BUTTON_1
 													onClick={() => {
 														fetch('/api/set_cookie', {
 															method: 'post',
@@ -87,14 +87,13 @@ export default function Index({ session, authed_guilds_statuses, cookies }: { se
 														});
 														router.push(`${router.asPath}/${guild.id}`);
 													}}
-													type="secondary"
 													mt={3}
 													mb={3}
-													bg="#fff"
+													bg="#f33"
 													w="75px"
 												>
 													Edit
-												</Button>
+												</CUSTOM_BUTTON_1>
 											)}
 										</VStack>
 										<Flex

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Box, Divider, Flex, HStack, Image, Spacer, Stack } from '@chakra-ui/react';
-import Button from '@components/button';
+import { CUSTOM_BUTTON_1 } from '@components/button';
 import { Logo } from '@components/guild/nav/logo';
 import axios from 'axios';
 import { signIn } from 'next-auth/client';
@@ -35,9 +35,9 @@ export function Sidebar(props): JSX.Element {
 		<Flex bg="red_black.gray" direction="column" flex="1" overflowY="auto" overflowX="hidden" position="fixed" borderWidth="0px" display={{ base: 'none', md: 'flex' }} w="240px" h="100vh" outline="0" {...props}>
 			<Stack pos="relative" as="nav" aria-label="Sidebar Navigation">
 				<HStack px="5" pl="5px">
-					<Button bg="transparent" onClick={() => setOpen(!isOpen)}>
+					<CUSTOM_BUTTON_1 bg="transparent" onClick={() => setOpen(!isOpen)}>
 						<GiHamburgerMenu />
-					</Button>
+					</CUSTOM_BUTTON_1>
 					<Logo />
 				</HStack>
 				{/*  */}
@@ -61,7 +61,7 @@ export function Sidebar(props): JSX.Element {
 						</Box>
 					</>
 				) : (
-					<Button
+					<CUSTOM_BUTTON_1
 						bg="discord"
 						_hover={{ bg: 'osu' }}
 						onClick={async () => {
@@ -69,7 +69,7 @@ export function Sidebar(props): JSX.Element {
 						}}
 					>
 						Login With Discord
-					</Button>
+					</CUSTOM_BUTTON_1>
 				)}
 				<Divider />
 				<Box px="5">
@@ -92,7 +92,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 		<Box pos="relative" zIndex="1" color="white">
 			{/* // Dropdown Button
 			// */}
-			<Button
+			<CUSTOM_BUTTON_1
 				pos="relative"
 				zIndex="2"
 				borderRadius="none"
@@ -111,7 +111,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 					<Box mr="4px">{guild.name}</Box>
 					<BsFillCaretDownFill transform={isOpen ? 'scale(1, -1)' : 'none'} style={{ transition: 'all 300ms linear' }} />
 				</span>
-			</Button>
+			</CUSTOM_BUTTON_1>
 			{/* // Guild Buttons
 			// */}
 			<Box pos="absolute" hidden={isOpen ? false : true} w="100%" bg="black" h={`${guilds.length * 40 + 30}px`} borderRadius="5%">
@@ -119,7 +119,7 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 					.filter((g) => g.id !== guild_id)
 					.map((guild, i) => {
 						return (
-							<Button
+							<CUSTOM_BUTTON_1
 								key={guild.id}
 								pos="absolute"
 								zIndex="5"
@@ -151,21 +151,21 @@ function GuildDropDown({ guilds, guild_id, guild, setGuild }) {
 									</Box>
 									<Box>{guild.name}</Box>
 								</span>
-							</Button>
+							</CUSTOM_BUTTON_1>
 						);
 					})}
 				{/* // Invite Button
 			// */}
 				<Divider pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} />
 				<a href={`https://discord.com/api/oauth2/authorize?client_id=783539062149087262&permissions=8&scope=bot&guild_id=199325828843044865&response_type=code&redirect_uri=${process.env.CLIENT_DOMAIN}`}>
-					<Button key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
+					<CUSTOM_BUTTON_1 key={guild.id} pos="absolute" top={`${(guilds.length - 1) * 40 + 20}px`} left="0px" height="40px" w="100%" _hover={{ bg: 'transparent', color: 'osu' }} bg="transparent" borderRadius="none">
 						<span style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 							<Box mr="15px">
 								<FiPlusCircle size="30px" />
 							</Box>
 							<Box mr="auto">Add Server</Box>
 						</span>
-					</Button>
+					</CUSTOM_BUTTON_1>
 				</a>
 			</Box>
 		</Box>
