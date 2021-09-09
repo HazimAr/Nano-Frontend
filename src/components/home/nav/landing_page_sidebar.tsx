@@ -1,5 +1,5 @@
 import { Box, Heading, HStack, ListItem, Spacer, UnorderedList, useToken, VStack } from '@chakra-ui/react';
-import { CUSTOM_BUTTON_1 } from '@components/button';
+import { SLIDING_BUTTON } from '@components/button';
 import { useScrollSections } from '@lib/scroll';
 import { GiBroadsword } from 'react-icons/gi';
 import NextChakraLink from '@components/nextChakraLink';
@@ -43,7 +43,7 @@ export function LANDING_PAGE_SIDEBAR(props: any): JSX.Element {
 					</UnorderedList>
 					<Spacer />
 					<NextChakraLink href="https://store.steampowered.com/app/1430360/Take_the_Throne/" isExternal>
-						<CUSTOM_BUTTON_1 mb={5}>Play Now</CUSTOM_BUTTON_1>
+						<SLIDING_BUTTON mb={5}>Play Now</SLIDING_BUTTON>
 					</NextChakraLink>
 				</VStack>
 			</VStack>

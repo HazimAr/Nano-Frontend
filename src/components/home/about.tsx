@@ -1,5 +1,5 @@
 import { Heading, HStack, Link, Stack, Text } from '@chakra-ui/react';
-import { CUSTOM_BUTTON_1 } from '@components/button';
+import { SLIDING_BUTTON } from '@components/button';
 import NextChakraLink from '@components/nextChakraLink';
 import { createElement } from 'react';
 import { FaDiscord, FaSpotify, FaSteam, FaTwitter, FaYoutube } from 'react-icons/fa';
@@ -39,7 +39,7 @@ export default function About(): JSX.Element {
 						comedic physics-based gameplay.
 					</Text>
 					<NextChakraLink href="https://store.steampowered.com/app/1430360/Take_the_Throne" w="fit-content" isExternal>
-						<CUSTOM_BUTTON_1 zIndex={1}>Play Now</CUSTOM_BUTTON_1>
+						<SLIDING_BUTTON zIndex={1}>Play Now</SLIDING_BUTTON>
 					</NextChakraLink>
 				</Stack>
 			</Stack>

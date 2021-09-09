@@ -65,7 +65,7 @@ export function CIRCLE_BUTTONS(props) {
 	);
 }
 
-export default function Button(props) {
+export function SLIDING_BUTTON(props) {
 	const primary = useToken('colors', 'brand.primary');
 	return (
 		<Box

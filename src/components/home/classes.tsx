@@ -45,7 +45,7 @@ export default function Classes() {
 						<CIRCLE_BUTTONS setCurrentClass={setCurrentClass} currentClass={currentClass} classes={classes} direction="left" />
 
 						{classes.map((cur) => {
-							return <Image pos="absolute" h="auto" w="100%" mr="auto" key={cur.name} src={`/classes/${cur.name}.png`} alt={cur.name} maxW="500px" hidden={cur.name !== currentClass.name} />;
+							return <Image pos="relative" h="auto" w="100%" mr="auto" key={cur.name} src={`/classes/${cur.name}.png`} alt={cur.name} maxW="500px" hidden={cur.name !== currentClass.name} />;
 						})}
 
 						<CIRCLE_BUTTONS setCurrentClass={setCurrentClass} currentClass={currentClass} classes={classes} direction="right" />

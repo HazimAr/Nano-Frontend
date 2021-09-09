@@ -47,7 +47,7 @@
 
 import { Center, Flex, Heading, HStack, Stack } from '@chakra-ui/react';
 import Hero from '@components/home/about';
-import  Classes from '@components/home/classes';
+import Classes from '@components/home/classes';
 import Info from '@components/home/info';
 import Play from '@components/home/play';
 import MobileTopBar from '@components/home/nav/mobiletopbar';
@@ -87,15 +87,6 @@ export default function Index({ size }): JSX.Element {
 							<Section id="Play Now">
 								<Play />
 							</Section>
-							<Center>
-								<NextChakraLink href="https://webdefy.tech" isExternal>
-									<Heading textAlign="center" size="md" _hover={{ color: 'brand.primary' }} transition="all 0.2s ease">
-										Made with ❤️ by
-										<br />
-										Hazim Arafa
-									</Heading>
-								</NextChakraLink>
-							</Center>
 						</Stack>
 					</Flex>
 				</Flex>
