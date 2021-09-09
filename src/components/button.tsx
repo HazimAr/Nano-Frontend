@@ -57,7 +57,6 @@ export function CIRCLE_BUTTONS(props) {
 				direction === 'left' && setCurrentClass(classes.indexOf(currentClass) === 0 ? classes[classes.length - 1] : classes[classes.indexOf(currentClass) - 1]);
 				direction === 'right' && setCurrentClass(classes.indexOf(currentClass) != classes.length - 1 ? classes[classes.indexOf(currentClass) + 1] : classes[0]);
 			}}
-			mr={direction === 'left' ? 'auto' : ''}
 		>
 			<Circle bg="brand.primary" p={1}>
 				{direction === 'left' ? <FaArrowLeft /> : <FaArrowRight />}
