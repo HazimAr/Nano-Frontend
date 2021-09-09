@@ -1,7 +1,7 @@
-import { Box, Center, Circle, Grid, Heading, HStack, Image, Stack, Text, useBreakpointValue, useToken, VStack } from '@chakra-ui/react';
+import { Box, Center, Grid, Heading, HStack, Image, Stack, Text, useBreakpointValue, useToken, VStack } from '@chakra-ui/react';
+import { CIRCLE_BUTTONS } from '@components/button';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
-import { CIRCLE_BUTTONS } from '@components/button';
 
 const classes = [
 	{
