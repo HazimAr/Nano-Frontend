@@ -3,6 +3,7 @@
 /* eslint-disable import/no-default-export */
 import { Box, Circle, useToken } from '@chakra-ui/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 
 export function CUSTOM_BUTTON_1(props: any): JSX.Element {
 	let bg;
@@ -67,6 +68,8 @@ export function CIRCLE_BUTTONS(props) {
 
 export function SLIDING_BUTTON(props) {
 	const primary = useToken('colors', 'brand.primary');
+	const [hovered, setHover] = useState(false);
+
 	return (
 		<Box
 			as="button"
@@ -82,6 +85,16 @@ export function SLIDING_BUTTON(props) {
 			overflow="hidden"
 			// borderWidth="1px"
 			border={`2px solid ${primary}`}
+			onMouseOver={() => {
+				setTimeout(() => {
+					setHover(true);
+				}, 300);
+			}}
+			onMouseLeave={() => {
+				setTimeout(() => {
+					setHover(false);
+				}, 300);
+			}}
 			_before={{
 				content: '""',
 				background: primary,
@@ -94,7 +107,7 @@ export function SLIDING_BUTTON(props) {
 				zIndex: -1,
 				transition: 'all 0.6s ease',
 			}}
-			_hover={{ _before: { height: '300%' }, cursor: 'pointer' }}
+			_hover={{ _before: { height: '300%' }, cursor: 'pointer', bg: hovered && primary }}
 			_active={{
 				transform: 'scale(0.90)',
 			}}
