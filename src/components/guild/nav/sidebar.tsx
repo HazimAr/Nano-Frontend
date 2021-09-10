@@ -15,8 +15,8 @@ import { HiOutlineCollection } from 'react-icons/hi';
 import { NavLink } from './navlink';
 //
 export function Sidebar(props): JSX.Element {
-	const { session, cookies, isOpen, setOpen } = props;
-	const { guild_id, theme_color = 'red' } = cookies ?? {};
+	const { session, cookies, isOpen, setOpen, theme_color } = props;
+	const { guild_id } = cookies ?? {};
 
 	const [guilds, setGuilds] = useState([]);
 	const [guild, setGuild] = useState({ id: '' });

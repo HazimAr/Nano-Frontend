@@ -16,10 +16,9 @@ export default function Layout({ session, cookies, children }: { session: Discor
 
 	function hslToHex(hsl) {
 		let [_hsl, h, s, l] = [, , , ,];
-		_hsl = hsl.slice(3, hsl.length - 1);
+		_hsl = hsl.slice(4, hsl.length - 1);
 
 		[h, s, l] = _hsl.split(',');
-		h = parseInt(h.replace('(', ''));
 		s = parseInt(s.replace('%', ''));
 		l = parseInt(l.replace('%', ''));
 
@@ -37,36 +36,38 @@ export default function Layout({ session, cookies, children }: { session: Discor
 	}
 
 	return (
-		<Box h="100%" minH="100vh" w="100%" overflowY="auto" overflowX="hidden" bg={`${theme_color}.dark`}>
-			<NextNprogress color={hslToHex(theme.colors[theme_color][50])} startPosition={50} stopDelayMs={200} height={3} showOnShallow={true} options={{ easing: 'ease', speed: 500 }} />
-			{/* <MobileTopBar session={session} /> */}
-			{/*  */}
-			{/* HEADER */}
-			<Box pos="fixed" h="70px" w="100%" zIndex={2} bg={`${theme_color}.light`}>
-				<Header session={session} isOpen={isOpen} setOpen={setOpen} theme_color={theme_color} set_theme_color={set_theme_color} />
+		<>
+			<NextNprogress color={theme.colors[theme_color] ? hslToHex(theme.colors[theme_color][50]) : 'blue'} startPosition={50} stopDelayMs={200} height={3} showOnShallow={true} options={{ easing: 'ease', speed: 500 }} />
+			<Box h="100%" minH="100vh" w="100%" overflowY="auto" overflowX="hidden" bg={`${theme_color}.dark`}>
+				{/* <MobileTopBar session={session} /> */}
+				{/*  */}
+				{/* HEADER */}
+				<Box pos="fixed" h="70px" w="100%" zIndex={2} bg={`${theme_color}.light`}>
+					<Header session={session} isOpen={isOpen} setOpen={setOpen} theme_color={theme_color} set_theme_color={set_theme_color} />
+				</Box>
+				{/* SIDEBAR */}
+				<Box
+					pos="fixed"
+					w="240px"
+					h="100vh"
+					zIndex={1}
+					bg={`${theme_color}.light`}
+					ml={isOpen ? '0px' : '-240px'}
+					overflowY="auto"
+					overflowX="hidden"
+					position="fixed"
+					borderWidth="0px"
+					display={{ base: 'none', md: 'flex' }}
+					outline="0"
+					transition="margin-left .1s ease-out"
+				>
+					<Sidebar session={session} cookies={cookies} theme_color={theme_color} isOpen={isOpen} setOpen={setOpen} />
+				</Box>
+				{/* CHILDREN */}
+				<Flex justifyContent="center" pos="relative" zIndex={0} ml={isOpen ? '240px' : '0px'} mt={70} transition="all .1s ease-out">
+					{children}
+				</Flex>
 			</Box>
-			{/* SIDEBAR */}
-			<Box
-				pos="fixed"
-				w="240px"
-				h="100vh"
-				zIndex={1}
-				bg={`${theme_color}.light`}
-				ml={isOpen ? '0px' : '-240px'}
-				overflowY="auto"
-				overflowX="hidden"
-				position="fixed"
-				borderWidth="0px"
-				display={{ base: 'none', md: 'flex' }}
-				outline="0"
-				transition="margin-left .1s ease-out"
-			>
-				<Sidebar session={session} cookies={cookies} isOpen={isOpen} setOpen={setOpen} />
-			</Box>
-			{/* CHILDREN */}
-			<Flex justifyContent="center" pos="relative" zIndex={0} ml={isOpen ? '240px' : '0px'} mt={70} transition="all .1s ease-out">
-				{children}
-			</Flex>
-		</Box>
+		</>
 	);
 }
