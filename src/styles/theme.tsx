@@ -1,11 +1,11 @@
 /* eslint-disable import/no-default-export */
 import { extendTheme } from '@chakra-ui/react';
 
-const all_lights = (h, s, l, a) => {
+const all_lights = (h, s, l, a, custom) => {
 	const obj = {};
 
 	for (let i = 0; i < 101; i++) {
-		obj[i] = `hsl(${h}, ${s}%, ${i}%, ${a})`;
+		obj[i] = `hsl(${h}, ${s}%, ${Math.abs(custom === 'light' ? i - 100 : i)}%, ${a})`;
 	}
 
 	return obj;
@@ -13,6 +13,30 @@ const all_lights = (h, s, l, a) => {
 
 const theme = extendTheme({
 	colors: {
+		light: {
+			light: 'hsl(0, 0%, 70%)',
+			dark: 'hsl(0, 0%, 78%)',
+			//
+			...all_lights(0, 0, null, 1, 'light'),
+		},
+		dark: {
+			light: 'hsl(360, 0%, 30%)',
+			dark: 'hsl(360, 0%, 22%)',
+			//
+			...all_lights(360, 0, null, 1, null),
+		},
+		red: {
+			light: 'hsl(360, 60%, 30%)',
+			dark: 'hsl(360, 60%, 22%)',
+			//
+			...all_lights(360, 60, null, 1, null),
+		},
+		blue: {
+			light: 'hsl(206, 40%, 30%)',
+			dark: 'hsl(206, 40%, 22%)',
+			//
+			...all_lights(206, 40, null, 1, null),
+		},
 		bg: {
 			primaryLight: 'hsl(334, 88%, 50%)',
 			primary: 'hsl(334, 88%, 17%)',
@@ -26,13 +50,7 @@ const theme = extendTheme({
 			gray: '	hsl(0, 0%, 5%)',
 			black: 'hsl(0, 0%, 3%)',
 		},
-		blue: {
-			dark: 'hsl(206, 40%, 22%)',
-			light: 'hsl(206, 40%, 30%)',
-			//
-			...all_lights(206, 40, null, 1),
-		},
-		osu: 'hsl(333, 100%, 70%)',
+		osu: 'hsl(333, 100%, 70%)', // '#FF66AA',
 		_osu: {
 			100: 'hsl(333, 100%, 10%)',
 			200: 'hsl(333, 100%, 20%)',
@@ -44,9 +62,8 @@ const theme = extendTheme({
 			800: 'hsl(333, 100%, 80%)',
 			900: 'hsl(333, 100%, 90%)',
 		},
-		// osu: '#FF66AA',
-		discord: 'hsl(227, 58%, 65%)',
-		// discord: '#7289da',
+		discord: 'hsl(227, 58%, 65%)', // '#7289da',
+
 		light_white: 'hsl(0, 0%, 70%)',
 		brand: {
 			error: '#cf6679',
@@ -108,6 +125,9 @@ const theme = extendTheme({
 			},
 			'.avatar': {
 				borderRadius: '50%',
+			},
+			'.bar-of-progress': {
+				'box-shadow': 'none !important',
 			},
 		}),
 	},
