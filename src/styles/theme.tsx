@@ -20,7 +20,9 @@ const theme = extendTheme({
 			base_dark: 'hsl(206, 40%, 22%)',
 			base_light: 'hsl(206, 40%, 30%)',
 			//
-			base_s_50: 'hsl(206, 40%, 18%)',
+			18: 'hsl(206, 40%, 18%)',
+			15: 'hsl(206, 40%, 15%)',
+			5: 'hsl(206, 40%, 5%)',
 		},
 		osu: 'hsl(333, 100%, 70%)',
 		_osu: {

@@ -77,7 +77,7 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 
 	return (
 		<Layout session={session} cookies={cookies}>
-			<Stack h="100%" w="100%" maxW="1200px" mt="50px" px="100px" py="15px" bg="theme_blue.base_s_50" borderRadius="15px">
+			<Stack h="100%" w="100%" maxW="1200px" mt="50px" px="100px" py="15px" bg="theme_blue.15" borderRadius="15px">
 				<HStack justify="space-between">
 					<Heading>Timers</Heading>
 					<Text>
@@ -86,7 +86,7 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 				</HStack>
 				<Text>Timers sent every x minutes in a Discord channel.</Text>
 
-				<VStack borderRadius="55px" py="25px" spacing={50}>
+				<VStack py="25px" spacing={50}>
 					{timerArr.map((timer) => (
 						<Timer key={timer.timer_id} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} updateTimer={updateTimer} />
 					))}
@@ -100,7 +100,7 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 //
 function Timer(props: { guild_id: string; token: unknown; timer: any; categories: any; updateTimer: any }): JSX.Element {
 	return (
-		<Box pos="relative" h="100%" minH="50px" w="100%" bg="rgba(11,51,15,0.8)" rounded={5} backgroundColor="red_black.gray">
+		<Box pos="relative" h="100%" minH="50px" w="100%" rounded={5}>
 			<EditTimer {...props} />
 			<DeleteTimer {...props} />
 		</Box>
@@ -120,14 +120,14 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 
 	return (
 		<>
-			<Button h="100%" w="100%" py="15px" bg="red_black.black" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }}>
+			<Button h="100%" w="100%" py="15px" bg="theme_blue.5" borderRadius="100px" onClick={onOpen} _hover={{ transform: 'scale(1.2)' }} _focus={{ transform: 'scale(1.2)' }}>
 				{timer.channel?.name || timer.channel?.channel_name ? (
 					<VStack>
 						<HStack>
-							<Heading size="md" color="red_black.red">
+							<Heading size="md" color="theme_blue.base_light">
 								{timer.channel.name ?? timer.channel?.channel_name}
 							</Heading>
-							<Text size="md" color="light_white">
+							<Text size="md" color="theme_blue.base_dark">
 								{interval && `every ${(interval / 60_000).toFixed(0)}'`}
 							</Text>
 						</HStack>
@@ -136,7 +136,7 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 						</Text>
 					</VStack>
 				) : (
-					<Heading size="md" color="osu">
+					<Heading size="md" color="theme_blue.base_light">
 						Set Timer {timer_id}
 					</Heading>
 				)}
