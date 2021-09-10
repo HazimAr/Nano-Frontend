@@ -77,7 +77,7 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 
 	return (
 		<Layout session={session} cookies={cookies}>
-			<Stack h="100%" w="100%" maxW="1200px" mt="50px" px="100px">
+			<Stack h="100%" w="100%" maxW="1200px" mt="50px" px="100px" py="15px" bg="theme_blue.base_s_50" borderRadius="15px">
 				<HStack justify="space-between">
 					<Heading>Timers</Heading>
 					<Text>
@@ -86,7 +86,7 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 				</HStack>
 				<Text>Timers sent every x minutes in a Discord channel.</Text>
 
-				<VStack py="25px" spacing={50}>
+				<VStack borderRadius="55px" py="25px" spacing={50}>
 					{timerArr.map((timer) => (
 						<Timer key={timer.timer_id} timer={timer} guild_id={guild_id} token={session.accessToken} categories={categories} updateTimer={updateTimer} />
 					))}
@@ -206,8 +206,8 @@ function DeleteTimer({ token, categories, timer, guild_id, updateTimer }: { toke
 		<Button
 			bg="transparent"
 			position="absolute"
-			right="-25px"
-			top="-10px"
+			right="0px"
+			top="0px"
 			fontSize="30px"
 			_hover={{ transform: 'scale(1.15)' }}
 			_focus={{ transform: 'scale(1.15)' }}
