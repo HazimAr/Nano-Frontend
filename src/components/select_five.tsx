@@ -79,12 +79,12 @@ export function SELECT_FIVE({ session, api_response, cookies }: { session: Disco
 		<Layout session={session} cookies={cookies}>
 			<Stack h="100%" w="100%" maxW="1200px" mt="50px" px="100px" py="15px" bg="blue.15" borderRadius="15px">
 				<HStack justify="space-between">
-					<Heading color="blue.55">Timers</Heading>
+					<Heading color="blue.70">Timers</Heading>
 					<Text>
 						{timer_len}/{guild.premium === 0 ? 1 : 5}
 					</Text>
 				</HStack>
-				<Text color="blue.light">Timers sent every x minutes in a Discord channel.</Text>
+				<Text color="blue.50">Timers sent every x minutes in a Discord channel.</Text>
 
 				<VStack py="25px" spacing={50}>
 					{timerArr.map((timer) => (
@@ -124,19 +124,19 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 				{timer.channel?.name || timer.channel?.channel_name ? (
 					<VStack>
 						<HStack>
-							<Heading size="md" color="blue.light">
+							<Heading size="md" color="blue.70">
 								{timer.channel.name ?? timer.channel?.channel_name}
 							</Heading>
-							<Text size="md" color="blue.dark">
+							<Text size="md" color="blue.60">
 								{interval && `every ${(interval / 60_000).toFixed(0)}'`}
 							</Text>
 						</HStack>
-						<Text size="md" color="white">
+						<Text size="md" color="blue.90">
 							{timer.message}
 						</Text>
 					</VStack>
 				) : (
-					<Heading size="md" color="blue.light">
+					<Heading size="md" color="blue.70">
 						Set Timer {timer_id}
 					</Heading>
 				)}
@@ -146,7 +146,7 @@ function EditTimer({ token, categories, guild_id, timer, updateTimer }: { token:
 			{/* // --------------------------                    -------------------------- */}
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent bg="red_black.black">
+				<ModalContent bg="blue.15">
 					<ModalHeader>Add Timer</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
@@ -209,8 +209,8 @@ function DeleteTimer({ token, categories, timer, guild_id, updateTimer }: { toke
 			right="0px"
 			top="0px"
 			fontSize="30px"
-			_hover={{ transform: 'scale(1.15)' }}
-			_focus={{ transform: 'scale(1.15)' }}
+			_hover={{ transform: 'scale(1.10)' }}
+			_focus={{ transform: 'scale(1.10)' }}
 			onClick={async () => {
 				const { data } = await createTimer(guild_id, null, null, timer_id, null, token, true, true);
 				updateTimer({ timer_id }, true);
