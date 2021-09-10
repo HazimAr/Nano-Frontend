@@ -8,10 +8,11 @@ type NavLinkProps = {
 	label: string;
 	icon: React.ElementType;
 	href: string;
+	theme_color: string;
 } & LinkProps;
 
 export function NavLink(props: NavLinkProps): JSX.Element {
-	const { icon, isActive, label, href, ...rest } = props;
+	const { icon, isActive, label, href, theme_color, ...rest } = props;
 	const router = useRouter();
 
 	return (
@@ -27,7 +28,7 @@ export function NavLink(props: NavLinkProps): JSX.Element {
 				userSelect="none"
 				aria-current={isActive ? 'page' : undefined}
 				color={href === router.asPath ? 'hsl(334, 88%, 55%)' : ''}
-				_hover={router.asPath === href ? { color: 'brand.primary' } : { color: 'brand.secondary' }}
+				_hover={router.asPath === href ? { color: `${theme_color}.70` } : { color: `${theme_color}.50` }}
 				{...rest}
 			>
 				<HStack spacing="4">
