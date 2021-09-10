@@ -1,6 +1,16 @@
 /* eslint-disable import/no-default-export */
 import { extendTheme } from '@chakra-ui/react';
 
+const all_lights = (h, s, l, a) => {
+	const obj = {};
+
+	for (let i = 0; i < 101; i++) {
+		obj[i] = `hsl(${h}, ${s}%, ${i}%, ${a})`;
+	}
+
+	return obj;
+};
+
 const theme = extendTheme({
 	colors: {
 		bg: {
@@ -16,13 +26,11 @@ const theme = extendTheme({
 			gray: '	hsl(0, 0%, 5%)',
 			black: 'hsl(0, 0%, 3%)',
 		},
-		theme_blue: {
-			base_dark: 'hsl(206, 40%, 22%)',
-			base_light: 'hsl(206, 40%, 30%)',
+		blue: {
+			dark: 'hsl(206, 40%, 22%)',
+			light: 'hsl(206, 40%, 30%)',
 			//
-			18: 'hsl(206, 40%, 18%)',
-			15: 'hsl(206, 40%, 15%)',
-			5: 'hsl(206, 40%, 5%)',
+			...all_lights(206, 40, null, 1),
 		},
 		osu: 'hsl(333, 100%, 70%)',
 		_osu: {
