@@ -17,7 +17,8 @@ const theme = extendTheme({
 			black: 'hsl(0, 0%, 3%)',
 		},
 		theme_blue: {
-			base: '#081825',
+			base_dark: 'hsl(206, 40%, 22%)',
+			base_light: 'hsl(206, 40%, 30%)',
 		},
 		osu: 'hsl(333, 100%, 70%)',
 		_osu: {

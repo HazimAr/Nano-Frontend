@@ -9,7 +9,7 @@ import { DiscordUser } from 'types';
 // eslint-disable-next-line import/no-default-export
 export function Header({ session, isOpen, setOpen }: { session: DiscordUser; isOpen: any; setOpen: any }): JSX.Element {
 	return (
-		<Flex justify="space-between" align="center" flexWrap="wrap" mt="2px" pb="50px">
+		<Flex justify="space-between" align="center" flexWrap="wrap">
 			<HStack pl="5px">
 				<CUSTOM_BUTTON_1 bg="transparent" onClick={() => setOpen(!isOpen)}>
 					<GiHamburgerMenu />

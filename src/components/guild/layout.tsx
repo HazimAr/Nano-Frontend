@@ -11,13 +11,13 @@ export default function Layout({ session, cookies, children }: { session: Discor
 	const [isOpen, setOpen] = useState(false);
 
 	return (
-		<Box h="100%" w="100%" overflowY="auto" overflowX="hidden">
+		<Box h="100%" minH="100vh" w="100%" overflowY="auto" overflowX="hidden" bg="theme_blue.base_dark">
 			{/* <MobileTopBar session={session} /> */}
-			<Sidebar session={session} cookies={cookies} isOpen={isOpen} setOpen={setOpen} ml={isOpen ? '0px' : '-240px'} transition="all .1s ease-out" pos="absolute" zIndex={1} height="100%" />
-			<Box pos="relative" zIndex={0}>
+			<Sidebar session={session} cookies={cookies} isOpen={isOpen} setOpen={setOpen} bg="theme_blue.base_light" ml={isOpen ? '0px' : '-240px'} transition="all .1s ease-out" pos="fixed" zIndex={1} height="100%" />
+			<Box pos="fixed" h="70px" zIndex={2} w="100%" bg="theme_blue.base_light">
 				<Header session={session} isOpen={isOpen} setOpen={setOpen} />
 			</Box>
-			<Flex bg="theme_blue.base" justifyContent="center" pos="relative" zIndex={0} ml={isOpen ? '240px' : '0px'} transition="all .1s ease-out">
+			<Flex justifyContent="center" pos="relative" zIndex={0} ml={isOpen ? '240px' : '0px'} mt={70} transition="all .1s ease-out">
 				{children}
 			</Flex>
 		</Box>
